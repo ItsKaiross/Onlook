@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../static/icons/onlook_icon_black.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/police/police-base.css">
+    
+    {% if page == 'police-incident-map' %}
+    <link rel="stylesheet" href="static/css/police/4p-incident_map.css">
+    {% endif %}
+
+    {% if page == 'police-dashboard' %}
+    <title>Police - Dashboard</title>
+    {% elif page == 'police-field-report'%}
+    <title>Police - Field Report</title>
+    {% elif page == 'police-case-management'%}
+    <title>Police - Case Management</title>
+    {% elif page == 'police-incident-map'%}
+    <title>Police - Incident Map</title>
+    {% elif page == 'police-edit-profile'%}
+    <title>Police - Edit Profile</title>
+    {% elif page == 'police-notifications' %}
+    <title>Police - Notifications</title>
+    {% endif %}
+</head>
+<body>
+    <div class="base">
+        <div class="base-frame">
+            <div class="mid">
+
+                <!-- SIDEBAR -->
+                <aside class="sidebar">
+                    <div class="sidebar-top">
+                        <div class="onlook-logo">
+                            <a href="/">
+                                <img src="../static/images/logo/onlook_logo.png" alt="">
+                            </a>
+                        </div>
+                        <div class="burger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <!-- MENU -->
+                    <div class="dashboard"><a href="/police-dashboard">Dashboard</a></div>
+                    <div class="field-report"><a href="/police-field-report">Field Report</a></div>
+                    <div class="case-management"><a href="/police-case-management">Case Management</a></div>
+                    <div class="incident-map"><a href="/police-incident-map">Incident Map</a></div>
+
+                    <div class="bottom-line"></div>
+
+                    <!-- NOTIFICATIONS -->
+                    <div class="notification">
+                        <a href="/police-notifications">🔔 Notifications
+                            {% if notification_count and notification_count > 0 %}
+                            <span class="notification-badge">{{ notification_count }}</span>
+                            {% endif %}
+                        </a>
+                    </div>
+
+                    <!-- PROFILE -->
+                    <div class="sidebar-bottom">
+                        <div class="profile">
+                            <button class="profile-btn" onclick="toggleProfileMenu()">
+                                {% if profile and profile.profile_filedata %}
+                                <img id="profile-pic" src="data:{{ profile.profile_filetype }};base64,{{ profile.profile_filedata }}" alt="Profile Picture">
+                                {% else %}
+                                <div id="profile-pic">No Picture</div>
+                                {% endif %}
+                                <span class="profile-name">{{ loggedIn_email }}</span>
+                                <span class="profile-arrow">›</span>
+                            </button>
+
+                            <div class="profile-menu" id="profileMenu">
+                                <a href="/police-edit-profile">Edit Profile</a>
+                                <a href="#" onclick="openLogout()">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- CONTENT -->
+                <div class="content">
+                    
+                    <!-- 🔥 GLOBAL FRAME (ETO ANG FIX) -->
+                    <div class="page-frame">
+
+                        {% if page == 'police-dashboard' %}
+                        {% include 'police/1p-dashboard.html' %}
+                        {% elif page == 'police-field-report'%}
+                        {% include 'police/2p-field_report.html' %}
+                        {% elif page == 'police-case-management'%}
+                        {% include 'police/case_management/3p-case_management.html' %}
+                        {% elif page == 'police-incident-map'%}
+                        {% include 'police/4p-incident_map.html' %}
+                        {% elif page == 'police-notifications' %}
+                        {% include 'police/p-notifications.html' %}
+                        {% elif page == 'police-edit-profile'%}
+                        {% include 'police/edit_profile.html' %}
+                        {% endif %}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGOUT MODAL -->
+    <div class="logout-modal" id="logoutModal">
+        <div class="logout-box">
+            <p>Are you sure you want to logout?</p>
+            <div class="logout-actions">
+                <button class="cancel-btn" onclick="closeLogout()">Cancel</button>
+                <a href="/logout" class="confirm-btn">Logout</a>
+            </div>
+        </div>
+    </div>
+
+<script src="static/Javascript/police/police-logout.js"></script>
+<script src="static/Javascript/police/police-profile-menu.js"></script>
+<script src="static/Javascript/session/session.js"></script>
+<script src="static/Javascript/session_manager.js"></script>
+<script src="static/Javascript/police/right-menu-btn.js"></script>
+
+{% if page == 'police-incident-map' %}
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7BZfHfb0KEqX5aQULMfCPyLiUAO8mP4w&callback=initPoliceIncidentMap"></script>
+{% endif %}
+
+</body>
+</html>

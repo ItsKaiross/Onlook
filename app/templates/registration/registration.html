@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <link rel="stylesheet" href="static/css/mobile-reset.css">
+    <link rel="stylesheet" href="../static/css/registration/register.css">
+    <title>Registration - Onlook</title>
+    <link rel="stylesheet" href="static/css/responsive-fixed.css">
+    <link rel="icon" type="image/x-icon" href="../static/icons/onlook_icon.png">
+</head>
+<body>
+
+
+{% include 'includes/loading_screen.html' %}
+{% include 'includes/flash_messages.html' %}
+
+
+    <!--##################################################################-->
+    <!--###############  R E G I S T R A T I O N  F O R M  ###############-->
+    <!--##################################################################-->
+
+
+
+    <!--#####################################################-->
+    <!--#############   B A C K  G R O U N D   ##############-->
+    <!--#####################################################-->
+    <div class="background_frame">
+        <div class="login_logo_frame">
+            <img src="" alt="">
+        </div>
+
+
+
+            <!--#####################################################-->
+            <!--###############  R E G  F R A M E   #################-->
+            <!--#####################################################-->
+            <div class="reg_frame" id="">
+                <div class='logo_frame'>
+                    <img src='../static/images/logo/onlook_logo.png' alt='logo'>
+                </div>
+
+                <!--#####################################################-->
+                <!--############  P R O G R E S S  B A R  ###############-->
+                <!--#####################################################-->
+                <div class="progress_container">
+                    <div class="progress_bar">
+                        <div class="progress_fill" id="progress_fill"></div>
+                    </div>
+                    <div class="progress_steps">
+                        <div class="progress_step active" data-step="1">
+                            <div class="step_circle">1</div>
+                            <div class="step_label">Personal Info</div>
+                        </div>
+                        <div class="progress_step" data-step="2">
+                            <div class="step_circle">2</div>
+                            <div class="step_label">Address</div>
+                        </div>
+                        <div class="progress_step" data-step="3">
+                            <div class="step_circle">3</div>
+                            <div class="step_label">Account</div>
+                        </div>
+                        <div class="progress_step" data-step="4">
+                            <div class="step_circle">4</div>
+                            <div class="step_label">Complete</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--#####################################################-->
+                <!--#################   S I G N  U P   ##################-->
+                <!--#####################################################-->
+                <form action="/signUp" method="POST" enctype="multipart/form-data" charset="utf-8">
+                    <div class='step step_1 active'>
+
+
+                        <!--#####################################################-->
+                        <!--###################   F N A M E   ###################-->
+                        <!--#####################################################-->
+                        <div class="firstName_frame">
+                            <label for="firstName">First Name</label> <span style="color : red; font-size: 22px;">*</span>
+                            <div class="fNameBox">
+                                <input type="text" name="firstName" id="firstName" placeholder= "e.g. Juan"  required pattern="[A-Za-z\s]+">
+                            </div>
+                        </div>
+
+
+                        <!--#####################################################-->
+                        <!--###################  M N A M E   ####################-->
+                        <!--#####################################################-->
+                        <div class="middleName_frame">
+                            <label for="middleName">Middle Name</label>
+                            <div class="middleNameBox">
+                                <input type="text" name="middleName" id="middleName" placeholder= "e.g. Santos" pattern="[A-Za-z\s]+">
+                            </div>
+                        </div>
+
+
+
+                        <!--#####################################################-->
+                        <!--##################   L N A M E  #####################-->
+                        <!--#####################################################-->
+                        <div class="lastName_frame">
+                            <label for="lastName">Last Name</label> <span style="color : red; font-size: 22px;">*</span>
+                            <div class="lastNameBox">
+                                <input type="text" name="lastName" id="lastName" placeholder= "e.g. Manahan" required pattern="[A-Za-z\s]+">
+                            </div>
+                        </div>
+
+
+
+                        <!--#####################################################-->
+                        <!--##################   S N A M E  #####################-->
+                        <!--#####################################################-->
+
+                        <div class="Suffix_frame">
+                            <label for="SuffixName">Suffix</label>
+                            <div class="SuffixBox">
+                                <input type="text" name="Suffix" id="Suffix" placeholder="e.g., Jr., Sr., III"  >
+                            </div>
+                        </div>
+
+                        <!--#####################################################-->
+                        <!--##############   G E N D E R  T Y P E   #############-->
+                        <!--#####################################################-->
+                        <div class="gender_frame">
+                            <p>Choose a sex: <span style="color : red; font-size: 22px;">*</span></p>
+                            <div class="choices_frame">
+                                <label class="male_frame">
+                                    <input type="radio" name="gender" value="male" required>
+                                    Male
+                                </label>
+
+                                <label class="female_frame">
+                                    <input type="radio" name="gender" value="female">
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+
+                        <!--#####################################################-->
+                        <!--#####################   D O B   #####################-->
+                        <!--#####################################################-->
+
+                        <div class="dob_frame">
+                            <label for="DateOfBirth">Date of Birth</label> <span style="color : red; font-size: 22px;">*</span>
+                            <div class="DateOfBirthBox">
+                                <input type="date" name="dateOfBirth" id="dateOfBirth" placeholder="Enter Suffix"  required>
+                            </div>
+                        </div>
+
+                        <!--##########################################################################-->
+                        <!--#####################   C O N T A C T  N U M B E R   #####################-->
+                        <!--##########################################################################-->
+
+                        <div class="contact_number_frame">
+                            <label for="contact_number">Contact Number</label> <span style="color : red; font-size: 22px;">*</span>
+                            <div class="contact_numberBox">
+                                <input type="tel" name="contact_number" id="contact_number" placeholder="Enter your Contact Number" pattern="^(\+639|09)\d{9}$" oninput="this.value = this.value.replace(/[^0-9+]/g, '')"  required>
+                            </div>
+                        </div>
+
+                        
+                        <!--#####################################################-->
+                        <!--##################   B U T T O N  ###################-->
+                        <!--#####################################################-->
+                        <button type="button" class="next_button">Next</button>
+                        <a class="back_button" href="/">Back</a>
+                    </div>
+
+
+
+
+
+                    
+                    <!--#####################################################-->
+                    <!--##################   S T E P 2  #####################-->
+                    <!--#####################################################-->
+                    <div class="step step_2 ">
+                        <div class="address">
+                            <h1>Address</h1>
+                        </div>
+
+
+                        <!--#####################################################-->
+                        <!--#################   R E G I O N   ###################-->
+                        <!--#####################################################-->
+                        <div class='region_frame'>
+                            <label for="region">Region</label> <span style="color : red; font-size: 22px;">*</span>
+                            <div class="regionBox">
+                                <select name="region" id="region" onchange="populateProvinces()" required>
+                                    <option value="" disabled selected>Select a region</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        
+                        <!--#####################################################-->
+                        <!--################   P R O V I N C E  #################-->
+                        <!--#####################################################-->
+                        <div class='province_frame'>
+                            <label for="province">Province</label> <span style="color : red; font-size: 22px;">*</span>
+                            <div class="provinceBox">
+                                <select name="province" id="province" onchange="populateCities()" required>
+                                    <option value="" disabled selected>Select a province</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        
+                        <!--#####################################################-->
+                        <!--###################   C I T Y   #####################-->
+                        <!--#####################################################-->
+                        <div class='city_frame'>
+                            <label for="city">City/Municipality</label> <span style="color : red; font-size: 22px;">*</span>
+                            <div class="cityBox">
+                                <select name="city" id="city" onchange="populateBarangays()" required>
+                                    <option value="" disabled selected>Select a city/municipality</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!--#####################################################-->
+                        <!--################   B A R A N G A Y   ################-->
+                        <!--#####################################################-->
+                        <div class="barangay_frame">
+                            <label for="barangay">Barangay <span style="color : red; font-size: 22px;">*</span></label> 
+                            <div class="BarangayBox">
+                                <select name="brgy" id="barangay" required>
+                                    <option value="" disabled selected>Select a barangay</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <!--#####################################################-->
+                        <!--##################   S T R E E T   ##################-->
+                        <!--#####################################################-->
+                        <div class="street_frame">
+                            <label for="street">Street</label> <span style="color : red; font-size: 22px;">*</span>
+                            <div class="streetBox">
+                                <input type="text" name="street" id="street"  placeholder="Enter your street name"  required>
+                            </div>
+                        </div>
+
+
+                        <!--#####################################################-->
+                        <!--###############   H O U S E N O .   #################-->
+                        <!--#####################################################-->
+                        <div class="houseNo_frame">
+                            <label for="houseNumber">House No.</label> <span style="color : red; font-size: 22px;">*</span>
+                            <div class="HouseNumberBox">
+                                <input type="number" name="houseNumber" id="houseNumber" placeholder="Enter your house no.">
+                            </div>
+                        </div>
+
+
+                        <button type="button" class="next_button" id="next_button2">Next</button>
+                        <button type="button" class="prev_button">Prev</button>
+                    </div>
+
+
+                    <!--#####################################################-->
+                    <!--##################   S T E P 3  #####################-->
+                    <!--#####################################################-->
+                    <div class="step step_3">
+                        <!--#####################################################-->
+                        <!--##################   E M A I L  #####################-->
+                        <!--#####################################################-->
+
+
+                        <div class="email_frame">
+                            <label for="email">Email</label> <span style="color : red; font-size: 22px;">*</span>
+                            <div class="emailBox">
+                                <input type="email" name="email" id="email"  required>
+                            </div>
+                        </div>
+
+
+                        
+                        <!--#####################################################-->
+                        <!--####################   P A S S  #####################-->
+                        <!--#####################################################-->
+                        <div class="pass_frame">
+                            <label for="password">Password</label> <span style="color : red; font-size: 22px;">*</span>
+                            <div class="passBox">
+                                <input type="password" name="password" id="password"  required>
+                                <button type="button" class="eye-btn" onclick="togglePass('password', this)" aria-label="Show password">
+                                    <svg class="eye-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    <svg class="eye-off-icon" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                                </button>
+                            </div>
+
+                            <ul class="validation-list" id="validationList">
+                                <li class="rule" id="rule-length"><span class="rule-icon"></span>At least 8 characters</li>
+                                <li class="rule" id="rule-upper"><span class="rule-icon"></span>At least 1 uppercase letter</li>
+                                <li class="rule" id="rule-lower"><span class="rule-icon"></span>At least 1 lowercase letter</li>
+                                <li class="rule" id="rule-number"><span class="rule-icon"></span>At least 1 number</li>
+                                <li class="rule" id="rule-symbol"><span class="rule-icon"></span>At least 1 symbol (!@#$%^&amp;*)</li>
+                            </ul>
+
+                            <div class="strength-bar-wrap">
+                                <div class="strength-bar" id="strengthBar"></div>
+                                <div class="strength-label" id="strengthLabel"></div>
+                            </div>
+                        </div>
+
+
+                        <!--#####################################################-->
+                        <!--##################   C P A S S  #####################-->
+                        <!--#####################################################-->
+
+                        <div class="confirm_pass_frame">
+                            <label for="confirm_password">Confirm Password</label> <span style="color : red; font-size: 22px;">*</span>
+                            <div class="passBox">
+                                <input type="password" name="confirm_password" id="confirm_password"  required>
+                                <button class="eye-btn" onclick="togglePass('confirm_password', this)" aria-label="Show confirm password">
+                                    <svg class="eye-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    <svg class="eye-off-icon" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                                </button>
+                            </div>
+                            <span class="match-msg" id="matchMsg"></span>
+                        </div>
+
+
+
+
+
+                        <button type="button" class="next_button" id="next_button3">Next</button>
+                        <button type="button" class="prev_button">Prev</button>
+                    </div>
+
+
+                    
+                    <!--#####################################################-->
+                    <!--##################   S T E P 4  #####################-->
+                    <!--#####################################################-->
+                    <div class="step step_4">
+                        <div class="valid_id_upload"  id="valid_id_js">
+                            <div class="upload_files">
+                                <div class="valid_id_icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                                        <polyline points="10 9 9 9 8 9"></polyline>
+                                    </svg>
+                                </div>
+                                <label for="valid_id">Valid ID (PDF or Image - Multiple files allowed):  <span style="color : red; font-size: 22px;">*</span></label>
+                                <div class="uploaded_file">
+                                    <input type="file" id="valid_id" name="valid_id" accept="application/pdf,image/jpeg,image/gif,image/png,image/x-eps" onchange="valid_id_img()" multiple>
+                                </div>
+                                <div class="file_list" id="valid_id_file_list" style="display: none;"></div>
+                            </div>
+                        </div>
+
+
+
+
+                    <!--#####################################################-->
+                    <!--##################   P S A  #########################-->
+                    <!--#####################################################-->
+                        <div class="psa_upload" id="psa_js">
+                            <div class="upload_files">
+                                <div class="psa_icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                                        <polyline points="10 9 9 9 8 9"></polyline>
+                                    </svg>
+                                </div>
+                                <label for="psa_file">PSA Birth Certificate (PDF only):  <span style="color : red; font-size: 22px;">*</span></label>
+                                <div class="uploaded_file">
+                                    <input type="file" id="psa_file" name="psa_file" accept="application/pdf" onchange="psa_file_upload()">
+                                </div>
+                                <div class="file_info" id="psa_file_info" style="display: none;">
+                                    <span class="file_name" id="psa_file_name"></span>
+                                    <span class="file_size" id="psa_file_size"></span>
+                                </div>
+                                <div class="view_psa" id="view_psa_file">VIEW PSA</div>
+                            </div>
+                        </div>
+
+
+
+
+                    <!--#####################################################-->
+                    <!--################   P R O F I L E  ###################-->
+                    <!--#####################################################-->
+                        <div class="profile_upload" id="profile_pic_js">
+                            <div class="upload_files">
+                                <div class="profile_icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                </div>
+                                <label for="profile_picture">Profile Picture (Image only):</label>
+                                <div class="uploaded_file">
+                                    <input type="file" id="profile_picture" name="profile_picture" accept="image/jpeg,image/gif,image/png,image/x-eps" onchange="profile_img()">
+                                </div>
+                                <div class="file_info" id="profile_file_info" style="display: none;">
+                                    <span class="file_name" id="profile_file_name"></span>
+                                    <span class="file_size" id="profile_file_size"></span>
+                                </div>
+                                <div class="view_profile" id="view_profile_pic">VIEW PROFILE PICTURE</div>
+                            </div>
+                        </div>
+                        <div class="terms">
+                            <input type="checkbox" name="terms" id="terms" required>
+                            <label for="terms">I have read and agree to <a href="javascript:void(0);" class="terms_link" onclick="pop_up_terms()">terms and conditions</a></label>
+                        </div>
+                        <div class="signup_button">
+                            <button type="button" class="prev_button">Prev</button>
+                            <button name="signupButton" type="submit" >Sign up</button>
+                        </div>
+                        <div class="cancel_button">
+                            <a href="/">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>      
+        </div>
+    </div>
+
+        <!--#####################################################-->
+        <!--##############  P O P  U P  T E R M S  ##############-->
+        <!--#####################################################-->
+
+        <div class="terms_and_condition_frame" id="popup_terms">
+            <span class="close_terms" onclick="close_terms()">&times;</span>
+            <div class="terms_conditions_logo_frame">
+                <img src="../static/images/logo/onlook_logo.png" alt="OnLook Logo">
+            </div>
+            <div class="terms_conditions_text">
+                <p>
+                    <span class="termsTitle">Terms and Conditions for OnLook</span> <br>
+                Last Updated: January 2025 <br> <br>
+                
+                
+                <span class="Terms_1"> 1. Acceptance of Terms </span> <br>
+                By accessing or using OnLook, you agree to be bound by these Terms and Conditions and all applicable laws and regulations. If you do not agree with any part of these terms, you must not use the System.
+                <br> <br>
+
+
+
+                <span class="Terms_2"> 2. Description of Service </span> <br>
+                OnLook is a web-based collaborative platform designed to assist in monitoring and locating missing and cognitively impaired individuals in Laguna.<br> The System facilitates reporting, tracking, and managing cases through coordinated efforts involving the Department of Social Welfare and Development (DSWD), Police, Local Government Units (LGU), and authorized users.
+                <br> <br>
+
+
+                <span class="Terms_3"> 3. User Eligibility and Responsibilities </span> <br> 
+                -Users must be at least 18 years old or have legal authority to report or manage cases on behalf of missing or cognitively impaired individuals.<br>
+                -Users agree to provide accurate, truthful, and complete information when creating profiles, submitting reports, or uploading images.<br>
+                -Users are responsible for maintaining the confidentiality of their login credentials and for all activities under their accounts.<br>
+                -Users must not use the System for any unlawful purpose or to submit false or misleading information.<br>
+                <br> <br>
+
+
+                <span class="Terms_4"> 4. Reporting and Data Submission </span> <br> 
+                -Users may create profiles, submit reports of missing individuals, upload images, and view the status of their reports.<br>
+                -The System may share submitted data with authorized entities such as DSWD, Police, LGU, and other relevant agencies for the purpose of investigation and assistance.<br>
+                -Users consent to the processing and sharing of their data as necessary to provide the service and assist in locating missing or cognitively impaired persons.<br>
+                <br> <br>
+
+
+                <span class="Terms_5 "> 5. Privacy and Data Protection </span> <br> 
+                -Personal data collected through the System will be handled in accordance with applicable data privacy laws.<br>
+                -The System will not sell or rent user data to third parties. Data is used solely for the purpose of monitoring, reporting, and assisting missing or cognitively impaired individuals.<br>
+                -Users should avoid sharing sensitive personal information beyond what is necessary for the System’s functions.<br>
+                <br> <br>
+                
+                
+                <span class="Terms_6 ">6. Intellectual Property</span> <br> 
+                -The System and all related software, content, and trademarks are the property of the service provider or its licensors.<br>
+                -Users are granted a limited, non-exclusive, non-transferable license to use the System for its intended purpose.<br>
+                <br> <br>
+
+                
+                <span class="Terms_7 "> 7. Limitation of Liability </span> <br> 
+                -The System is provided “as is” without warranties of any kind, either express or implied.<br>
+                -The service provider is not liable for any damages arising from the use or inability to use the System, including but not limited to errors, omissions, or delays in data processing.<br>
+                -Users acknowledge that the System assists but does not guarantee the recovery or safety of missing or cognitively impaired individuals.<br>
+                <br> <br>
+
+
+                <span class="Terms_8 "> 8. Termination and Suspension </span> <br> 
+                The service provider reserves the right to suspend or terminate user accounts or access to the System for violations of these Terms or misuse of the service.<br>
+                Users may terminate their use of the System at any time by discontinuing access.<br>
+                <br> <br>
+
+                <span class="Terms_9 "> 9. Modifications to Terms and Service </span> <br> 
+                -The service provider may update these Terms and Conditions or modify the System at any time without prior notice.<br>
+                -Continued use of the System after changes constitutes acceptance of the updated terms.<br>
+                <br> <br>
+
+
+                <span class="Terms_10 "> 10. Governing Law and Dispute Resolution </span> <br> 
+                -These Terms shall be governed by and construed in accordance with the laws of the Philippines.<br>
+                -Any disputes arising from the use of the System shall be resolved through amicable negotiation or, if necessary, through binding arbitration.<br>
+                <br> <br>
+
+
+                <span class="Terms_11 "> 11. Contact Information </span> <br> 
+                If you have any questions about these Terms, please contact us at: <br> 
+                <b>OnLook Support Team</b>  <br> 
+                <b>Email: support@onlook.ph</b><br> 
+                <b>Phone: +63 (049) 123-4567</b><br> 
+                <br> <br>
+                
+                <span class="disclamer ">  <b>Disclaimer:</b>  <br> These Terms and Conditions are intended to be a general guideline. You should consult with a legal professional to ensure that your Terms and Conditions are comprehensive, legally sound, and tailored to your specific business and jurisdiction.
+                    <br> <br>
+                </p>
+            </div>
+            <div class="agree_button_container">
+                <button class="agree_button" onclick="close_terms()">I Agree</button>
+            </div>
+        </div>
+        
+
+<!--####################################################-->
+<!--##############  I M A G E  M O D A L  ##############-->
+<!--####################################################-->
+
+        <div id="imageModal" class="modal">
+            <span class="close" onclick="toggle()"> &times; </span>
+            <img class="modal_content" id="imgModal" src="" alt="">
+            <div id="caption"></div>
+        </div>
+
+<script src="static/Javascript/loading_screen.js"></script>
+<script src="static/Javascript/registration/address.js"></script>
+
+<script src="static/Javascript/registration/image_modal.js"></script>
+<script src="static/Javascript/registration/registration_steps.js"></script>
+<script src="static/Javascript/registration/password-validation.js"></script>
+<script src="static/Javascript/registration/terms.js"></script>
+<script src="static/Javascript/registration/upload.js"></script>
+</body>
+</html>

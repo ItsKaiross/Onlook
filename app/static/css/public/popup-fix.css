@@ -1,0 +1,464 @@
+/* Override all bg-black styles with correct fullscreen overlay */
+#bg-black {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    z-index: 9 !important;
+    display: none !important;
+    pointer-events: auto !important;
+    transform: none !important;
+}
+
+#bg-black.active{
+    display: block;
+}
+
+/* Disable all interactions and blur background when popup is open */
+body.popup-open {
+    overflow: hidden !important;
+}
+
+body.popup-open .base {
+    filter: blur(5px) !important;
+    transition: filter 0.3s ease !important;
+}
+
+/* Allow popup interactions */
+body.popup-open .reported-missing-modal,
+body.popup-open #reported-missing-popup,
+body.popup-open #reported-missing-waccount-popup,
+body.popup-open #report-missing-popup,
+body.popup-open #register-first-popup,
+body.popup-open #help-locate-wacc-popup,
+body.popup-open #help-locate-no-acc-popup {
+    pointer-events: auto !important;
+    filter: none !important;
+}
+
+/* Register First Popup Styles */
+.register-first-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9995;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+    padding: 0;
+    font-family: 'SF_REGULAR', sans-serif;
+}
+
+.register-first-content {
+    padding: 30px;
+    position: relative;
+}
+
+.register-first-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.register-first-close:hover {
+    color: #333;
+}
+
+.register-first-text h2 {
+    font-family: 'SF_BOLD', sans-serif;
+    color: #1A1B41;
+    margin-bottom: 15px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.register-first-text p {
+    color: #666;
+    line-height: 1.5;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* ########################## */
+/* ######  L O G I N  ####### */
+/* ########################## */
+
+.loginEmail{
+    width: 100%;
+    margin: auto;
+}
+
+.loginEmail label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+    margin-left: 10px;
+}
+
+.loginEmail .emailBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.loginEmail .emailBox input[type="email"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.loginPass{
+    width: 100%;
+    margin: auto;
+}
+
+.loginPass label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+    margin-left: 10px;
+}
+
+.loginPass .passBox{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.loginPass .passBox input[type="password"],
+.loginPass .passBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 45px;
+    box-sizing: border-box;
+}
+
+.loginPass .passBox input[type="password"]:focus,
+.loginPass .passBox input[type="text"]:focus{
+    border-color: #1A1B41;
+    outline: none;
+}
+
+.loginPass .toggle-password{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.loginPass .toggle-password:hover{
+    color: #1A1B41;
+}
+
+.loginPass .toggle-password svg{
+    width: 20px;
+    height: 20px;
+}
+
+
+
+/*###################################*/
+/*#####   F O R G O T  P A S S  #####*/
+/*###################################*/
+
+
+.forgot-pass{
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.forgot-pass a{
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+
+
+/*#######################################################*/
+/*#########  F O R G O T  P A S S  P O P U P  ###########*/
+/*#######################################################*/
+
+
+.forgot_pass_popup{
+    margin: 0;
+    vertical-align: middle;
+}
+
+#popup_forgot_pass{
+    top: -10%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    position: fixed;
+    width: 528px;
+    padding: 35px;
+    transition: all .7 linear;
+    opacity: 1;
+    visibility: hidden;
+    background-color: #F5F5F5;
+    border-radius: 50px;
+    box-shadow: 2px 2px 12px black;
+    z-index: 10000;
+}
+
+.background_frame#blur.active{
+    filter: blur(10px);
+    pointer-events: none;
+    user-select: none;
+}
+
+#popup_forgot_pass.active{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: visible;
+    opacity: 1;
+    transition: all .7s linear;
+    z-index: 10000;
+}
+
+.Forgot_password_text h1{
+    font-family: sf_bold;
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+
+
+.email_textbox label {
+    margin-right: 400px;
+    margin-top: 20px;
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+
+.email_textbox .emailBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.email_textbox .emailBox input[type="email"] {
+    width: 100%;
+    height: 45px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.email_textbox .emailBox input[type='email']:focus {
+    font-family: SF_REGULAR;
+    border-color: #1A1B41;
+    outline: none;
+}
+
+
+.request_button{
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.request_button button{
+    font-size: 18px;
+    font-family: SF_MEDIUM;
+    border-color: #1A1B41;
+    background-color:  #1A1B41;
+    color: white;
+    width: 100%;
+    height: 40px;
+    border-radius: 10px
+}
+
+.request_button button:hover{
+    transition: .3s linear;
+    font-size: 18px;
+    font-family: SF_MEDIUM;
+    border-color:  #33357e;
+    background-color:  #3b3e92;
+    color: white;
+    width: 100%;
+    height: 40px;
+    border-radius: 10px
+}
+
+.cancel{
+    display: flex;
+    justify-content: center;
+}
+
+
+.cancel span{
+    font-family: sf_bold;
+    cursor: pointer;
+}
+
+
+
+
+/* ############################## */
+/* ######  B U T T O N S  ####### */
+/* ############################## */
+
+
+.register-first-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.register-btn, .cancel-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'SF_MEDIUM', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 100px;
+}
+
+.register-btn {
+    background: #1A1B41;
+    color: white;
+}
+
+.register-btn:hover {
+    background: #23254a;
+    transform: translateY(-1px);
+}
+
+.cancel-btn {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.cancel-btn:hover {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.line-or {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.line-or::before,
+.line-or::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+}
+
+.line-or span {
+    padding: 0 10px;
+    font-size: 14px;
+    color: #b3b3b3;
+}
+
+.registerButton{
+    margin-top: 10px;
+    justify-content: center;
+    display: flex;
+}
+
+.registerBtn{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    font-family: 'SF_MEDIUM', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 100px;
+    background: #1A1B41;
+    color: white;
+}
+
+
+/* Popup animation */
+.register-first-modal {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.9);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.register-first-modal.show {
+    display: block;
+    opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+}
+/* Help Locate Popup Styles */
+.help-locate-wacc-modal, .help-locate-no-acc-modal {
+    visibility: hidden;
+    position: fixed;
+    top: -10%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    z-index: 10001;
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.help-locate-wacc-modal.show, .help-locate-no-acc-modal.show {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: auto;
+}
+
+/* Ensure help locate popups are above other elements */
+#help-locate-wacc-popup, #help-locate-no-acc-popup {
+    z-index: 10001 !important;
+}
+
+

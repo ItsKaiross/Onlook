@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../static/icons/onlook_icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/admin-base.css') }}">
+    {% if page == 'admin-audit-trail' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/audit_trail.css') }}">
+    {% endif %}
+    <title>Admin</title>
+</head>
+<body>
+    <div class="base">
+        <div class="base-frame">
+            <div class="mid">
+                <aside class="sidebar">
+                    <div class="sidebar-top">
+                        <div class="onlook-logo">
+                            <a href="/">
+                                <img src="{{ url_for('static', filename='images/logo/onlook_logo.png') }}" alt="">
+                            </a>
+                        </div>
+                        <div class="burger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="dashboard">
+                        <a href="/admin-dashboard"
+                           class="{{ 'active' if page == 'admin-dashboard' else ''}}">
+                           Dashboard
+                        </a>
+                    </div>
+
+                    <div class="user-management">
+                        <a href="{% if roles == 'policeAdmin'%}
+                        /admin-reports
+                        {% elif roles == 'systemAdmin'%}
+                        /admin-user-management {% endif %}"
+                        class="{{ 'active' if page == 'admin-user-management' or page == 'admin-reports' else ''}}">
+                        
+                        {% if roles == 'policeAdmin' %}
+                        Reports
+                        {% elif roles == 'systemAdmin' %}
+                        User Management
+                        {% endif %}
+                        </a>
+                    </div>
+
+                    {% if roles == 'systemAdmin' %}
+                    <div class="audit-trail">
+                        <a href="/admin/audit-trail"
+                           class="{{ 'active' if page == 'admin-audit-trail' else ''}}">
+                           Audit Trail
+                        </a>
+                    </div>
+                    {% endif %}
+
+                    <div class="edit-profile">
+                        <a href="/admin-edit-profile"
+                           class="{{ 'active' if page == 'admin-edit-profile' else ''}}">
+                           Edit Profile
+                        </a>
+                    </div>
+
+                    <div class="logout">
+                        <a href="/logout">Log Out</a>
+                    </div>
+                </aside>
+
+                <div class="content">
+                    {% if page == 'admin-dashboard' %}
+                    {% include 'admin/1a-dashboard.html' %}
+
+                    {% elif page == 'admin-user-management'%}
+                    {% include 'admin/2a-user_management.html' %}
+
+                    {% elif page == 'admin-reports'%}
+                    {% include 'admin/police_reports/police_reports.html' %}
+
+                    {% elif page == 'admin-audit-trail' %}
+                    {% include 'admin/audit_trail/audit_trail.html' %}
+
+                    {% elif page == 'admin-edit-profile'%}
+                    {% include 'admin/admin_edit_profile.html' %}
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<script src="{{ url_for('static', filename='Javascript/admin/right-menu-btn.js') }}"></script>
+<script src="{{ url_for('static', filename='Javascript/session/session.js') }}"></script>
+<script src="{{ url_for('static', filename='Javascript/session_manager.js') }}"></script>
+
+{% if page == 'admin-audit-trail' %}
+<script src="{{ url_for('static', filename='Javascript/loading_screen.js') }}"></script>
+<script src="{{ url_for('static', filename='Javascript/admin/audit_trail.js') }}"></script>
+{% endif %}
+
+{% if roles == 'policeAdmin' %}
+<script>
+    const GENERATE_REPORT_URL = "{{ url_for('generate_monthly_report') }}";
+</script>
+<script src="{{ url_for('static', filename='Javascript/admin/police_reports/police_reports.js') }}"></script>
+{% endif %}
+
+</body>
+</html>

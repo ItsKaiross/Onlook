@@ -1,0 +1,100 @@
+
+<!-- Edit Case Modal -->
+<div class="edit-case-modal" id="edit-case-modal">
+    <div class="modal-content case-modal-content">
+        <div class="modal-header">
+            <h2>Edit Case File</h2>
+            <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="edit-case-form" enctype="multipart/form-data">
+                <div class="form-sections">
+                    <div class="form-section">
+                        <h3>Case Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Case ID</label>
+                                <input type="text" id="edit-case-id" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Case Status</label>
+                                <select id="edit-case-status" class="cm_case_status" required>
+                                    <option value="Open" class="case_status_open">Open</option>
+                                    <option value="In Progress" class="case_status_progress">In Progress</option>
+                                    <option value="Closed - Alive" class="case_status_closed">Closed - Alive</option>
+                                    <option value="Closed - Dead" class="case_status_closed">Closed - Dead</option>
+                                    <option value="Cold Case" class="case_status_cold">Cold Case</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Priority</label>
+                                <select id="edit-priority" class="priority_frame" required>
+                                    <option value="Low" class="priority_low" >Low</option>
+                                    <option value="Medium"  class="priority_medium" >Medium</option>
+                                    <option value="High"  class="priority_high" >High</option>
+                                    <option value="Critical"  class="priority_critical" >Critical</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Missing Person Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="edit-full-name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <select id="edit-gender" required>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Height (cm)</label>
+                                <input type="number" id="edit-height" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label>Weight (kg)</label>
+                                <input type="number" id="edit-weight" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label>Hair Color</label>
+                                <input type="text" id="edit-hair-color">
+                            </div>
+                            <div class="form-group">
+                                <label>Eye Color</label>
+                                <input type="text" id="edit-eye-color">
+                            </div>
+                            <div class="form-group">
+                                <label>Date Last Seen</label>
+                                <input type="date" id="edit-date-last-seen" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Clothing Description</label>
+                                <textarea id="edit-clothing" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Additional Images</h3>
+                        <div class="form-group">
+                            <label>Upload Additional Photos</label>
+                            <input type="file" id="additional-images" multiple accept="image/*">
+                            <div id="image-preview-container"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="cancel-edit-case-btn">Cancel</button>
+                    <button type="submit">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

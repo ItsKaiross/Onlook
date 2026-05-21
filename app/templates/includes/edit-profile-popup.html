@@ -1,0 +1,74 @@
+<!-- Edit Profile Popup -->
+<div id="editProfilePopup" class="popup-overlay" style="display: none;">
+    <div class="popup-content">
+        <div class="popup-header-public">
+            <h3>Edit Profile</h3>
+            <span class="close-btn" onclick="closeEditProfilePopup()">&times;</span>
+        </div>
+        <form id="edit-profile-form" enctype="multipart/form-data" method="POST">
+            <div class="form-group profile-pic-group">
+                <label>Profile Picture:</label>
+                <div class="profile-pic-container">
+                    <img id="profilePreview" src="../static/icons/user-default.png" alt="Profile">
+                    <input type="file" id="profilePic" name="profilePic" accept="image/*" onchange="previewProfilePic()">
+                    <label for="profilePic" class="upload-btn">Change Photo</label>
+                </div>
+            </div>
+
+            <div class="firstNameEdit_frame">
+                <label for="firstNameEdit">First Name: </label>
+                <div class="firstNameEditBox">
+                    <input type="text" name="firstName" id="firstName" placeholder="Enter your First Name" required>
+                </div>
+            </div>
+
+            <div class="lastNameEdit_frame">
+                <label for="lastNameEdit">Last Name: </label>
+                <div class="lastNameEditBox">
+                    <input type="text" name="lastName" id="lastName" placeholder="Enter your Last Name" required>
+                </div>
+            </div>
+
+            <div class="EmailEdit_frame">
+                <label for="EmailEdit">Email: </label>
+                <div class="EmailEditBox">
+                    <input type="email" name="email" id="email" placeholder="Enter your Email" required>
+                </div>
+            </div>
+
+            
+            <div class="phoneEdit_frame">
+                <label for="phoneEdit">Phone: </label>
+                <div class="phoneEditBox">
+                    <input type="tel" name="phone" id="phone" placeholder="Enter your Phones" required>
+                </div>
+            </div>
+
+            <div class="currentPasswordEdit_frame">
+                <label for="currentPasswordEdit">Current Password: </label>
+                <div class="currentPasswordEditBox">
+                    <input type="password" name="currentPassword" id="currentPassword" placeholder="Leave blank to keep current password">
+                </div>
+            </div>
+
+            <div class="newPasswordEdit_frame">
+                <label for="newPasswordEdit">New Password: </label>
+                <div class="newPasswordEditBox">
+                    <input type="password" name="newPassword" id="newPassword" placeholder="Leave blank to keep current password">
+                </div>
+            </div>
+
+            <div class="confirmPasswordEdit_frame">
+                <label for="confirmPasswordEdit">Confirm New Password: </label>
+                <div class="confirmPasswordEditBox">
+                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Leave blank to keep current password">
+                </div>
+            </div>
+
+            <div class="form-buttons">
+                <button type="button" onclick="closeEditProfilePopup()">Cancel</button>
+                <button type="button" id="save-changes-btn">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>

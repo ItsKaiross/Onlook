@@ -1,0 +1,86 @@
+<!--##############################################################-->
+<!--##########  V E R I F I C A T I O N  N O T I C E  ############-->
+<!--##############################################################-->
+
+<style>
+
+/*#################################*/
+/*#########  N O T I F  ###########*/
+/*#################################*/
+
+.notification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color:#1A1B41;
+    padding:15px 20px;
+    display:none;
+    z-index:9999;
+    box-shadow:0px 4px 12px rgba(0,0,0,.3);
+
+}
+
+.notification-content {
+    max-width:1200px
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:Arial, Helvetica, sans-serif;
+    color:white;
+    font-size:15px;
+}
+
+.verify-btn{
+    background:#ffffff;
+    color:#1A1B41;
+    border:none;
+    padding:8px 15px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    margin-left:15px;
+    transition:.3s;
+}
+
+.verify-btn:hover{
+
+    background:#dcdcdc;
+
+}
+
+
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 30%;
+    background:none;
+    border:none;
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+
+}
+
+.notification-close {
+    background-color: none;
+    border: none;
+    font-size: 1.2rem;
+}
+
+</style>
+
+<div class="notification" id="verificationNotification">
+    <div class="notification-content">
+        <span>Your account is not verified.
+            <button type="button" class="verify-btn" onclick="show2faOverlay()">Verify now!</button>
+            <button type="button" class="close-btn" onclick="closeVerificationNotification()">&times;</button>
+        </span>
+    </div>
+</div>
+
+
+
+
+

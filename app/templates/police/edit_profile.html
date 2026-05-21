@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - Police Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/police/edit_profile.css') }}">
+</head>
+<body>
+<script>
+function validateForm() {
+    const requiredFields = ['first_name', 'last_name', 'email', 'contact_number', 'badge_number', 'rank', 'station'];
+    for (let field of requiredFields) {
+        const element = document.getElementById(field);
+        if (!element.value.trim()) {
+            alert(`Please fill in ${element.previousElementSibling.textContent}`);
+            element.focus();
+            return false;
+        }
+    }
+    
+    // Password validation
+    const currentPassword = document.getElementById('current_password').value;
+    const newPassword = document.getElementById('new_password').value;
+    const confirmPassword = document.getElementById('confirm_password').value;
+    
+    if (currentPassword || newPassword || confirmPassword) {
+        if (!currentPassword) {
+            alert('Please enter your current password');
+            document.getElementById('current_password').focus();
+            return false;
+        }
+        if (!newPassword) {
+            alert('Please enter a new password');
+            document.getElementById('new_password').focus();
+            return false;
+        }
+        if (newPassword !== confirmPassword) {
+            alert('New passwords do not match');
+            document.getElementById('confirm_password').focus();
+            return false;
+        }
+        if (newPassword.length < 6) {
+            alert('New password must be at least 6 characters long');
+            document.getElementById('new_password').focus();
+            return false;
+        }
+    }
+    
+    return true;
+}
+</script>
+    {% include 'includes/flash_messages.html' %}
+    {% include 'includes/global_messages.html' %}
+    
+    <div class="edit-profile-container">
+        <div class="edit-profile-header">
+            <h1>Edit Profile</h1>
+            <a href="{{ url_for('police_dashboard') }}" class="back-btn">← Back to Dashboard</a>
+        </div>
+        
+        <form method="POST" class="edit-profile-form" onsubmit="return validateForm()" enctype="multipart/form-data">
+            <div class="form-section">
+                <h2>Profile Picture</h2>
+                
+                <div class="profile-picture-section">
+                    <div class="current-picture">
+                        <img id="current-pic"
+                            src="data:image/jpeg;base64, {{ profile.profile_filedata }}"
+                            alt="Profile Picture">
+                    </div>
+                    
+                    <div class="picture-upload">
+                        <label for="profile_picture">Upload New Picture</label>
+                        <input type="file" id="profile_picture" name="profile_picture" accept="image/*" onchange="previewImage(this)">
+                        <p class="file-info">Supported: PNG, JPG, JPEG, GIF</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Personal Information</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" id="first_name" name="first_name" 
+                               value="{{ profile.first_name or '' }}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="middle_name">Middle Name</label>
+                        <input type="text" id="middle_name" name="middle_name" 
+                               value="{{ profile.middle_name or '' }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" id="last_name" name="last_name" 
+                               value="{{ profile.last_name or '' }}" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" 
+                               value="{{ profile.email or '' }}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact_number">Contact Number</label>
+                        <input type="tel" id="contact_number" name="contact_number" 
+                               value="{{ profile.contact_number or '' }}" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Police Information</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="badge_number">Badge Number</label>
+                        <input type="text" id="badge_number" name="badge_number" 
+                               value="{{ profile.badge_number or '' }}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="rank">Rank</label>
+                        <select id="rank" name="rank">
+                            <option value="">Select Rank</option>
+                            <option value="Police Officer I" {{ 'selected' if profile.rank == 'Police Officer I' }}>Police Officer I</option>
+                            <option value="Police Officer II" {{ 'selected' if profile.rank == 'Police Officer II' }}>Police Officer II</option>
+                            <option value="Police Officer III" {{ 'selected' if profile.rank == 'Police Officer III' }}>Police Officer III</option>
+                            <option value="Senior Police Officer I" {{ 'selected' if profile.rank == 'Senior Police Officer I' }}>Senior Police Officer I</option>
+                            <option value="Senior Police Officer II" {{ 'selected' if profile.rank == 'Senior Police Officer II' }}>Senior Police Officer II</option>
+                            <option value="Senior Police Officer III" {{ 'selected' if profile.rank == 'Senior Police Officer III' }}>Senior Police Officer III</option>
+                            <option value="Senior Police Officer IV" {{ 'selected' if profile.rank == 'Senior Police Officer IV' }}>Senior Police Officer IV</option>
+                            <option value="Police Master Sergeant" {{ 'selected' if profile.rank == 'Police Master Sergeant' }}>Police Master Sergeant</option>
+                            <option value="Police Chief Master Sergeant" {{ 'selected' if profile.rank == 'Police Chief Master Sergeant' }}>Police Chief Master Sergeant</option>
+                            <option value="Police Executive Master Sergeant" {{ 'selected' if profile.rank == 'Police Executive Master Sergeant' }}>Police Executive Master Sergeant</option>
+                            <option value="Police Lieutenant" {{ 'selected' if profile.rank == 'Police Lieutenant' }}>Police Lieutenant</option>
+                            <option value="Police Captain" {{ 'selected' if profile.rank == 'Police Captain' }}>Police Captain</option>
+                            <option value="Police Major" {{ 'selected' if profile.rank == 'Police Major' }}>Police Major</option>
+                            <option value="Police Lieutenant Colonel" {{ 'selected' if profile.rank == 'Police Lieutenant Colonel' }}>Police Lieutenant Colonel</option>
+                            <option value="Police Colonel" {{ 'selected' if profile.rank == 'Police Colonel' }}>Police Colonel</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="station">Station</label>
+                        <input type="text" id="station" name="station" 
+                               value="{{ profile.station_assignment or '' }}" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Address Information</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="house_number">House Number</label>
+                        <input type="text" id="house_number" name="house_number" 
+                               value="{{ profile.house_no or '' }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="street">Street</label>
+                        <input type="text" id="street" name="street" 
+                               value="{{ profile.street or '' }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="barangay">Barangay</label>
+                        <select id="barangay" name="barangay">
+                            <option value="" disabled selected>Select a barangay</option>
+                            {% if profile.barangay %}
+                            <option value="{{ profile.barangay }}" selected>{{ profile.barangay }}</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="region">Region</label>
+                        <select id="region" name="region" onchange="populateProvinces()">
+                            <option value="" disabled selected>Select a region</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="province">Province</label>
+                        <select id="province" name="province" onchange="populateCities()">
+                            <option value="" disabled selected>Select a province</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <select id="city" name="city" onchange="populateBarangays()">
+                            <option value="" disabled selected>Select a city/municipality</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="address">Complete Address</label>
+                        <textarea id="address" name="address" rows="3" 
+                                  placeholder="Complete address">{{ profile.address or '' }}</textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Change Password</h2>
+                <p style="color: #666; font-size: 14px; margin-bottom: 15px;">Leave blank to keep current password</p>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="current_password">Current Password</label>
+                        <input type="password" id="current_password" name="current_password" 
+                               placeholder="Enter current password">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="new_password">New Password</label>
+                        <input type="password" id="new_password" name="new_password" 
+                               placeholder="Enter new password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm New Password</label>
+                        <input type="password" id="confirm_password" name="confirm_password" 
+                               placeholder="Confirm new password">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="save-btn">Save Changes</button>
+                <a href="{{ url_for('police_dashboard') }}" class="cancel-btn">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('profile_picture');
+    const preview = document.getElementById('current-pic');
+
+    input.addEventListener('change', function() {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result; // update image preview
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    });
+});
+</script>
+<script src="{{ url_for('static', filename='Javascript/registration/address.js') }}"></script>
+<script>
+// Initialize dropdowns and set current values when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    const regionSelect = document.getElementById('region');
+    const provinceSelect = document.getElementById('province');
+    const citySelect = document.getElementById('city');
+
+    // Populate regions using the addressData from address.js
+    if (regionSelect && typeof addressData !== 'undefined') {
+        for (let region in addressData) {
+            let option = document.createElement('option');
+            option.value = region;
+            option.text = region;
+            regionSelect.add(option);
+        }
+    }
+
+    // Get current values from profile data
+    const currentRegion = '{{ profile.region if profile and profile.region else "" }}';
+    const currentProvince = '{{ profile.province if profile and profile.province else "" }}';
+    const currentCity = '{{ profile.city if profile and profile.city else "" }}';
+
+    // Pre-populate address fields if we have current values
+    if (currentRegion) {
+        regionSelect.value = currentRegion;
+        populateProvinces();
+        
+        if (currentProvince) {
+            setTimeout(() => {
+                provinceSelect.value = currentProvince;
+                populateCities();
+                
+                if (currentCity) {
+                    setTimeout(() => {
+                        citySelect.value = currentCity;
+                    }, 100);
+                }
+            }, 100);
+        }
+    }
+});
+
+function populateProvinces() {
+    const regionSelect = document.getElementById('region');
+    const provinceSelect = document.getElementById('province');
+    const citySelect = document.getElementById('city');
+    const selectedRegion = regionSelect.value;
+
+    provinceSelect.innerHTML = '<option value="" disabled>Select a province</option>';
+    citySelect.innerHTML = '<option value="" disabled>Select a city/municipality</option>';
+
+    if (selectedRegion && typeof addressData !== 'undefined' && addressData[selectedRegion]) {
+        const provinces = Object.keys(addressData[selectedRegion]);
+        provinces.forEach(province => {
+            let option = document.createElement('option');
+            option.value = province;
+            option.text = province;
+            provinceSelect.add(option);
+        });
+    }
+}
+
+function populateCities() {
+    const regionSelect = document.getElementById('region');
+    const provinceSelect = document.getElementById('province');
+    const citySelect = document.getElementById('city');
+    const barangaySelect = document.getElementById('barangay');
+    const selectedRegion = regionSelect.value;
+    const selectedProvince = provinceSelect.value;
+
+    citySelect.innerHTML = '<option value="" disabled>Select a city/municipality</option>';
+    if (barangaySelect) {
+        barangaySelect.innerHTML = '<option value="" disabled>Select a barangay</option>';
+    }
+
+    if (selectedProvince && typeof addressData !== 'undefined' && addressData[selectedRegion] && addressData[selectedRegion][selectedProvince]) {
+        const provinceData = addressData[selectedRegion][selectedProvince];
+        
+        // Check if province data is an object (with barangays) or array (without barangays)
+        if (typeof provinceData === 'object' && !Array.isArray(provinceData)) {
+            // Province has cities with barangays
+            const cities = Object.keys(provinceData);
+            cities.forEach(city => {
+                let option = document.createElement('option');
+                option.value = city;
+                option.text = city;
+                citySelect.add(option);
+            });
+        } else if (Array.isArray(provinceData)) {
+            // Province has cities without barangays (old format)
+            provinceData.forEach(city => {
+                let option = document.createElement('option');
+                option.value = city;
+                option.text = city;
+                citySelect.add(option);
+            });
+        }
+    }
+}
+
+function populateBarangays() {
+    const regionSelect = document.getElementById('region');
+    const provinceSelect = document.getElementById('province');
+    const citySelect = document.getElementById('city');
+    const barangaySelect = document.getElementById('barangay');
+    const selectedRegion = regionSelect.value;
+    const selectedProvince = provinceSelect.value;
+    const selectedCity = citySelect.value;
+
+    if (!barangaySelect) return;
+
+    barangaySelect.innerHTML = '<option value="" disabled>Select a barangay</option>';
+
+    if (selectedCity && addressData[selectedRegion] && addressData[selectedRegion][selectedProvince]) {
+        const provinceData = addressData[selectedRegion][selectedProvince];
+        
+        // Check if province data has barangays for this city
+        if (typeof provinceData === 'object' && !Array.isArray(provinceData) && provinceData[selectedCity]) {
+            const barangays = provinceData[selectedCity];
+            barangays.forEach(barangay => {
+                let option = document.createElement('option');
+                option.value = barangay;
+                option.text = barangay;
+                barangaySelect.add(option);
+            });
+        }
+    }
+}
+</script>
+</body>
+</html>

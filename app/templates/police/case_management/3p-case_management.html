@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+<link rel="stylesheet" href="static/css/police/3p-case_management.css" media="screen">
+<link rel="stylesheet" href="static/css/police/field_report_enhancements.css" media="screen">
+<link rel="stylesheet" href="static/css/police/case-print.css">
+<link rel="stylesheet" href="static/css/police/case-filter.css" media="screen">
+<link rel="stylesheet" href="static/css/police/case-management-print.css" media="print">
+<link rel="stylesheet" href="static/css/police/image-modal.css" media="screen">
+<link rel="stylesheet" href="static/css/police/modern-case-modal.css" media="screen">
+<link rel="stylesheet" href="static/css/police/edit-case-modal.css" media="screen">
+    <title>Police Case Management - Onlook</title>
+    <link rel="stylesheet" href="static/css/responsive-fixed.css">
+    {% include 'includes/global_messages.html' %}
+</head>
+<body>
+
+{% include 'includes/loading_screen.html' %}
+{% include 'includes/flash_messages.html' %}
+<!--######################################################-->
+<!--############### P O L I C E  V I E W   ###############-->
+<!--######################################################-->
+
+<div class="base">
+    <div class="base_frame">
+
+            <!--#######################################-->
+            <!--########  S E A R C H  B A R  #########-->
+            <!--#######################################-->
+            <div class="search_frame">
+        </div>
+    </div>
+    <div class="main_case_management_frame">
+        <div class="table_frame">
+            <div class="management_line"></div>
+            <div class="case_management_text_frame">
+                <h1>Case Management</h1>
+            </div>
+            <div class="management_another_text">
+                <p>This section displays crime-related cases automatically converted from validated field reports. Direct entry is restricted to ensure proper verification.</p>
+            </div>
+
+            <div class="filter_frame">
+                <div class="filter_controls">
+                    <div class="filter_group">
+                        <label>Case Status:</label>
+                        <select id="status-filter">
+                            <option value="">All Status</option>
+                            <option value="Open" {{ 'selected' if status_filter == 'Open' else '' }}>Open</option>
+                            <option value="In Progress" {{ 'selected' if status_filter == 'In Progress' else '' }}>In Progress</option>
+                            <option value="Closed" {{ 'selected' if status_filter == 'Closed' else '' }}>Closed</option>
+                            <option value="Cold Case" {{ 'selected' if status_filter == 'Cold Case' else '' }}>Cold Case</option>
+                        </select>
+                    </div>
+                    <div class="filter_group">
+                        <label>From Date:</label>
+                        <input type="date" id="from-date" value="{{ from_date }}">
+                    </div>
+                    <div class="filter_group">
+                        <label>To Date:</label>
+                        <input type="date" id="to-date" value="{{ to_date }}">
+                    </div>
+                    <div class="filter_group">
+                        <button class="generate-btn">Generate</button>
+                        <button class="print-table-btn" onclick="openCasePrintModal()">Print Table</button>
+                        <button type="button" class="view-archived-btn" id="toggle-archived-btn" onclick="toggleArchivedCases()">
+                            View Archived
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="management_background">
+                <div class="management_subframe">
+        
+                    <div class="table_responsive" style="height: 400px; overflow: auto; display: block;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Case #</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Priority</th>
+                                    <th>Assigned To</th> 
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if reports %}
+                                    {% for report in reports %}
+                                    <tr class="clickable-row" data-case-id="{{ report.case_id }}">
+                                        <td>{{ report.case_id }}</td>
+                                        <td>{{ report.full_name }}</td>
+                                        <td>
+                                            {% if  report.case_status == 'Open' or report.case_status == 'open'%}
+                                            Open
+                                            {% else %}
+                                            {{ report.case_status }}
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ report.priority }}</td>
+                                        <td class="assignment-cell">
+                                            <div class="assigned-officer-display">
+                                                <span class="assigned-officer-name">
+                                                    {{ report.assigned_officer if report.assigned_officer else 'Unassigned' }}
+                                                </span>
+                                                {% if user_role == 'policeChief' %}
+                                                <select class="officer-dropdown" data-case-id="{{ report.case_id }}">
+                                                    <option value="">{{ 'Change Assignment' if report.assigned_officer else 'Assign Officer' }}</option>
+                                                    {% for officer in officers %}
+                                                    <option value="{{ officer.officer_id }}" {{ 'selected' if officer.officer_id == report.assigned_officer_id else '' }}>
+                                                        {{ officer.rank }} {{ officer.last_name }} {{ officer.first_name }}
+                                                    </option>
+                                                    {% endfor %}
+                                                    {% if officers|length == 0 %}
+                                                    <option value="">No officers found</option>
+                                                    {% endif %}
+                                                </select>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td class="action-cell">
+                                            <div class="kebab-menu">
+                                                <button class="kebab-btn" data-case-id="{{ report.case_id }}"></button>
+                                                <div class="kebab-dropdown" id="kebab-{{ report.case_id }}">
+                                                    <a href="#" data-action="view" data-case-id="{{ report.case_id }}">View Details</a>
+                                                    <a href="#" data-action="edit" data-case-id="{{ report.case_id }}">Edit</a>
+                                                    <a href="#" data-action="archive" data-case-id="{{ report.case_id }}">Archive</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6" style="text-align: center; padding: 20px; color: #666;">
+                                            No reports found
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>  
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="table-info" >
+                Showing {{ (case_page - 1 ) * case_per_page + 1 }}
+                -
+                {{ (case_page - 1) * case_per_page + reports|length }}
+                of {{ total_records }} entries
+            </div>
+
+            {% set filter_qs %}{% if status_filter %}&status={{ status_filter }}{% endif %}{% if from_date %}&from_date={{ from_date }}{% endif %}{% if to_date %}&to_date={{ to_date }}{% endif %}{% if show_archived %}&show_archived=true{% endif %}{% endset %}
+            <div class="pagination-controls">
+                {% if case_page > 1 %}
+                <a href="?case_page=1&case_per_page={{ case_per_page }}{{ filter_qs }}">&laquo;</a>
+                <a href="?case_page={{ case_page - 1}}&case_per_page={{ case_per_page }}{{ filter_qs }}">&lsaquo;</a>
+                {% endif %}
+
+                {% for p in range (1, total_pages + 1) %}
+                <a href="?case_page={{ p }}&case_per_page={{ case_per_page }}{{ filter_qs }}"
+                class="{{ 'active' if p == case_page else ''}}">
+                    {{ p }}
+                </a>
+                {% endfor %}
+
+                {% if case_page < total_pages %}
+                <a href="?case_page={{ case_page + 1 }}&case_per_page={{ case_per_page }}{{ filter_qs }}">&rsaquo;</a>
+                <a href="?case_page={{ total_pages }}&case_per_page={{ case_per_page }}{{ filter_qs }}">&raquo;</a>
+                {% endif %}
+
+                <select id="case-management-rows-per-page" name="case_per_page">
+                    <option value="5" {% if case_per_page == 5 %} selected {% endif %}>5</option>
+                    <option value="10" {% if case_per_page == 10 %} selected {% endif %}>10</option>
+                    <option value="20" {% if case_per_page == 20 %} selected {% endif %}>20</option>
+                    <option value="50" {% if case_per_page == 50 %} selected {% endif %}>50</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+
+{% include 'police/case_management/case_details_modal.html' %}
+{% include 'police/case_management/image_modal.html' %}
+{% include 'police/case_management/edit_case_modal.html' %}
+
+<!-- Print Modal -->
+<div id="casePrintModal" class="print-modal">
+    <div class="print-modal-content">
+        <div class="print-modal-header">
+            <h2>Print Case Management</h2>
+            <span class="print-modal-close" onclick="closeCasePrintModal()">&times;</span>
+        </div>
+        <div class="print-modal-body">
+            <div class="form-group">
+                <label for="casePreparedBy">Prepared By:</label>
+                <select id="casePreparedBy" required>
+                    <option value="">Select Officer</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="caseApprovedBy">Approved By:</label>
+                <select id="caseApprovedBy" required>
+                    <option value="">Select Officer</option>
+                </select>
+            </div>
+        </div>
+        <div class="print-modal-footer">
+            <button class="btn-cancel" onclick="closeCasePrintModal()">Cancel</button>
+            <button class="btn-confirm" onclick="confirmCasePrint()">Print</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Make reports data available to JavaScript
+window.reportsData = {{ reports | tojson }};
+window.userRole = "{{ user_role }}";
+</script>
+<script src="static/Javascript/loading_screen.js"></script>
+<script src="static/Javascript/session_manager.js"></script>
+<script src="static/Javascript/police/case_management/table-print.js"></script>
+<script src="static/Javascript/police/case_management/case-management.js"></script>
+<script src="static/Javascript/police/case_management/case-image-archive.js"></script>
+<script src="static/Javascript/police/case_management/case-details-display.js"></script>
+<script src="static/Javascript/police/case_management/case-management-kebab.js?v=5"></script>
+<script src="static/Javascript/police/case_management/case-management-notifications.js"></script>
+<script src="static/Javascript/police/case_management/show-archived-cases.js"></script>
+<script src="static/Javascript/police/pagination.js"></script>
+</body>
+</html>

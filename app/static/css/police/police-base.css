@@ -1,0 +1,376 @@
+/*##############################################*/
+/*################# R E S E T ##################*/
+/*##############################################*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/*##############################################*/
+/*######### R E G U L A R  F O N T S ###########*/
+/*##############################################*/
+@font-face {
+    font-family: "SF_BLACK";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK.otf);
+}
+@font-face {
+    font-family: "SF_BOLD";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BOLD.OTF);
+}
+@font-face {
+    font-family: "SF_MEDIUM";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_MEDIUM.OTF);
+}
+@font-face {
+    font-family: "SF_REGULAR";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_REGULAR.OTF);
+}
+
+/*############## ITL = ITALIC ################*/
+@font-face { 
+    font-family: "SF_SEMIBOLD_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_SEMI_BOLD_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_BLACK_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_HEAVY_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_HEAVY_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_LIGHT_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_LIGHT_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_THIN_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_THIN_ITL.OTF);
+}
+
+
+
+/*##############################################*/
+/*############### L A Y O U T ##################*/
+/*##############################################*/
+
+/* BODY */
+body{
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* BASE */
+.base,
+.base-frame{
+    height: 100vh;
+    width: 100%;
+}
+
+.mid{
+    display: flex;
+    height: 100%;
+}
+
+
+/*##############################################*/
+/*############### S I D E B A R ################*/
+/*##############################################*/
+
+.sidebar{
+    width: 260px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    transition: 0.3s;
+    overflow: hidden;
+    background-color: white;
+}
+
+
+/*##############################################*/
+/*################# T O P ######################*/
+/*##############################################*/
+
+.sidebar-top{
+    padding: 20px 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* LOGO (NO CLICK / NO HOVER) */
+.onlook-logo{
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.onlook-logo img{
+    width: 150px;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* BURGER */
+.burger{
+    margin-left: 10px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.burger span{
+    display: block;
+    height: 4px;
+    background: #1A1B41;
+    margin: 5px 0;
+    border-radius: 2px;
+}
+
+
+/*##############################################*/
+/*############### M E N U ######################*/
+/*##############################################*/
+
+/* WRAPPER */
+.sidebar > div:not(.sidebar-top):not(.sidebar-bottom){
+    width: 100%;
+}
+
+/* LINKS */
+.sidebar div a{
+    display: block;
+    padding: 14px;
+    margin: 5px 0;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    font-family: SF_MEDIUM;
+    border-radius: 8px;
+    transition: 0.25s;
+}
+
+/* HOVER */
+.sidebar div a:hover{
+    background: #1A1B41;
+    color: #fff;
+    transform: translateX(5px);
+    font-family: SF_BOLD;
+}
+
+/* ACTIVE */
+.sidebar div a.active{
+    background: #1A1B41;
+    color: #fff;
+    font-family: SF_BOLD;
+}
+
+/* DIVIDER */
+.bottom-line{
+    height: 1px;
+    background: #ddd;
+    margin: 10px 0;
+}
+
+
+/*##############################################*/
+/*############### C O L L A P S E ##############*/
+/*##############################################*/
+
+.sidebar.collapsed{
+    width: 70px;
+}
+
+.sidebar.collapsed div a{
+    font-size: 0;
+    padding: 12px 5px;
+}
+
+.sidebar.collapsed div a::after{
+    content: "•";
+    font-size: 18px;
+    color: #333;
+}
+
+.sidebar.collapsed .onlook-logo{
+    display: none;
+}
+
+
+/*##############################################*/
+/*############### P R O F I L E ################*/
+/*##############################################*/
+
+.sidebar-bottom{
+    margin-top: auto;
+}
+
+.profile{
+    position: relative;
+}
+
+.profile-btn{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    border: none;
+    background: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.profile-btn:hover{
+    background: #f0f0f0;
+}
+
+#profile-pic{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.profile-name{
+    flex: 1;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.profile-arrow{
+    font-size: 16px;
+}
+
+/* DROPDOWN */
+.profile-menu{
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    display: none;
+    overflow: hidden;
+}
+
+.profile-menu.active{
+    display: block;
+}
+
+.profile-menu a{
+    padding: 12px;
+    font-size: 14px;
+    font-family: SF_MEDIUM;
+}
+
+.profile-menu a:hover{
+    background: #f5f5f5;
+    font-family: SF_BOLD;
+}
+
+
+/*##############################################*/
+/*############### C O N T E N T ################*/
+/*##############################################*/
+
+.content{
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+
+/*##############################################*/
+/*############### M O D A L ####################*/
+/*##############################################*/
+
+.logout-modal{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.logout-modal.active{
+    display: flex;
+    z-index: 99998;
+}
+
+.logout-box{
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 99999;
+}
+
+.logout-box p{
+    margin: 0 0 10px 0;
+}
+
+.logout-actions{
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cancel-btn,
+.confirm-btn{
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: SF_MEDIUM;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.cancel-btn{
+    background: #ddd;
+}
+
+.confirm-btn{
+    background: #e74c3c;
+    color: #fff;
+}
+        
+.confirm-btn:hover,
+.confirm-btn:focus,
+.confirm-btn:active{
+    text-decoration: none;
+    outline: none;
+}
+
+
+/*##############################################*/
+/*########### N O T I F I C A T I O N ##########*/
+/*##############################################*/
+
+.notification-badge {
+    display: inline-block;
+    background: #e74c3c;
+    color: #fff !important;
+    border-radius: 50%;
+    padding: 2px 7px;
+    font-size: 12px;
+    font-family: SF_BOLD;
+    margin-left: 6px;
+    vertical-align: middle;
+    min-width: 20px;
+    text-align: center;
+    line-height: 1.4;
+}

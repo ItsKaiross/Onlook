@@ -1,0 +1,6821 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+/*##############################################*/
+/*######### R E G U L A R  F O N T S ###########*/
+/*##############################################*/
+
+
+@font-face { 
+    font-family: "SF_BLACK";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK.otf);
+}
+@font-face {
+    font-family: "SF_BOLD";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BOLD.OTF);
+}
+@font-face {
+    font-family: "SF_MEDIUM";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_MEDIUM.OTF);
+}
+@font-face {
+    font-family: "SF_REGULAR";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_REGULAR.OTF);
+}
+
+/*############## ITL = ITALIC ################*/
+@font-face { 
+    font-family: "SF_SEMIBOLD_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_SEMI_BOLD_ITL.OTF);
+}  
+@font-face {
+    font-family: "SF_BLACK_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_HEAVY_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_HEAVY_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_LIGHT_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_LIGHT_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_THIN_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_THIN_ITL.OTF);
+}
+
+/*############################################*/
+/*#########  D E S I G N  C O D E  ###########*/
+/*############################################*/
+
+
+
+/*###############################*/
+/*#########  B O D Y  ###########*/
+/*###############################*/
+
+body{
+    overflow-x: hidden;
+    height:100vh;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+    background-color: white;
+    color: black;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+
+
+/*##########################################*/
+/*###############  B A S E  ################*/
+/*##########################################*/
+
+.base{
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background: white;
+}
+
+.base.disabled{
+    pointer-events: none;
+    user-select: none;
+    opacity: .5;
+}
+
+/*##########################################*/
+/*#########  B A S E  F R A M E  ###########*/
+/*##########################################*/
+
+.base_frame {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+
+/*##########################################*/
+/*#########  L O G O  F R A M E  ###########*/
+/*##########################################*/
+
+.public_logo_frame{
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    padding: 18px 32px 8px 32px;
+}
+
+.public_logo_frame img {
+    height: 70px;
+    width: auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* MAS MALALIM NA SHADOW (STACKED) */
+.public_logo_frame img:hover {
+    transform: scale(1.05);
+    filter: 
+        drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35))
+        drop-shadow(0 12px 20px rgba(0, 0, 0, 0.25));
+}
+
+/*##########################################*/
+/*#######  R I G H T  F R A M E  ###########*/
+/*##########################################*/
+.right_frame {
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.right-menu{
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    align-items: center;
+}
+
+.right-menu-btn{
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.right-menu-btn span {
+    position: absolute;
+    width: 35px;
+    height: 4px;
+    background-color: #2d3748;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.right-menu-btn span:nth-child(1) { top: 12px; }
+.right-menu-btn span:nth-child(2) { top: 23px; }
+.right-menu-btn span:nth-child(3) { top: 34px; }
+
+.right-menu.open .right-menu-btn span:nth-child(1) {
+    top: 23px;           
+    transform: rotate(45deg);
+}
+
+.right-menu.open .right-menu-btn span:nth-child(2) {
+    opacity: 0;           
+}
+
+.right-menu.open .right-menu-btn span:nth-child(3) {
+    top: 23px;             
+    transform: rotate(-45deg);
+}
+
+.right-menu-btn:hover{
+    background: rgba(108, 117, 125, 0.1);
+    border-radius: 6px;
+}
+
+.right-menu-btn::before{
+    color: #2d3748;
+}
+
+.right-menu-dropdown{
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    z-index: 1000;
+    min-width: 180px;
+    overflow: hidden;
+}
+.right-menu.open .right-menu-dropdown {
+    display: block;
+}
+
+.right-menu-dropdown a{
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    font-family: SF_REGULAR;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s;
+}
+
+.right-menu-dropdown a {
+    display: block;
+    padding: 12px 16px;
+    color: #2d3748;
+    text-decoration: none;
+}
+
+.right-menu-dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+.login-or-sign-up{
+    border-radius: 20px;
+    padding: 10px 30px;
+    cursor: pointer;
+    background-color: #0f1633;
+    color: white;
+    font-family: SF_BOLD;
+    border: none;
+}
+
+.login-or-sign-up:hover{
+    background-color: white;
+    color: #0f1633;
+    border: 2px solid #0f1633;
+    transition: 0.3s ease;
+}
+
+.edit-profile-menu{
+    cursor: pointer;
+}
+
+.right-login-btn{
+    padding-top: 40px;
+}
+
+
+/*##########################################*/
+/*#######  P I C T U R E  F R A M E  #######*/
+/*##########################################*/
+
+
+.picture_frame {
+    position: relative;
+    width: 100%;
+    min-height: 700px;
+    height: 370px;
+    max-height: 750px;
+    overflow: hidden;
+    margin-top: 50px;
+}
+
+
+
+/*##########################################*/
+/*###  P I C T U R E  F R A M E  I M G  ####*/
+/*##########################################*/
+
+.picture_frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    padding: 0;
+
+}
+
+
+/*##########################################*/
+/*###  P I C T U R E T E X T  F R A M E  ###*/
+/*##########################################*/
+
+.picture_text_frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+    width: 100%;
+}
+
+
+/*##############################################*/
+/*###  P I C T U R E  T E X T  F R A M E  1  ###*/
+/*##############################################*/
+
+
+.picture_text_frame h1 {
+    padding-top: 300px;
+    color: #fff;
+    font-size: 90px;
+    font-family: SF_BLACK;
+    text-align: center;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+
+
+
+
+
+/*##########################################*/
+/*#######  S O C I A L S  F R A M E  #######*/
+/*##########################################*/
+
+.social_frame {
+    position: fixed;
+    top: 30%;
+    right: 10px;
+    background: #1A1B41;
+    border-radius: 10px;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+
+
+/*##########################################*/
+/*##  S O C I A L  I M A G E  F R A M E  ###*/
+/*##########################################*/
+
+.social_frame img {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.social_frame img:hover {
+    transform: scale(1.15);
+}
+
+
+
+/*##########################################*/
+/*####  M I D D L E  B A R F R A M E   #####*/
+/*##########################################*/
+
+.middlebar_frame {
+    height: 85px;
+    width: 100%;
+    background: linear-gradient(to right, #f5f7fa, #eef3ff);
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    position: relative;
+    z-index: 10;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+/* TOP BLUE LINE */
+.middlebar_frame::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #1A1B41, #0047AB, #1A1B41);
+}
+
+/*##########################################*/
+/*###  M I D D L E  B A R F R A M E  A   ###*/
+/*##########################################*/
+
+.middlebar_frame a {
+    flex: 1 1 0;
+    text-align: center;
+    font-size: 20px;
+    color: #2d3748;
+    text-decoration: none;
+    margin: 0;
+    font-family: SF_BOLD;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s ease;
+    letter-spacing: 0.8px;
+}
+
+/* LIGHT ANIMATION EFFECT */
+.middlebar_frame a::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.25);
+    transform: skewX(-25deg);
+    transition: .6s;
+}
+
+.middlebar_frame a:hover::before{
+    left: 120%;
+}
+
+/* BOTTOM LINE EFFECT */
+.middlebar_frame a::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0%;
+    height: 6px;
+    background: #1A1B41;
+    border-radius: 10px;
+    transition: all .3s ease;
+    transform: translateX(-50%);
+}
+
+/*##########################################*/
+/*############# H O V E R ##################*/
+/*##########################################*/
+
+.middlebar_frame a:hover {
+    background: #1A1B41;
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: inset 0 -3px 10px rgba(255,255,255,0.1);
+}
+
+.middlebar_frame a:hover::after{
+    width: 100%; 
+    height: 7px;
+    background: #BD1310; 
+}
+
+/*##########################################*/
+/*########  A C T I V E  M E N U  ##########*/
+/*##########################################*/
+
+.middlebar_frame a.active {
+    background: #1A1B41; 
+    color: #ffffff;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.middlebar_frame a.active::after{
+    width: 100%;
+    height: 7px;
+    background: #BD1310; 
+}
+
+
+/*#########################################################################*/
+/*##########################  M I S S I N G  L I S T  #####################*/
+/*#########################################################################*/
+
+/*##########################################*/
+/*### M I S S I N G P E R S O M F R A M E ##*/
+/*##########################################*/
+
+
+.missing_person_frame{
+        position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 80px 0 30px 0;
+    align-items: center;    
+    box-sizing: border-box;
+
+}
+
+
+
+
+/*##########################################*/
+/*### M I S S I N G P E R S O N T E X T ####*/
+/*##########################################*/
+
+.missing_person_text_frame{
+    width: 100%;
+}
+
+.missing_person_text h1{
+    display: inline-block;
+    margin: 0 0 32px 0;
+    padding: 17px 36px 17px 36px;
+    background: #1A1B41;
+    font-family: SF_BLACK;
+    color: #FFFFFF;
+    font-size: 25px;
+    border-radius: 14px;
+
+}
+
+
+
+/*##########################################*/
+/*####### M I S S I N G  F R A M E #########*/
+/*##########################################*/
+.missing_person_list_frame {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start; 
+    gap: 25px;
+    width: 100%;
+    margin-top: 50px;
+    margin-left: 0;
+    flex-wrap: nowrap; 
+    box-sizing: border-box;
+    overflow-x: auto;
+}
+
+
+/*##########################################*/
+/*########## P I C T U R E  C A R D ########*/
+/*##########################################*/
+
+
+.picture_card {
+    width: 340px;
+    min-width: 340px;
+    max-width: 340px;
+    background: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    border-top: 5px solid #C1121F;
+    box-sizing: border-box;
+}
+
+
+
+
+/*##########################################*/
+/*##### P I C T U R E  C A R D  I M G ######*/
+/*##########################################*/
+
+
+.picture_card img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    display: block;
+}
+
+
+
+
+
+/*################################################################################*/
+/*##############################  G E T  H E L P  ################################*/
+/*################################################################################*/
+
+
+/*##########################################*/
+/*####### G E T  H E L P  F R A M E ########*/
+/*##########################################*/
+
+.get_help_frame {
+    width: 100%;
+    margin-top: 80px;
+    margin-left: 30px;
+}
+
+
+
+
+/*##########################################*/
+/*######## G E T  H E L P  L I N E  ########*/
+/*##########################################*/
+
+
+.line{
+    border-top: 10px solid #1A1B41;
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+
+/*##########################################*/
+/*####### L E F T  T E X T F R A M E #######*/
+/*##########################################*/
+
+
+.get_help_left_text h1 {
+    font-size: 50px;
+    font-family: SF_BLACK;
+    color: #000000;
+}
+
+
+
+/*##########################################*/
+/*######### A N O T H E R  F R A M E #######*/
+/*##########################################*/
+
+.another_frame{
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+/*##########################################*/
+/*########### P H O T O  F R A M E ##########*/
+/*##########################################*/
+
+.photo_frame{               
+    background: transparent;
+    width: 500px;
+    height: 640px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+
+/*##########################################*/
+/*###### P H O T O  F R A M E  I M G  ######*/
+/*##########################################*/
+
+
+.photo_frame img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    padding: 40px 20px 40px 20px;
+    display: block;
+}
+
+
+/*##########################################*/
+/*###### G E T H E L P D E T A I L S #######*/
+/*##########################################*/
+
+
+.get_help_details {
+        display: flex;
+    flex-direction: column;
+    justify-content: center;   
+    align-items: flex-start;      
+    min-width: 440px;
+    margin: 0;                    
+    box-sizing: border-box;
+}
+
+/*##########################################*/
+/*###### G E T H E L P D E T A I L S P #####*/
+/*##########################################*/
+.get_help_details p {
+    font-family: 'SF_BOLD';
+    font-size: 40px;
+    color: #818181;
+    margin: 0 0 32px 0;
+
+}
+
+
+.community_another_frame{
+    display: flex;
+    gap: 25px;
+}
+
+
+
+/*##########################################*/
+/*######### H E L P  B U T T O N ###########*/
+/*##########################################*/
+
+
+.help_btn {
+    background: #1A1B41;
+    color: #FFFFFF;
+    font-family: SF_BOLD;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 36px;
+    box-shadow: 0 4px 12px rgba(25,27,60,0.10);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    min-width: 120px;
+    justify-content: center;
+}
+
+
+/*##########################################*/
+/*###### H E L P  B U T T O N  I M G #######*/
+/*##########################################*/
+
+.help_btn_icon img {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+
+
+/*##########################################*/
+/*#### H E L P  B U T T O N  H O V E R #####*/
+/*##########################################*/
+.help_btn:hover {
+    background: #3c3d77;
+    box-shadow: 0 12px 32px rgba(25,27,60,0.18);
+}
+
+
+
+
+
+
+
+
+
+/*################################################################################*/
+/*##############################  C O M M U N I T Y  #############################*/
+/*################################################################################*/
+
+
+
+/*##########################################*/
+/*###### C O M M U N I T Y  F R A M E ######*/
+/*##########################################*/
+
+.community_frame {
+        background: #1A1B41;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0;
+        box-sizing: border-box;         
+}
+
+.community_frame a{
+    text-decoration: none;
+}
+
+
+.community_another_frame{
+    width: 100%;
+    display: flex;
+    align-items: center; 
+    justify-content: flex-start;
+    box-sizing: border-box;
+    margin-left: 300px;
+}
+
+/*##########################################*/
+/*####### C O M M U N I T Y  T E X T #######*/
+/*##########################################*/
+
+.community_text_frame{
+    display: flex;
+    align-items: center; 
+    justify-content: flex-start;
+    gap: 56px; 
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/*##########################################*/
+/*####### C O M M U N I T Y  T E X T P #####*/
+/*##########################################*/
+
+.community_text_frame p {
+    font-family: SF_BOLD;
+    font-size: 40px;
+    color: #fff;
+    padding: 60px 60px 60px 60px;
+    
+}
+
+
+/*##########################################*/
+/*########## B U T T O N  F R A M E  #######*/
+/*##########################################*/
+
+
+.community_btn {
+    background: #FFFFFF;
+    border: none;
+    border-radius: 16px;
+    padding: 10px 32px 10px 22px;
+    font-family: SF_MEDIUM;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s, box-shadow 0.2s;
+    justify-content: center;
+}
+
+
+/*##########################################*/
+/*###### H E L P  B U T T O N  I M G #######*/
+/*##########################################*/
+
+
+.community_btn_icon{
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+}
+
+.community_btn_icon img {
+    width: 18px;
+    height: 18px;
+    display: block;
+    color: #2d3748;
+}
+
+
+
+/*################################################################################*/
+/*##############################  H E L P  U S  F I N D   ########################*/
+/*################################################################################*/
+
+
+/*##########################################*/
+/*############### F R A M E ################*/
+/*##########################################*/
+
+
+
+.help_us_find_frame{
+    margin-top: 50px;
+    margin-left: 80px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+/*##########################################*/
+/*########### H E L P  L I N E #############*/
+/*##########################################*/
+.help_line{
+    border-top: 10px solid #1A1B41;
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+
+
+
+
+
+/*##########################################*/
+/*###### H E L P T E X T  F R A M E ########*/
+/*##########################################*/
+
+.help_us_find_text_frame{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+
+
+.help_us_find_text_frame h1{
+    font-family: SF_BLACK;
+    font-size: 60px;
+    padding: 10px 10px 10px 10px;
+}
+
+
+
+
+/*##########################################*/
+/*###### H E L P  U S  D E T A I L S #######*/
+/*##########################################*/
+
+.help_us_find_details{
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+
+
+.help_us_find_details p {
+    font-size: 30px;
+    font-family: SF_REGULAR;
+    padding: 20px 20px 20px 20px;
+}
+
+
+
+
+/*##########################################*/
+/*###### H E L P U S  B U T T O N   ########*/
+/*##########################################*/
+
+
+.Help_us_find_btn{
+    background: #1A1B41;
+    color: #FFFFFF;
+    font-family: SF_BOLD;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    box-shadow: 0 4px 12px rgba(25,27,60,0.10);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    min-width: 120px;
+    justify-content: center;
+}
+
+
+
+.Help_us_find_btn_icon img{
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+
+
+/*################################################################################*/
+/*###################################  F O O T E R   #############################*/
+/*################################################################################*/
+
+
+/*##########################################*/
+/*############## F O O T E R ###############*/
+/*##########################################*/
+
+
+footer {
+    background: #1A1B41;
+    color: #FFFFFF;
+    width: 100%;
+    padding:  20px;
+    margin-top: 20px;
+}
+
+
+
+/*##########################################*/
+/*##### F O O T E R  T O P  F R A M E ######*/
+/*##########################################*/
+.footer_top_frame {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 1100px;
+    margin: 60px auto;
+    width: 100%;
+    gap: 30px;
+}
+
+
+/*##########################################*/
+/*####### G E T  H E L P F O O T E R #######*/
+/*##########################################*/
+.get_help_footer {
+    padding: 0 24px;
+}
+
+.get_help_footer h1 {
+    font-size: 30px;
+    margin-bottom: 18px;
+    letter-spacing: 0.01em;
+    font-family: SF_BLACK
+}
+
+.get_help_footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.get_help_footer li {
+    font-family: SF_REGULAR;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.get_help_footer li:last-child {
+    margin-bottom: 0;
+}
+
+
+/*##########################################*/
+/*##### C O M M U N I T Y  F O O T E R #####*/
+/*##########################################*/
+
+.community_footer {
+    padding: 0 24px;
+}
+
+.community_footer h1 {
+    font-size: 30px;
+    margin-bottom: 18px;
+    letter-spacing: 0.01em;
+    font-family: SF_BLACK
+}
+
+.community_footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.community_footer li {
+    font-family: SF_REGULAR;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.community_footer li:last-child {
+    margin-bottom: 0;
+}
+
+
+/*##########################################*/
+/*######### A B O U T  F O O T E R #########*/
+/*##########################################*/
+
+.about_footer {
+    padding: 0 24px;
+}
+
+.about_footer h1 {
+    font-size: 30px;
+    margin-bottom: 18px;
+    letter-spacing: 0.01em;
+    font-family: SF_BLACK
+}
+
+.about_footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.about_footer li {
+    font-family: SF_REGULAR;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.about_footer li:last-child {
+    margin-bottom: 0;
+}
+
+
+/*##########################################*/
+/*######### D I V I D E R  L I N E #########*/
+/*##########################################*/
+
+.divider_line {
+    width: 100%;
+    margin: 30px auto 30px auto;
+    max-width: 1000px;
+    border-top: 1px solid #FFFFFF;
+}
+
+
+/*##########################################*/
+/*#### F O O T E R B O T T O M F R A M E ###*/
+/*##########################################*/
+.footer_bottom_frame {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    gap: 30px;
+}
+
+
+/*##########################################*/
+/*######### H E L P  U S  F O O T E R ######*/
+/*##########################################*/
+
+.help_us_footer {
+    padding: 0 24px;
+}
+
+.help_us_footer h1 {
+    font-size: 30px;
+    margin-bottom: 18px;
+    letter-spacing: 0.01em;
+    font-family: SF_BLACK
+}
+
+.help_us_footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.help_us_footer li {
+    font-family: SF_REGULAR;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.help_us_footer li:last-child {
+    margin-bottom: 0;
+}
+
+
+/*##########################################*/
+/*######### A  A N D  P  F O O T E R #######*/
+/*##########################################*/
+
+.A_and_P_footer {
+    padding: 0 24px;
+}
+
+.A_and_P_footer h1 {
+    font-size: 30px;
+    margin-bottom: 18px;
+    letter-spacing: 0.01em;
+    font-family: SF_BLACK
+}
+
+.A_and_P_footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.A_and_P_footer li {
+    font-family: SF_REGULAR;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.A_and_P_footer li:last-child {
+    margin-bottom: 0;
+}
+
+
+/*##########################################*/
+/*######## C O N N E C T F O O T E R #######*/
+/*##########################################*/
+
+.connect_footer {
+    padding: 0 24px;
+}
+
+.connect_footer h1 {
+    font-size: 30px;
+    margin-bottom: 18px;
+    letter-spacing: 0.01em;
+    font-family: SF_BLACK
+}
+
+.connect_footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.connect_footer li {
+    font-family: SF_REGULAR;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.connect_footer li:last-child {
+    margin-bottom: 0;
+}
+
+
+/*##########################################*/
+/*########### L O G O  F R A M E ###########*/
+/*##########################################*/
+
+.logo_frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 32px 0 0 0;
+}
+
+.logo_frame img {
+    width: 32px;
+    height: 32px;
+    opacity: 0.95;
+}
+
+
+/*##########################################*/
+/*########### C O P Y R I G H T  ###########*/
+/*##########################################*/
+
+.copyright_section_frame {
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 20px;
+    margin: 14px 0 36px 0;
+    letter-spacing: 0.01em;
+    line-height: 1.3;
+    font-family: SF_MEDIUM
+}
+
+
+
+
+
+
+
+
+
+
+/*####################################################################################################################*/
+/*########################################################## P O P  U P S ############################################*/
+/*####################################################################################################################*/
+
+
+/*################################################################################*/
+/*################## N O  A C C / W A C C  P O P U P  F R A M E  #################*/
+/*################################################################################*/
+
+
+
+/*##########################################*/
+/*######### F I E L D B U T T O N   ########*/
+/*##########################################*/  
+
+.popup_frame {
+    text-align: center;
+    align-items: center;
+    margin-top: 10px; 
+}
+.report_missing_btn{
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 18px 42px;
+
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(10px);
+
+    color: #ffffff;
+    font-size: 50px;
+    font-family: SF_MEDIUM;
+    letter-spacing: 1px;
+    text-decoration: none;
+
+    border-radius: 24px;
+    border: 2px solid rgba(255,255,255,0.35);
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    text-shadow:
+        0 2px 6px rgba(0,0,0,0.45);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.3);
+
+    transition: 
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+/* GLOW EFFECT */
+.report_missing_btn::after{
+    content: "";
+
+    position: absolute;
+    inset: -3px;
+
+    border-radius: 26px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.6),
+        rgba(255,255,255,0),
+        rgba(255,255,255,0.6)
+    );
+
+    opacity: 0;
+
+    transition: opacity 0.3s ease;
+
+    z-index: -1;
+}
+
+/* SHINE */
+.report_missing_btn::before{
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: -120%;
+
+    width: 60%;
+    height: 100%;
+
+    background: rgba(255,255,255,0.35);
+
+    transform: skewX(-25deg);
+
+    transition: 0.8s;
+}
+
+/* HOVER */
+.report_missing_btn:hover{
+    transform: translateY(-6px) scale(1.04);
+
+    background: rgba(26,27,65,0.85);
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,0.45),
+        0 0 25px rgba(255,255,255,0.25);
+
+    border-color: rgba(255,255,255,0.55);
+}
+
+.report_missing_btn:hover::before{
+    left: 140%;
+}
+
+.report_missing_btn:hover::after{
+    opacity: 1;
+}
+
+/* CLICK */
+.report_missing_btn:active{
+    transform: scale(0.98);
+}
+
+/* FLOATING ANIMATION */
+@keyframes floatBtn{
+    0%{
+        transform: translateY(0px);
+    }
+
+    50%{
+        transform: translateY(-5px);
+    }
+
+    100%{
+        transform: translateY(0px);
+    }
+}
+
+.report_missing_btn{
+    animation: floatBtn 3s ease-in-out infinite;
+}
+/*###############################*/
+/*#########  S T E P  ###########*/
+/*###############################*/
+
+.step{
+    display: none;
+}
+
+.step.active{
+    display: block;
+}
+
+/*###########################################*/
+/*#########  P R O G R E S S  B A R  ########*/
+/*###########################################*/
+
+.progress_container {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.progress_bar {
+    width: 100%;
+    height: 4px;
+    background-color: #e0e0e0;
+    border-radius: 2px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.progress_fill {
+    height: 100%;
+    background-color: #2d3748;
+    width: 20%;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.progress_steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.progress_step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.step_circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    font-family: SF_BOLD;
+    font-size: 13px;
+    margin-bottom: 6px;
+    transition: all 0.3s ease;
+}
+
+.step_label {
+    font-family: SF_REGULAR;
+    font-size: 10px;
+    color: #999;
+
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.progress_step.active .step_circle {
+    background-color: #2d3748;
+    color: white;
+}
+
+.progress_step.active .step_label {
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.progress_step.completed .step_circle {
+    background-color: #28a745;
+    color: white;
+}
+
+.progress_step.completed .step_label {
+    color: #28a745;
+}
+
+/*###########################################*/
+/*#####  A D D R E S S  C H E C K B O X  ####*/
+/*###########################################*/
+
+.address_checkbox_frame {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.address_checkbox_frame input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.address_checkbox_frame label {
+    font-family: SF_REGULAR;
+    font-size: 14px;
+    color: #2d3748;
+    cursor: pointer;
+}
+
+/*###########################################*/
+/*#########  R E V I E W  S T Y L E S  ######*/
+/*###########################################*/
+
+.review_summary {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+}
+
+.review_section {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.review_section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.review_section h3 {
+    color: #2d3748;
+    font-family: SF_BOLD;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.review_section p {
+    margin: 5px 0;
+    font-family: SF_REGULAR;
+    font-size: 14px;
+    color: #495057;
+}
+
+.review_section strong {
+    font-family: SF_BOLD;
+    color: #2d3748;
+}
+
+/*###########################################################*/
+/*#########  R E P O R T  M I S S I N G  P O P U P  #########*/
+/*###########################################################*/
+
+#report-missing-popup{
+    top: -10%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    position: fixed;
+    width: 600px;
+    padding: 20px;
+    transition: all .7 linear;
+    opacity: 1;
+    visibility: hidden;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 2px 2px 12px black;
+    z-index: 4;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+
+/*###############################################*/
+/*####### W A C C  C L O S E  B U T T O N #######*/
+/*###############################################*/
+
+.w-noacc-missing-report-close{
+    font-family: SF_BOLD;
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+
+.w-noacc-missing-report-close2{
+    font-family: sf_bold;
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+.w-noacc-missing-report-close3{
+    font-family: sf_bold;
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+
+.w-noacc-missing-report-close4{
+    font-family: sf_bold;
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+.w-noacc-missing-report-close5{
+    font-family: sf_bold;
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+
+
+.report-missing-txt{
+    font-size: 40px;
+    font-family: SF_BOLD;
+    text-align: center;
+}
+
+
+
+/*################################################################################*/
+/*########################### P  I N F O R M A T I O N  ##########################*/
+/*################################################################################*/
+
+
+/*##########################################*/
+/*################ F N A M E  ##############*/
+/*##########################################*/
+
+.firstName_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.firstName_frame label{
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.firstName_frame .firstNameBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.firstName_frame .firstNameBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.firstName_frame .firstNameBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #2d3748;
+
+}
+
+
+
+/*##########################################*/
+/*################ M N A M E  ##############*/
+/*##########################################*/
+
+.middleName_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.middleName_frame label{
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.middleName_frame .middleNameBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.middleName_frame .middleNameBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.middleName_frame .middleNameBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #2d3748;
+
+}
+
+
+
+
+/*##########################################*/
+/*################ L N A M E  ##############*/
+/*##########################################*/
+
+.lastName_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.lastName_frame label{
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.lastName_frame .lastNameBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.lastName_frame .lastNameBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.lastName_frame .lastNameBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #2d3748;
+
+}
+
+
+
+
+/*##########################################*/
+/*################ S N A M E  ##############*/
+/*##########################################*/
+
+.suffix_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.suffix_frame label{
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.suffix_frame .suffixBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.suffix_frame .suffixBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.suffix_frame .suffixBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #2d3748;
+
+}
+
+
+
+
+
+/*##########################################*/
+/*############ N I C K N A M E  ############*/
+/*##########################################*/
+
+.nickname_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.nickname_frame label{
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.nickname_frame .nicknameBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.nickname_frame .nicknameBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.nickname_frame .nicknameBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #2d3748;
+
+}
+
+
+
+
+/*##########################################*/
+/*#############  G E N D E R  ##############*/
+/*##########################################*/
+
+.gender_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.gender_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.gender_frame select {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.gender_frame select:focus {
+    border-color: #2d3748;
+}
+
+
+
+/*#########################################*/
+/*###############  B I R T H  #############*/
+/*#########################################*/
+
+.dob_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.dob_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.dob_frame .dob-box{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+
+.dob-box input[type="date"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.dob-box input[type="date"]:focus {
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #2d3748;
+}
+
+
+/*#########################################################*/
+/*######### C I T I Z E N  C I V I L  F R A M E  ##########*/
+/*#########################################################*/ 
+
+.civil_citizen_frame{
+    display: flex;
+    width: 100%;
+}
+
+.civilStatus_frame{
+    width: 100%;
+}
+
+.citizenship_frame{
+    width: 100%;
+}
+
+
+.civilStatus_frame label,
+.citizenship_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+.civilStatus_choice select,
+.citizenship_choice select {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    margin-top: 15px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.civilStatus_choice select:focus,
+.citizenship_choice select:focus {
+    border-color: #2d3748;
+}
+
+
+/*##########################################*/
+/*############# C O N T A C T  #############*/
+/*##########################################*/
+
+.contact_number_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.contact_number_frame label{
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.contact_number_frame .contact_numberBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.contact_number_frame .contact_numberBox input[type="tel"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.contact_number_frame .contact_numberBox input[type='tel']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #2d3748;
+
+}
+
+
+
+
+
+
+/*####################################################*/
+/*######## U P L O A D L A B E L  F R A M E  #########*/
+/*####################################################*/ 
+
+.file_upload_frame {
+    width: 100%;
+    margin: auto;
+    margin-top: 15px;
+}
+
+
+.file_upload_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+    display: block;
+    margin-bottom: 8px;
+}
+
+
+.file-upload-box {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: 600px;
+}
+
+.file-upload-box input[type="file"] {
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+}
+
+
+.file-upload-box:hover {
+    border-color: #888;
+    background: #fafafa;
+}
+
+
+#view_files_btn {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: none; 
+}
+
+#view_files_btn:hover {
+    opacity: 0.9;
+    transform: translateY(-3px);
+}
+
+
+.file-preview {
+    margin-top: 12px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 13px;
+    color: #444;
+    display: none;
+}
+
+
+.file-upload-box input[type="file"]::file-selector-button {
+    background-color: #2d3748;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: SF_MEDIUM;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-right: 10px;
+}
+
+
+
+
+
+
+/*##########################################*/
+/*#########  N E X T  B U T T O N  #########*/
+/*##########################################*/
+
+.next_button{
+    margin-top: 5px;
+    background-color: #2d3748;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    float: right;
+    font-family: SF_BOLD;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+
+/*##########################################*/
+/*#########  P R E V  B U T T O N  #########*/
+/*##########################################*/
+
+.prev_button{
+    margin-top: 5px;
+    background-color: #2d3748;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    float: right;
+    font-family:  SF_BOLD;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+/*##############################################*/
+/*#########  S U B M I T  B U T T O N  #########*/
+/*##############################################*/
+
+.submit_button{ 
+    margin-top: 5px;
+    background-color: #2d3748;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    float: right;
+    font-family: SF_BOLD;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+
+
+
+
+
+
+
+/*################################################################################*/
+/*#################################### A D D R E S S #############################*/
+/*################################################################################*/
+
+
+
+
+
+/*##########################################*/
+/*######## A D D R E S S F R A M E  ########*/
+/*##########################################*/
+
+
+.address_frame {
+    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+
+/*##########################################*/
+/*################ H O U S E ###############*/
+/*##########################################*/
+
+.houseNo_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.houseNo_frame label{
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.houseNo_frame .HouseNumberBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.houseNo_frame .HouseNumberBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.houseNo_frame .HouseNumberBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #2d3748;
+
+}
+
+
+
+
+
+
+/*##########################################*/
+/*############## H O U S E N O #############*/
+/*##########################################*/
+
+.houseNo_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.houseNo_frame label{
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.houseNo_frame .HouseNumberBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.houseNo_frame .HouseNumberBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.houseNo_frame .HouseNumberBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #2d3748;
+
+}
+
+
+
+
+
+/*##########################################*/
+/*############## S T R E E T ###############*/
+/*##########################################*/
+
+.street_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.street_frame label{
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.street_frame .streetBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.street_frame .streetBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.street_frame .streetBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #2d3748;
+
+}
+
+
+
+
+
+
+/*##########################################*/
+/*############## S T R E E T ###############*/
+/*##########################################*/
+
+.street_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.street_frame label{
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.street_frame .barangay_frame{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.street_frame .barangay_frame input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.street_frame .barangay_frame input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #2d3748;
+
+}
+
+
+/*##########################################*/
+/*############ B A R A N G A Y  ############*/
+/*##########################################*/
+
+.barangay_frame {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    width: 100%;
+    font-family: 'sf_regular', sans-serif;
+}
+
+
+.barangay_frame label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+
+.BarangayBox {
+    width: 100%;
+}
+
+
+.BarangayBox select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1.5px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    outline: none;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+
+.BarangayBox select:hover {
+    border-color: #888;
+}
+
+.BarangayBox select:focus {
+    border-color: #222;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
+}
+
+
+
+
+/*##########################################*/
+/*#############  R E G I O N  ##############*/
+/*##########################################*/
+
+.region_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.region_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.region_frame select {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.region_frame select:focus {
+    border-color: #2d3748;
+}
+
+
+
+
+/*##########################################*/
+/*########## P R O V I N C E  ##############*/
+/*##########################################*/
+
+.province_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.province_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.province_frame select {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.province_frame select:focus {
+    border-color: #2d3748;
+}
+
+
+
+/*##########################################*/
+/*################  C I T Y  ###############*/
+/*##########################################*/
+
+.city_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.city_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.city_frame select {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.city_frame select:focus {
+    border-color: #2d3748;
+}
+
+
+
+/*################################################################################*/
+/*#################################### H E A L T H ###############################*/
+/*################################################################################*/
+
+
+
+
+/*##########################################*/
+/*######## H E A L T H  F R A M E  #########*/
+/*##########################################*/
+
+
+.health_frame {
+    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+
+
+
+/*##########################################*/
+/*######## H E A L T H  C H O I C E ########*/
+/*##########################################*/
+
+.health_choice {
+    display: flex;
+    justify-content: center;
+}
+
+.health_choice select {
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+}
+
+.health_choice select:focus {
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+/*##########################################*/
+/*######### H E A L T H  T E X T  ##########*/
+/*##########################################*/
+.health_text_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*############### L A B E L ################*/
+/*##########################################*/
+.health_text_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.health_text_frame .healthbox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+
+/*##########################################*/
+/*############ T E X T  A R E A  ###########*/
+/*##########################################*/
+
+.health_text_frame .healthbox textarea {
+    width: 100%;
+    height: 100px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding: 10px;
+    resize: none;
+}
+
+.health_text_frame .healthbox textarea:focus {
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+
+
+/*################################################################################*/
+/*############################### P H Y S I C A L ################################*/
+/*################################################################################*/
+
+
+/*#########################################################*/
+/*############## H A I R  E Y E  F R A M E  ###############*/
+/*#########################################################*/ 
+
+.hair_eye_frame{
+    display: flex;
+    width: 100%;
+}
+
+.hair_frame{
+    width: 100%;
+}
+
+.eye_color_frame{
+    width: 100%;
+}
+
+
+.hair_frame label,
+.eye_color_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+.hairColorBox select,
+.eyeColorBox select {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.hairColorBox select:focus,
+.eyeColorBox select:focus {
+    border-color: #2d3748;
+}
+
+
+/*##########################################*/
+/*######## H E I G H T  F R A M E ##########*/
+/*##########################################*/ 
+
+
+.height_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.height_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.height_frame .heightBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.height_frame .heightBox input[type="number"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.height_frame .heightBox input[type='number']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+/*##########################################*/
+/*########## W E I G H T  F R A M E ########*/
+/*##########################################*/
+
+.weight_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.weight_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+
+.weight_frame .weightBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.weight_frame .weightBox input[type="number"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.weight_frame .eyeweightBoxBox input[type='number']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+/*##########################################*/
+/*##### D I S T I N G U I S H F R A M E ####*/
+/*##########################################*/
+
+.distinguish_mark_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.distinguish_mark_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+
+.distinguish_mark_frame .distinguishBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.distinguish_mark_frame .distinguishBox input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.distinguish_mark_frame .distinguishBox input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+/*##########################################*/
+/*##### D I S T I N G U I S H F R A M E ####*/
+/*##########################################*/
+
+.occupation_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.occupation_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+
+.occupation_frame .occupationBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.occupation_frame .occupationBox input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.occupation_frame .occupationBox input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+/*##########################################*/
+/*######### H E A L T H  T E X T  ##########*/
+/*##########################################*/
+.attire_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*############### L A B E L ################*/
+/*##########################################*/
+.attire_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.attire_frame .attireBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+
+/*##########################################*/
+/*############ T E X T  A R E A  ###########*/
+/*##########################################*/
+
+.attire_frame .attireBox textarea {
+    width: 100%;
+    height: 100px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding: 10px;
+    resize: none;
+}
+
+.attire_frame .attireBox textarea:focus {
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+/*################################################################################*/
+/*########################### W H E R E A B O U T S ##############################*/
+/*################################################################################*/
+
+
+
+/*##########################################*/
+/*###### L A S T  S E E N  F R A M E #######*/
+/*##########################################*/ 
+
+.last_Seen_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*############## L A B E L  ################*/
+/*##########################################*/ 
+
+.last_Seen_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+
+
+.last_Seen_frame .last-seen-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.last_Seen_frame .last-seen-box input[type="date"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.last_Seen_frame .last-seen-box input[type='date']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+/*##########################################*/
+/*####### T I M E  S E E N  F R A M E ######*/
+/*##########################################*/ 
+
+.time_last_seen_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+
+/*##########################################*/
+/*############## L A B E L  ################*/
+/*##########################################*/ 
+
+.time_last_seen_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.time_last_seen_frame .time-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.time_last_seen_frame .time-box input[type="time"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.time_last_seen_frame .time-box input[type='time']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+/*##########################################*/
+/*######### H E A L T H  T E X T  ##########*/
+/*##########################################*/
+.circumstances_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*############### L A B E L ################*/
+/*##########################################*/
+.circumstances_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.circumstances_frame .circumstancesBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+
+/*##########################################*/
+/*############ T E X T  A R E A  ###########*/
+/*##########################################*/
+
+.circumstances_frame .circumstancesBox textarea {
+    width: 100%;
+    height: 100px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding: 10px;
+    resize: none;
+}
+
+.circumstances_frame .circumstancesBox textarea:focus {
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+
+
+/*####################################################*/
+/*######## U P L O A D L A B E L  F R A M E  #########*/
+/*####################################################*/ 
+
+.upload_photo_frame {
+    width: 100%;
+    margin: auto;
+    margin-top: 15px;
+}
+
+
+.upload_photo_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+    display: block;
+    margin-bottom: 8px;
+}
+
+
+.photo-box {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: 600px;
+}
+
+.photo-box input[type="file"] {
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+}
+
+
+.photo-box:hover {
+    border-color: #888;
+    background: #fafafa;
+}
+
+
+#view_last_seen_btn2 {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: none; 
+}
+
+#view_last_seen_btn2:hover {
+    opacity: 0.9;
+    transform: translateY(-3px);
+}
+
+
+.file-preview {
+    margin-top: 12px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 13px;
+    color: #444;
+    display: none;
+}
+
+
+.photo-box input[type="file"]::file-selector-button {
+    background-color: #2d3748;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: SF_MEDIUM;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-right: 10px;
+}
+
+
+/*################################################################################*/
+/*#################################### M A P S ###################################*/
+/*################################################################################*/
+
+
+/*##########################################*/
+/*###### L O C A T I O N  F R A M E  #######*/
+/*##########################################*/ 
+
+.location_frame {
+    width: 100%;
+    margin: 15px auto;
+    display: flex;
+    flex-direction: column; 
+}
+
+
+
+.location-radioButton {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    font-family: SF_BOLD;
+    color: #2d3748;
+    cursor: pointer;
+}
+
+.radiobtn_frame{
+    display: flex;
+    gap: 25px; 
+}
+
+
+
+
+.location_textbox_Frame input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px; 
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    padding-left: 10px;
+    transition: border-color 0.3s;
+    margin-bottom: 10px;
+}
+
+.location_textbox_Frame input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+.location_textbox_Frame input[type="text"]:disabled {
+    background-color: #f5f5f5;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.location_textbox_Frame button{
+    margin-top: 5px;
+    background-color: #2d3748;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    font-family: SF_BOLD;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/*##########################################*/
+/*################## M A P S  ##############*/
+/*##########################################*/
+
+#location {
+    background: linear-gradient(135deg, #1A1B41 0%, #2c2d63 100%);
+    color: white;
+    padding: 16px 18px;
+    border-radius: 10px;
+    margin: 10px 0;
+    font-family: SF_BOLD;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(240, 147, 251, 0.3);
+}
+#location input{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+#map {
+    height: 290px;
+    width: 100%;
+    margin: 5px 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+#map iframe{
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+.location_textbox_Frame {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top:7px;
+}
+
+.location_textbox_Frame img{
+    width: 20px;
+    height: 20px;
+}
+
+.location_textbox_Frame p{
+    font-size: 16px;
+    font-family: SF_REGULAR;
+}
+
+.location_textbox_Frame input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.location_textbox_Frame input:focus {
+    border-color: #2d3748;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+}
+
+#searchBtn {
+    padding: 8px 20px;
+    background: #1A1B41;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+#searchBtn:hover:enabled {
+    background: #2c2d63; 
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(26, 27, 65, 0.4);
+}
+
+#searchBtn:disabled {
+    background: #c4c9d4;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+
+/*################################################################################*/
+/*########################## I N F O R M A T I O N ###############################*/
+/*################################################################################*/
+
+/*##########################################*/
+/*######### F N A M E  F R A M E  ##########*/
+/*##########################################*/ 
+
+.first_name_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*######### F N A M E  L A B E L ###########*/
+/*##########################################*/ 
+.first_name_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.first_name_frame .FirstNamebox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.first_name_frame .FirstNamebox input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.first_name_frame .FirstNamebox input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+/*##########################################*/
+/*######### L N A M E  F R A M E  ##########*/
+/*##########################################*/ 
+
+.Last_Name_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*######### F N A M E  L A B E L  ##########*/
+/*##########################################*/ 
+
+.Last_Name_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.Last_Name_frame .LastNamebox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.Last_Name_frame .LastNamebox input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.Last_Name_frame .LastNamebox input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+/*##########################################*/
+/*######## M I D D L E  F R A M E  #########*/
+/*##########################################*/ 
+
+.Middle_frame {
+    width: 100%;
+    margin: auto;
+}
+
+/*##########################################*/
+/*######### F N A M E  L A B E L  ##########*/
+/*##########################################*/ 
+.Middle_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.Middle_frame .MiddleNamebox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.Middle_frame .MiddleNamebox input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.Middle_frame .MiddleNamebox input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+/*##########################################*/
+/*## R E L A T I O N S H I P  F R A M E  ###*/
+/*##########################################*/ 
+
+.Relationship_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*## R E L A T I O N S H I P  L A B E L  ###*/
+/*##########################################*/ 
+
+.Relationship_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.Relationship_frame .relationshipbox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.Relationship_frame .relationshipbox input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.Relationship_frame .relationshipbox input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+/*##########################################*/
+/*####### C O N T A C T   F R A M E  #######*/
+/*##########################################*/ 
+
+.Contact_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+.Contact_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.Contact_frame .ContactNumberbox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.Contact_frame .ContactNumberbox input[type="tel"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.Contact_frame .ContactNumberbox input[type='tel']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+/*##########################################*/
+/*####### C O N T A C T   F R A M E  #######*/
+/*##########################################*/ 
+
+.email_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+.email_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.email_frame .emailBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.email_frame .emailBox input[type="email"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.email_frame .emailBox input[type='email']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*##########################################*/
+/*####### A D D R E S S  F R A M E  ########*/
+/*##########################################*/ 
+
+.address_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*####### A D D R E S S  L A B E L  ########*/
+/*##########################################*/ 
+
+.address_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+.address_frame .BarangayAddressbox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.address_frame .BarangayAddressbox input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.address_frame .BarangayAddressbox input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+
+
+
+/*################################################################################*/
+/*######## R E P O R T E D M I S S I N G  N O/A C C  A N O T H E R  P O S T ######*/
+/*################################################################################*/
+
+
+.another_popup_frame {
+    text-align: center;
+    align-items: center; 
+}
+
+.reported_missing_person_btn {
+    background-color: #2d3748; 
+    color: #fff;
+    border: none;
+    padding: 25px 0;        
+    cursor: default;
+    width: 400px;         
+    text-align: center;
+    display: block;
+}
+
+.reported_missing_person_btn a {
+    font-family: SF_BOLD;
+    font-size: 30px;
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+.reported_missing_person_btn p {
+    font-size: 16px;
+    color: #ddd;
+    margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+/*############################################################################*/
+/*#########  R E P O R T E D  M I S S I N G  N / A C C  P O P  U P   #########*/
+/*############################################################################*/
+
+.reported-missing-modal {
+    display: none;
+    transition: opacity .7s;
+}
+
+.reported-missing-modal.show{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 4;
+    opacity: 1;
+}
+
+#reported-missing-popup{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 600px;
+    height: auto;
+    max-height: 95vh;
+    overflow: hidden;
+    background-color: #2d3748;
+    border-radius: 10px;
+    box-shadow: 2px 2px 12px black;
+    z-index: 5;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .5s ease;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.reported-missing-modal.show #reported-missing-popup{
+    visibility: visible;
+    opacity: 1;
+}
+
+
+.reported-missing-content {
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+    background: #1A1B41;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+}
+
+
+.reported-missing-close{
+    font-family: SF_BOLD;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+
+.reported-missing-txt{
+    margin-top: 20px;
+    font-size: 30px;
+    color: white;
+    font-family: SF_BOLD;
+    text-align: center;
+}
+
+.reported_frame{
+    flex-direction: column;
+    width: 100%;
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    align-items: center;
+    background: none !important;
+    background-image: none !important;
+    position: relative;
+}
+
+.reported_frame *::before,
+.reported_frame *::after,
+.reported_frame::before,
+.reported_frame::after {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+    background-image: none !important;
+}
+
+.reported_frame .image-gallery {
+    position: relative;
+}
+
+.reported_frame .reported-nav-btn {
+    display: none;
+}
+
+.reported-missing-modal.show .reported-nav-btn{
+    display: flex !important;
+}
+
+.reported_frame img{
+    margin-top: 20px;
+    max-width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    object-fit: cover;
+    display: block !important;
+    background: none !important;
+}
+
+.reported_frame img {
+    display: block !important;
+    max-width: 100% !important;
+    height: 300px !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+    background: none !important;
+    background-image: none !important;
+}
+
+.reported_frame .image-gallery,
+.reported_frame .main-image-container,
+.reported_frame .single-image,
+.reported_frame .fallback-image,
+.reported_frame .no-data-image {
+    background: none !important;
+    background-image: none !important;
+    position: relative !important;
+}
+
+.reported_frame .image-gallery::before,
+.reported_frame .image-gallery::after,
+.reported_frame .main-image-container::before,
+.reported_frame .main-image-container::after {
+    display: none !important;
+    content: none !important;
+}
+
+
+
+/* Reported frame image navigation */
+.reported-image-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    z-index: 10;
+}
+
+.reported-missing-modal.show .reported-nav-btn {
+    display: flex !important;
+}
+
+.reported-image-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+}
+
+.reported-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+.reported-dot.active {
+    background: rgba(255, 255, 255, 1);
+}
+
+.reported-dot:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* Arrow-based image gallery for reported_frame */
+.reported-image-gallery {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.reported-main-image-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+}
+
+.reported-main-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 0;
+}
+
+.reported-nav-btn {
+    position: absolute;
+    top: 110%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    z-index: 10;
+}
+
+.reported-prev-btn {
+    left: 10px;
+}
+
+.reported-next-btn {
+    right: 10px;
+}
+
+.reported-nav-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.reported-image-counter {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: SF_BOLD;
+}
+
+.gallery-nav-btn {
+    position: absolute;
+    top: 110%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    z-index: 10;
+    visibility: hidden;
+    opacity: 1;
+}
+
+.gallery-prev-btn {
+    left: 10px;
+}
+
+.gallery-next-btn {
+    right: 10px;
+}
+
+.gallery-nav-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+/* Show gallery nav buttons when waccount modal is open */
+#reported-missing-waccount-popup .gallery-nav-btn {
+    display: flex !important;
+}
+
+#reported-missing-waccount-popup.show .gallery-nav-btn {
+    display: flex !important;
+}
+
+.waccount-reported-missing-modal .gallery-nav-btn {
+    display: flex !important;
+}
+
+/* Left frame gallery navigation for waccount modal */
+#reported-missing-waccount-popup .left_frame .gallery-nav-btn {
+    display: flex !important;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    z-index: 10;
+}
+
+#reported-missing-waccount-popup .left_frame .gallery-prev-btn {
+    left: 10px;
+}
+
+#reported-missing-waccount-popup .left_frame .gallery-next-btn {
+    right: 10px;
+}
+
+#reported-missing-waccount-popup .left_frame .gallery-nav-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+/* Force show all gallery buttons in waccount modal - always visible */
+#reported-missing-waccount-popup .gallery-nav-btn,
+#reported-missing-waccount-popup .left_frame .gallery-nav-btn,
+#reported-missing-waccount-popup .main-image-container .gallery-nav-btn,
+#reported-missing-waccount-popup .image-gallery .gallery-nav-btn,
+#reported-missing-waccount-popup .single-image-container .gallery-nav-btn,
+.waccount-reported-missing-modal .gallery-nav-btn,
+.waccount-reported-missing-modal .left_frame .gallery-nav-btn {
+    display: flex !important;
+    visibility: hidde !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    top: 70% !important;
+    transform: translateY(-50%) !important;
+    background:  rgba(0, 0, 0, 0.7) !important;
+    color: white !important;
+    border: none !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    font-size: 18px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 99999 !important;
+    pointer-events: auto !important;
+}
+
+/* Force show navigation buttons when modal is open - override any inline styles */
+#reported-missing-waccount-popup.show .gallery-nav-btn,
+#reported-missing-waccount-popup[style*="visibility: visible"] .gallery-nav-btn {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Position buttons correctly */
+#reported-missing-waccount-popup .gallery-prev-btn,
+#reported-missing-waccount-popup .left_frame .gallery-prev-btn {
+    left: 10px !important;
+}
+
+#reported-missing-waccount-popup .gallery-next-btn,
+#reported-missing-waccount-popup .left_frame .gallery-next-btn {
+    right: 10px !important;
+}
+
+/* Gallery dots for waccount modal */
+#reported-missing-waccount-popup .gallery-image-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+}
+
+#reported-missing-waccount-popup .gallery-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+#reported-missing-waccount-popup .gallery-dot.active {
+    background: rgba(255, 255, 255, 1);
+}
+
+#reported-missing-waccount-popup .gallery-dot:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+
+
+
+.flash-message-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #f5c6cb;
+    font-family: SF_REGULAR;
+    font-size: 14px;
+    display: none;
+}
+
+.help_locate_reported_frame {
+    background: white;
+    color: black;
+    border: none;
+    padding: 12px 50px;   
+    font-size: 16px;
+    font-family: SF_BOLD;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    min-width: 250px;     
+    text-align: center;
+}
+
+.help_locate_reported_frame:hover {
+    background: #33365c;
+    color: white;
+}
+
+
+
+
+
+/*##########################################*/
+/*######### D I V I D E R  L I N E #########*/
+/*##########################################*/
+
+.divider_reported_line {
+    width: 100%;
+    margin: 30px auto 30px auto;
+    max-width: 1100px;
+    border-top: 1px solid #FFFFFF;
+}
+
+
+
+.info_reported_frame {
+    display: flex;
+    flex-direction: column;   
+    align-items: flex-start;  
+    justify-content: center;
+    gap: 10px;               
+    margin-top: 20px;
+    border-radius: 10px;    
+    margin-left: auto;
+    margin-right: auto;     
+
+}
+
+
+
+/*##########################################*/
+/*########## F I R S T  N A M E ############*/
+/*##########################################*/
+
+
+.first_name_reported_frame{
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*##### F I R S T  N A M E  L A B E L ######*/
+/*##########################################*/
+
+.first_name_reported_frame label{
+    font-size: 20px;
+    color:white;
+    font-family: SF_BOLD;
+    margin-bottom: 10px;
+}
+
+
+/*##########################################*/
+/*######### N A T I O N A L I T Y ##########*/
+/*##########################################*/
+
+.nationality_reported_frame{
+    width: 100%;
+    margin: auto;
+}
+
+
+
+
+/*##########################################*/
+/*#### N A T I O N A L I T Y  L A B E L ####*/
+/*##########################################*/
+.nationality_reported_frame label{
+    font-size: 20px;
+    color:white;
+    font-family: SF_BOLD;
+    margin-bottom: 10px;
+}
+
+
+/*##########################################*/
+/*######### B I R T H  F R A M E  ##########*/
+/*##########################################*/
+
+.birth_reported_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.birth_reported_frame label{
+    font-size: 20px;
+    color:white;
+    font-family: SF_BOLD;
+    margin-bottom: 10px;
+}
+
+
+
+/*##########################################*/
+/*###### L A S T  S E E N  F R A M E #######*/
+/*##########################################*/
+
+.last_seen_reported_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.last_seen_reported_frame label{
+    font-size: 20px;
+    color:white;
+    font-family: SF_BOLD;
+    margin-bottom: 10px;
+}
+
+
+/*##########################################*/
+/*#### I N F O R MA T I O N  F R A M E #####*/
+/*##########################################*/
+
+.information_reported_frame{
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.information_reported_frame label{
+    font-size: 17px;
+    color:white;
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+}
+
+
+
+
+/*##########################################*/
+/*####### C O N T A C T   F R A M E ########*/
+/*##########################################*/
+.contact_reported_frame{
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.contact_reported_frame label{
+    font-size: 17px;
+    color:white;
+    font-family: SF_BLACK;
+    margin-bottom: 10px;
+}
+
+
+
+
+/*##########################################*/
+/*########## E M A I L  F R A M E #########*/
+/*##########################################*/
+
+.email_reported_frame{
+    width: 100%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.email_reported_frame label{
+    font-size: 20px;
+    color:white;
+    font-family: SF_BOLD;
+    margin-bottom: 10px;
+}
+
+
+
+.divider2_reported_line {
+    width: 100%;
+    margin: 30px auto 30px auto;
+    max-width: 100px;
+    border-top: 3px solid #FFFFFF;
+}
+
+
+
+
+
+
+/*#################################################################################################*/
+/*########################  H E L P  L O C A T E  N  A C C  P O P U P   ###########################*/
+/*#################################################################################################*/
+
+#help-locate-no-acc-popup{
+    top: -10%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    position: fixed;
+    width: 400px;
+    padding: 20px;
+    transition: all .7 linear;
+    opacity: 1;
+    visibility: hidden;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 12px black;
+    z-index: 9;
+    max-height: 90vh;
+overflow-y: auto;
+}
+
+
+#help-locate-no-acc-popup::-webkit-scrollbar{
+    width: 6px;
+}
+
+#help-locate-no-acc-popup::-webkit-scrollbar-thumb{
+    background: rgba(26,27,65,0.35);
+    border-radius: 20px;
+}
+
+#help-locate-no-acc-popup::-webkit-scrollbar-thumb:hover{
+    background: rgba(26,27,65,0.55);
+}
+
+.help-locate-no-acc-modal{
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 6;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .7s linear;
+}
+
+.help-locate-no-acc-close{
+    font-family: SF_BOLD;
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+
+.help-locate-no-acc-close2{
+    font-family: SF_BOLD;
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+
+.help-locate-no-acc-close:hover{
+    color: #2d3748;
+}
+
+.help-locate-no-acc-txt{
+    margin-top: 20px;
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    font-family: SF_BOLD;
+    text-align: center;
+}
+
+
+
+
+/*##########################################*/
+/*######### F  N A M E  L A B E L  #########*/
+/*##########################################*/ 
+
+.email_help_locate_no_acc_frame label {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+.email_help_locate_no_acc_frame .helpEmailBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.email_help_locate_no_acc_frame .helpEmailBox input[type="email"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.email_help_locate_no_acc_frame .helpEmailBox input[type='email']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+/*##########################################*/
+/*######### F  N A M E  L A B E L  #########*/
+/*##########################################*/ 
+
+.first_name_help_locate_no_acc_frame label {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+.first_name_help_locate_no_acc_frame .firstNamebox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.first_name_help_locate_no_acc_frame .firstNamebox input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.first_name_help_locate_no_acc_frame .firstNamebox input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+
+
+/*##########################################*/
+/*######### M  N A M E  L A B E L  #########*/
+/*##########################################*/ 
+
+.middle_name_help_locate_no_acc_frame label {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+.middle_name_help_locate_no_acc_frame .middleNamebox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.middle_name_help_locate_no_acc_frame .middleNamebox input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.middle_name_help_locate_no_acc_frame .middleNamebox input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+
+
+
+/*##########################################*/
+/*######### L  N A M E  L A B E L  #########*/
+/*##########################################*/ 
+
+.last_name_help_locate_no_acc_frame label {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+.last_name_help_locate_no_acc_frame .lastNamebox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.last_name_help_locate_no_acc_frame .lastNamebox input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.last_name_help_locate_no_acc_frame .lastNamebox input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+/*##########################################*/
+/*######### L  N A M E  L A B E L  #########*/
+/*##########################################*/ 
+
+.contact_number_help_locate label {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+.contact_number_help_locate .contactBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.contact_number_help_locate .contactBox input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.ContactHelpLocate .contactBox input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+
+
+/*##########################################*/
+/*#### R E L  M I S S I N G  L A B E L  ####*/
+/*##########################################*/ 
+
+.relationship_missing_help_locate_no_acc_frame label {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+.relationship_missing_help_locate_no_acc_frame .HelpRelationshipBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.relationship_missing_help_locate_no_acc_frame .HelpRelationshipBox input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.relationship_missing_help_locate_no_acc_frame .HelpRelationshipBox input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+
+/*##########################################*/
+/*########## T I M E  L A B E L  ###########*/
+/*##########################################*/ 
+
+.time_help_locate_no_acc_frame label {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+.time_help_locate_no_acc_frame .TimeSightingBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.time_help_locate_no_acc_frame .TimeSightingBox input[type="time"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.time_help_locate_no_acc_frame .TimeSightingBox input[type='time']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+/*##########################################*/
+/*########## D A T E  L A B E L  ###########*/
+/*##########################################*/ 
+
+.date_help_locate_no_acc_frame label {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+.date_help_locate_no_acc_frame .DateSightingBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.date_help_locate_no_acc_frame .DateSightingBox input[type="date"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.date_help_locate_no_acc_frame .DateSightingBox input[type='date']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+/*##########################################*/
+/*#### D E S C R I P T I O N  T E X T  #####*/
+/*##########################################*/
+.description_help_locate_no_acc_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*############### L A B E L ################*/
+/*##########################################*/
+.description_help_locate_no_acc_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.description_help_locate_no_acc_frame .DescriptionBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+
+/*##########################################*/
+/*############ T E X T  A R E A  ###########*/
+/*##########################################*/
+
+.description_help_locate_no_acc_frame .DescriptionBox textarea {
+    width: 100%;
+    height: 100px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding: 10px;
+    resize: none;
+}
+
+.description_help_locate_no_acc_frame .DescriptionBox textarea:focus {
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+/*####################################################*/
+/*######## U P L O A D L A B E L  F R A M E  #########*/
+/*####################################################*/ 
+
+.upload_help_locate_photo_frame {
+    width: 90%;
+    margin: auto;
+    margin-top: 15px;
+}
+
+
+.upload_help_locate_photo_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+    display: block;
+    margin-bottom: 8px;
+}
+
+
+.photo-help_locate-box {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: 600px;
+}
+
+.photo-help_locate-box input[type="file"] {
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+}
+
+
+.photo-help_locate-box:hover {
+    border-color: #888;
+    background: #fafafa;
+}
+
+
+#last_seen_preview2 {
+    margin-top: 15px;
+    text-align: center;
+    z-index: 1;
+    position: relative;
+    min-height: auto;
+}
+
+#last_seen_preview2 img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #eee;
+    display: block;
+}
+
+#last_seen_preview2:empty::before {
+    display: none;
+}
+
+#last_seen_preview2 .file-item {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fff;
+}
+
+
+
+
+/*##########################################*/
+/*###### L O C A T I O N  F R A M E  #######*/
+/*##########################################*/ 
+
+.location_help_no_acc_frame {
+    width: 90%;
+    margin: 15px auto;
+    display: flex;
+    flex-direction: column; 
+}
+
+
+
+.location-no-acc-radioButton {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    font-family: SF_BOLD;
+    color: #2d3748;
+    cursor: pointer;
+}
+
+.radiobtn_no_acc_frame{
+    display: flex;
+    gap: 25px; 
+}
+
+
+
+
+.location_no_acc_textbox_Frame input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px; 
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    padding-left: 10px;
+    transition: border-color 0.3s;
+    margin-bottom: 10px;
+}
+
+.location_no_acc_textbox_Frame input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+.location_no_acc_textbox_Frame input[type="text"]:disabled {
+    background-color: #f5f5f5;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.location_no_acc_textbox_Frame button{
+    margin-top: 5px;
+    background-color: #2d3748;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    font-family: SF_BOLD;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/*##########################################*/
+/*################## M A P S  ##############*/
+/*##########################################*/
+
+#location {
+    background: linear-gradient(135deg, #1A1B41 0%, #2c2d63 100%);
+    color: white;
+    padding: 16px 18px;
+    border-radius: 10px;
+    margin: 10px 0;
+    font-family: SF_BOLD;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(240, 147, 251, 0.3);
+}
+#location input{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+#helpMap {
+    height: 290px;
+    width: 100%;
+    margin: 5px 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+#map iframe{
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+.location_no_acc_textbox_Frame {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top:7px;
+}
+
+.location_no_acc_textbox_Frame img{
+    width: 20px;
+    height: 20px;
+}
+
+.location_no_acc_textbox_Frame p{
+    font-size: 16px;
+    font-family: SF_REGULAR;
+}
+
+.location_no_acc_textbox_Frame input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.location_no_acc_textbox_Frame input:focus {
+    border-color: #2d3748;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+}
+
+#helpSearchBtn {
+    padding: 8px 20px;
+    background: #1A1B41;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+#helpSearchBtn:hover:enabled {
+    background: #2c2d63; 
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(26, 27, 65, 0.4);
+}
+
+#helpSearchBtn:disabled {
+    background: #c4c9d4;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+
+
+
+
+/*#################################################################################################*/
+/*########################  H E L P  L O C A T E  W  A C C  P O P U P   ###########################*/
+/*#################################################################################################*/
+
+#help-locate-wacc-popup{
+    top: -10%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    position: fixed;
+    width: 400px;
+    padding: 20px;
+    transition: all .7 linear;
+    opacity: 1;
+    visibility: hidden;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 12px black;
+    z-index: 10;
+}
+
+.help-locate-wacc-modal{
+    top: -10%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    position: fixed;
+    width: 400px;
+    padding: 20px;
+    transition: all .7 linear;
+    opacity: 1;
+    visibility: hidden;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 12px black;
+    z-index: 10001;
+}
+
+.help-locate-wacc-close{
+    font-family: SF_BOLD;
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+
+.help-locate-wacc-close2{
+    font-family: SF_BOLD;
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+
+.help-locate-wacc-close:hover{
+    color: #2d3748;
+}
+
+.help-locate-wacc-txt{
+    margin-top: 20px;
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    font-family: SF_BOLD;
+    text-align: center;
+}
+
+
+
+/*##########################################*/
+/*######## R E L A T I O N S H I P  ########*/
+/*##########################################*/ 
+
+.relationship_missing_help_locate_wacc_frame label {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+.relationship_missing_help_locate_wacc_frame .HelpRelationshipBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.relationship_missing_help_locate_wacc_frame .HelpRelationshipBox input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.relationship_missing_help_locate_wacc_frame .HelpRelationshipBox input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+/*##########################################*/
+/*################# T I M E ################*/
+/*##########################################*/ 
+
+.time_help_locate_wacc_frame label {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+.time_help_locate_wacc_frame .TimeSightingBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.time_help_locate_wacc_frame .TimeSightingBox input[type="time"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.time_help_locate_wacc_frame .TimeSightingBox input[type='time']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+/*##########################################*/
+/*################# D A T E ################*/
+/*##########################################*/ 
+
+.date_help_locate_wacc_frame label {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+
+.date_help_locate_wacc_frame .DateSightingBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.date_help_locate_wacc_frame .DateSightingBox input[type="date"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.date_help_locate_wacc_frame .DateSightingBox input[type='date']:focus {
+    font-family: SF_REGULAR;
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+/*##########################################*/
+/*######### D E S C R I P T I O N ##########*/
+/*##########################################*/
+
+.description_help_locate_wacc_frame label {
+    font-size: 17px;
+    color: #2d3748;
+    font-family: SF_BOLD;
+}
+
+.description_help_locate_wacc_frame .DescriptionBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+
+/*##########################################*/
+/*############ T E X T  A R E A  ###########*/
+/*##########################################*/
+
+.description_help_locate_wacc_frame .DescriptionBox textarea {
+    width: 100%;
+    height: 100px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding: 10px;
+    resize: none;
+}
+
+.description_help_locate_wacc_frame .DescriptionBox textarea:focus {
+    border-color: #2d3748;
+    outline: none;
+}
+
+
+
+
+/*################################################################################*/
+/*###### R E P O R T E D M I S S I N G  W/A C C  A N O T H E R   P O P  U P   ####*/
+/*################################################################################*/
+
+.popup_waacount_frame {
+    text-align: center;
+    align-items: center; 
+}
+
+.reported_missing_person_waccount_btn {
+    width: 340px;
+    min-width: 340px;
+    max-width: 340px;
+    height: 80px;
+    background-color: #2d3748;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reported_missing_person_waccount_btn a{
+    color: #fff;
+    font-size: 18px;
+    font-family: SF_BOLD;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+.reported_missing_person_waccount_btn p{
+    font-size: 13px;
+    font-family: SF_REGULAR;
+    color: #ddd;
+    margin-top: 5px;
+}
+
+.reported_missing_person_waccount_btn:hover {
+    background: #2c2d63;
+    color: white;
+    font-family: SF_MEDIUM;
+    box-shadow: 2px 4px 12px rgba(26, 27, 65, 0.25);
+}
+
+
+
+
+
+/*###############################*/
+/*#########  S T E P  ###########*/
+/*###############################*/
+
+.step{
+    display: none;
+}
+
+.step.active{
+    display: block;
+}
+
+/*###############################################*/
+/*#########  A D D  U S E R  P O P U P  #########*/
+/*###############################################*/
+
+#reported-missing-waccount-popup{
+    top: -50%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    position: fixed;
+    width: 1380px;
+    height: 590;
+    padding: 20px;
+    transition: all .7 linear;
+    opacity: 1;
+    visibility: hidden;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 12px black;
+    z-index: 4;
+}
+
+.reported-missing-waccount-close{
+    font-family: SF_BOLD;
+    color:  #1A1B41;
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+
+.another-reported-missing-txt{
+    margin-top: 10px;
+    font-size: 60px;
+    color: white;
+    font-family: SF_BOLD;
+    text-align: center;
+}
+
+
+
+
+
+/*##########################################*/
+/*###############  F R A M E ###############*/
+/*##########################################*/
+
+.waccount-reported-missing-modal{
+    width: 80%;
+}
+
+.left_frame, .middle_frame, .right_last_frame {
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+
+/*##########################################*/
+/*########### L E F T  F R A M E ###########*/
+/*##########################################*/
+.left_frame {
+    width: 25%;
+    padding: 0 20px;
+}
+
+
+
+/*##########################################*/
+/*####### L E F T  F R A M E  I M G ########*/
+/*##########################################*/
+
+.left_frame img{
+    margin-top: 90px;
+    width: 100%;
+    height: 400px;
+    border-radius: 5px;
+    
+}
+
+
+/*##########################################*/
+/*######## M I D D L E  F R A M E ##########*/
+/*##########################################*/
+.middle_frame {
+    width:  35%;
+    padding: 0px  20px;
+    margin-left: 20px;
+}
+
+
+/*##########################################*/
+/*####### M I D D L E  F R A M E H 1 #######*/
+/*##########################################*/
+
+.middle_frame h1{
+    font-size: 45px;
+    font-family: SF_BOLD;
+    color: #2d3748;
+    margin-top: 30px;
+    margin-left: 60px;
+    
+}
+
+
+
+/*##########################################*/
+/*#### I N F O R M A T I O N  F R A M E ####*/
+/*##########################################*/
+
+.information_frame {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 25px 20px;
+}
+
+
+/*##########################################*/
+/*########### I N F O   I T E M ############*/
+/*##########################################*/
+
+.info_item {
+    margin-top: 30px;
+    text-align: center;
+}
+
+
+
+/*##########################################*/
+/*####### I N F O  I T E M   I M G #########*/
+/*##########################################*/
+.info_item img {
+    width: 28px;
+    margin-bottom: 8px;
+}
+
+
+
+/*##########################################*/
+/*########### I N F O  I T E M  P ##########*/
+/*##########################################*/
+.info_item p {
+    font-size: 13px;
+    color: #2d3748;
+    font-family: sf_regular;
+    margin: 0;
+}
+
+
+/*##########################################*/
+/*######### I N F O I T E M  H 2 ###########*/
+/*##########################################*/
+.info_item h2 {
+    font-size: 14px;
+    font-family: Sf_medium;
+    color: #2d3748;
+    margin: 2px 0 0 0;
+}
+
+
+
+/*##########################################*/
+/*######### R I G H T  F R A M E ###########*/
+/*##########################################*/
+.right_last_frame {
+    width: 35%;
+    height: 300px;
+    padding: 0 20px;
+}
+
+
+/*##########################################*/
+/*####### D E T A I L S  F R A M E  ########*/
+/*##########################################*/
+.details_frame {
+    font-size: 20px;
+    color: black;
+    font-family: Sf_medium;
+    margin-top: 130px;
+    margin-bottom: 20px;
+}
+
+
+
+/*##########################################*/
+/*######## R E P O R T  B U T T O N ########*/
+/*##########################################*/
+.help_locate_button {
+    background-color: #fff; 
+    border: 3px solid #0f1633;
+    padding: 12px 25px; 
+    font-size: 20px;
+    font-family: Sf_bold;
+    border-radius: 15px; 
+    cursor: pointer;
+    box-shadow: 2px 2px 0 #1A1B41; 
+    transition: all 0.2s ease;
+}
+
+.help_locate_button:hover {
+    background-color: #2d3748; 
+    border: 3px solid white;
+    color: white; 
+}
+
+
+
+/*##########################################*/
+/*######### D E T A I L  F R A M E #########*/
+/*##########################################*/
+.youknow_frame{
+    width: 100%;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+
+
+/*##########################################*/
+/*###### D E T A I L  F R A M E  P #########*/
+/*##########################################*/
+.youknow_frame p{
+    font-size: 16px;
+    font-family: Sf_bold;
+    color: #2d3748;
+}
+
+
+
+#helpLocationNoAcc {
+    background-color: #2d3748; 
+    color: white;
+    text-align: center;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: 700;
+    margin: 10px 0;
+    width: 100%;
+}
+
+#helpLocationTextNoAcc {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+
+
+
+
+
+
+
+
+/*##############################################################################################*/
+/*###################################  M O D A L  P O P U P  ###################################*/
+/*##############################################################################################*/
+
+
+
+
+
+/*###############################*/
+/*######### M O D A L ###########*/
+/*###############################*/
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 5;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: black;
+    background-color: rgba(0,0,0,0,0.9);
+}
+
+
+/*###############################*/
+/*######## C O N T E N T  #######*/
+/*###############################*/
+
+.modal_content{
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+
+/*###############################*/
+/*####### C A P T I O N #########*/
+/*###############################*/
+#caption{
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    padding: 15px 0;
+    height: 150px;
+}
+
+
+/*###############################*/
+/*######### C L O S E ###########*/
+/*###############################*/
+.close-image-modal{
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*####################################################################################################################################*/
+/*####################################################################################################################################*/
+/*####################################################### E F F E C T S  A C C  F R A M E  ###########################################*/
+/*####################################################################################################################################*/
+/*####################################################################################################################################*/
+
+
+
+.reported_missing_person_info {
+    width: 340px;
+    height: 80px;
+    background-color: #2d3748;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.reported_missing_person_info a{
+    color: #fff;
+    font-size: 18px;
+    font-family: SF_BOLD;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+.reported_missing_person_info p{
+    font-size: 13px;
+    font-family: SF_REGULAR;
+    color: #ddd;
+    margin-top: 5px;
+}
+
+/* Horizontal scrollable missing person list */
+.horizontal-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 25px;
+    padding: 15px 0;
+}
+
+/* Clickable picture card */
+.clickable-card {
+    min-width: 200px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+/* Scrollbar styling for horizontal scroll */
+.horizontal-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 4px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
+/* Prevent background interaction when popup is open */
+#bg-black {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 3;
+    pointer-events: auto;
+}
+
+/* Ensure popup is above background */
+.reported-missing-modal {
+    position: fixed;
+    z-index: 4;
+}
+
+
+/* Fixed background overlay */
+#bg-black {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 3;
+    pointer-events: none;
+    display: none;
+}
+
+/* Prevent body scroll when popup is open */
+body.popup-open {
+    overflow: hidden;
+}
+/* Carousel container */
+.carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+/* Carousel content - shows 4 cards */
+.carousel-content {
+    display: flex;
+    gap: 25px;
+    overflow: hidden;
+    width: calc(4 * 340px + 3 * 20px) !important; /* 4 cards + 3 gaps */
+    margin: 0 auto;
+}
+
+/* Carousel arrows */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #1A1B41;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-arrow {
+    left: -50px;
+}
+
+.right-arrow {
+    right: -50px;
+}
+
+.carousel-arrow:hover {
+    background: #2c2d63;
+}
+
+.carousel-arrow:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+/* Carousel animation - slide fade only */
+.carousel-content {
+    transition: transform 0.3s ease-in-out;
+}
+
+.picture_card {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.picture_card.slide-out-left {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.picture_card.slide-out-right {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.picture_card.slide-in-left {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.picture_card.slide-in-right {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.picture_card.active {
+    transform: translateX(0);
+    opacity: 1;
+}
+/* Modern carousel effects */
+.carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.carousel-content {
+    display: flex;
+    gap: 25px;
+    overflow: hidden;
+    width: calc(3 * 340px + 2 * 20px);
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Modern card hover effects - fade only */
+.picture_card {
+    transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.picture_card:hover {
+    opacity: 0.8;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.picture_card img {
+    transition: opacity 0.4s ease;
+}
+
+.picture_card:hover img {
+    opacity: 0.9;
+}
+
+/* Edge card fade effects */
+.picture_card.fade-edge {
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+}
+
+
+
+
+/*##############################################*/
+/*###### ADDITIONAL PHOTOS STYLING #############*/
+/*##############################################*/
+
+.upload_additional_photos_frame{
+    margin-top: 15px;
+}
+
+/* LABEL */
+.upload_additional_photos_frame label{
+    font-size: 14px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* BOX STYLE (same sa main upload) */
+.additional-photos-box{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    background: #f9f9f9;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* HIDE DEFAULT FILE INPUT */
+.additional-photos-box input[type="file"]{
+    color: #555;
+    font-size: 14px;
+}
+
+/* CUSTOM FILE BUTTON (same vibe) */
+.additional-photos-box input[type="file"]::file-selector-button{
+    background: #1f2240;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* HOVER EFFECT */
+.additional-photos-box input[type="file"]::file-selector-button:hover{
+    background: #2c2f5a;
+}
+
+/* FILE INFO TEXT */
+.file-info{
+    font-size: 13px;
+    color: #777;
+}
+
+/* VIEW BUTTON */
+#view_additional_images_btn{
+    transition: 0.2s ease;
+}
+
+#view_additional_images_btn:hover{
+    opacity: 0.9;
+}
+
+/* IMAGE PREVIEW GRID */
+.file-preview{
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.file-preview img{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+
+
+/* Modern arrow styling */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+}
+
+.left-arrow {
+    left: -60px;
+}
+
+.right-arrow {
+    right: -60px;
+}
+
+.carousel-arrow:hover {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.4);
+}
+
+.carousel-arrow:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.carousel-arrow:disabled:hover {
+    transform: translateY(-50%);
+    translate: (-50%) scale(1.1);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
+
+.carousel-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-arrow:disabled {
+    background: linear-gradient(135deg, #ccc 0%, #999 100%);
+    cursor: not-allowed;
+    transform: translateY(-50%) scale(0.9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+/* Smooth slide animations */
+.picture_card {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background-color: #0f1633;
+    color: white;
+    font-family: sf_regular;
+    
+}
+
+.picture_card.slide-out-left {
+    transform: translateX(-120%) translateY(0);
+    opacity: 0;
+}
+
+.picture_card.slide-out-right {
+    transform: translateX(120%) translateY(0);
+    opacity: 0;
+}
+
+.picture_card.slide-in-left {
+    transform: translateX(-120%) translateY(0);
+    opacity: 0;
+}
+
+.picture_card.slide-in-right {
+    transform: translateX(120%) translateY(0);
+    opacity: 0;
+}
+
+.picture_card.active {
+    transform: translateX(0) translateY(0);
+    opacity: 1;
+}
+
+/* Glassmorphism effect for cards */
+.picture_card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.picture_card:hover::before {
+    opacity: 1;
+}
+
+/* Modern loading animation */
+@keyframes shimmer {
+    0% { background-position: -200px 0; }
+    100% { background-position: calc(200px + 100%) 0; }
+}
+
+.picture_card.loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+}
+/* Ultra smooth carousel transform animation */
+.carousel-content {
+    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
+}
+
+.carousel-content.sliding {
+    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.picture_card {
+    flex-shrink: 0;
+    min-width: 340px;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
+}
+/* Fixed popup background overlay */
+#bg-black {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 3;
+    display: none;
+    pointer-events: auto;
+    backdrop-filter: blur(2px);
+}
+
+
+
+
+/* Ensure all popups are above background */
+.reported-missing-modal,
+#reported-missing-popup,
+#reported-missing-waccount-popup,
+#report-missing-popup {
+    position: fixed;
+    z-index: 4;
+}
+
+input.field-error, select.field-error, textarea.field-error {
+    border-color: #dc3545 !important;
+}
+
+input.field-valid, select.field-valid, textarea.field-valid {
+    border-color: #28a745 !important;
+}
+
+/* Image gallery styles for popup modals */
+.image-gallery {
+    width: 100%;
+    height: 100%;
+}
+
+.main-image-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    margin-bottom: 10px;
+}
+
+.main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.image-counter {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: SF_BOLD;
+}
+
+
+
+/* Specific styles for logged-in user popup */
+#reported-missing-waccount-popup .image-gallery {
+    width: 100%;
+    height: 100%;
+}
+
+#reported-missing-waccount-popup .main-image-container {
+    height: 400px;
+}
+
+/* Specific styles for no-account popup */
+#reported-missing-popup .image-gallery {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#reported-missing-popup .main-image-container {
+    height: 300px;
+    width: 100%;
+}
+
+/* Hide any remaining thumbnail containers */
+.thumbnail-container,
+.thumbnails-container,
+.thumbnail,
+.thumbnails {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Ensure arrow navigation is visible */
+.gallery-nav-btn,
+.gallery-prev-btn,
+.gallery-next-btn {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7) !important;
+    color: white !important;
+    border: none !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    font-size: 18px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: background 0.3s ease !important;
+    z-index: 10 !important;
+}
+
+.gallery-prev-btn {
+    left: 10px !important;
+}
+
+.gallery-next-btn {
+    right: 10px !important;
+}
+
+.gallery-nav-btn:hover {
+    background: rgba(0, 0, 0, 0.9) !important;
+}
+
+
+
+/*##########################################*/
+/*######## MODERN CARD EFFECTS ############*/
+/*##########################################*/
+
+.picture_card{
+    border-radius: 16px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    transition: all .35s ease;
+    position: relative;
+}
+
+.picture_card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.22);
+}
+
+.picture_card img{
+    transition: transform .5s ease;
+}
+
+.picture_card:hover img{
+    transform: scale(1.06);
+}
+
+/* DARK OVERLAY EFFECT */
+.picture_card::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+        rgba(0,0,0,0.35),
+        rgba(0,0,0,0));
+    opacity: 0;
+    transition: .3s;
+    pointer-events: none;
+}
+
+.picture_card:hover::after{
+    opacity: 1;
+}
+
+
+/*##########################################*/
+/*######## INFO FRAME EFFECTS #############*/
+/*##########################################*/
+
+.reported_missing_person_info{
+    position: relative;
+    overflow: hidden;
+    transition: .3s ease;
+}
+
+.reported_missing_person_info::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.15);
+    transform: skewX(-25deg);
+    transition: .7s;
+}
+
+.picture_card:hover .reported_missing_person_info::before{
+    left: 120%;
+}
+
+
+/*##########################################*/
+/*######### MODERN ARROWS #################*/
+/*##########################################*/
+
+.carousel-arrow{
+    background: #1A1B41;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    box-shadow: 0 6px 15px rgba(26,27,65,0.3);
+    transition: all .3s ease;
+}
+
+.carousel-arrow:hover{
+    background: #BD1310;
+    transform: translateY(-50%) scale(1.08);
+}
+
+
+/*##########################################*/
+/*######## SCROLLBAR GLOW #################*/
+/*##########################################*/
+
+.horizontal-scroll::-webkit-scrollbar-thumb{
+    background: #1A1B41;
+    border-radius: 20px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb:hover{
+    background: #BD1310;
+}
+
+
+/*##########################################*/
+/*######## POPUP BLUR EFFECT ##############*/
+/*##########################################*/
+
+#bg-black{
+    backdrop-filter: blur(4px);
+}
+
+
+/*##########################################*/
+/*######## IMAGE COUNTER STYLE ############*/
+/*##########################################*/
+
+.image-counter{
+    background: rgba(26,27,65,0.85);
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(4px);
+    padding: 6px 10px;
+    border-radius: 20px;
+}
+
+
+
+
+/*############################################################*/
+/*############ CLEAN PREMIUM FIXED VERSION ###################*/
+/*############################################################*/
+
+/* KEEP CLEAN WHITE BG */
+body{
+    background: #f8f9fc;
+}
+
+/* TITLE */
+.get_help_left_text h1,
+.help_us_find_text_frame h1{
+    font-size: 52px;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: #2d3748;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+/* UNDERLINE NASA TAAS */
+.get_help_left_text h1::before,
+.help_us_find_text_frame h1::before{
+    content: "";
+    position: absolute;
+    top: -18px;
+    left: 0;
+    width: 90px;
+    height: 6px;
+    border-radius: 20px;
+    background: #1A1B41;
+}
+
+/* REMOVE OLD UNDERLINE */
+.get_help_left_text h1::after,
+.help_us_find_text_frame h1::after{
+    display: none;
+}
+
+/* FIX SPACING */
+.another_frame{
+    gap: 35px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* PHOTO FRAME */
+.photo_frame{
+    border-radius: 22px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+    transition: .35s ease;
+}
+
+/* IMAGE */
+.photo_frame img{
+    transition: transform .5s ease;
+}
+
+/* HOVER */
+.photo_frame:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.15);
+}
+
+.photo_frame:hover img{
+    transform: scale(1.04);
+}
+
+/* DETAILS */
+.get_help_details,
+.help_us_find_details{
+    background: white;
+    padding: 30px;
+    border-radius: 22px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+}
+
+/* TEXT */
+.get_help_details p,
+.help_us_find_details p{
+    font-size: 24px;
+    line-height: 1.6;
+    color: #666;
+    font-family: SF_MEDIUM;
+}
+
+/* BUTTON FIX */
+.help_btn,
+.Help_us_find_btn{
+    background: #1A1B41;
+    border-radius: 16px;
+    padding: 14px 26px;
+    font-size: 18px;
+    min-width: unset;
+    max-width: fit-content;
+    overflow: hidden;
+    transition: .3s ease;
+}
+
+/* BUTTON HOVER */
+.help_btn:hover,
+.Help_us_find_btn:hover{
+    background: #2d2f69;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(26,27,65,0.20);
+}
+
+/* COMMUNITY */
+.community_frame{
+    background: #1A1B41;
+    margin-top: 70px;
+    overflow: hidden;
+}
+
+/* COMMUNITY TEXT */
+.community_text_frame{
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.community_text_frame p{
+    font-size: 38px;
+    line-height: 1.3;
+    padding: 40px;
+    letter-spacing: -.5px;
+}
+
+/* COMMUNITY BUTTON */
+.community_btn{
+    background: white;
+    color: #2d3748;
+    border-radius: 16px;
+    padding: 14px 24px;
+    transition: .3s ease;
+}
+
+/* COMMUNITY BTN HOVER */
+.community_btn:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.18);
+}
+
+/* REMOVE EXTRA LINES */
+.line,
+.help_line{
+    display: none;
+}
+
+/* RESPONSIVE */
+@media(max-width:1200px){
+
+    .another_frame{
+        flex-direction: column;
+    }
+
+    .community_another_frame{
+        margin-left: 0;
+        justify-content: center;
+    }
+
+    .community_text_frame{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .community_text_frame p{
+        font-size: 30px;
+        padding: 30px;
+    }
+
+    .get_help_left_text h1,
+    .help_us_find_text_frame h1{
+        font-size: 42px;
+    }
+
+    .get_help_details p,
+    .help_us_find_details p{
+        font-size: 20px;
+    }
+
+    .photo_frame{
+        width: 90%;
+        height: auto;
+    }
+}
+
+/* BUTTON SPACING */
+.community_btn{
+    margin-right: 40px;
+    flex-shrink: 0;
+}
+
+/* RESPONSIVE */
+@media(max-width:1200px){
+
+    .community_text_frame{
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .community_btn{
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
+}
+
+
+
+
+
+/*############################################################*/
+/*######## FULLSCREEN PROFESSIONAL POPUP #####################*/
+/*############################################################*/
+
+.reported-missing-modal.show{
+    position: fixed !important;
+    inset: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0,0,0,0.82) !important;
+    backdrop-filter: blur(6px);
+}
+
+/* POPUP */
+#reported-missing-popup{
+
+    border-radius: 22px;
+    overflow: hidden;
+
+    animation: popupSmooth .35s ease;
+}
+
+/* SMOOTH OPEN */
+@keyframes popupSmooth{
+
+    from{
+        opacity: 0;
+        transform:
+            translate(-50%, -46%)
+            scale(.96);
+    }
+
+    to{
+        opacity: 1;
+        transform:
+            translate(-50%, -50%)
+            scale(1);
+    }
+}
+
+/* FORCE TOPBAR BELOW */
+.base,
+.middlebar_frame,
+.social_frame,
+header,
+nav{
+    z-index: 1 !important;
+}
+
+
+
+
+
+
+
+/* Modern Review Section Styles */
+.review_summary {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 15px 0;
+}
+
+.modern-card {
+    background: linear-gradient(135deg, #f8f9fc 0%, #ffffff 100%);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(102, 126, 234, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modern-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+}
+
+.review-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 18px;
+    background: white;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+    transition: all 0.3s ease;
+}
+
+.review-item:hover {
+    border-left-color: #764ba2;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+}
+
+.review-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.review-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #667eea;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.review-value {
+    font-size: 16px;
+    color: #2d3748;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .review-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modern-card {
+        padding: 20px 15px;
+    }
+}
+
+
+.review-item:hover {
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+    transform: translateX(3px);
+}
+
+.review-label {
+    margin-bottom: 2px;
+}
+
+.review-value {
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .review-item {
+        padding: 14px 16px;
+    }
+    
+    .review-value {
+        font-size: 15px;
+    }
+}

@@ -1,0 +1,76 @@
+@media screen {
+    .filter_frame {
+        margin: 20px 0;
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+    }
+
+    .filter_controls {
+        display: flex;
+        gap: 20px;
+        align-items: end;
+        flex-wrap: wrap;
+    }
+
+    .filter_group {
+        margin-left: 30px;
+        flex-direction: row;      
+        align-items: flex-end;    
+        gap: 5px;   
+    }
+
+    .filter_group button {
+            gap: 5px;  
+        display: inline-flex;      
+        margin-left: 0;            
+    }
+
+    .filter_group label {
+        font-family: 'SF_MEDIUM';
+        font-size: 14px;
+        color: #1A1B41;
+        font-weight: 500;
+    }
+
+    .filter_group select,
+    .filter_group input[type="date"] {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        font-family: 'SF_REGULAR';
+        background: white;
+        min-width: 150px;
+    }
+
+    .generate-btn,
+    .print-table-btn {
+        display: inline-flex; /* 🔹 para magkadikit */
+        align-items: center;
+        background: #1A1B41;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-family: 'SF_BOLD';
+        transition: background 0.2s;
+        margin-left: 10px;
+    }
+
+    .generate-btn:hover,
+    .print-table-btn:hover {
+        background: #23254a;
+    }
+
+    .print-table-btn {
+        background: #28a745;
+    }
+
+    .print-table-btn:hover {
+        background: #218838;
+    }
+}

@@ -1,0 +1,309 @@
+<div class="incident_frame">
+    <div class="incident_line"></div>
+    <div class="incident_map_text_frame">
+        <h1>Incident Map</h1>
+        <div class="filter-bar">
+            <div class="menu-container" tabindex="0">
+                <div class="hamburger" aria-label="Filter Menu" tabindex="0">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="dropdown-menu">
+                    <div class="filter-option active" data-filter="all">All</div>
+                    <div class="filter-option" data-filter="active">Active</div>
+                    <div class="filter-option" data-filter="inactive">Inactive</div>
+                </div>
+            </div>
+            
+            <div class="custom-select">
+                <select id="municipality-select" onchange="changeMapLocation()">
+                    <option value="">All Locations</option>
+                    <option value="14.3094,121.1139">Alaminos</option>
+                    <option value="14.1593,121.2416">Bay</option>
+                    <option value="14.3369,121.0906">Biñan</option>
+                    <option value="14.4553,121.0553">Cabuyao</option>
+                    <option value="14.2094,121.1553">Calamba</option>
+                    <option value="14.1139,121.3250">Calauan</option>
+                    <option value="14.2167,121.5500">Cavinti</option>
+                    <option value="14.4333,121.4500">Famy</option>
+                    <option value="14.1167,121.3167">Kalayaan</option>
+                    <option value="14.1333,121.4333">Liliw</option>
+                    <option value="14.1693,121.2416">Los Baños</option>
+                    <option value="14.1833,121.5167">Luisiana</option>
+                    <option value="14.3000,121.4667">Lumban</option>
+                    <option value="14.4167,121.6167">Mabitac</option>
+                    <option value="14.2000,121.4333">Magdalena</option>
+                    <option value="14.1500,121.4667">Majayjay</option>
+                    <option value="14.1333,121.6167">Nagcarlan</option>
+                    <option value="14.3667,121.5167">Paete</option>
+                    <option value="14.2667,121.4500">Pagsanjan</option>
+                    <option value="14.3833,121.4833">Pakil</option>
+                    <option value="14.4000,121.4667">Pangil</option>
+                    <option value="14.2333,121.6000">Pila</option>
+                    <option value="14.1167,121.6333">Rizal</option>
+                    <option value="14.3583,121.0458">San Pedro</option>
+                    <option value="14.2833,121.4167">Santa Cruz</option>
+                    <option value="14.4667,121.4167">Santa Maria</option>
+                    <option value="14.3125,121.1042">Santa Rosa</option>
+                    <option value="14.3167,121.3000">Siniloan</option>
+                    <option value="14.2250,121.3333">Victoria</option>
+                </select>
+            </div>
+            <div class="incident_map_dot">
+                <span>
+                    <span class="dot_red"></span> Inactive
+                </span>
+                <span>
+                    <span class="dot_green"></span> Active
+                </span>
+            </div>
+        </div>
+
+        <div class="incident_map_container">
+            <div id="police-incident-map" class="map_placeholder"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+let incidentMap;
+let allMarkers = [];
+
+window.initPoliceIncidentMap = function() {
+    console.log('initPoliceIncidentMap called');
+    
+    const mapElement = document.getElementById('police-incident-map');
+    console.log('Map element:', mapElement);
+    
+    if (!mapElement) {
+        console.error('Map element not found!');
+        return;
+    }
+    
+    incidentMap = new google.maps.Map(mapElement, {
+        zoom: 10,
+        center: { lat: 14.2691, lng: 121.4577 }
+    });
+    
+    console.log('Map initialized:', incidentMap);
+    
+    const locations = {{ locations | tojson | safe }};
+    console.log('Locations from server:', locations);
+    console.log('Number of locations:', locations.length);
+    
+    if (locations.length === 0) {
+        console.warn('No locations to display on map');
+        // Add a test marker to verify map is working
+        const testMarker = new google.maps.Marker({
+            position: { lat: 14.2691, lng: 121.4577 },
+            map: incidentMap,
+            title: 'Test Marker - Laguna Center',
+            icon: {
+                url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                scaledSize: new google.maps.Size(32, 32)
+            }
+        });
+        console.log('Test marker added to verify map functionality');
+    }
+    
+    class HTMLMarker extends google.maps.OverlayView {
+        constructor(position, imageUrl, isActive, name, caseStatus) {
+            super();
+            this.position = position;
+            this.imageUrl = imageUrl;
+            this.isActive = isActive;
+            this.name = name;
+            this.caseStatus = caseStatus;
+            this.div = null;
+        }
+
+        onAdd() {
+            const borderColor = this.isActive ? '#4CAF50' : '#f44336';
+            
+            this.div = document.createElement('div');
+            this.div.style.cssText = `
+                position: absolute;
+                cursor: pointer;
+                width: 50px;
+                height: 50px;
+                z-index: 10000 !important;
+                pointer-events: auto;
+            `;
+            
+            const innerDiv = document.createElement('div');
+            innerDiv.style.cssText = `
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                border: 3px solid ${borderColor};
+                overflow: hidden;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+                background: white;
+                position: relative;
+                z-index: 10000;
+            `;
+            
+            if (this.imageUrl) {
+                const img = document.createElement('img');
+                img.src = this.imageUrl;
+                img.style.cssText = `
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;
+                    position: relative;
+                    z-index: 10001;
+                `;
+                img.onerror = function() {
+                    this.style.display = 'none';
+                    innerDiv.innerHTML = '<div style="width:100%;height:100%;background:#e0e0e0;display:flex;align-items:center;justify-content:center;font-size:24px;color:#666;font-weight:bold;">?</div>';
+                };
+                innerDiv.appendChild(img);
+            } else {
+                // No image available - show placeholder
+                innerDiv.innerHTML = '<div style="width:100%;height:100%;background:#e0e0e0;display:flex;align-items:center;justify-content:center;font-size:24px;color:#666;font-weight:bold;">?</div>';
+            }
+            
+            this.div.appendChild(innerDiv);
+            
+            const panes = this.getPanes();
+            if (!panes) {
+                console.error('Panes not available for marker');
+                return;
+            }
+            
+            console.log('Adding marker to overlayMouseTarget pane');
+            panes.overlayMouseTarget.appendChild(this.div);
+            
+            const infoWindow = new google.maps.InfoWindow({
+                content: `<div style="text-align: center; padding: 10px;">
+                    ${this.imageUrl ? `<img src="${this.imageUrl}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-bottom: 8px; border: 2px solid ${borderColor};">` : ''}
+                    <div style="font-weight: bold; margin-bottom: 4px;">${this.name}</div>
+                    <div style="font-size: 13px; color: #666;">Case Status: ${this.caseStatus}</div>
+                    <div style="font-size: 13px; color: #666;">Type: ${this.isActive ? 'Active Case' : 'Inactive Case'}</div>
+                </div>`
+            });
+            
+            this.div.addEventListener('click', () => {
+                infoWindow.setPosition(this.position);
+                infoWindow.open(incidentMap);
+            });
+        }
+
+        draw() {
+            const overlayProjection = this.getProjection();
+            if (!overlayProjection) {
+                console.warn('Projection not available yet');
+                return;
+            }
+            
+            const pos = overlayProjection.fromLatLngToDivPixel(this.position);
+            
+            if (this.div && pos) {
+                this.div.style.left = (pos.x - 25) + 'px';
+                this.div.style.top = (pos.y - 25) + 'px';
+                this.div.style.display = 'block';
+                this.div.style.visibility = 'visible';
+                console.log(`Marker drawn at position: left=${pos.x - 25}px, top=${pos.y - 25}px`);
+            }
+        }
+
+        onRemove() {
+            if (this.div && this.div.parentNode) {
+                this.div.parentNode.removeChild(this.div);
+                this.div = null;
+            }
+        }
+
+        setVisible(visible) {
+            if (this.div) {
+                this.div.style.display = visible ? 'block' : 'none';
+            }
+        }
+    }
+    
+    locations.forEach(function(location, index) {
+        console.log(`Processing location ${index + 1}:`, location);
+        const isActive = location.is_active;
+        const position = new google.maps.LatLng(location.lat, location.lng);
+        
+        let marker;
+        
+        // Always create HTML marker (with or without image)
+        console.log('Creating HTML marker for:', location.name, 'Has image:', !!location.image, 'isActive:', isActive);
+        marker = new HTMLMarker(
+            position,
+            location.image || null,
+            isActive,
+            location.name,
+            location.case_status
+        );
+        marker.setMap(incidentMap);
+        
+        marker.isActive = isActive;
+        marker.caseStatus = location.case_status;
+        allMarkers.push(marker);
+        console.log(`Marker ${index + 1} added to map`);
+    });
+    
+    console.log('Total markers created:', allMarkers.length);
+    
+    document.querySelectorAll('.filter-option').forEach(option => {
+        option.addEventListener('click', function() {
+            document.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+            
+            const filter = this.getAttribute('data-filter');
+            filterMarkers(filter);
+        });
+    });
+};
+
+function filterMarkers(filter) {
+    allMarkers.forEach(marker => {
+        if (filter === 'all') {
+            if (marker.setMap) {
+                marker.setMap(incidentMap);
+            } else if (marker.setVisible) {
+                marker.setVisible(true);
+            }
+        } else if (filter === 'active' && marker.isActive) {
+            if (marker.setMap) {
+                marker.setMap(incidentMap);
+            } else if (marker.setVisible) {
+                marker.setVisible(true);
+            }
+        } else if (filter === 'inactive' && !marker.isActive) {
+            if (marker.setMap) {
+                marker.setMap(incidentMap);
+            } else if (marker.setVisible) {
+                marker.setVisible(true);
+            }
+        } else {
+            if (marker.setMap) {
+                marker.setMap(null);
+            } else if (marker.setVisible) {
+                marker.setVisible(false);
+            }
+        }
+    });
+}
+
+function changeMapLocation() {
+    const select = document.getElementById('municipality-select');
+    const selectedValue = select.value;
+    
+    if (selectedValue === '') {
+        incidentMap.setCenter({ lat: 14.2691, lng: 121.4577 });
+        incidentMap.setZoom(10);
+    } else {
+        const coords = selectedValue.split(',');
+        const lat = parseFloat(coords[0]);
+        const lng = parseFloat(coords[1]);
+        
+        incidentMap.setCenter({ lat: lat, lng: lng });
+        incidentMap.setZoom(15);
+    }
+}
+</script>

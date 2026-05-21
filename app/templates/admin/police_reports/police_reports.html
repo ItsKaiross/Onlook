@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../static/icons/onlook_icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+        <link rel="stylesheet" href="static/css/mobile-reset.css">
+        <link rel="stylesheet" href="static/css/admin/police_reports/police_reports.css">
+    <title>Admin User Management - OnLook</title>
+</head>
+<body>
+
+{% include 'includes/loading_screen.html' %}
+{% include 'includes/flash_messages.html' %}
+{% include 'includes/global_messages.html' %}
+
+
+
+<!--###############################################################################-->
+<!--###############  A D M I N  R E P O R T S  M A N A G E M E N T  ###############-->
+<!--###############################################################################-->
+
+
+    <!--#####################################################-->
+    <!--####################   B A S E    ###################-->
+    <!--#####################################################-->
+
+    <div class="base" id="base-bg">
+        <div class="base-frame">
+
+            <div class="reports-management-body">
+                <div class="reports-management-text">
+                    <p>Reports</p>
+                </div>
+                <div class="reports-management-filter">
+                    <!-- Filter Bar -->
+                    <form method="GET" action="{{ url_for('admin_reports') }}" class="filter-bar">
+                        <select name="month">
+                            {% for num, name in months %}
+                                <option value="{{ num }}" {{ 'selected' if num == selected_month }}>
+                                    {{ name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+
+                        <input type="number" name="year" value="{{ selected_year }}" min="2000" max="2100">
+
+                        <select name="precinct">
+                            <option value="">All Precincts</option>
+                            {% for p in precincts %}
+                                <option value="{{ p }}" {{ 'selected' if p == selected_precinct }}>{{ p }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <button type="submit">Filter</button>
+                    </form>
+
+                    <!-- Generate Button -->
+                    <button id="generateBtn" class="btn-generate">
+                        Generate Report for This Month
+                    </button>
+                    
+                    <!-- Print Button -->
+                    <button id="printBtn" class="btn-print" onclick="openPrintModal()">
+                        Print Report
+                    </button>
+                </div>
+                <div class="report-management-tbl">
+                    <!-- Table -->
+                    <div class="table-container">
+                        <table class="modern-table">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">No.</th>
+                                    <th rowspan="2">Name of Missing Minor</th>
+                                    <th rowspan="2">Age</th>
+                                    <th rowspan="2">Sex</th>
+                                    <th rowspan="2">Address</th>
+                                    <th rowspan="2">Date Missing</th>
+                                    <th rowspan="2">Date Reported</th>
+                                    <th rowspan="2">Police Station</th>
+                                    <th rowspan="2">Reason</th>
+                                    <th colspan="2">Found</th>
+                                    <th rowspan="2">Cause of Death</th>
+                                    <th rowspan="2">Still Missing</th>
+                                    <th rowspan="2">Docket No. / Criminal Case</th>
+                                    <th rowspan="2">Investigator-on-Case</th>
+                                </tr>
+                                <tr>
+                                    <th>Dead</th>
+                                    <th>Alive</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for report in reports %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ report.full_name }}</td>
+                                    <td>{{ report.age }}</td>
+                                    <td>{{ report.gender }}</td>
+                                    <td>{{ report.address }}</td>
+                                    <td>{{ report.date_missing }}</td>
+                                    <td>{{ report.date_reported }}</td>
+                                    <td>{{ report.precinct }}</td>
+                                    <td>{{ report.reason or '-' }}</td>
+
+                                    <td>
+                                        {% if report.found_dead %}
+                                            <span class="badge dead">YES</span>
+                                        {% else %}
+                                            <span class="badge">NO</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if report.found_alive %}
+                                            <span class="badge alive">YES</span>
+                                        {% else %}
+                                            <span class="badge">NO</span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>{{ report.cause_of_death or '-' }}</td>
+
+                                    <td>
+                                        {% if report.still_missing %}
+                                            <span class="badge missing">YES</span>
+                                        {% else %}
+                                            <span class="badge">NO</span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>{{ report.docket_number or '-' }}</td>
+                                    <td>{{ report.investigator_name or '-' }}</td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="15" class="text-center text-muted">
+                                        No reports found for this period.
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="black-bg" id="bg-black"></div>
+
+<!-- Print Modal -->
+<div id="printModal" class="print-modal">
+    <div class="print-modal-content">
+        <div class="print-modal-header">
+            <h2>Print Report</h2>
+            <span class="print-modal-close" onclick="closePrintModal()">&times;</span>
+        </div>
+        <div class="print-modal-body">
+            <div class="form-group">
+                <label for="preparedBy">Prepared By:</label>
+                <select id="preparedBy" required>
+                    <option value="">Select Officer</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="approvedBy">Approved By:</label>
+                <select id="approvedBy" required>
+                    <option value="">Select Officer</option>
+                </select>
+            </div>
+        </div>
+        <div class="print-modal-footer">
+            <button class="btn-cancel" onclick="closePrintModal()">Cancel</button>
+            <button class="btn-confirm" onclick="confirmPrint()">Print</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="static/Javascript/loading_screen.js"></script>
+<script src="static/Javascript/session/session.js"></script>
+<script src="static/Javascript/session_manager.js"></script>
+<script src="static/Javascript/admin/police_reports/admin-reports-print.js"></script>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="static/css/public/popup-fix.css">
+
+<div class="black-bg" id="bg-black"></div>
+<!--####################################################-->
+<!--##########  R E G I S T E R  P O P U P  ############-->
+<!--####################################################-->
+
+<div class="register-first-modal" id="register-first-popup">
+    <div class="register-first-content">
+        <div class="register-first-close" onclick="closeRegisterPopup()">
+            &times;
+        </div>
+        <div class="register-first-text">
+            <h2>Login or Register</h2>
+        </div>
+        <div class="loginPlacement">
+                <div class="loginEmail">
+                    <label for="email">Email:</label>
+                    <div class="emailBox">
+                        <input type="email" name="email" id="login-email" placeholder="example@email.com" required>
+                    </div>
+                </div>
+                <div class="loginPass">
+                    <label for="pass">Password</label>
+                    <div class="passBox">
+                        <input type="password" name="pass" id="pass-login" placeholder="At least 8 characters" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('pass-login', this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="forgot-pass">
+                    <a href="#" onclick="openForgotPasswordPopup()">Forgot Password?</a>
+                </div>
+            <div class="register-first-buttons">
+                <button type="submit" class="register-btn" id="login-btn" onclick="loginUser()">Log In</button>
+                <button type="button" class="cancel-btn" onclick="closeRegisterPopup()">Cancel</button>
+            </div>
+        </div>
+        <div class="line-or">
+            <span>OR</span>
+        </div>
+        <div class="registerButton">
+            <button class="registerBtn" onclick="goToRegister()">Register now</button>
+        </div>
+    </div>
+</div>
+
+    <!--###################################################-->
+    <!--##################  P O P U P S  ##################-->
+    <!--###################################################-->
+
+    <!--######################################-->
+    <!--#######  F O R G O T  P A S S  #######-->
+    <!--######################################-->
+
+<form action="/mailOTP" method="POST">
+
+    <div class="forgot_pass_popup" id="popup_forgot_pass">
+        <div class="forgot_pass_frame">
+            <div class="logo">
+                <img src="" alt="">
+            </div>
+            <div class="forgot_pass_subframe">
+                <div class="Forgot_password_text">
+                    <h1>Forgot Password?</h1>
+                </div>
+                <div class="email_textbox">
+                    <label for="email">Email:</label>
+                    <div class="emailBox">
+                        <input type="email" name="email" id="email" placeholder="Enter your Email" required>
+                    </div>
+                </div>
+                <form action="/mailOTP" method="POST">
+                    
+                    <div class="request_button">
+                        <button id="req_button" >Request Code</button>
+                    </div>
+                <div class="cancel">
+                    <span onclick="closeForgotPasswordPopup()">Cancel</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="static/Javascript/login/forgot_pass.js"></script>
+<script src="static/Javascript/public/register_first_popup.js"></script>
+<script src="static/Javascript/includes/toggle-password.js"></script>
+

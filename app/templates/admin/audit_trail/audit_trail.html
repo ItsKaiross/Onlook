@@ -1,0 +1,244 @@
+{% include 'includes/loading_screen.html' %}
+{% include 'includes/flash_messages.html' %}
+{% include 'includes/global_messages.html' %}
+
+<div class="audit-wrapper">
+
+    <!-- ── Header ── -->
+    <div class="audit-header">
+        <div class="audit-header-left">
+            <h1 class="audit-title">Audit Trail</h1>
+            <p class="audit-subtitle">System-wide activity and change history</p>
+        </div>
+        <div class="audit-header-right">
+            <div class="audit-stat">
+                <span class="audit-stat-number">{{ total_records }}</span>
+                <span class="audit-stat-label">Total Records</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Filters ── -->
+    <form method="GET" action="{{ url_for('admin_audit_trail') }}" class="audit-filters">
+        <div class="filter-group">
+            <label class="filter-label">Module</label>
+            <select name="module" class="filter-select">
+                <option value="">All Modules</option>
+                {% for m in modules %}
+                    <option value="{{ m }}" {{ 'selected' if m == selected_module }}>
+                        {{ m | capitalize }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label class="filter-label">Action</label>
+            <select name="action" class="filter-select">
+                <option value="">All Actions</option>
+                {% for a in actions %}
+                    <option value="{{ a }}" {{ 'selected' if a == selected_action }}>
+                        {{ a | replace('_', ' ') | capitalize }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label class="filter-label">Date From</label>
+            <input type="date" name="date_from" class="filter-input"
+                   value="{{ selected_date_from }}">
+        </div>
+
+        <div class="filter-group">
+            <label class="filter-label">Date To</label>
+            <input type="date" name="date_to" class="filter-input"
+                   value="{{ selected_date_to }}">
+        </div>
+
+        <div class="filter-actions">
+            <button type="submit" class="btn-filter">Filter</button>
+            <a href="{{ url_for('admin_audit_trail') }}" class="btn-reset">Reset</a>
+        </div>
+    </form>
+
+    <!-- ── Table ── -->
+    <div class="audit-table-wrapper">
+        <table class="audit-table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Timestamp</th>
+                    <th>Performed By</th>
+                    <th>Role</th>
+                    <th>Module</th>
+                    <th>Action</th>
+                    <th>Target</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr class="audit-row">
+                    <td class="audit-num">{{ loop.index + (current_page - 1) * per_page }}</td>
+
+                    <td class="audit-timestamp">
+                        <span class="ts-date">{{ log.action_timestamp.strftime('%b %d, %Y') }}</span>
+                        <span class="ts-time">{{ log.action_timestamp.strftime('%I:%M %p') }}</span>
+                    </td>
+
+                    <td class="audit-user">
+                        <span class="user-name">{{ log.performed_by }}</span>
+                        <span class="user-ip">{{ log.ip_address or '-' }}</span>
+                    </td>
+
+                    <td>
+                        <span class="role-badge role-{{ log.performed_role | lower }}">
+                            {{ log.performed_role | replace('Admin', ' Admin') }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="module-badge module-{{ log.module | lower }}">
+                            {{ log.module | capitalize }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="action-badge action-{{ log.action | lower | replace('_', '-') }}">
+                            {{ log.action | replace('_', ' ') | capitalize }}
+                        </span>
+                    </td>
+
+                    <td class="audit-target">
+                        {% if log.target_table %}
+                            <span class="target-table">{{ log.target_table }}</span>
+                            {% if log.target_id %}
+                                <span class="target-id">#{{ log.target_id }}</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="text-muted">-</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <span class="status-badge status-{{ log.status }}">
+                            {{ log.status | capitalize }}
+                        </span>
+                    </td>
+
+                    <td>
+                        {% if log.before_change or log.after_change or log.remarks %}
+                        <button class="btn-details"
+                                onclick="openAuditModal({{ loop.index }})">
+                            View
+                        </button>
+
+                        <!-- Modal for this row -->
+                        <div class="audit-modal" id="audit-modal-{{ loop.index }}">
+                            <div class="audit-modal-box">
+                                <div class="audit-modal-header">
+                                    <h3>Change Details</h3>
+                                    <button class="modal-close"
+                                            onclick="closeAuditModal({{ loop.index }})">
+                                        &times;
+                                    </button>
+                                </div>
+                                <div class="audit-modal-body">
+
+                                    <div class="modal-meta">
+                                        <div class="meta-item">
+                                            <span class="meta-label">Action</span>
+                                            <span class="meta-value">{{ log.action | replace('_',' ') | capitalize }}</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span class="meta-label">Module</span>
+                                            <span class="meta-value">{{ log.module | capitalize }}</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span class="meta-label">Performed By</span>
+                                            <span class="meta-value">{{ log.performed_by }}</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span class="meta-label">Timestamp</span>
+                                            <span class="meta-value">{{ log.action_timestamp }}</span>
+                                        </div>
+                                    </div>
+
+                                    {% if log.remarks %}
+                                    <div class="modal-section">
+                                        <h4>Remarks</h4>
+                                        <p class="remarks-text">{{ log.remarks }}</p>
+                                    </div>
+                                    {% endif %}
+
+                                    <div class="modal-changes">
+                                        {% if log.before_change %}
+                                        <div class="change-block before">
+                                            <h4>Before</h4>
+                                            <pre class="change-json">{{ log.before_change }}</pre>
+                                        </div>
+                                        {% endif %}
+                                        {% if log.after_change %}
+                                        <div class="change-block after">
+                                            <h4>After</h4>
+                                            <pre class="change-json">{{ log.after_change }}</pre>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                            <span class="text-muted">-</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="9" class="audit-empty">
+                        No audit records found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ── Pagination ── -->
+    {% if total_pages > 1 %}
+    <div class="audit-pagination">
+        <span class="pagination-info">
+            Page {{ current_page }} of {{ total_pages }} &mdash; {{ total_records }} records
+        </span>
+        <div class="pagination-btns">
+            {% if current_page > 1 %}
+            <a href="?page={{ current_page - 1 }}&module={{ selected_module }}&action={{ selected_action }}&date_from={{ selected_date_from }}&date_to={{ selected_date_to }}"
+               class="page-btn">&#8592; Prev</a>
+            {% endif %}
+
+            {% for p in range(1, total_pages + 1) %}
+                {% if p == current_page %}
+                    <span class="page-btn active">{{ p }}</span>
+                {% elif p == 1 or p == total_pages or (p >= current_page - 2 and p <= current_page + 2) %}
+                    <a href="?page={{ p }}&module={{ selected_module }}&action={{ selected_action }}&date_from={{ selected_date_from }}&date_to={{ selected_date_to }}"
+                       class="page-btn">{{ p }}</a>
+                {% elif p == current_page - 3 or p == current_page + 3 %}
+                    <span class="page-ellipsis">…</span>
+                {% endif %}
+            {% endfor %}
+
+            {% if current_page < total_pages %}
+            <a href="?page={{ current_page + 1 }}&module={{ selected_module }}&action={{ selected_action }}&date_from={{ selected_date_from }}&date_to={{ selected_date_to }}"
+               class="page-btn">Next &#8594;</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+<!-- Overlay -->
+<div class="audit-overlay" id="audit-overlay" onclick="closeAllModals()"></div>

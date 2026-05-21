@@ -1,0 +1,28 @@
+/* Mobile Reset CSS - Minimal conflicts */
+
+@media screen {
+    /* Basic reset */
+    * {
+        box-sizing: border-box;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    /* Image responsive */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Prevent horizontal scroll */
+    @media (max-width: 768px) {
+        body {
+            width: 100vw;
+        }
+    }
+}

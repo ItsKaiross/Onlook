@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../static/icons/onlook_icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="OnLook">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#1A1B41">
+    <link rel="manifest" href="../static/manifest.json">
+    <link rel="apple-touch-icon" href="../static/icons/onlook_icon.png">
+    <link rel="stylesheet" href="static/css/mobile-reset.css">
+    <link rel="stylesheet" href="static/css/public/1u-public_view.css">
+    <link rel="stylesheet" href="static/css/public/user-profile-dropdown.css">
+    <link rel="stylesheet" href="static/css/public/carousel-effects.css">
+    <link rel="stylesheet" href="static/css/public/carousel-fix.css">
+    <link rel="stylesheet" href="static/css/public/public-mobile-app-view.css">
+    <link rel="stylesheet" href="static/css/desktop-hide-mobile.css">
+    <link rel="stylesheet" href="static/css/chatbot.css">
+    <link rel="stylesheet" href="static/css/public/edit-profile-popup.css">
+    <link rel="stylesheet" href="static/css/public/modal-gallery.css">
+    <link rel="stylesheet" href="static/css/public/see-all-popup.css">
+    <title>Public View - Onlook</title>
+</head> 
+<body>
+
+{% include 'includes/loading_screen.html' %}
+{% include 'includes/flash_messages.html' %}
+{% include 'includes/chatbot.html' %}
+{% include 'includes/edit-profile-popup.html' %}
+{% if loggedIn_email %}
+{% include 'includes/verification-notification.html' %}
+{% include 'includes/global_messages.html' %}
+{% endif %}
+
+<!--#######################################################-->
+<!--###############  P U B L I C  V I E W   ###############-->
+<!--#######################################################-->
+
+<!--######################################-->
+<!--#############  B A S E   #############-->
+<!--######################################-->
+<div class="base">
+    <div class="base_frame">
+
+        <!--######################################-->
+        <!--#############  L O G O   #############-->
+        <!--######################################-->
+
+        <div class="public_logo_frame">
+            <div class="mobile-hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <a href="/">
+                <img src="../static/images/logo/onlook_logo.png" alt="">
+            </a>
+            <div class="mobile-header-spacer"></div>
+        </div>
+
+
+        <!--#######################################-->
+        <!--########  T O P N A V B A R   #########-->
+        <!--#######################################-->
+        <div class="right_frame">
+            {% if loggedIn_email %}
+            <div class="right-profile">
+                <button class="profile-dropdown-btn" onclick="toggleUserProfileMenu()">
+                    {% if profile and profile.profile_filedata %}
+                    <img class="profile-pic" src="data:{{ profile.profile_filetype }};base64,{{ profile.profile_filedata }}" alt="Profile">
+                    {% else %}
+                    <div class="profile-pic-placeholder">{{ loggedIn_email[0].upper() }}</div>
+                    {% endif %}
+                    <span class="profile-name">{{ loggedIn_email }}</span>
+                    <span class="profile-arrow">▼</span>
+                </button>
+                <div class="profile-dropdown-menu" id="userProfileMenu">
+                    <a href="#" onclick="openEditProfilePopup()">Edit Profile</a>
+                    {% if loggedIn_email and role == 'systemAdmin' or loggedIn_email and role == 'policeAdmin' %}
+                    <a href="/admin-dashboard">Go to admin panel</a>
+                    {% endif %}
+                    {% if loggedIn_email and role in ['police',
+                'alaminos-mps', 'bay-mps', 'binancity-ps', 'cabuyaocity-ps',
+                'calambacity-ps', 'calauan-mps', 'cavinti-mps', 'famy-mps',
+                'kalayaan-mps', 'liliw-mps', 'sanpablocity-ps', 'santacruz-mps',
+                'santarosacity-ps', 'siniloan-mps', 'victoria-mps'
+                ] %}
+                <a href="/police-dashboard">Go to Police Dashboard</a>
+                {% endif %}
+                    <a href="#" onclick="openLogoutModal()">Logout</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="right-login-btn">
+                <button class="login-or-sign-up" id="register-first-btn">Login or Sign Up</button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+        <!--########################################-->
+        <!--######  P I C T U R E  F R A M E  ######-->
+        <!--########################################-->
+        <div class="picture_frame">
+            <div id="police-stations-map" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;"></div>
+            <div class="picture_text_frame">
+                <h1 style="color: #ffffff; text-shadow: 4px 4px 5px #1A1B41;;">"Bringing Home the Missing.<br> Together."</h1>   
+                <div class="popup_frame">
+                    {% if loggedIn_email %}
+                        <button class="report_missing_btn" id="report-missing" >🚨 Report Missing Now!</button>
+                    {% else %}
+                        <button class="report_missing_btn" id="register-first-btn1">🚨 Report Missing Now!</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!--#######################################-->
+        <!--######  S O C I A L  F R A M E  #######-->
+        <!--#######################################-->
+        <div class="social_frame">
+            <div class="facebook_icon_frame">
+                <a href="https://www.facebook.com/LagunaPulis" target="_blank"><img src="../static/icons/facebook.png" alt=""></a>
+            </div>
+            <div class="google_icon_frame">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=piolagunappo2021@gmail.com" target="_blank"><img src="../static/icons/google.png" alt=""></a>
+            </div>
+            <div class="messenger_icon_frame">
+                <a href="https://www.facebook.com/LagunaPulis" target="_blank"><img src="../static/icons/messenger.png" alt=""></a>
+            </div>
+        </div>
+
+        <!--#######################################-->
+        <!--###  M I D D L E  B A R  F R A M E  ###-->
+        <!--#######################################-->
+        <div class="middlebar_frame">
+            {% if loggedIn_email %}
+            <a href="#">Home</a>
+            <a href="/status-report">Status Report</a>
+            <a href="/resources">Resources</a>
+            {% else %}
+            <a href="/get_help">Get Help</a>
+            <a href="/community">Our Community</a>
+            <a href="/about">About OnLook</a>
+            <a href="/help-us">Help Us Find</a>
+            <a href="/professional">For Professionals</a>
+            {% endif %}
+        </div>
+
+
+        {% if loggedIn_email %}
+
+        <div class="missing_person_frame">
+            <div class="missing_personn_text_frame">
+                <div class="missing_person_text">
+                    <h1>"Have you seen them?</h1>
+                    <button class="see-all-btn" onclick="openSeeAllModal()">See All</button>
+                    <div class="carousel-container">
+                        <button class="carousel-arrow left-arrow" onclick="previousCardsLoggedIn()" id="prevBtnLoggedIn">‹</button>
+                        <div class="missing_person_list_frame carousel-content" id="loggedInCarousel">
+                            {% if missing_persons and missing_persons|length > 0 %}
+                                {% for person in missing_persons %}
+                                <div class="picture_card clickable-card" data-person-id="{{ person.id }}" data-reported-by-user="{{ person.is_reported_by_user|lower }}" onclick="showPersonDetailsLoggedIn('{{ person.id }}')">
+                                    {% if person.all_images and person.all_images|length > 1 %}
+                                    <div class="card-image-carousel" data-images='{{ person.all_images|tojson|safe }}'>
+                                        <img src="{{ person.all_images[0] }}" class="card_img" alt="{{ person.name }}" onerror="this.src='static/images/public_page/missing.jpg'">
+                                        <div class="card-image-nav">
+                                            <button class="card-nav-btn prev-btn" onclick="event.stopPropagation(); prevCardImage(this)">&lt;</button>
+                                            <button class="card-nav-btn next-btn" onclick="event.stopPropagation(); nextCardImage(this)">&gt;</button>
+                                        </div>
+                                        <div class="card-image-dots">
+                                            {% for image in person.all_images %}
+                                            <span class="card-dot {{ 'active' if loop.index == 1 else '' }}"></span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <img src="{{ person.image if person.image else 'static/images/public_page/missing.jpg' }}" class="card_img" alt="{{ person.name }}" onerror="this.src='static/images/public_page/missing.jpg'">
+                                    {% endif %}
+                                    <div class="popup_waacount_frame">
+                                        <button class="reported_missing_person_waccount_btn" id="reported-missing-waccount-btn">
+                                            <a>{{ person.name }}</a>
+                                            <p>{{ person.last_seen }}</p>
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="person-data" style="display: none;">
+                                        <span class="person-name">{{ person.name }}</span>
+                                        <span class="person-age">{{ person.age }}</span>
+                                        <span class="person-gender">{{ person.gender }}</span>
+                                        <span class="person-height">{{ person.height }}</span>
+                                        <span class="person-eye-color">{{ person.eye_color }}</span>
+                                        <span class="person-hair-color">{{ person.hair_color }}</span>
+                                        <span class="person-attire">{{ person.last_seen_attire }}</span>
+                                        <span class="person-location">{{ person.location }}</span>
+                                        <span class="person-birthdate">{{ person.birthdate }}</span>
+                                        <span class="person-last-seen">{{ person.last_seen }}</span>
+                                        <span class="person-image">{{ person.image if person.image else '../static/images/public_page/missing.jpg' }}</span>
+                                        <span class="person-all-images" data-images='{{ person.all_images|tojson|safe }}'>{{ person.all_images|join(',') if person.all_images and person.all_images|length > 0 else '' }}</span>
+                                        <span class="person-case-id">{{ person.case_id }}</span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="picture_card">
+                                    <img src="../static/images/public_page/missing.jpg" class="card_img" alt="No Data">
+                                    <div class="popup_waacount_frame">
+                                        <button class="reported_missing_person_waccount_btn">
+                                            <a>No Missing Persons</a>
+                                            <p>No reports available</p>
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <button class="carousel-arrow right-arrow" onclick="nextCardsLoggedIn()" id="nextBtnLoggedIn">›</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        
+
+        <!--#######################################-->
+        <!--######  M I S S I N G  L I S T  #######-->
+        <!--#######################################-->
+        <div class="missing_person_frame">
+            <div class="missing_personn_text_frame">
+                <div class="missing_person_text">
+                    <h1>"Have you seen them?"</h1>
+                    <button class="see-all-btn" onclick="openSeeAllModal()">See All</button>
+                    <div class="carousel-container">
+                        <button class="carousel-arrow left-arrow" onclick="previousCards()" id="prevBtn">‹</button>
+                        <div class="missing_person_list_frame carousel-content">
+                            {% if missing_persons and missing_persons|length > 0 %}
+                                {% for person in missing_persons %}
+                                <div class="picture_card clickable-card" data-person-id="{{ person.id }}" onclick="showPersonDetails('{{ person.id }}')">
+                                    {% if person.all_images and person.all_images|length > 1 %}
+                                    <div class="card-image-carousel" data-images='{{ person.all_images|tojson|safe }}'>
+                                        <img src="{{ person.all_images[0] }}" class="card_img" alt="{{ person.name }}" onerror="this.src='static/images/public_page/missing.jpg'">
+                                        <div class="card-image-nav">
+                                            <button class="card-nav-btn prev-btn" onclick="event.stopPropagation(); prevCardImage(this)">&lt;</button>
+                                            <button class="card-nav-btn next-btn" onclick="event.stopPropagation(); nextCardImage(this)">&gt;</button>
+                                        </div>
+                                        <div class="card-image-dots">
+                                            {% for image in person.all_images %}
+                                            <span class="card-dot {{ 'active' if loop.index == 1 else '' }}"></span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <img src="{{ person.image }}" class="card_img" alt="{{ person.name }}" onerror="this.style.display='none'">
+                                    {% endif %}
+                                    <div class="another_popup_frame">
+                                        <div class="reported_missing_person_info">
+                                            <a>{{ person.name }}</a>
+                                            <p>{{ person.last_seen }}</p>
+                                        </div>
+
+                                    </div>
+                                    
+                                    <!-- Hidden data for popup -->
+                                    <div class="person-data" style="display: none;">
+                                        <span class="person-name">{{ person.name }}</span>
+                                        <span class="person-age">{{ person.age }}</span>
+                                        <span class="person-gender">{{ person.gender }}</span>
+                                        <span class="person-birthdate">{{ person.birthdate }}</span>
+                                        <span class="person-last-seen">{{ person.last_seen }}</span>
+                                        <span class="person-image">{{ person.image if person.image else '../static/images/public_page/missing.jpg' }}</span>
+                                        <span class="person-all-images" data-images='{{ person.all_images|tojson|safe }}'>{{ person.all_images|join(',') if person.all_images and person.all_images|length > 0 else '' }}</span>
+                                        <span class="person-case-id">{{ person.case_id }}</span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="picture_card">
+                                    <img src="../static/images/public_page/missing.jpg" class="card_img" alt="No Data">
+                                    <div class="another_popup_frame">
+                                        <button class="reported_missing_person_btn">
+                                            <a>No Missing Persons</a>
+                                            <p>No reports available</p>
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <button class="carousel-arrow right-arrow" onclick="nextCards()" id="nextBtn">›</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--#######################################-->
+        <!--##########  G E T  H E L P  ###########-->
+        <!--#######################################-->
+
+        <div class="get_help_frame">
+            <div class="get_help_text_frame">
+                <div class="line"></div>
+                <div class="get_help_left_text">
+                    <h1>We're here to help</h1>
+                </div>
+            </div>
+            
+            <div class="another_frame">
+                <div class="photo_frame">
+                    <img src="../static/images/public_page/help.png" alt="Help Image">
+                </div>
+                <div class="get_help_details">
+                    <p>
+                        If you have been affected by<br> 
+                        someone in your life going missing,<br>
+                        or you are away or thinking of <br>
+                        leaving, we’re here for you.
+                    </p>
+                    <a href="/help-us"><button class="help_btn">
+                        Help
+                        <span class="help_btn_icon">
+                            <img src="../static/icons/next.png" alt="Next Icon">
+                        </span>
+                    </button></a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--#######################################-->
+        <!--######### C O M M U N I T Y   #########-->
+        <!--#######################################-->
+        <div class="community_frame">
+            <div class="community_another_frame">
+                <div class="community_text_frame">
+                    <p>"OnLook isn’t just a system — it’s a <br>
+                        community. Built by families, run by<br>
+                        volunteers, and supported by barangays <br>and agencies in Laguna. <br>
+                        Together, we make every effort to <br>
+                        bring missing individuals back to<br>
+                        safety."
+                    </p>
+                    <a href="/community"><button class="community_btn">Our Community
+                        <img src="../static/icons/public_view/communityicon.png" alt="">       
+                    </button></a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--#######################################-->
+        <!--####### H E L P  U S  F I N D  ########-->
+        <!--#######################################-->
+        <div class="help_us_find_frame">
+            <div class="help_line"></div>
+            <div class="help_us_find_text_frame">
+                <h1> We're Here to Listen</h1>
+            </div>
+            <div class="help_us_find_details">
+                <p>If you are searching for a missing loved one, have information <br>
+                    that may help locate someone, want to support our mission, <br>
+                    or you are a professional working with missing or cognitively <br>
+                    impaired individuals — we’re here for you.<br>
+                    Let’s work together to bring them home.</p>
+            </div>
+            
+            <a href="/talk-to-us"><button class="Help_us_find_btn">Get in Touch
+                <span class="Help_us_find_btn_icon">
+                    <img src="../static/icons/next.png" alt="">
+                </span>        
+            </button></a>
+        </div>
+        {% endif %}
+
+
+        <!--####################################################################-->
+        <!--########################## F O O T E R  ############################-->
+        <!--####################################################################-->
+        <footer>
+            <!--#######################################-->
+            <!--######### F O O T E R  T O P  #########-->
+            <!--#######################################-->
+            <div class="footer_top_frame">
+                <div class="get_help_footer">
+                    <h1>Get Help</h1>
+                    <ul>
+                        <li>What to Do if Someone Goes Missing</li>
+                        <li>Report a Missing Person</li>
+                        <li>Help Services in Laguna</li>
+                        <li>What You Can Expect from OnLook</li>
+                    </ul>
+                </div>
+                
+
+                <div class="community_footer">
+                    <h1>Our Community</h1>
+                    <ul>
+                        <li>Community Volunteers</li>
+                        <li>Family Stories</li>
+                        <li>Barangay Partnerships</li>
+                        <li>Events and Initiatives</li>
+                    </ul>
+                </div>
+
+                <div class="about_footer">
+                    <h1>About OnLook</h1>
+                    <ul>
+                        <li>Our Mission</li>
+                        <li>How OnLook Works</li>
+                        <li>Meet the Team</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--####################################-->
+            <!--#############  L I N E  ############-->
+            <!--####################################-->
+
+            <div class="divider_line"></div>
+
+            <!--#########################################-->
+            <!--######  F O O T E R  B O T T O M  #######-->
+            <!--#########################################-->
+
+            <div class="footer_bottom_frame">
+                <div class="help_us_footer">
+                    <h1>Help Us Find</h1>
+                    <ul>
+                        <li>View Missing Person Profiles</li>
+                        <li>Report a Sighting</li>
+                        <li>Share a Case</li>
+                        <li>Tips to Support the Search</li>
+                    </ul>
+                </div>
+
+                <div class="A_and_P_footer">
+                    <h1>Agencies and Professionals</h1>
+                    <ul>
+                        <li>Join as a Partner Agency</li>
+                        <li>Resources for LGUs and First Responders</li>
+                    </ul>
+                </div>
+
+                <div class="connect_footer" >
+                    <h1>Stay Connected</h1>
+                    <ul>
+                        <li>09173831684</li>
+                        <li>523 4544</li>
+                        <li>onlook2025@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--#########################################-->
+            <!--##############  L O G O  ################-->
+            <!--#########################################-->
+
+            <div class="logo_frame">
+                <img src="../static/icons/onlook_icon.png" alt="">
+            </div>
+
+            <!--########################################-->
+            <!--#########  C O P Y R I G H T  ##########-->
+            <!--########################################-->
+            <div class="copyright_section_frame">
+                &copy; copyright<br>est. 2025
+            </div>
+        </footer>
+    </div>
+</div>
+
+<div class="black-bg" id="bg-black"></div>
+
+<!--####################################################################-->
+<!--################  W A C C  P O P U P  F R A M E  ###################-->
+<!--####################################################################-->
+
+
+{% if loggedIn_email %}
+
+<!--#######################################-->
+<!--########  I N F O  F R A M E  #########-->
+<!--#######################################-->
+<div class="report-missing-modal" id="report-missing-popup">    
+    <form action="/submit-report" method="POST" enctype="multipart/form-data" charset="utf-8">
+
+        <!--#####################################################-->
+        <!--############  P R O G R E S S  B A R  ###############-->
+        <!--#####################################################-->
+        <div class="progress_container">
+            <div class="progress_bar">
+                <div class="progress_fill" id="progress_fill_wacc"></div>
+            </div>
+            <div class="progress_steps">
+                <div class="progress_step active" data-step="1">
+                    <div class="step_circle">1</div>
+                    <div class="step_label">Personal</div>
+                </div>
+                <div class="progress_step" data-step="2">
+                    <div class="step_circle">2</div>
+                    <div class="step_label">Address</div>
+                </div>
+                <div class="progress_step" data-step="3">
+                    <div class="step_circle">3</div>
+                    <div class="step_label">Health</div>
+                </div>
+                <div class="progress_step" data-step="4">
+                    <div class="step_circle">4</div>
+                    <div class="step_label">Whereabouts</div>
+                </div>
+                <div class="progress_step" data-step="5">
+                    <div class="step_circle">5</div>
+                    <div class="step_label">Location</div>
+                </div>
+                <div class="progress_step" data-step="6">
+                    <div class="step_circle">6</div>
+                    <div class="step_label">Review</div>
+                </div>
+            </div>
+        </div>
+
+        <!--#######################################-->
+        <!--##############   P I   ################-->
+        <!--#######################################-->
+        <div class="step step-1 active">
+            <div class="w-noacc-missing-report-close">
+                &times;
+            </div>
+            <div class="report-missing-txt">
+                <p>Missing Person Information</p>
+            </div>
+
+
+            <!--###############################################-->
+            <!--#############  F I R S T  N A M E  ############-->
+            <!--###############################################-->
+
+            <div class="firstName_frame"> <span style="color : red; font-size: 22px;">*</span>
+                <label for="firstName">First Name</label>
+                <div class="firstNameBox">
+                    <input type="text" name="firstName" id="firstName" placeholder="e.g. Juan"  required>
+                </div>
+            </div>
+
+            <!--#################################################-->
+            <!--#############  M I D D L E  N A M E  ############-->
+            <!--#################################################-->
+
+            <div class="middleName_frame">
+                <label for="middleName">Middle Name</label>
+                <div class="middleNameBox">
+                    <input type="text" name="middleName" id="middleName" placeholder="e.g. Santos" >
+                </div>
+            </div>
+
+            <!--#############################################-->
+            <!--#############  L A S T  N A M E  ############-->
+            <!--#############################################-->
+
+            <div class="lastName_frame"> <span style="color : red; font-size: 22px;">*</span>
+                <label for="lastName">Last Name</label>
+                <div class="lastNameBox">
+                    <input type="text" name="lastName" id="lastName" placeholder="e.g. Manahan"  required>
+                </div>
+            </div>
+
+            <!--########################################-->
+            <!--#############  S U F F I X  ############-->
+            <!--########################################-->
+
+            <div class="suffix_frame">
+                <label for="suffix">Suffix (Jr., Sr., III)</label>
+                <div class="suffixBox">
+                    <input type="text" name="suffix" id="suffix" placeholder="e.g., Jr., Sr., III">
+                </div>
+            </div>
+
+            <!--############################################-->
+            <!--#############  N I C K N A M E  ############-->
+            <!--############################################-->
+
+            <div class="nickname_frame">
+                <label for="nickname">Alias / Nickname</label>
+                <div class="nicknameBox">
+                    <input type="text" name="nickname" id="nickname" placeholder="e.g., Jun, Mike, Boyet">
+                </div>
+            </div>
+
+            <!--###########################################-->
+            <!--#############  G E N D E R  ###############-->
+            <!--###########################################-->
+
+            <div class="gender_frame"> <span style="color : red; font-size: 22px;">*</span>
+                <label for="gender">Sex</label>
+                <div class="gender_choice">
+                    <select name="gender" id="gender" required>
+                        <option selected disabled>Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                
+            </div>
+
+            <!--#######################################-->
+            <!--#############   D O B    ##############-->
+            <!--#######################################-->
+
+            <div class="dob_frame">
+                <label for="dob">Date of Birth <span style="color : red; font-size: 22px;">*</span></label>
+                <div class="dob-box">
+                    <input type="date" id="dob" name="dob" placeholder="Enter Date of Birth" required />
+                </div>
+            </div>
+
+            <div class="civil_citizen_frame"> 
+                <!--###################################################-->
+                <!--#############  C I V I L  S T A T U S  ############-->
+                <!--###################################################-->
+
+                <div class="civilStatus_frame">
+                    <label for="civil_status">Civil Status <span style="color : red; font-size: 22px;">*</span></label>
+                    <div class="civilStatus_choice">
+                        <select name="civil_status" id="civil_status" required>
+                            <option selected disabled>Select Civil Status</option>
+                            <option value="single">Single</option>
+                            <option value="married">Married</option>
+                            <option value="widowed">Widowed</option>
+                            <option value="separated">Separated</option>
+                            <option value="divorced">Divorced</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!--##################################################-->
+                <!--#############  C I T I Z E N S H I P  ############-->
+                <!--##################################################-->
+
+                <div class="citizenship_frame">
+                    <label for="citizenship">Citizenship <span style="color : red; font-size: 22px;">*</span></label>
+                    <div class="citizenship_choice">
+                        <select name="citizenship" id="citizenship" required>
+                            <option value="" disabled selected>Select Citizenship</option>
+                            <option value="Filipino">Filipino</option>
+                            <option value="Dual Citizenship">Dual Citizenship</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+
+            
+            <!--#######################################################-->
+            <!--#############  C O N T A C T  N U M B E R  ############-->
+            <!--#######################################################-->
+
+            <div class="contact_number_frame">
+                <label for="contact_number">Contact Number</label>  <span style="color : red; font-size: 22px;">*</span>
+                <div class="contact_numberBox">
+                    <input type="tel" name="contact_number" id="contact_number" placeholder="e.g. 09123456789 or +63912345678" pattern="^(\+639|09)\d{9}$"  required>
+                </div>
+            </div>
+            <button type="button" class="next_button">Next</button>
+        </div>
+
+
+
+
+        <!--##########################################-->
+        <!--#############  A D D R E S S  ############-->
+        <!--##########################################-->
+
+        <div class="step step-2 ">
+            <div class="w-noacc-missing-report-close2">
+                &times;
+            </div>
+            <div class="address">
+                <h1>Address</h1>
+            </div>
+
+            <!--#####################################################-->
+            <!--#################   R E G I O N   ###################-->
+            <!--#####################################################-->
+            <div class='region_frame'>
+                <label for="region">Region <span style="color : red; font-size: 22px;">*</span></label>
+                <div class="regionBox">
+                    <select name="region" id="region" onchange="populateProvinces()" required>
+                        <option value="" disabled selected>Select a region</option>
+                    </select>
+                </div>
+            </div>
+
+
+            
+            <!--#####################################################-->
+            <!--################   P R O V I N C E  #################-->
+            <!--#####################################################-->
+            <div class='province_frame'>
+                <label for="province">Province <span style="color : red; font-size: 22px;">*</span></label>
+                <div class="provinceBox">
+                    <select name="province" id="province" onchange="populateCities()" required>
+                        <option value="" disabled selected>Select a province</option>
+                    </select>
+                </div>
+            </div>
+
+
+            
+            <!--#####################################################-->
+            <!--###################   C I T Y   #####################-->
+            <!--#####################################################-->
+            <div class='city_frame'>
+                <label for="city">City/Municipality <span style="color : red; font-size: 22px;">*</span></label>
+                <div class="cityBox">
+                    <select name="city" id="city" onchange="populateBarangays()" required>
+                        <option value="" disabled selected>Select a city/municipality</option>
+                    </select>
+                </div>
+            </div>
+
+            <!--#####################################################-->
+            <!--################   B A R A N G A Y   ################-->
+            <!--#####################################################-->
+            <div class="barangay_frame">
+                <label for="popupBarangay">Barangay <span style="color : red; font-size: 22px;">*</span></label>  
+                <div class="BarangayBox">
+                    <select name="brgy" id="popupBarangay" required>
+                        <option value="" disabled selected>Select a barangay</option>
+                    </select>
+                </div>
+            </div>
+
+
+
+            <!--#####################################################-->
+            <!--##################   S T R E E T   ##################-->
+            <!--#####################################################-->
+            <div class="street_frame">
+                <label for="street">Street <span style="color : red; font-size: 22px;">*</span></label>  
+                <div class="streetBox">
+                    <input type="text" name="street" id="street"  required>
+                </div>
+            </div>
+
+            <!--#####################################################-->
+            <!--###############   H O U S E N O .   #################-->
+            <!--#####################################################-->
+            <div class="houseNo_frame">
+                <label for="houseNumber">House No.</label>
+                <div class="HouseNumberBox">
+                    <input type="text" name="houseNumber" id="houseNumber" placeholder="Enter your house no.">
+                </div>
+            </div>
+
+
+            
+            <button type="button" class="next_button">Next</button>
+            <button type="button" class="prev_button">Back</button>
+        </div>
+
+
+        <!--######################################################-->
+        <!--#######  H E A L T H  A N D  P H Y S I C A L  ########-->
+        <!--######################################################-->
+
+        <div class="step step-3 ">
+            <div class="w-noacc-missing-report-close3">
+                &times;
+            </div>
+            <div class="report-missing-txt">
+                <p>Health Conditions</p>
+            </div>
+            
+            <div class="health_frame">
+            </div>
+
+            <!--#######################################-->
+            <!--############ C H O I C E S ############-->
+            <!--#######################################-->
+
+            <div class="health_choice">
+                <select name="health_type_dropdown" id="" placeholder="Status" required>
+                    <option selected disabled>Choose Condition</option>
+                    <option value="physical_and_mental">Physical and Mental</option>
+                    <option value="physical">Physical</option>
+                    <option value="mental">Mental</option>
+                </select>
+            </div>
+            
+            <div class="health_text_frame">
+                <div class="healthbox">
+                    <textarea name="health_description" id="health_description" rows='4' cols='50' placeholder="e.g., Asthma, Diabetes, Uses hearing aid or put 'N/A if you don't know'" required></textarea>
+                </div>
+            </div>
+
+            <div class="report-missing-txt">
+                <p>Physical Description</p>
+            </div>
+
+            <!--#######################################-->
+            <!--#############  H A I R  ###############-->
+            <!--#######################################-->
+
+            <div class="hair_frame">
+                <label for="hair_color">Hair color</label>
+                <div class="hairColorBox">
+                    <select id="hair_color" name="hair_color">
+                        <option value="" disabled selected>Select hair color</option>
+                        <option value="black">Black</option>
+                        <option value="brown">Brown</option>
+                        <option value="blonde">Blonde</option>
+                        <option value="red">Red</option>
+                        <option value="gray">Gray</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <!--################################################-->
+            <!--#############  E Y E  C O L O R  ###############-->
+            <!--################################################-->
+
+            <div class="eye_color_frame">
+                <label for="eye_color">Eye Color</label>
+                <div class="eyeColorBox">
+                    <select id="eye_color" name="eye_color">
+                        <option value="" disabled selected>Select eye color</option>
+                        <option value="black">Black</option>
+                        <option value="blue">Blue</option>
+                        <option value="brown">Brown</option>
+                        <option value="green">Green</option>
+                        <option value="hazel">Hazel</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <!--###########################################-->
+            <!--#############  H E I G H T  ###############-->
+            <!--###########################################-->
+
+            <div class="height_frame"> 
+                <label for="height">Height(cm)  <span style="color : red; font-size: 22px;">*</span></label>
+                <div class="heightBox">
+                    <input type="number" name="height" id="height" step="1" min="0" placeholder="e.g., 170 cm" min="0" required>
+                </div>
+            </div>
+
+
+            <!--###########################################-->
+            <!--#############  W E I G H T  ###############-->
+            <!--###########################################-->
+
+            <div class="weight_frame">
+                <label for="weight">Weight(kg)  <span style="color : red; font-size: 22px;">*</span></label>
+                <div class="weightBox">
+                    <input type="number" name="weight" id="weight" step="1" min="0" placeholder="e.g., 70 kg" min="0" required>
+                </div>
+            </div>
+
+
+            <!--##############################################################-->
+            <!--#############  D I S T I N G U I S H  M A R K  ###############-->
+            <!--##############################################################-->
+
+            <div class="distinguish_mark_frame">
+                <label for="distinguish">Distinguishing Mark  <span style="color : red; font-size: 22px;">*</span></label>
+                <div class="distinguishBox">
+                    <input type="text" name="distinguish" id="distinguish" placeholder="e.g., Scar on left cheek"  required>
+                </div>
+            </div>
+            
+            <!--###########################################-->
+            <!--#########  O C C U P A T I O N  ###########-->
+            <!--###########################################-->
+
+            <div class="occupation_frame">
+                <label for="occupation">Occupation  <span style="color : red; font-size: 22px;">*</span></label>
+                <div class="occupationBox">
+                    <input type="text" name="occupation" id="occupation" placeholder="e.g., Student, Teacher, Engineer" required>
+                </div>
+            </div>
+
+            <!--###########################################-->
+            <!--#############  A T T I R E  ###############-->
+            <!--###########################################-->
+
+            <div class="attire_frame">
+                <label for="attire">Last seen attire  <span style="color : red; font-size: 22px;">*</span></label>
+                <div class="attireBox">
+                    <textarea type="text" name="attire" id="attire" placeholder="e.g., Blue t-shirt and black jeans" rows='4' cols='50'  required></textarea>
+                </div>
+            </div>
+
+        <!--######################################-->
+        <!--############  B U T T O N  ###########-->
+        <!--######################################-->
+            <button type="button" class="next_button">Next</button>
+            <button type="button" class="prev_button">Back</button>
+        </div>
+
+        <!--##############################################################-->
+        <!--#####################  L A S T  S E E N  #####################-->
+        <!--##############################################################-->
+
+        <div class="step step-4">
+            <div class="w-noacc-missing-report-close4">
+                &times;
+            </div>
+            <div class="report-missing-txt">
+                <p>Last Known Whereabouts</p>
+            </div>
+
+            <!--#######################-->
+            <!--######  D A T E  ######-->
+            <!--#######################-->
+
+            <div class="last_Seen_frame">
+                <label for="lastSeen">Date Last Seen  <span style="color : red; font-size: 22px;">*</span></label>
+                <div class="last-seen-box">
+                    <input type="date" id="lastSeen" name="lastSeen" placeholder="Enter date last seen" required />
+                </div>
+            </div>
+
+
+            <!--#######################-->
+            <!--######  T I M E  ######-->
+            <!--#######################-->
+
+            <div class="time_last_seen_frame">
+                <label for="TimelastSeen">Time Last Seen  <span style="color : red; font-size: 22px;">*</span></label>
+                <div class="time-box">
+                    <input type="time" id="" name="timeLastSeen" placeholder="Enter time last seen" required />
+                </div>
+            </div>
+
+            <!--#########################-->
+            <!--######  I M A G E  ######-->
+            <!--#########################-->
+
+            <div class="upload_photo_frame" id="upload_photo_js">
+                <label for="upload_last_seen2">Upload Main Photo of Missing Person  <span style="color : red; font-size: 22px;">*</span></label>
+                <div class="photo-box">
+                    <input type="file" name="upload_last_seen" id="upload_last_seen2" accept="image/*" onchange="previewLastSeenImage2()" >
+                </div>
+                <button type="button" id="view_last_seen_btn2" onclick="toggleLastSeenPreview2()" style="display: none; margin-top: 10px; padding: 8px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; cursor: pointer;">View Image</button>
+                <div id="last_seen_preview2" class="file-preview" style="display: none;"></div>
+            </div>
+
+            <!--#####################################-->
+            <!--######  A D D I T I O N A L  ######-->
+            <!--#####################################-->
+
+            <div class="upload_additional_photos_frame" id="upload_additional_photos_js">
+                <label for="additional_images">Upload Additional Photos (Optional)</label>
+                <div class="additional-photos-box">
+                    <input type="file" name="additional_images" id="additional_images" accept="image/*" multiple onchange="previewAdditionalImages()" >
+                </div>
+                <div class="file-info" style="margin-top: 5px; font-size: 12px; color: #666;">
+                    You can select multiple images at once. Maximum 5MB per image.
+                </div>
+                <button type="button" id="view_additional_images_btn" onclick="toggleAdditionalImagesPreview()" style="display: none; margin-top: 10px; padding: 8px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; cursor: pointer;">View Images</button>
+                <div id="additional_images_preview" class="file-preview" style="display: none;"></div>
+            </div>
+
+
+            <button type="button" class="next_button">Next</button>
+            <button type="button" class="prev_button">Back</button>
+        </div>
+
+
+        <!--###############################################-->
+        <!--##############  L O C A T I O N  ##############-->
+        <!--###############################################-->
+
+        <div class="step step-5 ">
+            <div class="w-noacc-missing-report-close5">
+                &times;
+            </div>
+            <div class="report-missing-txt">
+                <p>Last Known Location  <span style="color : red; font-size: 22px;">*</span></p>
+            </div>
+
+            <!--###############################-->
+            <!--######  L O C A T I O N  ######-->
+            <!--###############################-->
+
+            <div class="location_frame">
+
+                <div class="radiobtn_frame" style="margin: 10px 0; display: flex; gap: 20px;">
+                    <label for="Location" style="display: flex; align-items: center; cursor: pointer;">
+                        <div class="location-radioButton">
+                            <input type="radio" name="locLastSeen" id="" value="my-location" onclick="document.getElementById('customLocation').disabled=true; document.getElementById('searchBtn').disabled=true; getLocation();" required style="margin-right: 8px;"> My Location
+                        </div>
+                    </label>
+
+                    <label for="Location" style="display: flex; align-items: center; cursor: pointer;">
+                        <div class="location-radioButton">
+                            <input type="radio" name="locLastSeen" id="" value="custom-location" onclick="document.getElementById('customLocation').disabled=false; document.getElementById('searchBtn').disabled=false;" required style="margin-right: 8px;"> Custom location
+                        </div>
+                    </label>
+
+                </div>
+
+                <div id="location"></div>
+
+                <div id="map" style="height: 300px; width: 100%; margin: 10px 0; border: 1px solid #ccc;"></div>
+
+                <input type="hidden" name="latitude" id="latitude2" value="0">
+                <input type="hidden" name="longitude" id="longitude2" value="0">
+
+                <label for="Location_textbox_frame">
+
+                    <div class="location_textbox_Frame" style="display: flex; gap: 10px; margin: 10px 0;">
+                        
+                        <input type="text" name="customLoc" id="customLocation" placeholder="Enter Location" disabled style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                        <button type="button" onclick="searchLocation()" disabled id="searchBtn" style="padding: 8px 16px; background: #1A1B41; color: white; border: none; border-radius: 4px; cursor: pointer;">Search</button>
+                    </div>
+                </label>
+            </div>
+
+            <button type="button" class="next_button">Next</button>
+            <button type="button" class="prev_button">Back</button>
+        </div>
+
+        <!--###############################################-->
+        <!--##############  R E V I E W  ##################-->
+        <!--###############################################-->
+
+        <div class="step step-6 ">
+            <div class="w-noacc-missing-report-close5">
+                &times;
+            </div>
+            <div class="report-missing-txt">
+                <p>Review Your Report</p>
+            </div>
+
+            <div class="review_summary">
+                <div class="review_section modern-card">
+                    <div id="review_image_container_wacc" style="margin: 0 auto 25px; text-align: center; display: flex; justify-content: center; align-items: center;">
+                        <img id="review_image_wacc" src="" alt="Missing Person Photo" style="width: 180px; height: 180px; border-radius: 50%; display: none; box-shadow: 0 6px 20px rgba(0,0,0,0.2); object-fit: cover; border: 5px solid #fff;">
+                    </div>
+                    <h3 style="color: #1A1B41; margin-bottom: 25px; font-size: 20px; font-weight: 700; border-bottom: 3px solid #667eea; padding-bottom: 12px; text-align: center;">Missing Person Information</h3>
+                    <div class="review-grid">
+                        <div class="review-item">
+                            <span class="review-label">Name:</span>
+                            <span class="review-value" id="review_name_wacc">Not provided</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Gender:</span>
+                            <span class="review-value" id="review_gender_wacc">Not provided</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Date of Birth:</span>
+                            <span class="review-value" id="review_dob_wacc">Not provided</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Height:</span>
+                            <span class="review-value"><span id="review_height_wacc">Not provided</span> cm</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Weight:</span>
+                            <span class="review-value"><span id="review_weight_wacc">Not provided</span> kg</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Hair Color:</span>
+                            <span class="review-value" id="review_hair_wacc">Not provided</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Eye Color:</span>
+                            <span class="review-value" id="review_eyes_wacc">Not provided</span>
+                        </div>
+                        <div class="review-item full-width">
+                            <span class="review-label">Last Seen Attire:</span>
+                            <span class="review-value" id="review_attire_wacc">Not provided</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review_section modern-card">
+                    <h3 style="color: #1A1B41; margin-bottom: 25px; font-size: 20px; font-weight: 700; border-bottom: 3px solid #667eea; padding-bottom: 12px; text-align: center;">Last Known Whereabouts</h3>
+                    <div class="review-grid">
+                        <div class="review-item">
+                            <span class="review-label">Date Last Seen:</span>
+                            <span class="review-value" id="review_date_seen_wacc">Not provided</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Time Last Seen:</span>
+                            <span class="review-value" id="review_time_seen_wacc">Not provided</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit_button">Submit Report</button>
+            <button type="button" class="prev_button">Back</button>
+        </div>
+    </form>
+</div>
+{% else %}
+{% endif %}
+
+
+<!--#################################################################################################-->
+<!--################### R E P O R T E D  M I S S I N G  N / A C C  F R A M E  #######################-->
+<!--#################################################################################################-->
+
+
+<div class="reported-missing-modal">
+    <div id="reported-missing-popup">
+        <div class="reported-missing-content">
+            <div class="reported-missing-close">
+                &times;
+            </div>
+            <div class="reported-missing-txt">
+                <p>Have you seen him/her?</p>
+            </div>
+
+            <!--#######################################-->
+            <!--########### R E P O R T E D ###########-->
+            <!--#######################################-->
+            <div class="reported_frame">
+                {% if missing_persons and missing_persons|length > 0 %}
+                    <div class="image-gallery" style="position: relative; width: 100%; height: 300px;">
+                        <img src="{{ missing_persons[0].all_images[0] if missing_persons[0].all_images and missing_persons[0].all_images|length > 0 else (missing_persons[0].image if missing_persons[0].image else 'static/images/public_page/missing.jpg') }}" alt="Missing Person" id="reported-main-image" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.src='static/images/public_page/missing.jpg'">
+                        <div class="reported-image-nav">
+                            <button class="reported-nav-btn reported-prev-btn" onclick="prevReportedImage()">&lt;</button>
+                            <button class="reported-nav-btn reported-next-btn" onclick="nextReportedImage()">&gt;</button>
+                        </div>
+                        <div class="reported-image-dots">
+                            {% if missing_persons[0].all_images and missing_persons[0].all_images|length > 1 %}
+                                {% for image in missing_persons[0].all_images %}
+                                <span class="reported-dot {{ 'active' if loop.index == 1 else '' }}"></span>
+                                {% endfor %}
+                            {% else %}
+                                <span class="reported-dot active"></span>
+                            {% endif %}
+                        </div>
+                        <div class="image-counter">1 / {{ (missing_persons[0].all_images|length) if missing_persons[0].all_images else 1 }}</div>
+                    </div>
+                    <script>
+                        window.reportedImages = {{ missing_persons[0].all_images|tojson|safe if missing_persons[0].all_images else [missing_persons[0].image if missing_persons[0].image else 'static/images/public_page/missing.jpg']|tojson|safe }};
+                        window.currentReportedIndex = 0;
+                    </script>
+                {% else %}
+                    <img src="static/images/public_page/missing.jpg" alt="Missing Person" style="width: 100%; height: 300px; object-fit: cover; display: block;">
+                {% endif %}
+
+                <button type="button" class="help_locate_reported_frame" id="help_locate_no_acc_btn" style="margin: 10px 0;">Help locate</button>
+
+
+            </div>
+
+            <!--#######################################-->
+            <!--#############   L I N E    ############-->
+            <!--#######################################-->
+            <div class="divider_reported_line"></div>
+
+
+            <div class="info_reported_frame">
+                <!--#######################################-->
+                <!--############## F N A M E ##############-->
+                <!--#######################################-->
+                <div class="first_name_reported_frame">
+                    <label for="Name">Name: 
+                        {% if missing_persons and missing_persons|length > 0 %}
+                            {{ missing_persons[0].name }}
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </label>   
+                </div>
+
+
+                <!--#######################################-->
+                <!--#############   D A T E    ############-->
+                <!--#######################################-->
+                <div class="birth_reported_frame">
+                    <label for="Birth">Date of Birth: 
+                        {% if missing_persons and missing_persons|length > 0 %}
+                            {{ missing_persons[0].birthdate }}
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </label>   
+                </div>
+
+                <!--#######################################-->
+                <!--#############  L S E E N   ############-->
+                <!--#######################################-->
+                <div class="last_seen_reported_frame">
+                    <label for="LastSeen">Last Seen: 
+                        {% if missing_persons and missing_persons|length > 0 %}
+                            {{ missing_persons[0].last_seen }}
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </label>   
+                </div>
+
+
+                <!--#######################################-->
+                <!--#############  I N F O  ###############-->
+                <!--#######################################-->
+                <div class="information_reported_frame">
+                    <label>if you have any information of his whereabouts, please contact:</label>   
+                </div>
+
+
+                <!--#######################################-->
+                <!--############# C O N T A C T ###########-->
+                <!--#######################################-->
+                <div class="contact_reported_frame">
+                    <label for="Contact">09173831684</label>   
+                </div>
+            </div>
+        </div> 
+    </div>   
+</div>
+
+
+
+
+<!--################################################################################-->
+<!--############### R E P O R T E D  W/A C C  P O P U P  F R A M E  ################-->
+<!--################################################################################-->
+<div class="waccount-reported-missing-modal" id="reported-missing-waccount-popup">    
+    <div class="reported-missing-waccount-close">
+        &times;
+    </div>
+
+
+    <!--#######################################-->
+    <!--############### L E F T  ##############-->
+    <!--#######################################-->
+    <div class="left_frame">
+        {% if selected_person and selected_person.all_images and selected_person.all_images|length > 1 %}
+        <div class="image-gallery">
+            <div class="main-image-container">
+                <img src="{{ selected_person.image if selected_person.image else 'static/images/public_page/missing.jpg' }}" alt="Missing Person" id="popup-image" class="main-image" onerror="this.src='static/images/public_page/missing.jpg'">
+                <button class="gallery-nav-btn gallery-prev-btn" onclick="prevGalleryImage()">&lt;</button>
+                <button class="gallery-nav-btn gallery-next-btn" onclick="nextGalleryImage()">&gt;</button>
+                <div class="image-counter">1 / {{ selected_person.all_images|length }}</div>
+            </div>
+            <script>
+                window.galleryImages = {{ selected_person.all_images|tojson|safe }};
+                window.currentGalleryIndex = 0;
+            </script>
+        </div>
+        {% else %}
+        <div class="single-image-container" style="position: relative;">
+            <img src="{{ selected_person.image if selected_person and selected_person.image else 'static/images/public_page/missing.jpg' }}" alt="Missing Person" id="popup-image" onerror="this.src='static/images/public_page/missing.jpg'">
+            <button class="gallery-nav-btn gallery-prev-btn" onclick="prevGalleryImage()">&lt;</button>
+            <button class="gallery-nav-btn gallery-next-btn" onclick="nextGalleryImage()">&gt;</button>
+        </div>
+        {% endif %}
+    </div>
+
+
+    
+    <!--#######################################-->
+    <!--########### M I D D L E  ##############-->
+    <!--#######################################-->
+    <div class="middle_frame">
+        <h1 id="popup-name">
+            {% if selected_person %}
+            {{ selected_person.name }}
+            {% else %}
+            Unknown
+            {% endif %}
+        </h1>
+
+
+        
+    <!--#######################################-->
+    <!--######## I N F O R M A T I O N  #######-->
+    <!--#######################################-->
+        <div class="information_frame">
+
+
+            <!--#######################################-->
+            <!--########## I N F O  I T E M  ##########-->
+            <!--#######################################-->
+            <div class="info_item">
+                <img src="../static/icons/public_view/user.png" alt="Age at Disappearance" class="info-icon">
+                <p>Age at Disappearance</p>
+                <h2 id="popup-age">
+                    {% if selected_person %}
+                    {{ selected_person.age }}
+                    {% else %}
+                    Unknown
+                    {% endif %}
+                </h2>
+            </div>
+
+            <div class="info_item">
+                <img src="../static/icons/public_view/gender.png" alt="Gender" class="info-icon">
+                <p>Gender</p>
+                <h2 id="popup-gender">
+                    {% if selected_person %}
+                    {{ selected_person.gender }}
+                    {% else %}
+                    Unknown
+                    {% endif %}
+                </h2>
+            </div>
+
+            <div class="info_item">
+                <img src="../static/icons/public_view/location.png" alt="Missing From" class="info-icon">
+                <p>Missing From</p>
+                <h2 id="popup-missing-from">
+                    {% if selected_person %}
+                    {{ selected_person.missing_from }}
+                    {% else %}
+                    Unknown
+                    {% endif %}
+                </h2>
+            </div>
+
+            <div class="info_item">
+                <img src="../static/icons/public_view/seen.png" alt="Last Seen" class="info-icon">
+                <p>Last seen</p>
+                <h2 id="popup-last-seen">
+                    {% if selected_person %}
+                    {{ selected_person.location }}
+                    {% else %}
+                    Unknown
+                    {% endif %}
+                </h2>
+            </div>
+
+            <div class="info_item">
+                <img src="../static/icons/public_view/calendar.png" alt="Missing Since" class="info-icon">
+                <p>Missing Since</p>
+                <h2 id="popup-missing-since">
+                    {% if selected_person %}
+                    {{ selected_person.last_seen }}
+                    {% else %}
+                    Unknown
+                    {% endif %}
+                </h2>
+            </div>
+
+            <div class="info_item">
+                <img src="../static/icons/public_view/eye.png" alt="Eyes" class="info-icon">
+                <p>Eyes</p>
+                <h2 id="popup-eyes">
+                    {% if selected_person %}
+                    {{ selected_person.eye_color }}
+                    {% else %}
+                    Unknown
+                    {% endif %}
+                </h2>
+            </div>
+
+            <div class="info_item">
+                <img src="../static/icons/public_view/height.png" alt="Height" class="info-icon">
+                <p>Height(ft)</p>
+                <h2 id="popup-height">
+                    {% if selected_person %}
+                    {{ selected_person.height }}
+                    {% else %}
+                    Unknown
+                    {% endif %}
+                </h2>
+            </div>
+
+            <div class="info_item">
+                <img src="../static/icons/public_view/shirt.png" alt="Attire" class="info-icon">
+                <p>Attire</p>
+                <h2 id="popup-attire">
+                    {% if selected_person %}
+                    {{ selected_person.last_seen_attire }}
+                    {% else %}
+                    Unknown
+                    {% endif %}
+                </h2>
+            </div>
+
+            <div class="info_item">
+                <img src="../static/icons/public_view/hair.png" alt="Hair" class="info-icon">
+                <p>Hair</p>
+                <h2 id="popup-hair">
+                    {% if selected_person %}
+                    {{ selected_person.hair_color }}
+                    {% else %}
+                    Unknown
+                    {% endif %}
+                </h2>
+            </div>
+        </div>
+    </div> 
+
+
+
+    <!--#######################################-->
+    <!--######## R I G H T  F R A M E #########-->
+    <!--#######################################-->
+    <div class="right_last_frame">
+        <div class="details_frame">
+            <p> we are here for you whenever you are ready; we can listen, 
+                talk you through what help you need, pass a message for you 
+                and help you to be safe.</p>
+        </div>
+
+        
+        <!--#######################################-->
+        <!--############ B U T T O N  #############-->
+        <!--#######################################-->
+        <button type="button" class="help_locate_button" id="help_locate_wacc_btn">Help Locate</button>
+
+
+        <!--#######################################-->
+        <!--############ D E T A I L S ############-->
+        <!--#######################################-->
+        <div class="youknow_frame">
+            <p>Do you know this person?</p>
+        </div>
+    </div>
+</div>
+
+
+
+<!--################################################################################-->
+<!--#############  H E L P  L O C A T E  B T N  W / A C C  P O P U P  ##############-->
+<!--################################################################################-->
+
+
+<!--#######################################-->
+<!--####### L O C A T E  F R A M E  #######-->
+<!--#######################################-->
+
+<div class="help-locate-wacc-modal" id="help-locate-wacc-popup"> 
+    <form action="/help-locate-additional-report" method="POST" enctype="multipart/form-data" charset="utf-8">
+
+        <!--#####################################################-->
+        <!--############  P R O G R E S S  B A R  ###############-->
+        <!--#####################################################-->
+        <div class="progress_container">
+            <div class="progress_bar">
+                <div class="progress_fill" id="progress_fill_help_locate"></div>
+            </div>
+            <div class="progress_steps">
+                <div class="progress_step active" data-step="1">
+                    <div class="step_circle">1</div>
+                    <div class="step_label">Details</div>
+                </div>
+                <div class="progress_step" data-step="2">
+                    <div class="step_circle">2</div>
+                    <div class="step_label">Location</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--#######################################-->
+        <!--#############  S T E P  1  ############-->
+        <!--#######################################-->
+        <div class="step step-1 active ">
+            <div class="help-locate-wacc-close">
+                &times;
+            </div>
+
+            <div class="help-locate-wacc-txt">
+                <p>I Saw This Person</p>
+            </div>  
+            <div id="help-locate-flash-message" style="display: none; background: #f8d7da; color: #721c24; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #f5c6cb;"></div>
+            
+            <!--###########################################-->
+            <!--##############  H I D D E N  ##############-->
+            <!--###########################################-->
+            <input type="hidden" name="person_id" id="help-locate-case-id-wacc" value="0">
+            <input type="hidden" name="helpEmail" value="{{ loggedIn_email }}">
+            <input type="hidden" name="HelpLocateFirstName" value="{{ session.get('firstName', '') }}">
+            <input type="hidden" name="HelpLocateMiddleName" value="">
+            <input type="hidden" name="HelpLocateLastName" value="{{ session.get('lastName', '') }}">
+            <input type="hidden" name="HelpLocateContact" value="{{ user_contact or '' }}">
+
+            <!--####################################################-->
+            <!--##############  R E L  M I S S I N G  ##############-->
+            <!--####################################################-->
+
+            <div class="relationship_missing_help_locate_wacc_frame">
+                <label for="HelpRelationship">Relationship to Missing Person</label>
+                <div class="HelpRelationshipBox">
+                    <input type="text" name="HelpRelationship" id="HelpRelationshipWacc" placeholder="e.g Mother, Father"  required>
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--##############  T I M E  ##############-->
+            <!--#######################################-->
+
+            <div class="time_help_locate_wacc_frame">
+                <label for="TimeSighting">Time of sighting</label>
+                <div class="TimeSightingBox">
+                    <input type="time" name="TimeSighting" id="helpTimeSightingWacc" required>
+                </div>
+            </div>
+
+
+            <!--#######################################-->
+            <!--##############  D A T E  ##############-->
+            <!--#######################################-->
+
+            <div class="date_help_locate_wacc_frame">
+                <label for="DateSighting">Date of sighting</label>
+                <div class="DateSightingBox">
+                    <input type="date" name="DateSighting" id="helpDateSightingWacc" placeholder="Enter date of sighting"  required>
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--####### D E S C R I P T I O N  ########-->
+            <!--#######################################-->
+
+            <div class="description_help_locate_wacc_frame">
+                <label for="Description">Description</label>
+                <div class="DescriptionBox">
+                    <textarea  name="help_locate_description" id="help_locate_description_wacc" rows='4' cols='50' placeholder="Enter Description" required></textarea>
+                </div>
+            </div>
+            <button type="button" class="next_button">Next</button>
+        </div>
+
+
+
+
+        <!--#######################################-->
+        <!--#############  S T E P  2  ############-->
+        <!--#######################################-->
+        <div class="step step-2  ">
+            <div class="help-locate-wacc-close2">
+                &times;
+            </div>
+
+            <div class="help-locate-wacc-txt">
+                <p>I Saw This Person</p>
+            </div>
+
+
+            <!--#########################-->
+            <!--######  I M A G E  ######-->
+            <!--#########################-->
+
+            <div class="upload_help_locate_photo_frame" id="upload_photo_js">
+                <label for="help_upload_last_seen">Upload Photo</label>
+                <div class="photo-help_locate-box">
+                    <input type="file" name="help_upload_last_seen" id="help_upload_last_seen" accept="image/*" onchange="previewHelpLocateImage()" >
+                </div>
+                <button type="button" id="help_view_last_seen_btn" onclick="toggleHelpLocatePreview()" style="display: none; margin-top: 10px; padding: 8px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; cursor: pointer;">View Image</button>
+                <div id="help_last_seen_preview" class="file-preview" style="display: none;"></div>
+            </div>
+
+
+
+            <!--###############################-->
+            <!--######  L O C A T I O N  ######-->
+            <!--###############################-->
+
+            <div class="location_help_no_acc_frame">
+                <div class="radiobtn_no_acc_frame" style="margin: 10px 0; display: flex; gap: 20px;">
+                    <label for="Location" style="display: flex; align-items: center; cursor: pointer;">
+                        <div class="location-no-acc-radioButton">
+                            <input type="radio" name="helpLocateLocation" id="" value="my-location" onclick="document.getElementById('helpCustomLocation').disabled=true; document.getElementById('helpSearchBtn').disabled=true; getHelpLocateLocation();" required style="margin-right: 8px;"> My Location
+                        </div>
+                    </label>
+                    <label for="Location" style="display: flex; align-items: center; cursor: pointer;">
+                        <div class="location-no-acc-radioButton">
+                            <input type="radio" name="helpLocateLocation" id="" value="custom-location" onclick="document.getElementById('helpCustomLocation').disabled=false; document.getElementById('helpSearchBtn').disabled=false;" required style="margin-right: 8px;"> Custom location
+                        </div>
+                    </label>
+                </div>
+                
+                <div id="helpLocation">
+                    <p id="helpLocationText" style="margin: 10px 0; font-weight: bold; display: none;">Selected Location: </p>
+                </div>
+                <div id="helpMap" style="height: 300px; width: 100%; margin: 10px 0; border: 1px solid #ccc;"></div>
+                <input type="hidden" name="helpLatitude" id="helpLatitude" value="0">
+                <input type="hidden" name="helpLongitude" id="helpLongitude" value="0">
+
+                <label for="Location_wacc_textbox_frame">
+                    <div class="location_no_acc_textbox_Frame" style="display: flex; gap: 10px; margin: 10px 0;">
+                        <input type="text" name="helpCustomLoc" id="helpCustomLocation" placeholder="Enter Location" disabled style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                        <button type="button" onclick="searchHelpLocation()" disabled id="helpSearchBtn" style="padding: 8px 16px; background: #1A1B41; color: white; border: none; border-radius: 4px; cursor: pointer;">Search</button>
+                    </div>
+                </label>
+            </div>
+
+            <button type="submit" class="submit_button">Submit</button>
+            <button type="button" class="prev_button">Back</button>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+<!--################################################################################-->
+<!--#############  H E L P  L O C A T E  B T N  N / A C C  P O P U P  ##############-->
+<!--################################################################################-->
+
+<!--#######################################-->
+<!--####### L O C A T E  F R A M E  #######-->
+<!--#######################################-->
+<div class="help-locate-no-acc-modal" id="help-locate-no-acc-popup">    
+    <form id="help-locate-no-acc-form" action="/help-locate-additional-report/0" method="POST" enctype="multipart/form-data" charset="utf-8">
+        <input type="hidden" name="person_id" id="help-locate-case-id" value="0">
+
+        <!--#####################################################-->
+        <!--############  P R O G R E S S  B A R  ###############-->
+        <!--#####################################################-->
+        <div class="progress_container">
+            <div class="progress_bar">
+                <div class="progress_fill" id="progress_fill_help_locate_no_acc"></div>
+            </div>
+            <div class="progress_steps">
+                <div class="progress_step active" data-step="1">
+                    <div class="step_circle">1</div>
+                    <div class="step_label">Details</div>
+                </div>
+                <div class="progress_step" data-step="2">
+                    <div class="step_circle">2</div>
+                    <div class="step_label">Location</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--#######################################-->
+        <!--#############  S T E P  1  ############-->
+        <!--#######################################-->
+        <div class="step step-1 active ">
+            <div class="help-locate-no-acc-close">
+                &times;
+            </div>
+
+            <div class="help-locate-no-acc-txt">
+                <p>I Saw This Person</p>
+            </div>
+            
+            <div id="help-locate-flash-message" style="display: none; background: #f8d7da; color: #721c24; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #f5c6cb;"></div>
+
+            <!--#########################################-->
+            <!--##############  E M A I L  ##############-->
+            <!--#########################################-->
+
+            <div class="email_help_locate_no_acc_frame">
+                <label for="helpEmailNoAcc">Email</label>
+                <div class="helpEmailBox">
+                    <input type="email" name="helpEmail" id="helpEmailNoAcc" placeholder="e.g 'juan@gmail.com'" required>
+                </div>
+            </div>
+
+            <!--#########################################-->
+            <!--##############  F N A M E  ##############-->
+            <!--#########################################-->
+
+            <div class="first_name_help_locate_no_acc_frame">
+                <label for="HelpLocateFirstNameNoAcc">First Name</label>
+                <div class="firstNamebox">
+                    <input type="text" name="HelpLocateFirstName" id="HelpLocateFirstNameNoAcc" placeholder="e.g 'juan'" required>
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--############## M N A M E ##############-->
+            <!--#######################################-->
+
+            <div class="middle_name_help_locate_no_acc_frame">
+                <label for="HelpLocateMiddleNameNoAcc">Middle Name</label>
+                <div class="middleNamebox">
+                    <input type="text" name="HelpLocateMiddleName" id="HelpLocateMiddleNameNoAcc" placeholder="e.g 'saraza'">
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--############## L N A M E ##############-->
+            <!--#######################################-->
+            <div class="last_name_help_locate_no_acc_frame">
+                <label for="HelpLocateLastNameNoAcc">Last Name</label>
+                <div class="lastNamebox">
+                    <input type="text" name="HelpLocateLastName" id="HelpLocateLastNameNoAcc" placeholder="e.g Dela Cruz" required>
+                </div>
+            </div>
+
+            <!--##############################################-->
+            <!--########  C O N T A C T  N U M B E R  ########-->
+            <!--##############################################-->
+            <div class="contact_number_help_locate">
+                <label for="ContactHelpLocateNoAcc">Contact Number</label>
+                <div class="contactBox">
+                    <input type="text" name="HelpLocateContact" id="HelpLocateContactNoAcc" placeholder="e.g +6391234567891, 09123456789" required>
+                </div>
+            </div>
+
+            
+            <!--####################################################-->
+            <!--##############  R E L  M I S S I N G  ##############-->
+            <!--####################################################-->
+            <div class="relationship_missing_help_locate_no_acc_frame">
+                <label for="HelpRelationshipNoAcc">Relationship to Missing Person</label>
+                <div class="HelpRelationshipBox">
+                    <input type="text" name="HelpRelationship" id="HelpRelationshipNoAcc" placeholder="e.g Mother, Father" required>
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--##############  T I M E  ##############-->
+            <!--#######################################-->
+            <div class="time_help_locate_no_acc_frame">
+                <label for="TimeSightingNoAcc">Time of sighting</label>
+                <div class="TimeSightingBox">
+                    <input type="time" name="TimeSighting" id="helpTimeSightingNoAcc" required>
+                </div>
+            </div>
+
+
+            <!--#######################################-->
+            <!--##############  D A T E  ##############-->
+            <!--#######################################-->
+            <div class="date_help_locate_no_acc_frame">
+                <label for="DateSightingNoAcc">Date of sighting</label>
+                <div class="DateSightingBox">
+                    <input type="date" name="DateSighting" id="helpDateSightingNoAcc" placeholder="Enter date of sighting" required>
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--####### D E S C R I P T I O N  ########-->
+            <!--#######################################-->
+            <div class="description_help_locate_no_acc_frame">
+                <label for="DescriptionNoAcc">Description</label>
+                <div class="DescriptionBox">
+                    <textarea  name="help_locate_description" id="help_locate_description_no_acc" rows='4' cols='50' placeholder="Enter Description" required></textarea>
+                </div>
+            </div>
+            <button type="button" class="next_button">Next</button>
+        </div>
+
+        <!--#######################################-->
+        <!--#############  S T E P  2  ############-->
+        <!--#######################################-->
+        <div class="step step-2  ">
+            <div class="help-locate-no-acc-close2">
+                &times;
+            </div>
+
+            <div class="help-locate-no-acc-txt">
+                <p>I Saw This Person</p>
+            </div>
+
+
+            <!--#########################-->
+            <!--######  I M A G E  ######-->
+            <!--#########################-->
+
+            <div class="upload_help_locate_photo_frame" id="upload_photo_js">
+                <label for="help_upload_last_seen">Upload Photo</label>
+                <div class="photo-help_locate-box">
+                    <input type="file" name="help_upload_last_seen" id="help_upload_last_seen" accept="image/*" onchange="previewHelpLocateImage()" >
+                </div>
+                <button type="button" id="help_view_last_seen_btn" onclick="toggleHelpLocatePreview()" style="display: none; margin-top: 10px; padding: 8px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; cursor: pointer;">View Image</button>
+                <div id="help_last_seen_preview" class="file-preview" style="display: none;"></div>
+            </div>
+
+
+
+            <!--###############################-->
+            <!--######  L O C A T I O N  ######-->
+            <!--###############################-->
+
+            <div class="location_help_no_acc_frame">
+                <div class="radiobtn_no_acc_frame" style="margin: 10px 0; display: flex; gap: 20px;">
+                    <label for="Location" style="display: flex; align-items: center; cursor: pointer;">
+                        <div class="location-no-acc-radioButton">
+                            <input type="radio" name="helpLocateLocationNoAcc" id="" value="my-location" onclick="document.getElementById('helpCustomLocationNoAcc').disabled=true; document.getElementById('helpSearchBtnNoAcc').disabled=true; getHelpLocateLocation();" required style="margin-right: 8px;"> My Location
+                        </div>
+                    </label>
+                    <label for="Location" style="display: flex; align-items: center; cursor: pointer;">
+                        <div class="location-no-acc-radioButton">
+                            <input type="radio" name="helpLocateLocationNoAcc" id="" value="custom-location" onclick="document.getElementById('helpCustomLocationNoAcc').disabled=false; document.getElementById('helpSearchBtnNoAcc').disabled=false;" required style="margin-right: 8px;"> Custom location
+                        </div>
+                    </label>
+                </div>
+                <div id="helpLocationNoAcc">
+                    <p id="helpLocationTextNoAcc" style="margin: 10px 0; font-weight: bold; display: none;">Selected Location: </p>
+                </div>
+                <div id="helpMapNoAcc" style="height: 300px; width: 100%; margin: 10px 0; border: 1px solid #ccc;"></div>
+                <input type="hidden" name="helpLatitude" id="helpLatitude" value="0">
+                <input type="hidden" name="helpLongitude" id="helpLongitude" value="0">
+                <label for="Location_no_acc_textbox_frame">
+                    <div class="location_no_acc_textbox_Frame" style="display: flex; gap: 10px; margin: 10px 0;">
+                        <input type="text" name="helpCustomLoc" id="helpCustomLocationNoAcc" placeholder="Enter Location" disabled style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                        <button type="button" onclick="searchHelpLocationNoAcc()" disabled id="helpSearchBtnNoAcc" style="padding: 8px 16px; background: #1A1B41; color: white; border: none; border-radius: 4px; cursor: pointer;">Search</button>
+                    </div>
+                </label>
+                
+                <div style="margin: 10px 0; font-size: 12px; color: #666;">
+                    Please select your location on the map or search for a custom location.
+                </div>
+            </div>
+
+            <button type="submit" class="submit_button">Submit</button>
+            <button type="button" class="prev_button">Back</button>
+        </div>
+    </form>
+</div>
+
+<!--####################################################-->
+<!--##############  I M A G E  M O D A L  ##############-->
+<!--####################################################-->
+
+<div id="imageModal" class="modal">
+    <span class="close-image-modal" onclick="closeImageModal()"> &times; </span>
+    <img class="modal_content" id="imgModal" src="" alt="">
+    <div id="caption"></div>
+</div>
+{% include 'includes/2fa-popup.html' %}
+{% include 'includes/login-popup.html' %}
+
+<!-- Logout Modal -->
+<div class="logout-modal" id="logoutModal" style="display: none;">
+    <div class="logout-box">
+        <p>Are you sure you want to logout?</p>
+        <div class="logout-actions">
+            <button class="cancel-btn" onclick="closeLogoutModal()">Cancel</button>
+            <a href="/logout" class="confirm-btn">Logout</a>
+        </div>
+    </div>
+</div>
+
+<!-- See All Modal -->
+<div class="see-all-modal" id="seeAllModal">
+    <div class="see-all-content">
+        <div class="see-all-header">
+            <h2>All Missing Persons</h2>
+            <span class="see-all-close" onclick="closeSeeAllModal()">&times;</span>
+        </div>
+        <div class="see-all-grid">
+            {% if missing_persons and missing_persons|length > 0 %}
+                <script>console.log('Template rendering {{ missing_persons|length }} persons in see-all modal');</script>
+                {% for person in missing_persons %}
+                <div class="see-all-card picture_card" data-person-id="{{ person.id }}" data-reported-by-user="false" onclick="{% if loggedIn_email %}showPersonDetailsLoggedIn('{{ person.id }}'){% else %}showPersonDetails('{{ person.id }}'){% endif %}; closeSeeAllModal();">
+                    <img src="{{ person.image if person.image else 'static/images/public_page/missing.jpg' }}" class="see-all-card-img" alt="{{ person.name }}" onerror="this.src='static/images/public_page/missing.jpg'">
+                    <div class="see-all-card-info">
+                        <div class="see-all-card-name">{{ person.name }}</div>
+                        <div class="see-all-card-date">{{ person.last_seen }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <script>console.log('No missing persons data in template');</script>
+                <div style="grid-column: 1/-1; text-align: center; color: white; padding: 50px;">
+                    <p>No missing persons reported</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script src="static/Javascript/public/right-menu-btn.js"></script>
+<script src="static/Javascript/public/user-profile-menu.js"></script>
+<script src="static/Javascript/registration/address.js"></script>
+
+<script src="static/Javascript/public/same_address.js"></script>
+<script src="static/Javascript/public/missing_person_carousel.js"></script>
+<script src="static/Javascript/public/step_validation.js"></script>
+<script src="static/Javascript/public/report_missing.js"></script>
+<script src="static/Javascript/public/reported_missing_waccount.js"></script>
+<script src="static/Javascript/public/report_missing_steps.js"></script>
+<script src="static/Javascript/public/disable_base.js"></script>
+<script src="static/Javascript/public/public_view_TimeAndDateDefault.js"></script>
+<script src="static/Javascript/public/single_image_preview.js"></script>
+<script src="static/Javascript/public/file_preview.js"></script>
+<script src="static/Javascript/public/get_myLocation_public.js"></script>
+<script src="static/Javascript/public/help_locate_no_acc.js"></script>
+<script src="static/Javascript/public/help_locate_with_acc.js"></script>
+<script src="static/Javascript/public/help_locate_steps.js"></script>
+<script src="static/Javascript/loading_screen.js"></script>
+<script src="static/Javascript/chatbot.js"></script>
+<script src="static/Javascript/session_manager.js"></script>
+<script src="static/Javascript/public/middlebar_hover.js"></script>
+<script src="static/Javascript/public/mobile_optimization.js"></script>
+<script src="static/Javascript/public/mobile-menu.js"></script>
+<script src="static/Javascript/public/edit-profile-popup.js"></script>
+<script src="static/Javascript/public/showPersonDetailsLoggedIn.js"></script>
+<script src="static/Javascript/public/modal-gallery.js"></script>
+<script src="static/Javascript/public/see-all-popup.js"></script>
+<script src="static/Javascript/includes/email2FA.js"></script>
+
+
+<script>
+// Initialize case_id for JavaScript
+{% if missing_persons and missing_persons|length > 0 %}
+window.currentCaseId = {{ missing_persons[0].case_id }};
+{% else %}
+window.currentCaseId = 0;
+{% endif %}
+function initPoliceStationsMap() {
+    const map = new google.maps.Map(document.getElementById('police-stations-map'), {
+        zoom: 11,
+        center: { lat: 14.2691, lng: 121.4577 },
+        mapTypeId: 'hybrid',
+        restriction: {
+            latLngBounds: {
+                north: 14.6,
+                south: 13.9,
+                east: 121.8,
+                west: 121.0
+            },
+            strictBounds: false
+        },
+        styles: [{
+            featureType: 'all',
+            elementType: 'labels.text.fill',
+            stylers: [{ color: '#ffffff' }]
+        }, {
+            featureType: 'all',
+            elementType: 'labels.text.stroke',
+            stylers: [{ color: '#000000', weight: 2 }]
+        }]
+    });
+    
+    const policeStations = [
+        { name: 'Laguna Provincial Police Office', lat: 14.2691, lng: 121.4577 },
+        { name: 'Santa Rosa City Police Station', lat: 14.3119, lng: 121.1115 },
+        { name: 'Biñan City Police Station', lat: 14.3369, lng: 121.0864 },
+        { name: 'San Pedro City Police Station', lat: 14.3583, lng: 121.0572 },
+        { name: 'Calamba City Police Station', lat: 14.2117, lng: 121.1653 },
+        { name: 'Los Baños Police Station', lat: 14.1693, lng: 121.2416 },
+        { name: 'Bay Police Station', lat: 14.1833, lng: 121.2833 },
+        { name: 'Cabuyao City Police Station', lat: 14.2781, lng: 121.1236 },
+        { name: 'San Pablo City Police Station', lat: 14.0683, lng: 121.3256 },
+        { name: 'Sta. Cruz Police Station', lat: 14.2792, lng: 121.4161 },
+        { name: 'Pagsanjan Police Station', lat: 14.2725, lng: 121.4544 },
+        { name: 'Lumban Police Station', lat: 14.2958, lng: 121.4583 },
+        { name: 'Paete Police Station', lat: 14.3667, lng: 121.4833 },
+        { name: 'Kalayaan Police Station', lat: 14.3500, lng: 121.5000 },
+        { name: 'Pakil Police Station', lat: 14.3833, lng: 121.4667 },
+        { name: 'Pangil Police Station', lat: 14.4000, lng: 121.4500 },
+        { name: 'Siniloan Police Station', lat: 14.4167, lng: 121.4333 },
+        { name: 'Famy Police Station', lat: 14.4333, lng: 121.4167 },
+        { name: 'Mabitac Police Station', lat: 14.4167, lng: 121.3833 },
+        { name: 'Santa Maria Police Station', lat: 14.4667, lng: 121.4167 },
+        { name: 'Majayjay Police Station', lat: 14.1500, lng: 121.4667 },
+        { name: 'Magdalena Police Station', lat: 14.2000, lng: 121.4333 },
+        { name: 'Liliw Police Station', lat: 14.1333, lng: 121.4333 },
+        { name: 'Nagcarlan Police Station', lat: 14.1333, lng: 121.4167 },
+        { name: 'Rizal Police Station', lat: 14.1167, lng: 121.3833 },
+        { name: 'Calauan Police Station', lat: 14.1500, lng: 121.3167 },
+        { name: 'Alaminos Police Station', lat: 14.2000, lng: 121.2500 },
+        { name: 'Victoria Police Station', lat: 14.2333, lng: 121.3333 },
+        { name: 'Pila Police Station', lat: 14.2333, lng: 121.3667 }
+    ];
+    
+    policeStations.forEach(station => {
+        const marker = new google.maps.Marker({
+            position: { lat: station.lat, lng: station.lng },
+            map: map,
+            title: station.name,
+            icon: {
+                url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                scaledSize: new google.maps.Size(32, 32)
+            }
+        });
+        
+        const infoWindow = new google.maps.InfoWindow({
+            content: `<div style="padding: 5px;"><strong>${station.name}</strong></div>`
+        });
+        
+        marker.addListener('click', function() {
+            infoWindow.open(map, marker);
+        });
+    });
+}
+</script>
+<script>
+window.googleMapsLoaded = false;
+function initGoogleMaps() {
+    window.googleMapsLoaded = true;
+    initPoliceStationsMap();
+    // Also initialize help locate maps if popups are open
+    const helpPopupNoAcc = document.getElementById('help-locate-no-acc-popup');
+    const helpPopupWacc = document.getElementById('help-locate-wacc-popup');
+    
+    if (helpPopupNoAcc && helpPopupNoAcc.style.visibility === 'visible') {
+        setTimeout(initHelpLocateMapNoAcc, 100);
+    }
+    if (helpPopupWacc && helpPopupWacc.style.visibility === 'visible') {
+        setTimeout(initHelpLocateMap, 100);
+    }
+}
+
+
+
+
+</script>
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7BZfHfb0KEqX5aQULMfCPyLiUAO8mP4w&callback=initGoogleMaps" async defer></script>
+
+</body>
+</html>
+</html>
+

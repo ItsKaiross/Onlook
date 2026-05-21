@@ -1,0 +1,1092 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+/*################################################*/
+/*#########  R E G U L A R  F O N T S  ###########*/
+/*################################################*/
+
+@font-face {
+    font-family: "SF_BLACK";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK.otf);
+}
+@font-face {
+    font-family: "SF_BOLD";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BOLD.OTF);
+}
+@font-face {
+    font-family: "SF_MEDIUM";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_MEDIUM.OTF);
+}
+@font-face {
+    font-family: "SF_REGULAR";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_REGULAR.OTF);
+}
+
+/*################################################*/
+/*##############  I T A L I C  ####################*/
+/*################################################*/
+@font-face { 
+    font-family: "SF_SEMIBOLD_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_SEMI_BOLD_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_BLACK_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_HEAVY_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_HEAVY_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_LIGHT_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_LIGHT_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_THIN_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_THIN_ITL.OTF);
+}
+
+/*################################################*/
+/*#########  D E S I G N   C O D E  ##############*/
+/*################################################*/
+
+
+/*################################################*/
+/*##############  R O O T   C O L O R S ##########*/
+/*################################################*/
+:root {
+    --audit-bg         : #f4f6f9;
+    --audit-surface    : #ffffff;
+    --audit-border     : #e2e8f0;
+    --audit-text       : #1e293b;
+    --audit-muted      : #94a3b8;
+    --audit-accent     : #1d4ed8;
+    --audit-accent-soft: #eff6ff;
+
+    /*################################################*/
+    /*############  A C T I O N   C O L O R S #########*/
+    /*################################################*/
+    --color-generate : #0369a1;
+    --color-edit     : #b45309;
+    --color-delete   : #dc2626;
+    --color-approve  : #15803d;
+    --color-reject   : #dc2626;
+    --color-login    : #7c3aed;
+    --color-logout   : #475569;
+    --color-add      : #15803d;
+
+    /*################################################*/
+    /*############  S T A T U S   C O L O R S #########*/
+    /*################################################*/
+    --color-success  : #16a34a;
+    --color-failure  : #dc2626;
+}
+
+/*################################################*/
+/*################  W R A P P E R  ###############*/
+/*################################################*/
+.audit-wrapper {
+    padding: 32px;
+    background: var(--audit-bg);
+    min-height: 100vh;
+    font-family: SF_MEDIUM;
+}
+
+/*################################################*/
+/*################  H E A D E R  #################*/
+/*################################################*/
+.audit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+}
+
+/*################################################*/
+/*###########  T I T L E  &  S U B  ##############*/
+/*################################################*/
+.audit-title {
+    font-size: 40px;
+    font-family: SF_BOLD;
+    color: var(--audit-text);
+    margin: 0 0 4px 0;
+}
+
+.audit-subtitle {
+    font-size: 17px;
+    font-family: SF_REGULAR;
+    color: var(--audit-muted);
+    margin: 0;
+}
+
+/*################################################*/
+/*############  S T A T   B O X  #################*/
+/*################################################*/
+.audit-stat {
+    text-align: right;
+    background: var(--audit-surface);
+    border: 1px solid var(--audit-border);
+    border-radius: 10px;
+    padding: 12px 20px;
+}
+
+/*################################################*/
+/*############  S T A T   N U M B E R  ###########*/
+/*################################################*/
+.audit-stat-number {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1A1B41;
+    line-height: 1;
+}
+
+/*################################################*/
+/*############  S T A T   L A B E L  #############*/
+/*################################################*/
+.audit-stat-label {
+    font-size: 12px;
+    font-family: SF_REGULAR;
+    color: var(--audit-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/*################################################*/
+/*################  F I L T E R S  ###############*/
+/*################################################*/
+.audit-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-end;
+    background: var(--audit-surface);
+    border: 1px solid var(--audit-border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+/*################################################*/
+/*############  F I L T E R   G R O U P ##########*/
+/*################################################*/
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 160px;
+}
+
+/*################################################*/
+/*############  F I L T E R   L A B E L ##########*/
+/*################################################*/
+.filter-label {
+    font-size: 12px;
+    font-family: SF_MEDIUM;
+    color: var(--audit-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/*################################################*/
+/*###########  I N P U T S  /  S E L E C T #######*/
+/*################################################*/
+.filter-select,
+.filter-input {
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid var(--audit-border);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: SF_MEDIUM;
+    color: black;
+    background: var(--audit-bg);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+/*################################################*/
+/*############  F O C U S   S T A T E  ###########*/
+/*################################################*/
+.filter-select:focus,
+.filter-input:focus {
+    border-color: var(--audit-accent);
+    background: #fff;
+}
+
+/*################################################*/
+/*############  F I L T E R   A C T I O N S ######*/
+/*################################################*/
+.filter-actions {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+}
+/*################################################*/
+/*############  F I L T E R   B U T T O N ########*/
+/*################################################*/
+.btn-filter {
+    height: 38px;
+    padding: 0 20px;
+    background: #1A1B41;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: SF_BOLD;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-filter:hover {
+    background: #1e40af;
+}
+
+/*################################################*/
+/*############  R E S E T   B U T T O N ##########*/
+/*################################################*/
+.btn-reset {
+    height: 38px;
+    padding: 0 16px;
+    background: transparent;
+    color: var(--audit-muted);
+    border: 1px solid var(--audit-border);
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: SF_BOLD;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+/*################################################*/
+/*############  R E S E T   H O V E R  ###########*/
+/*################################################*/
+.btn-reset:hover {
+    background: var(--audit-bg);
+    color: var(--audit-text);
+}
+
+/*################################################*/
+/*############  T A B L E   W R A P P E R ########*/
+/*################################################*/
+.audit-table-wrapper {
+    background: var(--audit-surface);
+    border: 1px solid var(--audit-border);
+    border-radius: 12px;
+    overflow: auto;
+    margin-bottom: 24px;
+}
+
+/*################################################*/
+/*###############  M A I N   T A B L E ###########*/
+/*################################################*/
+.audit-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+/*################################################*/
+/*############  T A B L E   H E A D E R ##########*/
+/*################################################*/
+.audit-table thead tr {
+    background: #1A1B41;
+
+    border-bottom: 2px solid var(--audit-border);
+}
+
+/*################################################*/
+/*############  H E A D E R   C E L L S ##########*/
+/*################################################*/
+.audit-table th {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-family: SF_MEDIUM;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+/*################################################*/
+/*############  B O D Y   C E L L S ##############*/
+/*################################################*/
+.audit-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--audit-border);
+    vertical-align: middle;
+}
+
+/*################################################*/
+/*############  L A S T   R O W   F I X ##########*/
+/*################################################*/
+.audit-row:last-child td {
+    border-bottom: none;
+}
+
+/*################################################*/
+/*############  R O W   H O V E R  ###############*/
+/*################################################*/
+.audit-row:hover {
+    background: #f8fafc;
+}
+
+/*################################################*/
+/*###############  C E L L   S T Y L E ###########*/
+/*################################################*/
+.audit-num {
+    color: var(--audit-muted);
+    font-size: 13px;
+}
+
+/*################################################*/
+/*############  T I M E S T A M P  ###############*/
+/*################################################*/
+.audit-timestamp {
+    white-space: nowrap;
+}
+
+.ts-date {
+    display: block;
+    font-weight: 600;
+    color: var(--audit-text);
+}
+
+.ts-time {
+    display: block;
+    font-size: 12px;
+    color: var(--audit-muted);
+}
+
+/*################################################*/
+/*###############  U S E R   C E L L #############*/
+/*################################################*/
+.audit-user {
+    white-space: nowrap;
+}
+
+.user-name {
+    display: block;
+    font-weight: 600;
+    color: var(--audit-text);
+}
+
+.user-ip {
+    display: block;
+    font-size: 12px;
+    color: var(--audit-muted);
+    font-family: monospace;
+}
+
+/*################################################*/
+/*############  T A R G E T   C E L L ############*/
+/*################################################*/
+.audit-target {
+    white-space: nowrap;
+}
+
+.target-table {
+    font-size: 12px;
+    font-family: monospace;
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--audit-text);
+}
+
+.target-id {
+    font-size: 12px;
+    color: var(--audit-muted);
+    margin-left: 4px;
+}
+
+/*################################################*/
+/*############  M U T E D   T E X T ##############*/
+/*################################################*/
+.text-muted {
+    color: var(--audit-muted);
+}
+
+/*################################################*/
+/*############  E M P T Y   S T A T E ############*/
+/*################################################*/
+.audit-empty {
+    text-align: center;
+    padding: 48px;
+    color: var(--audit-muted);
+    font-size: 15px;
+}
+
+/*################################################*/
+/*############  B A D G E S   B A S E ############*/
+/*################################################*/
+.role-badge,
+.module-badge,
+.action-badge,
+.status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/*################################################*/
+/*############  R O L E   B A D G E S ############*/
+/*################################################*/
+.role-policeadmin,
+.role-systemadmin,
+.role-police,
+.role-unknown,
+.role-badge        { background: transparent; color: #000000; }
+
+/*################################################*/
+/*############  M O D U L E   B A D G E S ########*/
+/*################################################*/
+.module-reports,
+.module-case_file,
+.module-case,
+.module-users,
+.module-user,
+.module-auth,
+.module-messages,
+.module-missing_person,
+.module-badge          { background: transparent; color: #000000; }
+
+/*################################################*/
+/*############  A C T I O N   B A D G E S ########*/
+/*################################################*/
+.action-badge,
+.action-generate,
+.action-edit,
+.action-delete,
+.action-approve,
+.action-reject,
+.action-login,
+.action-logout,
+.action-add-user,
+.action-add_user,
+.action-restrict-user,
+.action-restrict_user,
+.action-officer-assigned,
+.action-officer_assigned  { background: transparent; color: #000000; }
+
+/*################################################*/
+/*############  S T A T U S   B A D G E S ########*/
+/*################################################*/
+.status-badge { background: #f1f5f9; color: #334155; }
+.status-success       { background: #dcfce7; color: var(--color-success); }
+.status-failure       { background: #fee2e2; color: var(--color-failure); }
+
+/*################################################*/
+/*############  M O D A L   B A S E ##############*/
+/*################################################*/
+.audit-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/*################################################*/
+/*############  M O D A L   A C T I V E ##########*/
+/*################################################*/
+.audit-modal.active {
+    display: flex;
+}
+
+/*################################################*/
+/*############  M O D A L   B O X ###############*/
+/*################################################*/
+.audit-modal-box {
+    background: var(--audit-surface);
+    border-radius: 12px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/*################################################*/
+/*############  M O D A L   H E A D E R ##########*/
+/*################################################*/
+.audit-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--audit-border);
+}
+
+.audit-modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--audit-text);
+}
+
+/*################################################*/
+/*############  C L O S E   B U T T O N ##########*/
+/*################################################*/
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--audit-muted);
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: var(--audit-text);
+}
+
+/*################################################*/
+/*############  M O D A L   B O D Y ##############*/
+/*################################################*/
+.audit-modal-body {
+    padding: 24px;
+}
+
+/*################################################*/
+/*###############  M E T A   G R I D #############*/
+/*################################################*/
+.modal-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.meta-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--audit-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.meta-value {
+    font-size: 14px;
+    color: var(--audit-text);
+}
+/*##############################################*/
+/*#########  R E M A R K S   S E C T I O N #####*/
+/*##############################################*/
+.modal-section {
+    margin-bottom: 24px;
+}
+
+.modal-section h4 {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--audit-text);
+}
+
+.remarks-text {
+    margin: 0;
+    padding: 12px;
+    background: var(--audit-bg);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--audit-text);
+}
+
+/*##############################################*/
+/*#########  B E F O R E  /  A F T E R  ########*/
+/*##############################################*/
+.modal-changes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.change-block {
+    border: 1px solid var(--audit-border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.change-block h4 {
+    margin: 0;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/*##############################################*/
+/*#############  B E F O R E   S T Y L E #######*/
+/*##############################################*/
+.change-block.before h4 {
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+/*##############################################*/
+/*##############  A F T E R   S T Y L E ########*/
+/*##############################################*/
+.change-block.after h4 {
+    background: #f0fdf4;
+    color: #166534;
+}
+
+/*##############################################*/
+/*###############  J S O N   D I S P L A Y #####*/
+/*##############################################*/
+.change-json {
+    margin: 0;
+    padding: 16px;
+    background: #f8fafc;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--audit-text);
+    overflow-x: auto;
+}
+
+/*##############################################*/
+/*################  O V E R L A Y  #############*/
+/*##############################################*/
+.audit-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+
+.audit-overlay.active {
+    display: block;
+}
+
+/*##############################################*/
+/*###########  D E T A I L S   B U T T O N #####*/
+/*##############################################*/
+.btn-details {
+    background: var(--audit-accent);
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-details:hover {
+    background: #1e40af;
+}
+
+/*##############################################*/
+/*################  P A G I N A T I O N ########*/
+/*##############################################*/
+.audit-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--audit-surface);
+    border: 1px solid var(--audit-border);
+    border-radius: 12px;
+    padding: 16px 20px;
+}
+
+.pagination-info {
+    font-size: 14px;
+    color: var(--audit-muted);
+}
+
+.pagination-btns {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/*##############################################*/
+/*#################  B U T T O N  ##############*/
+/*##############################################*/
+.page-btn {
+    padding: 8px 12px;
+    background: var(--audit-bg);
+    color: var(--audit-text);
+    border: 1px solid var(--audit-border);
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.page-btn:hover {
+    background: var(--audit-accent-soft);
+    border-color: var(--audit-accent);
+}
+
+/*##############################################*/
+/*###############  A C T I V E   P A G E #######*/
+/*##############################################*/
+.page-btn.active {
+    background: var(--audit-accent);
+    color: #fff;
+    border-color: var(--audit-accent);
+}
+
+/*##############################################*/
+/*###############  E L L I P S I S #############*/
+/*##############################################*/
+.page-ellipsis {
+    padding: 8px 4px;
+    color: var(--audit-muted);
+    font-size: 14px;
+}
+
+/*##############################################*/
+/*################  R E S P O N S I V E ########*/
+/*##############################################*/
+@media (max-width: 768px) {
+    .audit-wrapper {
+        padding: 16px;
+    }
+    
+    .audit-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-actions {
+        justify-content: stretch;
+    }
+    
+    .btn-filter,
+    .btn-reset {
+        flex: 1;
+    }
+    
+    .modal-changes {
+        grid-template-columns: 1fr;
+    }
+    
+    .audit-pagination {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+}
+
+/*##############################################*/
+/*###############  S T A T U S #################*/
+/*##############################################*/
+.status-success { background: #dcfce7; color: var(--color-success); }
+.status-failure { background: #fee2e2; color: var(--color-failure); }
+
+/*##############################################*/
+/*###########  D E T A I L S   B T N  ##########*/
+/*##############################################*/
+.btn-details {
+    padding: 5px 14px;
+    background: var(--audit-accent-soft);
+    color: var(--audit-accent);
+    border: 1px solid #bfdbfe;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.btn-details:hover {
+    background: var(--audit-accent);
+    color: #fff;
+    border-color: var(--audit-accent);
+}
+
+/*##############################################*/
+/*#################  M O D A L  ################*/
+/*##############################################*/
+.audit-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 900;
+}
+
+.audit-overlay.active {
+    display: block;
+}
+
+.audit-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.audit-modal.active {
+    display: flex;
+}
+
+.audit-modal-box {
+    background: var(--audit-surface);
+    border-radius: 14px;
+    width: 90%;
+    max-width: 680px;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+/*##############################################*/
+/*############ M O D A L   S E C T I O N #######*/
+/*##############################################*/
+
+.audit-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--audit-border);
+}
+
+.audit-modal-header h3 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--audit-text);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: var(--audit-muted);
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.modal-close:hover {
+    color: var(--audit-text);
+}
+
+.audit-modal-body {
+    padding: 24px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+/*##############################################*/
+/*############ M E T A   S E C T I O N #########*/
+/*##############################################*/
+
+.modal-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.meta-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--audit-muted);
+}
+
+.meta-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--audit-text);
+}
+
+
+/*##############################################*/
+/*############ R E M A R K S   S E C T I O N ###*/
+/*##############################################*/
+
+.modal-section h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--audit-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 8px 0;
+}
+
+.remarks-text {
+    font-size: 14px;
+    color: var(--audit-text);
+    margin: 0;
+    background: #fef9c3;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border-left: 3px solid #eab308;
+}
+
+
+/*##############################################*/
+/*############ C H A N G E S   S E C T I O N ###*/
+/*##############################################*/
+
+.modal-changes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.modal-changes .change-block:only-child {
+    grid-column: 1 / -1;
+}
+
+.change-block h4 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 8px 0;
+}
+
+.change-block.before h4 { color: #dc2626; }
+.change-block.after  h4 { color: #16a34a; }
+
+.change-json {
+    background: #f8fafc;
+    border: 1px solid var(--audit-border);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 12px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    color: var(--audit-text);
+}
+
+.change-block.before .change-json { border-left: 3px solid #fca5a5; }
+.change-block.after  .change-json { border-left: 3px solid #86efac; }
+
+
+/*##############################################*/
+/*############ P A G I N A T I O N #############*/
+/*##############################################*/
+
+.audit-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.pagination-info {
+    font-size: 13px;
+    color: var(--audit-muted);
+}
+
+.pagination-btns {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid var(--audit-border);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--audit-text);
+    background: var(--audit-surface);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.page-btn:hover {
+    background: var(--audit-accent-soft);
+    border-color: var(--audit-accent);
+    color: var(--audit-accent);
+}
+
+.page-btn.active {
+    background: var(--audit-accent);
+    border-color: var(--audit-accent);
+    color: #fff;
+    font-weight: 700;
+}
+
+.page-ellipsis {
+    font-size: 14px;
+    color: var(--audit-muted);
+    padding: 0 4px;
+}
+
+
+/*##############################################*/
+/*############ R E S P O N S I V E #############*/
+/*##############################################*/
+
+@media (max-width: 768px) {
+    .audit-wrapper      { padding: 16px; }
+    .audit-header       { flex-direction: column; gap: 16px; }
+    .audit-stat         { text-align: left; }
+    .audit-filters      { flex-direction: column; }
+    .filter-group       { min-width: 100%; }
+    .modal-meta         { grid-template-columns: 1fr; }
+    .modal-changes      { grid-template-columns: 1fr; }
+    .audit-pagination   { flex-direction: column; align-items: flex-start; }
+}

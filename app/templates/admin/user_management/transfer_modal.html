@@ -1,0 +1,34 @@
+
+<!--############################################################-->
+<!--###############  T R A N S F E R  M O D A L  ###############-->
+<!--############################################################-->
+
+<div id="transferModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
+    <div id="transferModalBox" label style="background:#ffffff; border-radius:var(--border-radius-lg); border:0.5px solid var(--color-border-tertiary); padding:24px; max-width:420px; width:90%; text-align:center;">
+
+        <!-- Icon -->
+        <div id="transferModalIcon" style="width:52px; height:52px; border-radius:50%; background:#EEEDFE; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#534AB7"/>
+        </svg>
+        </div>
+
+        <!-- Title -->
+        <h2 style="font-size:18px; font-weight:500; color:var(--color-text-primary); margin-bottom:8px;">
+        Transfer System Admin
+        </h2>
+
+        <!-- Description -->
+        <p style="font-size:14px; color:var(--color-text-secondary); line-height:1.6; margin-bottom:24px;">
+        You are about to transfer your <strong style="color:var(--color-text-primary); font-weight:500;">System Admin</strong> role to this user.
+        Your account will be downgraded and you will be logged out immediately after.
+        </p>
+
+        <!-- Buttons -->
+        <div style="display:flex; gap:10px; justify-content:center;">
+        <button onclick="cancelTransfer()" class="btn-cancel">Cancel</button>
+        <button onclick="confirmTransfer()" class="btn-confirm">Yes, transfer &amp; logout</button>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../static/icons/onlook_icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <link rel="stylesheet" href="static/css/mobile-reset.css">
+    <link rel="stylesheet" href="static/css/public/4u-about_onlook.css">
+    <link rel="stylesheet" href="static/css/responsive-fixed.css">
+    <link rel="stylesheet" href="static/css/chatbot.css">
+    <title>Public View About - Onlook</title>
+</head>
+<body>
+
+{% include 'includes/loading_screen.html' %}
+{% include 'includes/flash_messages.html' %}
+{% include 'includes/chatbot.html' %}
+
+
+<!--#######################################################################-->
+<!--############################# A B O U T ###############################-->
+<!--#######################################################################-->
+
+        <!--############################-->
+        <!--########  B A S E  #########-->
+        <!--############################-->
+        <div class="base">
+            <div class="base_frame">
+
+                <!--######################################-->
+                <!--#############  L O G O   #############-->
+                <!--######################################-->
+                <div class="public_logo_frame">
+                    <div class="mobile-hamburger" onclick="toggleMobileMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <a href="/">
+                        <img src="../static/images/logo/onlook_logo.png" alt="">
+                    </a>
+                    <div class="mobile-header-spacer"></div>
+                </div>
+
+                <!--####################################-->
+                <!--########  R G H T  B A R   #########-->
+                <!--####################################-->
+                <div class="right_frame">
+                    <div class="right-menu">
+                        <button class="right-menu-btn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <div class="right-menu-dropdown">
+                            <a class="login-or-sign-up" id="register-first-btn">Login or Sign Up</a>
+                            <a href="/talk-to-us" class="talk-link">Talk to us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--######  S O C I A L  F R A M E  #######-->
+            <!--#######################################-->
+            <div class="social_frame">
+                <div class="facebook_icon_frame">
+                    <a href="https://www.facebook.com/LagunaPulis" target="_blank"><img src="../static/icons/facebook.png" alt=""></a>
+                </div>
+                <div class="google_icon_frame">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=piolagunappo2021@gmail.com" target="_blank"><img src="../static/icons/google.png" alt=""></a>
+                </div>
+                <div class="messenger_icon_frame">
+                    <a href="https://www.facebook.com/LagunaPulis" target="_blank"><img src="../static/icons/messenger.png" alt=""></a>
+                </div>
+            </div>
+        </div> 
+
+        <!--#######################################-->
+        <!--##  M I D D L E  B A R  F R A M E   ###-->
+        <!--#######################################-->
+        <div class="middlebar_frame">
+            {% if loggedIn_email %}
+            <a href="#">Home</a>
+            <a href="#">Report Missing</a>
+            <a href="#">Report Sighting</a>
+            <a href="#">Status Report</a>
+            <a href="#">Resources</a>
+            {% else %}
+            <a href="/get_help">Get Help</a>
+            <a href="/community">Our Community</a>
+            <a href="/about" class="active">About OnLook</a>
+            <a href="/help-us">Help Us Find</a>
+            <a href="/professional">For Professionals</a>
+            {% endif %}
+        </div>
+
+        
+        {% if loggedIn_email %}
+        {% else %}
+        <!--#######################################-->
+        <!--##############  A B O U T   ###########-->
+        <!--#######################################-->
+        
+        <section class="about_frame">
+            <div class="about_text">
+                <h1>About Us</h1>
+                <p>
+                    To support families and communities by providing a centralized platform for reporting, 
+                    tracking, and assisting missing individuals — especially those who are elderly or cognitively impaired.
+                </p>
+            </div>
+            <div class="about_image">
+                <div id="about-map" style="width: 100%; height: 100%;"></div>
+            </div>
+        </section>
+        
+
+        {% endif %}
+        
+        <!--####################################################################-->
+        <!--########################## F O O T E R  ############################-->
+        <!--####################################################################-->
+        <footer>
+            <!--#######################################-->
+            <!--######### F O O T E R  T O P  #########-->
+            <!--#######################################-->
+            <div class="footer_top_frame">
+                <div class="get_help_footer">
+                    <h1>Get Help</h1>
+                    <ul>
+                        <li>What to Do if Someone Goes Missing</li>
+                        <li>Report a Missing Person</li>
+                        <li>Help Services in Laguna</li>
+                        <li>What You Can Expect from OnLook</li>
+                    </ul>
+                </div>
+
+                <div class="community_footer">
+                    <h1>Our Community</h1>
+                    <ul>
+                        <li>Community Volunteers</li>
+                        <li>Family Stories</li>
+                        <li>Barangay Partnerships</li>
+                        <li>Events and Initiatives</li>
+                    </ul>
+                </div>
+
+                <div class="about_footer">
+                    <h1>About OnLook</h1>
+                    <ul>
+                        <li>Our Mission</li>
+                        <li>How OnLook Works</li>
+                        <li>Meet the Team</li>
+                        <li>Contact Us</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--#############   L I N E    ############-->
+            <!--#######################################-->
+            <div class="divider_line"></div>
+
+            <!--#######################################-->
+            <!--###### F O O T E R  B O T T O M #######-->
+            <!--#######################################-->
+            <div class="footer_bottom_frame">
+                <div class="help_us_footer">
+                    <h1>Help Us Find</h1>
+                    <ul>
+                        <li>View Missing Person Profiles</li>
+                        <li>Report a Sighting</li>
+                        <li>Share a Case</li>
+                        <li>Tips to Support the Search</li>
+                    </ul>
+                </div>
+
+                <div class="A_and_P_footer">
+                    <h1>Agencies and Professionals</h1>
+                    <ul>
+                        <li>Join as a Partner Agency</li>
+                        <li>Resources for LGUs and First Responders</li>
+                    </ul>
+                </div>
+
+                <div class="connect_footer" >
+                    <h1>Stay Connected</h1>
+                    <ul>
+                        <li>09173831684</li>
+                        <li>523 4544</li>
+                        <li>onlook2025@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--############## L O G O ################-->
+            <!--#######################################-->
+            <div class="logo_frame">
+                <img src="../static/icons/onlook_icon.png" alt="">
+            </div>
+            <!--#######################################-->
+            <!--######### C O P Y R I G H T  ##########-->
+            <!--#######################################-->
+            <div class="copyright_section_frame">
+                &copy; copyright<br>est. 2025
+            </div>
+        </footer>
+    </div>
+</div>
+
+{% include 'includes/login-popup.html' %}
+<script src="static/Javascript/loading_screen.js"></script>
+<script src="static/Javascript/chatbot.js"></script>
+<script src="static/Javascript/public/right-menu-btn.js"></script>
+<script src="static/Javascript/public/register_first_popup.js"></script>
+
+
+
+<script>
+function initAboutMap() {
+    const map = new google.maps.Map(document.getElementById('about-map'), {
+        zoom: 11,
+        center: { lat: 14.2691, lng: 121.4577 },
+        mapTypeId: 'hybrid',
+        restriction: {
+            latLngBounds: {
+                north: 14.6,
+                south: 13.9,
+                east: 121.8,
+                west: 121.0
+            },
+            strictBounds: false
+        },
+        styles: [{
+            featureType: 'all',
+            elementType: 'labels.text.fill',
+            stylers: [{ color: '#ffffff', visibility: 'on' }]
+        }, {
+            featureType: 'all',
+            elementType: 'labels.text.stroke',
+            stylers: [{ color: '#000000', weight: 3, visibility: 'on' }]
+        }, {
+            featureType: 'all',
+            elementType: 'labels',
+            stylers: [{ visibility: 'on' }]
+        }]
+    });
+    
+    const policeStations = [
+        { name: 'Laguna Provincial Police Office', lat: 14.2691, lng: 121.4577 },
+        { name: 'Santa Rosa City Police Station', lat: 14.3119, lng: 121.1115 },
+        { name: 'Biñan City Police Station', lat: 14.3369, lng: 121.0864 },
+        { name: 'San Pedro City Police Station', lat: 14.3583, lng: 121.0572 },
+        { name: 'Calamba City Police Station', lat: 14.2117, lng: 121.1653 },
+        { name: 'Los Baños Police Station', lat: 14.1693, lng: 121.2416 },
+        { name: 'Bay Police Station', lat: 14.1833, lng: 121.2833 },
+        { name: 'Cabuyao City Police Station', lat: 14.2781, lng: 121.1236 },
+        { name: 'San Pablo City Police Station', lat: 14.0683, lng: 121.3256 },
+        { name: 'Sta. Cruz Police Station', lat: 14.2792, lng: 121.4161 },
+        { name: 'Pagsanjan Police Station', lat: 14.2725, lng: 121.4544 },
+        { name: 'Lumban Police Station', lat: 14.2958, lng: 121.4583 },
+        { name: 'Paete Police Station', lat: 14.3667, lng: 121.4833 },
+        { name: 'Kalayaan Police Station', lat: 14.3500, lng: 121.5000 },
+        { name: 'Pakil Police Station', lat: 14.3833, lng: 121.4667 },
+        { name: 'Pangil Police Station', lat: 14.4000, lng: 121.4500 },
+        { name: 'Siniloan Police Station', lat: 14.4167, lng: 121.4333 },
+        { name: 'Famy Police Station', lat: 14.4333, lng: 121.4167 },
+        { name: 'Mabitac Police Station', lat: 14.4167, lng: 121.3833 },
+        { name: 'Santa Maria Police Station', lat: 14.4667, lng: 121.4167 },
+        { name: 'Majayjay Police Station', lat: 14.1500, lng: 121.4667 },
+        { name: 'Magdalena Police Station', lat: 14.2000, lng: 121.4333 },
+        { name: 'Liliw Police Station', lat: 14.1333, lng: 121.4333 },
+        { name: 'Nagcarlan Police Station', lat: 14.1333, lng: 121.4167 },
+        { name: 'Rizal Police Station', lat: 14.1167, lng: 121.3833 },
+        { name: 'Calauan Police Station', lat: 14.1500, lng: 121.3167 },
+        { name: 'Alaminos Police Station', lat: 14.2000, lng: 121.2500 },
+        { name: 'Victoria Police Station', lat: 14.2333, lng: 121.3333 },
+        { name: 'Pila Police Station', lat: 14.2333, lng: 121.3667 }
+    ];
+    
+    policeStations.forEach(station => {
+        const marker = new google.maps.Marker({
+            position: { lat: station.lat, lng: station.lng },
+            map: map,
+            title: station.name,
+            icon: {
+                url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                scaledSize: new google.maps.Size(32, 32)
+            }
+        });
+        
+        const infoWindow = new google.maps.InfoWindow({
+            content: `<div style="padding: 5px;"><strong>${station.name}</strong></div>`
+        });
+        
+        marker.addListener('click', function() {
+            infoWindow.open(map, marker);
+        });
+    });
+}
+</script>
+<script>
+window.googleMapsLoaded = false;
+function initGoogleMaps() {
+    window.googleMapsLoaded = true;
+    initAboutMap();
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7BZfHfb0KEqX5aQULMfCPyLiUAO8mP4w&callback=initGoogleMaps" async defer></script>
+
+</body>
+</html>

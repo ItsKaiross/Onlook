@@ -1,0 +1,63 @@
+<!-- Modern Case Details Modal -->
+<div class="modern-case-modal" id="case-details-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modern-modal-content">
+        <div class="modern-modal-header">
+            <div class="header-left">
+                <div class="case-badge" id="case-badge">CASE #001</div>
+                <h2 id="case-title-missing">Missing Person Details</h2>
+            </div>
+            <div class="header-actions">
+                <button class="action-btn print-btn" onclick="openCaseDetailsPrintModal()" title="Print Case">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+                    </svg>
+                </button>
+                <button class="action-btn email-btn" title="Email Case">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </button>
+                <button class="close-btn" title="Close">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="modern-modal-body" id="case-details-content">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Loading case details...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Print Modal for Case Details -->
+<div id="caseDetailsPrintModal" class="print-modal">
+    <div class="print-modal-content">
+        <div class="print-modal-header">
+            <h3>Print Case Details Report</h3>
+        </div>
+        <div class="print-modal-body">
+            <div class="form-group">
+                <label for="caseDetailsPreparedBy">Prepared By:</label>
+                <select id="caseDetailsPreparedBy" class="form-control">
+                    <option value="">Select Officer</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="caseDetailsApprovedBy">Approved By:</label>
+                <select id="caseDetailsApprovedBy" class="form-control">
+                    <option value="">Select Officer</option>
+                </select>
+            </div>
+        </div>
+        <div class="print-modal-footer">
+            <button onclick="closeCaseDetailsPrintModal()" class="btn-cancel">Cancel</button>
+            <button onclick="confirmCaseDetailsPrint()" class="btn-confirm">Print Report</button>
+        </div>
+    </div>
+</div>

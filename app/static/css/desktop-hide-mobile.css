@@ -1,0 +1,8 @@
+/* Hide mobile elements on desktop */
+@media screen and (min-width: 769px) {
+    .mobile-hamburger,
+    .mobile-menu-overlay,
+    .mobile-menu-backdrop {
+        display: none !important;
+    }
+}

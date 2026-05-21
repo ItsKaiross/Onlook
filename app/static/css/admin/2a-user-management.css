@@ -1,0 +1,2869 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+/*################################################*/
+/*#########  R E G U L A R  F O N T S  ###########*/
+/*################################################*/
+
+@font-face {
+    font-family: "SF_BLACK";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK.otf);
+}
+@font-face {
+    font-family: "SF_BOLD";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BOLD.OTF);
+}
+@font-face {
+    font-family: "SF_MEDIUM";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_MEDIUM.OTF);
+}
+@font-face {
+    font-family: "SF_REGULAR";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_REGULAR.OTF);
+}
+
+/*############## ITL = ITALIC ################*/
+@font-face { 
+    font-family: "SF_SEMIBOLD_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_SEMI_BOLD_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_BLACK_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_HEAVY_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_HEAVY_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_LIGHT_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_LIGHT_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_THIN_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_THIN_ITL.OTF);
+}
+
+
+
+/*############################################*/
+/*#########  D E S I G N  C O D E  ###########*/
+/*############################################*/
+
+/*#############################*/
+/*#########  B O D Y  #########*/
+/*#############################*/
+
+body{
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/*#############################*/
+/*#########  B A S E  #########*/
+/*#############################*/
+
+.base{
+    height: 100%;
+}
+
+.base-frame{
+    height: 100%;
+}
+
+/*#############################*/
+/*#########  T E X T  #########*/
+/*#############################*/
+
+.user-management-text{
+    width: 95%;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.user-management-text p{
+    font-family: sf_bold;
+    font-size: 40px;
+}
+
+/*##################################*/
+/*#########  T O P  T B L  #########*/
+/*##################################*/
+
+.user-management-top-tbl{
+    margin: auto;
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/*#############################*/
+/*#########  L E F T  #########*/
+/*#############################*/
+
+.user-management-top-tbl .top-tbl-left{
+    display: flex;
+}
+
+.user-management-filter button{
+    background-color: transparent;
+    border: 0;
+}
+
+/*###############################*/
+/*#########  R I G H T  #########*/
+/*###############################*/
+
+.user-management-top-tbl .top-tbl-right{
+    display: flex;
+    justify-content: space-evenly;
+    width: 300px;
+}   
+
+/*######################################################*/
+/*#########  R E S T R I C T E D  B U T T O N  #########*/
+/*######################################################*/
+
+.user-management-restricted-accounts button{
+    background-color: #31337c;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: 0;
+    font-family: sf_medium;
+}
+
+.user-management-restricted-accounts button:hover{
+    background-color: #4040a8;
+    transition: .3s;
+}
+
+/*#################################################*/
+/*#########  A D D  U S E R  B U T T O N  #########*/
+/*#################################################*/
+
+.user-management-add-user button{
+    background-color: transparent;
+    color: black;
+    padding: 6px 15px;
+    border-radius: 8px;
+    border: 2px solid #31337c;
+    font-family: sf_medium;
+}
+
+.user-management-add-user button:hover{
+    background-color: #31337c;
+    color: white;
+    border: 2px solid #31337c;
+    transition: .3s;
+}
+
+
+
+/*###############################*/
+/*#########  T A B L E ##########*/
+/*###############################*/
+
+.user-management-tbl{
+    width: 95%;
+    margin: auto;
+}
+
+.user-management-tbl table{
+    width: 100%;
+    font-family: sf-regular;
+    border-collapse: collapse;
+    position: relative;
+}
+
+.table-controls {
+    display: flex;
+    gap: 10px;
+    padding-bottom: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 95%;
+    margin: auto;
+}
+
+.table-controls input,
+.table-controls select {
+    padding: 8px 12px;
+    border: 0.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.table-controls input {
+    flex: 1;
+    width: 50px;
+}
+
+.table-controls input:focus,
+.table-controls select:focus {
+    border-color: #534AB7;
+}
+
+.sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.sortable:hover {
+    background: #f0f0f0;
+}
+
+.sort-icon {
+    font-size: 11px;
+    color: #aaa;
+    margin-left: 4px;
+}
+
+.sort-icon.asc::after  { content: '↑'; color: #534AB7; }
+.sort-icon.desc::after { content: '↓'; color: #534AB7; }
+.sort-icon.asc,
+.sort-icon.desc        { font-size: 0; } 
+
+.no-results {
+    text-align: center;
+    padding: 20px;
+    color: #aaa;
+    font-size: 14px;
+}
+
+/*###############################*/
+/*#########  T H E A D  #########*/
+/*###############################*/
+
+.user-management-tbl table thead{
+    font-family: sf_regular;
+    background-color: #1A1B41;
+    color: white;
+    text-transform: uppercase;
+}
+
+.user-management-tbl{
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: visible;
+}
+
+.user-management-tbl table{
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.user-management-tbl table thead th{
+    padding: 13px;
+    text-align: center;
+    letter-spacing: 0.10em;
+    border-bottom: 2px solid #31337c;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #1A1B41;
+}
+
+.tbl-top-left{
+    border-top-left-radius: 10px;
+}
+
+.tbl-top-right{
+    border-top-right-radius: 10px;
+}
+
+/*###############################*/
+/*#########  T B O D Y  #########*/
+/*###############################*/
+
+.user-management-tbl .view_txt{
+    font-family: sf_regular;
+    cursor: pointer;
+    padding: 2px 20px;
+    border-radius: 4px;
+    background-color: #484ba5;
+    color: white;
+}
+
+.validID{
+    display: none;
+}
+
+.user-management-tbl table tbody tr:nth-child(even){
+    background-color: #5054bb48;
+}
+
+.user-management-tbl table tbody td{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    vertical-align: middle;
+    text-align: center;
+    overflow: visible;
+}
+
+.user-management-tbl table tbody{
+    font-family: sf_regular;
+    text-align: center;
+}
+
+.user-management-tbl .account-status{
+    font-weight: 800;
+    text-transform: uppercase;
+    background-color: #3da339;
+    color: white;
+    padding: 2px 12px;
+    border-radius: 4px;
+}
+
+.user-management-tbl .account-status-pending{
+    font-weight: 800;
+    text-transform: uppercase;
+    background-color: #fcff30;
+    padding: 2px 12px;
+    border-radius: 4px;
+}
+
+.user-management-tbl .account-status-restricted{
+    font-weight: 800;
+    text-transform: uppercase;
+    background-color: #c03b3b;
+    color: white;
+    padding: 2px 12px;
+    border-radius: 4px; 
+}
+
+.user-management-tbl .account-status-archived{
+    font-weight: 800;
+    text-transform: uppercase;
+    background-color: #8b8b8b;
+    color: white;
+    padding: 2px 12px;
+    border-radius: 4px; 
+}
+
+
+
+.user-management-tbl td .account-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    font-weight: 800;
+    text-transform: uppercase;
+    background-color: #3da339;
+    color: white;
+    padding: 2px 12px;
+    border-radius: 4px;
+
+    width: fit-content;
+    margin: 0 auto;
+}
+
+/*######################################*/
+/*#########  T A B L E  B T N  #########*/
+/*######################################*/
+
+.kebab-menu {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    overflow: visible;
+}
+
+.kebab-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: var(--color-text-primary);
+    line-height: 1;
+}
+
+.kebab-btn:hover {
+    background: #f0f0f0;
+}
+
+.kebab-info {
+    display: none;
+    position: fixed;
+    background: white;
+    border: 0.5px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    min-width: 150px;
+    z-index: 10000;
+}
+
+.kebab-info.open {
+    display: block;
+}
+
+.kebab-info a {
+    display: block;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+}
+
+.kebab-info a:hover {
+    background: #f5f5f5;
+}
+
+.kebab-info a.restrict {
+    color: #e53e3e;
+}
+
+.kebab-info a.restrict:hover {
+    background: #fff5f5;
+}
+
+
+/*####################################*/
+/*#########  B L A C K  B G  #########*/
+/*####################################*/
+
+#bg-black{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.952);
+    z-index: 2;
+    display: none;
+    pointer-events: none;
+}
+
+
+/*#############################################################*/
+/*#########  R E S T R I C T E D  A C C S  P O P U P  #########*/
+/*#############################################################*/
+
+#restricted-accounts-popup{
+    top: -10%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    position: fixed;
+    width: 80%;
+    max-width: 1200px;
+    max-height: 85vh;
+    padding: 20px;
+    transition: all .7 linear;
+    opacity: 1;
+    visibility: hidden;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 12px black;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.restricted-accounts-modal{
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 4;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .7s linear;
+}
+
+
+.restricted-close{
+    font-family: sf_bold;
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+
+.restricted-account-txt{
+    margin-top: 20px;
+    font-size: 30px;
+    color: black;
+    font-family: SF_BOLD;
+    text-align: center;
+}
+/*#############################################################*/
+/*#########  R E S T R I C T E D  A C C S  T A B L E  #########*/
+/*#############################################################*/
+
+.restricted-accounts-top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.restricted-close{
+    font-family: sf_bold;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.restricted-account-txt p{
+    font-family: sf_bold;
+    font-size: 40px;
+}
+
+.restricted-accounts-tbl{
+    width: 100%;
+    margin-top: 20px;
+}
+
+.restricted-accounts-tbl table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+.restricted-accounts-tbl table thead{
+    font-family: sf_regular;
+    background-color: #1A1B41;
+    color: white;
+    text-transform: uppercase;
+}
+
+.restricted-accounts-tbl table thead th{
+    padding: 10px;
+    text-align: center;
+    letter-spacing: 0.10em;
+    border-bottom: 2px solid #31337c;
+}
+
+.restricted-top-left{
+    border-top-left-radius: 10px;
+}
+
+.restricted-top-right{
+    border-top-right-radius: 10px;
+}
+
+.restricted-accounts-tbl tbody{
+    font-family: sf_regular;
+}
+
+/*###############################*/
+/*#########  T B O D Y  #########*/
+/*###############################*/
+
+.restricted-accounts-tbl .view_txt{
+    font-family: sf_regular;
+    cursor: pointer;
+    padding: 2px 20px;
+    border-radius: 4px;
+    background-color: #484ba5;
+    color: white;
+}
+
+.validID{
+    display: none;
+}
+
+.restricted-accounts-tbl table tbody tr:nth-child(even){
+    background-color: #5054bb48;
+}
+
+.restricted-accounts-tbl table tbody td{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    vertical-align: middle;
+}
+
+.restricted-accounts-tbl table tbody{
+    font-family: sf_regular;
+    text-align: center;
+}
+
+.restricted-accounts-tbl .account-status{
+    font-weight: 800;
+    text-transform: uppercase;
+    background-color: #3da339;
+    color: white;
+    padding: 2px 12px;
+    border-radius: 4px;
+}
+
+.restricted-accounts-tbl .account-status-pending{
+    font-weight: 800;
+    text-transform: uppercase;
+    background-color: #fcff30;
+    padding: 2px 12px;
+    border-radius: 4px;
+}
+
+.restricted-accounts-tbl .account-status-restricted{
+    font-weight: 800;
+    text-transform: uppercase;
+    background-color: #c03b3b;
+    color: white;
+    padding: 2px 12px;
+    border-radius: 4px;
+}
+
+.mobile-restricted-cards{
+    display: none !important;
+}
+
+
+/*#####################################################*/
+/*############ R E S T R I C T E D  T A B L E #########*/
+/*#####################################################*/
+
+/* TABLE */
+.restricted-accounts-modal table{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+}
+
+/* TABLE WRAPPER WITH FIXED HEIGHT */
+.restricted-accounts-modal .table-wrapper {
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: auto;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+/* HEADER */
+.restricted-accounts-modal thead{
+    background: #1A1B41;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.restricted-accounts-modal thead th{
+    position: sticky;
+    top: 0;
+    background: #1A1B41;
+    z-index: 10;
+}
+
+.restricted-accounts-modal th{
+    padding: 14px;
+    color: #fff;
+    font-family: SF_MEDIUM;
+    font-size: 14px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.2);
+}
+
+.restricted-accounts-modal th:last-child{
+    border-right: none;
+}
+
+/* BODY */
+.restricted-accounts-modal td{
+    padding: 14px;
+    text-align: center;
+    font-family: SF_MEDIUM;
+    font-size: 14px;
+    color: #333;
+}
+
+/* ALTERNATING ROWS */
+.restricted-accounts-modal tbody tr:nth-child(even){
+    background: #f4f5fb;
+}
+
+.restricted-accounts-modal tbody tr:nth-child(odd){
+    background: #ffffff;
+}
+
+/* HOVER */
+.restricted-accounts-modal tbody tr:hover{
+    background: #e6e9f5;
+    transition: 0.2s;
+}
+
+/* SELECT (USER ROLE) */
+.restricted-accounts-modal select{
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-family: SF_MEDIUM;
+    background: #f9f9f9;
+}
+
+/* STATUS */
+.account-status-restricted{
+    background: #e74c3c;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+/* VIEW BUTTON */
+.view_txt{
+    display: inline-block;
+    background: #4c4f91;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+/* NO IMAGE */
+.no-image{
+    color: #888;
+    font-size: 13px;
+}
+
+/* KEBAB */
+.kebab-btn{
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*###############################################*/
+/*#########  A D D  U S E R  P O P U P  #########*/
+/*###############################################*/
+
+#add-user-popup{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    width: 90%;
+    max-width: 500px;
+
+    max-height: 90%;
+    overflow-y: auto;
+
+    padding: 20px;
+    transition: all .3s linear;
+    opacity: 1;
+    visibility: hidden;
+    padding-top: 2%;
+    padding-bottom: 5%;
+
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 12px black;
+    z-index: 4;
+}
+
+
+.add-user-modal{
+    width: 100%;
+    height: 100%;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 3;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s linear;
+}
+
+
+.add-user-close,
+.add-user-close2,
+.add-user-close3{
+    font-family: sf_bold;
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+.add-user-txt{
+    margin-top: 20px;
+    font-size: 30px;
+    color: black;
+    font-family: SF_BOLD;
+    text-align: center;
+}
+
+/*###############################*/
+/*#########  S T E P  ###########*/
+/*###############################*/
+
+.step{
+    display: none;
+}
+
+.step.active{
+    display: block;
+}
+
+
+/*###############################################*/
+/*###############  RESPONSIVE  ##################*/
+/*###############################################*/
+
+@media (max-width: 480px){
+    #add-user-popup{
+        width: 95%;
+        padding: 15px;
+    }
+
+    .add-user-txt{
+        font-size: 22px;
+    }
+}
+
+
+/*##########################################*/
+/*###############  B A D G E   #############*/
+/*##########################################*/
+
+.badgeNumber_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.badgeNumber_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.badgeNumber_frame .badgeNumberBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.badgeNumber_frame .badgeNumberBox  input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.badgeNumber_frame .badgeNumberBox  input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+/*##########################################*/
+/*#################  R A N K   #############*/
+/*##########################################*/
+
+.rank_frame{
+    width: 100%;
+    margin: auto;
+}
+.rank_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.rank_frame label {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.rank_frame select {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+
+.rank_frame select:focus {
+    border-color: #1A1B41;
+}
+
+
+.rank_frame option[disabled] {
+    color: #888;
+}
+
+
+.rank_frame optgroup {
+    font-weight: bold;
+    color: #1A1B41;
+    background-color: #f5f5f5;
+}
+
+
+
+
+
+
+/*##########################################*/
+/*###############  F N A M E   #############*/
+/*##########################################*/
+
+.firstName_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.firstName_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.firstName_frame .fNameBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.firstName_frame .fNameBox  input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.firstName_frame .fNameBox  input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+
+
+
+
+/*##########################################*/
+/*###############  M N A M E   #############*/
+/*##########################################*/
+
+.middleName_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.middleName_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.middleName_frame .middleNameBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.middleName_frame .middleNameBox  input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.middleName_frame .middleNameBox  input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+
+/*##########################################*/
+/*###############  L N A M E   #############*/
+/*##########################################*/
+
+.lastName_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.lastName_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.lastName_frame .lastNameBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.lastName_frame .lastNameBox  input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.lastName_frame .lastNameBox  input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+
+/*##########################################*/
+/*###############  S N A M E   #############*/
+/*##########################################*/
+
+.Suffix_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.Suffix_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.Suffix_frame .SuffixBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.Suffix_frame .SuffixBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.Suffix_frame .SuffixBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+/*################################*/
+/*######### G E N D E R ##########*/
+/*################################*/ 
+
+
+.gender_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.gender_frame select {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    margin-top: 15px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+
+.gender_frame select:focus {
+    border-color: #1A1B41;
+}
+
+
+.gender_frame option[disabled] {
+    color: #888;
+}
+
+
+
+/*#########################################*/
+/*###############  B I R T H  #############*/
+/*#########################################*/
+
+.dob_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.dob_frame label {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.dob_frame .DateOfBirthBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+
+.DateOfBirthBox input[type="date"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.DateOfBirthBox input[type="date"]:focus {
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+}
+
+
+/*##########################################*/
+/*############  C O N T A C T   ############*/
+/*##########################################*/
+
+.contact_number_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.contact_number_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.contact_number_frame .contact_numberBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.contact_number_frame .contact_numberBox input[type="tel"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.contact_number_frame .contact_numberBox input[type='tel']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+/*##########################################*/
+/*##############  E M A I L   ##############*/
+/*##########################################*/
+
+.email_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.email_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.email_frame .emailBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.email_frame .emailBox input[type="email"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.email_frame .emailBox input[type='email']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+/*##########################################*/
+/*############  S T A T I O N   ############*/
+/*##########################################*/
+
+.station_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.station_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.station_frame .stationBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.station_frame .stationBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.station_frame .stationBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+/*##########################################*/
+/*##########  P O S I T I O N   ############*/
+/*##########################################*/
+
+.position_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.position_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.position_frame .positionBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.position_frame .positionBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.position_frame .positionBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+/*################################*/
+/*######### S T A T U S ##########*/
+/*################################*/ 
+
+
+.police_status_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+.police_status_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.police_status_frame select {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+
+.police_status_frame select:focus {
+    border-color: #1A1B41;
+}
+
+
+.police_status_frame option[disabled] {
+    color: #888;
+}
+
+
+
+
+/*##########################################*/
+/*##########  D A T E  J O I N  ############*/
+/*##########################################*/
+
+.dateJoined_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.dateJoined_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.dateJoined_frame .dateJoinedBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.dateJoined_frame .dateJoinedBox input[type="date"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.dateJoined_frame .positionBox input[type='date']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+/*##########################################*/
+/*########### H O U S E  N O .  ############*/
+/*##########################################*/
+
+.houseNo_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.houseNo_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.houseNo_frame .HouseNumberBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.houseNo_frame .HouseNumberBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.houseNo_frame .HouseNumberBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+
+/*##########################################*/
+/*#############  S T R E E T  ##############*/
+/*##########################################*/
+
+.street_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.street_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.street_frame .streetBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.street_frame .streetBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.street_frame .streetBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+/*##########################################*/
+/*###########  B A R A N G A Y  ############*/
+/*##########################################*/
+
+.barangay_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.barangay_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.barangay_frame .BarangayBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.barangay_frame .BarangayBox select{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.barangay_frame .BarangayBox select:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+    outline: none;
+}
+
+
+/*##########################################*/
+/*#############  S T R E E T  ##############*/
+/*##########################################*/
+
+.barangay_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.barangay_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.barangay_frame .BarangayBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.barangay_frame .BarangayBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+
+/*##########################################*/
+/*#############  R E G I O N  ##############*/
+/*##########################################*/
+
+.region_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.region_frame label {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.region_frame select {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.region_frame select:focus {
+    border-color: #1A1B41;
+}
+
+
+
+
+/*##########################################*/
+/*########## P R O V I N C E  ##############*/
+/*##########################################*/
+
+.province_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.province_frame label {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.province_frame select {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.province_frame select:focus {
+    border-color: #1A1B41;
+}
+
+
+
+/*##########################################*/
+/*################  C I T Y  ###############*/
+/*##########################################*/
+
+.city_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.city_frame label {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.city_frame select {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.city_frame select:focus {
+    border-color: #1A1B41;
+}
+
+
+
+
+
+/*####################################################*/
+/*###########   P R O F I L E   U P L O A D  #########*/
+/*####################################################*/
+
+
+.profile_upload {
+    width: 100%;
+    margin: auto;
+    margin-top: 15px;
+}
+
+
+.profile_upload label {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+    display: block;
+    margin-bottom: 8px;
+}
+
+
+.profile-upload-box {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: 600px;
+}
+
+.profile-upload-box input[type="file"] {
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+}
+
+
+.profile-upload-box:hover {
+    border-color: #888;
+    background: #fafafa;
+}
+
+
+#view_profile_pic {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: none; 
+}
+
+#view_profile_pic:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+
+.picture-preview {
+    margin-top: 12px;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 13px;
+    color: #444;
+    display: none;
+}
+
+
+.profile-upload-box input[type="file"]::file-selector-button {
+    background-color: #1A1B41;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: SF_MEDIUM;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-right: 10px;
+}
+
+
+
+
+
+
+
+/*##########################################*/
+/*#########  N E X T  B U T T O N  #########*/
+/*##########################################*/
+
+.next_button{
+    margin-top: 5px;
+    background-color: #1A1B41;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    float: right;
+    font-family: SF_BOLD;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+
+/*##########################################*/
+/*#########  P R E V  B U T T O N  #########*/
+/*##########################################*/
+
+.prev_button{
+    margin-top: 5px;
+    background-color: #1A1B41;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    float: right;
+    font-family:  SF_BOLD;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+/*##############################################*/
+/*#########  S U B M I T  B U T T O N  #########*/
+/*##############################################*/
+
+.submit-btn{
+    margin-top: 5px;
+    background-color: #1A1B41;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    float: right;
+    font-family:  SF_BOLD;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+/*##########################################*/
+/*#########  M O D A L  P O P U P  #########*/
+/*##########################################*/
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 3;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: black;
+    background-color: rgba(0,0,0,0,0.9);
+}
+
+.modal_content{
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+#caption{
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    padding: 10px 0;
+    height: 150px;
+}
+
+.close{
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+
+
+/*########################################*/
+/*#########  E D I T  P O P U P  #########*/
+/*########################################*/
+
+#edit_popup{
+    top: -20%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    position: fixed;
+    width: 500px;
+    padding: 20px;
+    transition: all .7 linear;
+    opacity: 1;
+    visibility: hidden;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 12px black;
+    z-index: 5;
+}
+
+.edit-close{
+    font-family: sf_bold;   
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+}
+
+.edit-txt{
+    font-size: 40px;
+    font-family: sf_regular;
+    text-align: center;
+}
+
+.update-btn{
+    margin-top: 5px;
+    background-color: #1A1B41;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    float: right;
+    font-family: sf_regular;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    min-width: 100px;
+    max-width: 140px;
+    width: auto;
+}
+
+
+
+
+/*##############################################*/
+/*############ VIEW POPUP MODAL ################*/
+/*##############################################*/
+
+/* MAIN MODAL CONTAINER */
+.view-popup-modal {
+    display: none; /* HIDDEN BY DEFAULT */
+    position: fixed; /* FIXED SA SCREEN */
+    z-index: 1000; /* ABOVE ALL */
+    left: 0;
+    top: 0;
+    width: 100%; /* FULL WIDTH */
+    height: 100%; /* FULL HEIGHT */
+    background-color: rgba(0, 0, 0, 0.8); /* DARK OVERLAY */
+    justify-content: center;
+    align-items: center;
+}
+
+/* MODAL BOX */
+.view-popup-content {
+    background-color: white; /* WHITE BACKGROUND */
+    border-radius: 10px; /* ROUNDED CORNER */
+    max-width: 90%; /* RESPONSIVE WIDTH */
+    max-height: 90%; /* RESPONSIVE HEIGHT */
+    overflow: hidden; /* PREVENT OVERFLOW */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* SHADOW */
+}
+
+/* HEADER */
+.view-popup-header {
+    display: flex; /* FLEX LAYOUT */
+    justify-content: space-between; /* SPACE BETWEEN */
+    align-items: center; /* CENTER VERTICAL */
+    padding: 15px 20px;
+    background-color: #f8f9fa; /* LIGHT BG */
+    border-bottom: 1px solid #dee2e6; /* BORDER */
+}
+
+/* HEADER TITLE */
+.view-popup-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 18px;
+}
+
+/* CLOSE BUTTON */
+.view-popup-close {
+    font-size: 24px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* CLOSE BUTTON HOVER */
+.view-popup-close:hover {
+    color: #333;
+}
+
+/* BODY */
+.view-popup-body {
+    padding: 20px;
+    text-align: center;
+}
+
+/* IMAGE INSIDE MODAL */
+.view-popup-body img {
+    max-width: 100%; /* FIT WIDTH */
+    max-height: 70vh; /* LIMIT HEIGHT */
+    border-radius: 5px;
+}
+
+
+/*##############################################*/
+/*############ PROGRESS BAR ####################*/
+/*##############################################*/
+
+/* CONTAINER */
+.progress_container {
+    margin: 20px 0;
+}
+
+/* BAR BACKGROUND */
+.progress_bar {
+    width: 100%;
+    height: 4px;
+    background-color: #e0e0e0; /* GRAY BG */
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+/* BAR FILL */
+.progress_fill {
+    height: 100%;
+    background-color: #1A1B41; /* PRIMARY COLOR */
+    width: 33.33%; /* DEFAULT PROGRESS */
+    transition: width 0.3s ease; /* SMOOTH ANIMATION */
+    border-radius: 2px;
+}
+
+/* STEPS CONTAINER */
+.progress_steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* EACH STEP */
+.progress_step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+/* STEP CIRCLE */
+.step_circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; /* CIRCLE */
+    background-color: #e0e0e0; /* DEFAULT COLOR */
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+}
+
+/* ACTIVE STEP */
+.progress_step.active .step_circle {
+    background-color: #1A1B41; /* ACTIVE COLOR */
+    color: white;
+}
+
+/* STEP LABEL */
+.step_label {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+}
+
+/* ACTIVE LABEL */
+.progress_step.active .step_label {
+    color: #1A1B41;
+    font-weight: bold;
+}
+
+
+/*##########################################*/
+/*#################  R O L E   #############*/
+/*##########################################*/
+
+.role_frame{
+    width: 100%;
+    margin: auto;
+}
+.role_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.role_frame label {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.role_frame select {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+
+.role_frame select:focus {
+    border-color: #1A1B41;
+}
+
+
+.role_frame option[disabled] {
+    color: #888;
+}
+
+
+/*##########################################*/
+/*#################  ROLE  #################*/
+/*##########################################*/
+
+.user-management-tbl table tbody tr td:nth-child(3) select{
+    width: 100%;
+    height: 38px;
+    border: 1.5px solid #dcdcdc;
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 0 30px 0 10px;
+    background: linear-gradient(145deg, #ffffff, #f3f4f8);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* hover */
+.user-management-tbl table tbody tr td:nth-child(3) select:hover{
+    border-color: #7a7cff;
+}
+
+/* focus */
+.user-management-tbl table tbody tr td:nth-child(3) select:focus{
+    border-color: #1A1B41;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(26,27,65,0.15);
+}
+
+/* disabled */
+.user-management-tbl table tbody tr td:nth-child(3) select:disabled{
+    background: #f5f5f5;
+    color: #999;
+    cursor: not-allowed;
+}
+
+/* arrow */
+.user-management-tbl table tbody tr td:nth-child(3){
+    position: relative;
+}
+
+.user-management-tbl table tbody tr td:nth-child(3)::after{
+    content: "▼";
+    font-size: 11px;
+    color: #666;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* DEFAULT STYLE */
+.user-management-tbl table tbody tr td:nth-child(3) select{
+    width: 100%;
+    height: 38px;
+    border: 2px solid #dcdcdc;
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 0 30px 0 10px;
+    background: #fff;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+/* SYSTEM ADMIN - RED */
+.user-management-tbl select.role-systemAdmin{
+    border-color: #ff4d4f;
+    color: #ff4d4f;
+    font-family: sf_medium;
+    background: #fff1f0;
+}
+
+/* POLICE ADMIN - BLUE */
+.user-management-tbl select.role-policeAdmin{
+    border-color: #1677ff;
+    color: #1677ff;
+    font-family: sf_medium;
+    background: #e6f4ff;
+}
+
+/* POLICE - GREEN */
+.user-management-tbl select.role-police{
+    border-color: #52c41a;
+    color: #389e0d;
+    font-family: sf_medium;
+    background: #f6ffed;
+}
+
+/* USER - GRAY */
+.user-management-tbl select.role-user{
+    border-color: #bfbfbf;
+    color: #595959;
+    font-family: sf_medium;
+    background: #fafafa;
+}
+
+/*##########################################*/
+/*############### L N A M E ################*/
+/*##########################################*/
+
+.fName_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.fName_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.fName_frame .fNameBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.fName_frame .fNameBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.fName_frame .fNameBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+/*##########################################*/
+/*############### L N A M E ################*/
+/*##########################################*/
+
+.lName_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.lName_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.lName_frame .lNameBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.lName_frame .lNameBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.lName_frame .lNameBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+/*##########################################*/
+/*############### L N A M E ################*/
+/*##########################################*/
+
+.MName_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.MName_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.MName_frame .MNameBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.MName_frame .MNameBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.MName_frame .MNameBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+/*##########################################*/
+/*############### L N A M E ################*/
+/*##########################################*/
+
+.Email_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.Email_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.Email_frame .EmailBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.Email_frame .EmailBox input[type="email"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.Email_frame .EmailBox input[type='email']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+/*##########################################*/
+/*############### P N U M B E R ############*/
+/*##########################################*/
+
+.PNumber_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.PNumber_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.PNumber_frame .PNumberBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.PNumber_frame .PNumberBox input[type="tel"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.PNumber_frame .PNumberBox input[type='tel']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+/*##########################################*/
+/*############### P N U M B E R ############*/
+/*##########################################*/
+
+.ResetPassword_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.ResetPassword_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.ResetPassword_frame .PasswordBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.ResetPassword_frame .PasswordBox input[type="password"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.ResetPassword_frame .PasswordBox input[type='password']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+    /*###############################################################################*/
+    /*#################################  P A G E S  #################################*/
+    /*###############################################################################*/
+
+    /*###############################*/
+    /*###### C O N T R O L S  #######*/
+    /*###############################*/
+
+    .pagination-controls {
+        display: flex;
+        align-items: center;    
+        justify-content: center; 
+        margin-top: 10px;
+    }
+
+    /*###############################*/
+    /*#########  I N F O  ###########*/
+    /*###############################*/
+
+    .table-info {
+        margin-top: 10px;
+        font-size: 12px;
+        color: #666;
+        text-align: center;
+        width: 100%;
+    }
+
+    /*###############################*/
+    /*#########   B T N   ###########*/
+    /*###############################*/
+
+    .pagination-controls a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        text-decoration: none;
+        border: 1px solid #dcdcdc;
+        color: #333;
+        font-size: 12px;
+        background: #fff;
+        margin-left: -1px; 
+    }
+
+    /*###############################*/
+    /*########  C O R N E R S ########*/
+    /*###############################*/
+
+    .pagination-controls a:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        margin-left: 0;
+    }
+
+    .pagination-controls a:last-of-type {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    /*###############################*/
+    /*########  H O V E R  ##########*/
+    /*###############################*/
+
+    .pagination-controls a:hover {
+        background: #f5f6fa;
+    }
+
+    /*###############################*/
+    /*########  A C T I V E #########*/
+    /*###############################*/
+
+    .pagination-controls a.active {
+        background: #1e2248;
+        color: #fff;
+        border-color: #1e2248;
+        position: relative;
+        z-index: 2;
+    }
+
+    /*###############################*/
+    /*###### D R O P D O W N ########*/
+    /*###############################*/
+
+    #users-row-per-page {
+        margin-left: 6px;
+        height: 28px;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        padding: 0 6px;
+        font-size: 12px;
+    }
+
+
+
+
+/*##############################################*/
+/*######## DOCUMENT MODALS (MODERN) ###########*/
+/*##############################################*/
+
+.document-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.document-modal.active {
+    display: flex;
+}
+
+.document-modal-content {
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+    border-radius: 16px;
+    max-width: 90%;
+    max-height: 90vh;
+    width: 800px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    animation: slideUp 0.3s ease;
+}
+
+.document-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background: linear-gradient(135deg, #1A1B41 0%, #2d2f5f 100%);
+    border-bottom: 3px solid #4a4d8a;
+}
+
+.document-modal-header h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 22px;
+    font-family: SF_BOLD;
+    letter-spacing: 0.5px;
+}
+
+.document-modal-close {
+    font-size: 32px;
+    font-weight: bold;
+    color: #ffffff;
+    cursor: pointer;
+    line-height: 1;
+    transition: all 0.3s ease;
+    padding: 0 10px;
+}
+
+.document-modal-close:hover {
+    color: #ff6b6b;
+    transform: rotate(90deg);
+}
+
+.document-modal-body {
+    padding: 30px;
+    text-align: center;
+    background: #ffffff;
+    max-height: calc(90vh - 100px);
+    overflow-y: auto;
+}
+
+/* Profile Picture Image */
+.document-modal-body img {
+    max-width: 100%;
+    max-height: 70vh;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* PDF/Document Viewer */
+.document-modal-body iframe {
+    width: 100%;
+    height: 70vh;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Document Download Link */
+.document-download-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #1A1B41 0%, #2d2f5f 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: SF_MEDIUM;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(26, 27, 65, 0.3);
+}
+
+.document-download-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(26, 27, 65, 0.4);
+}
+
+/* No Document Message */
+.no-document-message {
+    padding: 40px;
+    color: #999;
+    font-size: 16px;
+    font-family: SF_MEDIUM;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .document-modal-content {
+        width: 95%;
+        max-height: 95vh;
+    }
+    
+    .document-modal-header {
+        padding: 15px 20px;
+    }
+    
+    .document-modal-header h2 {
+        font-size: 18px;
+    }
+    
+    .document-modal-body {
+        padding: 20px;
+    }
+}

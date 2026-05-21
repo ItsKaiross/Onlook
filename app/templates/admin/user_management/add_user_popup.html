@@ -1,0 +1,138 @@
+<!--###########################################################-->
+<!--###############  A D D  U S E R  P O P U P  ###############-->
+<!--###########################################################-->
+
+    <div class="add-user-modal" id="add-user-popup">
+        <form action="/admin-user-management/add-user" method="POST" enctype="multipart/form-data" charset="utf-8">
+            <div class="add-user-close">
+                &times;
+            </div>
+            <div class="add-user-txt">
+                <p>Add Police User</p>
+            </div>
+
+            <!--#################################################################-->
+            <!--###################   B A D G E  N U M B E R  ###################-->
+            <!--#################################################################-->
+            <div class="badgeNumber_frame">
+                <label for="badgeNumber">Badge #</label>
+                <div class="badgeNumberBox">
+                    <input type="text" name="badgeNumber" id="badgeNumber" placeholder="e.g. 123543" required>
+                </div>
+            </div>
+
+            <!--###################################################-->
+            <!--###################   R A N K   ###################-->
+            <!--###################################################-->
+            <div class="rank_frame">
+                <label for="rank">Rank</label>
+                <select id="rank" name="rank" required>
+                    <option value="" selected disabled>Select Rank</option>
+                    <optgroup label="Police Commissioned Officers (PCO)">
+                        <option value="PLT">Police Lieutenant (PLT)</option>
+                        <option value="PCPT">Police Captain (PCPT)</option>
+                        <option value="PMAJ">Police Major (PMAJ)</option>
+                        <option value="PLTCOL">Police Lieutenant Colonel (PLTCOL)</option>
+                        <option value="PCOL">Police Colonel (PCOL)</option>
+                        <option value="PBGEN">Police Brigadier General (PBGEN)</option>
+                        <option value="PMGEN">Police Major General (PMGEN)</option>
+                        <option value="PLTGEN">Police Lieutenant General (PLTGEN)</option>
+                        <option value="PGEN">Police General (PGEN)</option>
+                    </optgroup>
+                    <optgroup label="Police Non-Commissioned Officers (PNCO)">
+                        <option value="Patrolman">Patrolman / Patrolwoman (Pat / PatWom)</option>
+                        <option value="PCpl">Police Corporal (PCpl)</option>
+                        <option value="PSg">Police Sergeant (PSg)</option>
+                        <option value="PSSg">Police Staff Sergeant (PSSg)</option>
+                        <option value="PMSg">Police Master Sergeant (PMSg)</option>
+                        <option value="PSMSg">Police Senior Master Sergeant (PSMSg)</option>
+                        <option value="PCMSg">Police Chief Master Sergeant (PCMSg)</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <!--#####################################################-->
+            <!--###################   F N A M E   ###################-->
+            <!--#####################################################-->
+            <div class="firstName_frame">
+                <label for="firstName">First Name</label>
+                <div class="fNameBox">
+                    <input type="text" name="firstName" id="firstName" placeholder="e.g. Juan" required>
+                </div>
+            </div>
+
+            <!--#####################################################-->
+            <!--###################  M N A M E   ####################-->
+            <!--#####################################################-->
+            <div class="middleName_frame">
+                <label for="middleName">Middle Name</label>
+                <div class="middleNameBox">
+                    <input type="text" name="middleName" id="middleName" placeholder="e.g. Santos">
+                </div>
+            </div>
+
+            <!--#####################################################-->
+            <!--##################   L N A M E  #####################-->
+            <!--#####################################################-->
+            <div class="lastName_frame">
+                <label for="lastName">Last Name</label>
+                <div class="lastNameBox">
+                    <input type="text" name="lastName" id="lastName" placeholder="e.g. Manahan" required>
+                </div>
+            </div>
+
+            <!--#####################################################-->
+            <!--##############   G E N D E R  T Y P E   #############-->
+            <!--#####################################################-->
+            <div class="gender_frame">
+                <label for="gender">Sex</label>
+                <select name="gender" id="gender" required>
+                    <option value="" selected disabled>Select Sex</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+
+            <!--#####################################################-->
+            <!--#####################   D O B   #####################-->
+            <!--#####################################################-->
+            <div class="dob_frame">
+                <label for="dateOfBirth">Date of Birth</label>
+                <div class="DateOfBirthBox">
+                    <input type="date" name="dateOfBirth" id="dateOfBirth" required>
+                </div>
+            </div>
+
+            <!--##########################################################################-->
+            <!--#####################   C O N T A C T  N U M B E R   #####################-->
+            <!--##########################################################################-->
+            <div class="contact_number_frame">
+                <label for="contact_number">Contact Number</label>
+                <div class="contact_numberBox">
+                    <input type="tel" name="contact_number" id="contact_number" placeholder="e.g. 09123456789" pattern="^(\+639|09)\d{9}$" required>
+                </div>
+            </div>
+
+            <!--#####################################################-->
+            <!--##################   E M A I L  #####################-->
+            <!--#####################################################-->
+            <div class="email_frame">
+                <label for="email">Email</label>
+                <div class="emailBox">
+                    <input type="email" name="email" id="email" placeholder="e.g., juan.delacruz@gmail.com" required>
+                </div>
+            </div>
+
+            <!--#########################################################-->
+            <!--###################   S T A T I O N   ###################-->
+            <!--#########################################################-->
+            <div class="station_frame">
+                <label for="station">Station</label>
+                <div class="stationBox">
+                    <input type="text" name="station" id="station" placeholder="e.g., Quezon City PS 2" required>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>

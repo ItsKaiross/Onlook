@@ -1,0 +1,1376 @@
+
+/*##############################################*/
+/*######### R E G U L A R  F O N T S ###########*/
+/*##############################################*/
+
+
+@font-face {
+  font-family: "SF_BLACK";
+  src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK.otf);
+}
+@font-face {
+  font-family: "SF_BOLD";
+  src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BOLD.OTF);
+}
+@font-face {
+  font-family: "SF_MEDIUM";
+  src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_MEDIUM.OTF);
+}
+@font-face {
+  font-family: "SF_REGULAR";
+  src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_REGULAR.OTF);
+}
+
+/*############## ITL = ITALIC ################*/
+@font-face { 
+  font-family: "SF_SEMIBOLD_ITL";
+  src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_SEMI_BOLD_ITL.OTF);
+}
+@font-face {
+  font-family: "SF_BLACK_ITL";
+  src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK_ITL.OTF);
+}
+@font-face {
+  font-family: "SF_HEAVY_ITL";
+  src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_HEAVY_ITL.OTF);
+}
+@font-face {
+  font-family: "SF_LIGHT_ITL";
+  src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_LIGHT_ITL.OTF);
+}
+@font-face {
+  font-family: "SF_THIN_ITL";
+  src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_THIN_ITL.OTF);
+}
+
+
+
+@media screen {
+    /* Kebab Menu Styles */
+    .kebab-menu {
+        position: relative;
+        display: inline-block;
+    }
+
+    .kebab-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        border-radius: 4px;
+        transition: background 0.2s;
+    }
+
+    .kebab-btn:hover {
+        background: #f0f0f0;
+    }
+
+    .kebab-btn span {
+        width: 4px;
+        height: 4px;
+        background: #666;
+        border-radius: 50%;
+    }
+
+    .kebab-dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 1001;
+        min-width: 100px;
+        overflow: visible;
+    }
+
+    .kebab-dropdown a {
+        display: block;
+        padding: 10px 15px;
+        text-decoration: none;
+        color: #333;
+        font-size: 14px;
+        white-space: nowrap;
+        transition: background 0.2s;
+    }
+
+    .kebab-dropdown a:hover {
+        background: #f8f9fa;
+        color: #1A1B41;
+    }
+
+    /* Prevent table overflow issues */
+    .table_responsive {
+        overflow: visible;
+    }
+
+    table {
+        position: relative;
+        z-index: 1;
+    }
+
+    .action-cell {
+        position: relative;
+        z-index: 2;
+        overflow: visible;
+    }
+
+    /* Clickable Row Styles */
+    .clickable-row {
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .clickable-row:hover {
+        background-color: #f8f9fa;
+    }
+
+    .action-cell {
+        cursor: default;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*###################################################*/
+/*########## R E P O R T  D E T A I L S   ###########*/
+/*###################################################*/
+
+/* Modal Styles - Enhanced for better visibility */
+.report-details-modal, .edit-report-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease;
+}
+
+.report-details-modal.show, .edit-report-modal.show {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.edit-report-modal .modal-content {
+    max-width: 800px;
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1A1B41;
+    color: white;
+    border-radius: 8px 8px 0 0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: white;
+    font-family: SF_BOLD;
+}
+
+.close-modal {
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+    transition: opacity 0.2s;
+}
+
+.close-modal:hover {
+    opacity: 0.7;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+
+.report-info{
+    font-size: 15px;
+    font-family: SF_BLACK;
+}
+
+
+.info-grid{
+    width: 100%;
+}
+
+
+
+.info-grid h1{
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 15px;
+}
+.info-item strong {
+    color: #555;
+}
+
+.report-image {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.report-image img {
+    border: 2px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+
+
+
+/*###########################################################*/
+/*##########  R E P O R T  D E T A I L S  I T E M   #########*/
+/*###########################################################*/
+
+
+/*##########################################*/
+/*############ I N F O  G R I D ############*/
+/*##########################################*/ 
+
+
+.info-grid{
+    width: 100%;
+}
+
+
+
+/*##########################################*/
+/*############ N A M E  I T E M ############*/
+/*##########################################*/ 
+.name-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+
+.name-item p{
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+
+/*##########################################*/
+/*############## A G E  I T E M ############*/
+/*##########################################*/ 
+
+.age-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+.age-item p{
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+/*##########################################*/
+/*########## G E N D E R  I T E M ##########*/
+/*##########################################*/ 
+
+.gender-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+.gender-item p{
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+
+/*##########################################*/
+/*############ S E E N  I T E M ############*/
+/*##########################################*/ 
+
+.seen-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+.seen-item p{
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+/*##########################################*/
+/*########## S T A T U S  I T E M ##########*/
+/*##########################################*/ 
+
+.status-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+.status-item p{
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+/*##########################################*/
+/*########## H E I G H T  I T E M ##########*/
+/*##########################################*/ 
+
+.height-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+.height-item p{
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+/*##########################################*/
+/*############ I N F O  I T E M ############*/
+/*##########################################*/ 
+
+.info-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+.info-item p{
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+
+
+/*##########################################*/
+/*############ H A I R  I T E M ############*/
+/*##########################################*/ 
+
+.hair-color-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+.hair-color-item p{
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+
+
+/*##########################################*/
+/*############# E Y E  I T E M #############*/
+/*##########################################*/ 
+
+.eye-color-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+.eye-color-item p{
+    padding: 5px;
+    border-radius: 5px;
+        border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+
+
+
+/*##########################################*/
+/*####### C L O T H I N G  I T E M #########*/
+/*##########################################*/ 
+
+
+.clothing-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+.clothing-item p{
+    padding: 5px;
+    border-radius: 5px;
+    font-family: SF_BOLD;
+    border: 1px solid rgb(218, 218, 218) !important;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Edit Form Styles */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+    font-family: SF_REGULAR;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: SF_REGULAR;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #1A1B41;
+    box-shadow: 0 0 0 2px rgba(26, 27, 65, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.form-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: SF_BOLD;
+    transition: background 0.2s;
+}
+
+.form-actions button[type="button"] {
+    background: #6c757d;
+    color: white;
+}
+
+.form-actions button[type="button"]:hover {
+    background: #5a6268;
+}
+
+.form-actions button[type="submit"] {
+    background: #1A1B41;
+    color: white;
+}
+
+.form-actions button[type="submit"]:hover {
+    background: #23254a;
+}
+
+@media (max-width: 768px) {
+    .info-grid, .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+}
+
+/* Case Management Specific Styles */
+.case-details-modal, .edit-case-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow-y: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.case-details-modal.show, .edit-case-modal.show {
+    display: flex !important;
+}
+
+.case-modal-content {
+    max-width: 1000px;
+    width: 90%;
+}
+
+/* Custom scrollbar for edit case modal */
+.edit-case-modal .modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #1A1B41 #f1f1f1;
+}
+
+.edit-case-modal .modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.edit-case-modal .modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.edit-case-modal .modal-body::-webkit-scrollbar-thumb {
+    background: #1A1B41;
+    border-radius: 3px;
+    transition: background 0.2s;
+}
+
+.edit-case-modal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #23254a;
+}
+
+/* Custom scrollbar for case details modal */
+.case-details-modal .modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #1A1B41 #f1f1f1;
+}
+
+.case-details-modal .modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.case-details-modal .modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.case-details-modal .modal-body::-webkit-scrollbar-thumb {
+    background: #1A1B41;
+    border-radius: 3px;
+    transition: background 0.2s;
+}
+
+.case-details-modal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #23254a;
+}
+
+.form-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.form-section {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+    background: #f9f9f9;
+}
+
+.form-section h3 {
+    margin: 0 0 15px 0;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+    border-bottom: 2px solid #1A1B41;
+    padding-bottom: 5px;
+}
+
+.case-file-view {
+    max-width: 100%;
+}
+
+.case-file-view h3{
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 30px;
+    text-align: center  ;
+    margin-bottom: 15px;
+}
+
+
+.case-images {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.image-gallery {
+    display: grid;
+    justify-content: center;     
+    align-items: center;          
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+
+
+
+
+
+/*######################################################################*/
+/*#################### C A S E  M A N A G E M E N T ####################*/
+/*######################################################################*/ 
+
+/*##########################################*/
+/*############ N A M E  I T E M ############*/
+/*##########################################*/ 
+.name-case-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+
+.name-case-item p{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+/*##########################################*/
+/*############ A G E    I T E M ############*/
+/*##########################################*/ 
+.age-case-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+
+.age-case-item p{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+/*##########################################*/
+/*############ A G E    I T E M ############*/
+/*##########################################*/ 
+.gender-case-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+
+.gender-case-item p{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+/*##########################################*/
+/*############ A G E    I T E M ############*/
+/*##########################################*/ 
+.status-case-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+
+.status-case-item p{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+/*##########################################*/
+/*############ A G E    I T E M ############*/
+/*##########################################*/ 
+.priority-case-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+
+.priority-case-item p{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+/*##########################################*/
+/*############ A G E    I T E M ############*/
+/*##########################################*/ 
+.assigned-case-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+
+.assigned-case-item p{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+
+/*##########################################*/
+/*############ A G E    I T E M ############*/
+/*##########################################*/ 
+.last-seen-case-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+
+.last-seen-case-item p{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+
+/*##########################################*/
+/*############ A G E    I T E M ############*/
+/*##########################################*/ 
+.height-case-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+
+.height-case-item p{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+
+/*##########################################*/
+/*############ A G E    I T E M ############*/
+/*##########################################*/ 
+.weight-case-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+
+.weight-case-item p{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+
+
+/*##########################################*/
+/*############ A G E    I T E M ############*/
+/*##########################################*/ 
+.hair-case-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+
+.hair-case-item p{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+
+
+/*##########################################*/
+/*############ A G E    I T E M ############*/
+/*##########################################*/ 
+.eye-case-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+
+.eye-case-item p{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+
+/*##########################################*/
+/*############ A G E    I T E M ############*/
+/*##########################################*/ 
+.clothing-case-item h1{
+    margin-bottom: 5px;
+    font-family: SF_REGULAR;
+    color: #1A1B41;
+    font-size: 15px;
+}
+
+
+.clothing-case-item p{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218) !important;
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    font-size: 20px;
+}
+
+
+
+
+
+
+
+.gallery-image {
+    width: 100%;
+    max-width: 200px;             
+    height: 300px;               
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    border: 2px solid #ddd;
+    margin: 0 auto;              
+}
+
+.gallery-image:hover {
+    transform: scale(1.05);
+    border-color: #1A1B41;
+}
+
+
+.case-reporters {
+    margin-top: 30px;
+}
+
+.reporters-table-container {
+    overflow-x: auto;
+    margin-top: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.reporters-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+}
+
+.reporters-table th,
+.reporters-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.reporters-table th {
+    background: #1A1B41;
+    color: white;
+    font-family: SF_BOLD;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.reporters-table td {
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.reporters-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.reporter-type {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.reporter-type.registered {
+    background: #d4edda;
+    color: #155724;
+}
+
+.reporter-type.anonymous {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.no-reporters {
+    color: #666;
+    font-style: italic;
+    margin-top: 10px;
+    padding: 20px;
+    text-align: center;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.image-modal-content {
+    position: relative;
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.image-modal-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.close-image-modal {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-image-modal:hover {
+    color: #bbb;
+}
+
+.image-nav {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.image-nav button {
+    background: #1A1B41;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.image-nav button:hover {
+    background: #23254a;
+}
+
+#image-preview-container {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .case-modal-content {
+        width: 95%;
+    }
+    
+    .form-sections {
+        gap: 20px;
+    }
+    
+    .image-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    
+    .gallery-image {
+        height: 100px;
+    }
+}
+
+
+.officer-dropdown {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    font-size: 13px;
+    font-family: SF_REGULAR;
+    cursor: pointer;
+}
+
+.officer-dropdown:focus {
+    outline: none;
+    border-color: #1A1B41;
+    box-shadow: 0 0 0 2px rgba(26, 27, 65, 0.1);
+}
+
+.officer-dropdown option {
+    padding: 5px;
+}
+
+.status-dropdown {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    font-size: 13px;
+    font-family: SF_REGULAR;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.status-dropdown:focus {
+    outline: none;
+    border-color: #1A1B41;
+    box-shadow: 0 0 0 2px rgba(26, 27, 65, 0.1);
+}
+
+.status-dropdown option {
+    padding: 5px;
+}
+
+.status-dropdown option[value="Pending"] {
+    background-color: #fff3cd;
+    color: #856404;
+    font-family: Sf_medium;
+}
+
+.status-dropdown option[value="Approved"] {
+    background-color: #d4edda;
+    color: #155724;
+    font-family: Sf_medium;
+}
+
+.status-dropdown option[value="Rejected"] {
+    background-color: #f8d7da;
+    color: #721c24;
+    font-family: Sf_medium;
+}
+
+.status-dropdown option[value="Archived"] {
+    background-color: #64748B;
+    color: white;
+    font-family: Sf_medium;
+}
+
+
+.status-cell {
+    cursor: default;
+}
+
+
+
+.follow-report-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease; 
+}
+
+.follow-report-modal .modal-content {
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.follow-report-btn {
+    background: #1A1B41;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: SF_BOLD;
+    font-size: 14px;
+    transition: background 0.2s;
+    margin-top: 20px;
+}
+
+.follow-report-btn:hover {
+    background: #484ba0;
+}
+
+.report-actions {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    margin-top: 20px;
+}
+
+/* Modern Scrollbar Styles for Field Report Modals */
+.report-details-modal .modal-body,
+.edit-report-modal .modal-body,
+.follow-report-modal .modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #1A1B41 #f1f1f1;
+}
+
+.report-details-modal .modal-body::-webkit-scrollbar,
+.edit-report-modal .modal-body::-webkit-scrollbar,
+.follow-report-modal .modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.report-details-modal .modal-body::-webkit-scrollbar-track,
+.edit-report-modal .modal-body::-webkit-scrollbar-track,
+.follow-report-modal .modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.report-details-modal .modal-body::-webkit-scrollbar-thumb,
+.edit-report-modal .modal-body::-webkit-scrollbar-thumb,
+.follow-report-modal .modal-body::-webkit-scrollbar-thumb {
+    background: #1A1B41;
+    border-radius: 3px;
+    transition: background 0.2s;
+}
+
+.report-details-modal .modal-body::-webkit-scrollbar-thumb:hover,
+.edit-report-modal .modal-body::-webkit-scrollbar-thumb:hover,
+.follow-report-modal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #23254a;
+}

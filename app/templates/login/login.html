@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../static/icons/onlook_icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+        <link rel="stylesheet" href="static/css/mobile-reset.css">
+        <link rel="stylesheet" href="static/css/login/login.css">
+    <title>Login - Onlook</title>
+    <link rel="stylesheet" href="static/css/responsive-fixed.css">
+</head>
+<body>
+
+    
+{% include 'includes/loading_screen.html' %}
+{% include 'includes/flash_messages.html' %}
+
+
+    <script src="static/Javascript/login/missing_now.js"></script>
+    <!--####################################################-->
+    <!--###############  L O G I N  F O R M  ###############-->
+    <!--####################################################-->
+    
+    <!-- Background overlay for popups -->
+    <div class="black-bg" id="bg-black"></div>
+    
+    <div class="background_frame" id="blur" >
+            
+    
+        <form action="/signIn" method="POST">
+            <div class="login_frame"  id="login">
+                <div class="login_logo_frame">
+                    <img src="../static/images/logo/logo_black_icon.png" alt="">
+                </div>
+                <div class="text_frame">
+                    <h1>Lets go!</h1>
+                    
+
+                            <!--###############  L O G I N  E M A I L  ###############-->
+                            <div class="login_textbox_frame">
+                                <div class="email_frame">
+                                    <label for="email">Email</label>
+                                    <div class="email_box">
+                                        <input type="email" name="email" placeholder="Email" required>
+                                    </div>
+                                </div>
+
+
+                            <!--###############  L O G I N  P A S S W O R D  ###############-->
+                            <div class="password_frame">
+                                <label for="password">Password</label>
+                                <div class="password_box">
+                                    <input type="password" name="pass" id="passwordField" placeholder="Password" required>
+                                </div>
+                                <div class="show-password-frame">
+                                    <input type="checkbox" id="showPassword" onchange="togglePassword()">
+                                    <label for="showPassword">Show Password</label>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="msg">{{msg}}</div>
+                        <div class="msg2">{{msg2}}</div>
+
+                        <!--###############  L O G I N  B U T T O N  ###############-->
+                        <div class="login_button_frame">
+                            <button id="" name="login_button" type="submit">Login</button>
+                        </div>
+
+
+                    <!--###############  L O G I N  F O R G O T  P A S S  ###############-->
+                    <div class="forgot_pass_frame">
+                        <a href="#blur" onclick="toggle()">Forgot Password?</a>
+                    </div>
+
+                    <!--###############  L O G I N  S I G N  U P   ###############-->
+                    <div class="signup_frame">
+                        <label for="signup">New to OnLook? </label>
+                        <a name="signup" href="/register">Get started -></a>
+                    </div>
+                    
+
+                    <!--###############  L O G I N  L I N K S   ###############-->
+                    <div class="links_frame">
+                        <a href="">Help</a>
+                        <a href="">Privacy</a>
+                        <a href="">Terms</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    
+
+    <!--###################################################-->
+    <!--##################  P O P U P S  ##################-->
+    <!--###################################################-->
+
+
+    <!--######################################-->
+    <!--#######  F O R G O T  P A S S  #######-->
+    <!--######################################-->
+
+<form action="/mailOTP" method="POST">
+
+    <div class="forgot_pass_popup" id="popup_forgot_pass">
+        <div class="forgot_pass_frame">
+            <div class="logo">
+                <img src="" alt="">
+            </div>
+            <div class="forgot_pass_subframe">
+                <div class="Forgot_password_text">
+                    <h1>Forgot Password?</h1>
+                </div>
+                <div class="email_textbox">
+                    <label for="email">Email:</label>
+                    <div class="emailBox">
+                        <input type="email" name="email" id="email" placeholder="Enter your Email" required>
+                    </div>
+                </div>
+                <form action="/mailOTP" method="POST">
+                    
+                    <div class="request_button">
+                        <button id="req_button" >Request Code</button>
+                    </div>
+                <div class="cancel">
+                    <span  onclick="toggle()">Cancel</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<script src="static/Javascript/loading_screen.js"></script>
+<script src="static/Javascript/login/forgot_pass.js"></script>
+<script src="static/Javascript/session/session.js"></script>
+<script>
+function togglePassword() {
+    const passwordField = document.getElementById('passwordField');
+    const checkbox = document.getElementById('showPassword');
+    
+    passwordField.type = checkbox.checked ? 'text' : 'password';
+}
+</script>
+
+</body>
+</html>

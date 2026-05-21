@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../static/icons/onlook_icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <title>Edit Profile - Admin</title>
+        <link rel="stylesheet" href="static/css/mobile-reset.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/admin_edit_profile.css') }}">
+    <link rel="stylesheet" href="static/css/responsive-fixed.css">
+    <link rel="stylesheet" href="static/css/admin/admin-edit-profile-popup.css">
+</head>
+<body>
+    {% include 'includes/global_messages.html' %}
+    
+    <div class="container">
+        <div class="header">
+            <h1>Edit Profile</h1>
+            <a href="{{ url_for('admin') }}" class="back-btn"></a>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category if category else 'success' }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('admin_edit_profile') }}" enctype="multipart/form-data" class="edit-form" onsubmit="return validateForm();">
+            <div class="form-group">
+                <label for="profile_picture">Profile Picture:</label>
+                <div class="picture-preview">
+                    {% if profile and profile.profile_filedata %}
+                        <img id="preview" src="data:{{ profile.profile_filetype }};base64,{{ profile.profile_filedata }}" alt="Profile Preview">
+                    {% else %}
+                        <img id="preview" src="#" alt="Profile Preview" style="display: none;">
+                    {% endif %}
+                    <div class="preview-placeholder" id="previewPlaceholder" {% if profile and profile.profile_filedata %}style="display: none;"{% endif %}>
+                        <div class="placeholder-content">
+                            <span>📷</span>
+                            <p>No image selected</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-controls">
+                    <div class="profile-box">
+                        <input
+                            type="file"
+                            id="profile_picture"
+                            name="profile_picture"
+                            accept="image/*" onchange="previewImage(this)"
+                            >
+                    </div>
+                    <button type="button" class="remove-picture-btn" id="removePictureBtn" onclick="removePicture()" {% if not (profile and profile.profile_filedata) %}style="display: none;"{% endif %}>
+                        Remove Picture
+                    </button>
+                </div>
+            </div>
+
+            <div class="fname-group">
+                <label for="firstName">First Name:</label>
+                <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    value="{{ profile.first_name if profile and profile.first_name else '' }}"
+                    required
+                >
+            </div>
+
+            <div class="lname-group">
+                <label for="lastName">Last Name:</label>
+                <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value="{{ profile.last_name if profile and profile.last_name else '' }}"
+                    required
+                >
+            </div>
+
+            <div class="mname-group">
+                <label for="middleName">Middle Name:</label>
+                <input
+                    type="text"
+                    id="middleName"
+                    name="middleName"
+                    value="{{ profile.middle_name if profile and profile.middle_name else '' }}"
+                >
+            </div>
+
+            <div class="email-group">
+                <label for="email">Email:</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value="{{ profile.email if profile and profile.email else '' }}"
+                    required
+                >
+            </div>
+
+            <div class="changePassword">
+                <button type="button" onclick="openChangePassPopup()">Change Password</button>
+            </div>
+
+            <div class="mobileNumber-group">
+                <label for="mobileNumber">Contact Number:</label>
+                <input 
+                    type="tel"
+                    id="mobileNumber"
+                    name="mobileNumber"
+                    value="{{ profile.contact_number if profile and profile.contact_number else '' }}"
+                    maxlength="15"
+                    pattern="[0-9+\-\s()]+"
+                >
+            </div>
+
+            <div class="badge-group">
+                <label for="badgeNumber">Badge Number:</label>
+                <input
+                    type="text"
+                    id="badgeNumber"
+                    name="badgeNumber"
+                    value="{{ profile.badge_number if profile and profile.badge_number else '' }}"
+                    required
+                >
+            </div>
+
+            <div class="rank-group">
+                <label for="rank">Rank:</label>
+                <select id="rank" name="rank" required>
+                    <option value="" disabled>Select Rank</option>
+
+                    <!-- Commissioned Officers (PCO) -->
+                    <optgroup label="Police Commissioned Officers (PCO)">
+                        <option value="PLT" {{ 'selected' if profile and profile.rank == 'PLT' else '' }}>Police Lieutenant (PLT)</option>
+                        <option value="PCPT" {{ 'selected' if profile and profile.rank == 'PCPT' else '' }}>Police Captain (PCPT)</option>
+                        <option value="PMAJ" {{ 'selected' if profile and profile.rank == 'PMAJ' else '' }}>Police Major (PMAJ)</option>
+                        <option value="PLTCOL" {{ 'selected' if profile and profile.rank == 'PLTCOL' else '' }}>Police Lieutenant Colonel (PLTCOL)</option>
+                        <option value="PCOL" {{ 'selected' if profile and profile.rank == 'PCOL' else '' }}>Police Colonel (PCOL)</option>
+                        <option value="PBGEN" {{ 'selected' if profile and profile.rank == 'PBGEN' else '' }}>Police Brigadier General (PBGEN)</option>
+                        <option value="PMGEN" {{ 'selected' if profile and profile.rank == 'PMGEN' else '' }}>Police Major General (PMGEN)</option>
+                        <option value="PLTGEN" {{ 'selected' if profile and profile.rank == 'PLTGEN' else '' }}>Police Lieutenant General (PLTGEN)</option>
+                        <option value="PGEN" {{ 'selected' if profile and profile.rank == 'PGEN' else '' }}>Police General (PGEN)</option>
+                    </optgroup>
+
+                    <!-- Non-Commissioned Officers (PNCO) -->
+                    <optgroup label="Police Non-Commissioned Officers (PNCO)">
+                        <option value="Patrolman" {{ 'selected' if profile and profile.rank == 'Patrolman' else '' }}>Patrolman / Patrolwoman (Pat / PatWom)</option>
+                        <option value="PCpl" {{ 'selected' if profile and profile.rank == 'PCpl' else '' }}>Police Corporal (PCpl)</option>
+                        <option value="PSg" {{ 'selected' if profile and profile.rank == 'PSg' else '' }}>Police Sergeant (PSg)</option>
+                        <option value="PSSg" {{ 'selected' if profile and profile.rank == 'PSSg' else '' }}>Police Staff Sergeant (PSSg)</option>
+                        <option value="PMSg" {{ 'selected' if profile and profile.rank == 'PMSg' else '' }}>Police Master Sergeant (PMSg)</option>
+                        <option value="PSMSg" {{ 'selected' if profile and profile.rank == 'PSMSg' else '' }}>Police Senior Master Sergeant (PSMSg)</option>
+                        <option value="PCMSg" {{ 'selected' if profile and profile.rank == 'PCMSg' else '' }}>Police Chief Master Sergeant (PCMSg)</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="gender-group">
+                <label>Gender:</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="gender" value="male" {{ 'checked' if profile and profile.gender == 'male' else '' }} required>
+                        <span class="radio-text">Male</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="gender" value="female" {{ 'checked' if profile and profile.gender == 'female' else '' }} required>
+                        <span class="radio-text">Female</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="dob-group">
+                <label for="dateOfBirth">Date of Birth:</label>
+                <input
+                    type="date"
+                    id="dateOfBirth"
+                    name="dateOfBirth"
+                    value="{{ profile.date_of_birth if profile and profile.date_of_birth else '' }}"
+                    required
+                >
+            </div>
+
+            <div class="station-group">
+                <label for="stationAssignment">Station Assignment:</label>
+                <input
+                    type="text"
+                    id="stationAssignment"
+                    name="stationAssignment"
+                    value="{{ profile.station_assignment if profile and profile.station_assignment else '' }}"
+                    placeholder="e.g., Quezon City PS 2"
+                    required
+                >
+            </div>
+
+            <div class="position-group">
+                <label for="positionTitle">Position Title:</label>
+                <input
+                    type="text"
+                    id="positionTitle"
+                    name="positionTitle"
+                    value="{{ profile.position_title if profile and profile.position_title else '' }}"
+                    placeholder="e.g., Station Commander, Investigator"
+                    required
+                >
+            </div>
+
+            <div class="date-joined-group">
+                <label for="dateJoined">Date Joined:</label>
+                <input
+                    type="date"
+                    id="dateJoined"
+                    name="dateJoined"
+                    value="{{ profile.date_joined if profile and profile.date_joined else '' }}"
+                    required
+                >
+            </div>
+
+            <div class="region-group">
+                <label for="region">Region:</label>
+                <select
+                    id="region"
+                    name="region"
+                    onchange="populateProvinces()"
+                >
+                    <option value="" disabled {{ 'selected' if not (profile and profile.region) else '' }}>Select a region</option>
+                </select>
+            </div>
+
+            <div class="province-group">
+                <label for="province">Province:</label>
+                <select
+                    id="province"
+                    name="province"
+                    onchange="populateCities()"
+                >
+                    <option value="" disabled {{ 'selected' if not (profile and profile.province) else '' }}>Select a province</option>
+                </select>
+            </div>
+
+            <div class="city-group">
+                <label for="city">City:</label>
+                <select
+                    id="city"
+                    name="city"
+                    onchange="populateBarangays()"
+                >
+                    <option value="" disabled {{ 'selected' if not (profile and profile.city) else '' }}>Select a city/municipality</option>
+                </select>
+            </div>
+
+            <div class="barangay-group">
+                <label for="barangay">Barangay:</label>
+                <select
+                    id="barangay"
+                    name="barangay"
+                >
+                    <option value="" disabled selected>Select a barangay</option>
+                    {% if profile and profile.barangay %}
+                        <option value="{{ profile.barangay }}" selected>{{ profile.barangay }}</option>
+                    {% endif %}
+                </select>
+            </div>
+
+            <button type="submit" class="save-btn" onclick="console.log('Save button clicked'); return true;">Save Changes</button>
+        </form>
+    </div>
+    
+    <!-- Password Change Popup - Completely outside the form -->
+    <div class="popup-overlay" id="changePassPopup" style="display: none">
+        <div class="popup-content">
+            <div class="popup-header-password">
+                <h3>Change Password</h3>
+                <span class="close-btn" onclick="closeChangePassPopup()">&times;</span>
+            </div>
+            <div class="newPass-group">
+                <label for="newPass">New Password:</label>
+                <input
+                    type="password"
+                    id="newPass"
+                    name="newPass"
+                >
+            </div>
+
+            <div class="confirmPass-group">
+                <label for="confirmPass">Confirm Password:</label>
+                <input
+                    type="password"
+                    id="confirmPass"
+                    name="confirmPass"
+                >
+            </div>
+            <div class="save-button">
+                <button type="button" onclick="savePassword()">Save</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='Javascript/registration/address.js') }}"></script>
+
+    <script>
+        // Initialize dropdowns and set current values when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const regionSelect = document.getElementById('region');
+            const provinceSelect = document.getElementById('province');
+            const citySelect = document.getElementById('city');
+            const barangaySelect = document.getElementById('barangay');
+
+            // Populate regions using the addressData from address.js
+            if (regionSelect && typeof addressData !== 'undefined') {
+                for (let region in addressData) {
+                    let option = document.createElement('option');
+                    option.value = region;
+                    option.text = region;
+                    regionSelect.add(option);
+                }
+            }
+
+            // Get current values from profile data
+            const currentRegion = '{{ profile.region if profile and profile.region else "" }}';
+            const currentProvince = '{{ profile.province if profile and profile.province else "" }}';
+            const currentCity = '{{ profile.city if profile and profile.city else "" }}';
+            const currentBarangay = '{{ profile.barangay if profile and profile.barangay else "" }}';
+
+            console.log('Current address values:', {
+                region: currentRegion,
+                province: currentProvince, 
+                city: currentCity,
+                barangay: currentBarangay
+            });
+
+            // Pre-populate address fields if we have current values
+            if (currentRegion) {
+                // Set region
+                regionSelect.value = currentRegion;
+                
+                // Populate and set province
+                populateProvinces();
+                if (currentProvince) {
+                    setTimeout(() => {
+                        provinceSelect.value = currentProvince;
+                        
+                        // Populate and set city
+                        populateCities();
+                        if (currentCity) {
+                            setTimeout(() => {
+                                citySelect.value = currentCity;
+                            }, 100);
+                        }
+                    }, 100);
+                }
+            }
+        });
+
+        // Override the populateProvinces function to work with our dropdowns
+        function populateProvinces() {
+            const regionSelect = document.getElementById('region');
+            const provinceSelect = document.getElementById('province');
+            const citySelect = document.getElementById('city');
+            const barangaySelect = document.getElementById('barangay');
+            const selectedRegion = regionSelect.value;
+
+            provinceSelect.innerHTML = '<option value="" disabled>Select a province</option>';
+            citySelect.innerHTML = '<option value="" disabled>Select a city/municipality</option>';
+            barangaySelect.innerHTML = '<option value="" disabled>Select a barangay</option>';
+
+            if (selectedRegion && typeof addressData !== 'undefined' && addressData[selectedRegion]) {
+                const provinces = Object.keys(addressData[selectedRegion]);
+                provinces.forEach(province => {
+                    let option = document.createElement('option');
+                    option.value = province;
+                    option.text = province;
+                    provinceSelect.add(option);
+                });
+            }
+        }
+
+        // Override the populateCities function to work with our dropdowns
+        function populateCities() {
+            const regionSelect = document.getElementById('region');
+            const provinceSelect = document.getElementById('province');
+            const citySelect = document.getElementById('city');
+            const barangaySelect = document.getElementById('barangay');
+            const selectedRegion = regionSelect.value;
+            const selectedProvince = provinceSelect.value;
+
+            citySelect.innerHTML = '<option value="" disabled>Select a city/municipality</option>';
+            barangaySelect.innerHTML = '<option value="" disabled>Select a barangay</option>';
+
+            if (selectedProvince && typeof addressData !== 'undefined' && addressData[selectedRegion] && addressData[selectedRegion][selectedProvince]) {
+                const provinceData = addressData[selectedRegion][selectedProvince];
+                
+                // Check if province data is an object (with barangays) or array (without barangays)
+                if (typeof provinceData === 'object' && !Array.isArray(provinceData)) {
+                    // Province has cities with barangays
+                    const cities = Object.keys(provinceData);
+                    cities.forEach(city => {
+                        let option = document.createElement('option');
+                        option.value = city;
+                        option.text = city;
+                        citySelect.add(option);
+                    });
+                } else if (Array.isArray(provinceData)) {
+                    // Province has cities without barangays (old format)
+                    provinceData.forEach(city => {
+                        let option = document.createElement('option');
+                        option.value = city;
+                        option.text = city;
+                        citySelect.add(option);
+                    });
+                }
+            }
+        }
+
+        // Populate barangays based on selected city
+        function populateBarangays() {
+            const regionSelect = document.getElementById('region');
+            const provinceSelect = document.getElementById('province');
+            const citySelect = document.getElementById('city');
+            const barangaySelect = document.getElementById('barangay');
+            const selectedRegion = regionSelect.value;
+            const selectedProvince = provinceSelect.value;
+            const selectedCity = citySelect.value;
+
+            if (!barangaySelect) return;
+
+            barangaySelect.innerHTML = '<option value="" disabled>Select a barangay</option>';
+
+            if (selectedCity && addressData[selectedRegion] && addressData[selectedRegion][selectedProvince]) {
+                const provinceData = addressData[selectedRegion][selectedProvince];
+                
+                // Check if province data has barangays for this city
+                if (typeof provinceData === 'object' && !Array.isArray(provinceData) && provinceData[selectedCity]) {
+                    const barangays = provinceData[selectedCity];
+                    barangays.forEach(barangay => {
+                        let option = document.createElement('option');
+                        option.value = barangay;
+                        option.text = barangay;
+                        barangaySelect.add(option);
+                    });
+                }
+            }
+        }
+
+        function validateForm() {
+            console.log('Form validation started');
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const badgeNumber = document.getElementById('badgeNumber').value.trim();
+            
+            console.log('Form data:', { firstName, lastName, email, badgeNumber });
+            
+            if (!firstName || !lastName || !email || !badgeNumber) {
+                alert('Please fill in all required fields (First Name, Last Name, Email, Badge Number)');
+                return false;
+            }
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                return false;
+            }
+            
+            console.log('Form validation passed, submitting...');
+            
+            // Show loading state
+            const submitBtn = document.querySelector('.save-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Saving...';
+            submitBtn.disabled = true;
+            
+            // Re-enable button after 10 seconds as fallback
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 10000);
+            
+            return true;
+        }
+
+        function previewImage(input) {
+            const preview = document.getElementById('preview');
+            const placeholder = document.getElementById('previewPlaceholder');
+            const removeBtn = document.getElementById('removePictureBtn');
+            
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    alert('Please select a valid image file.');
+                    input.value = '';
+                    return;
+                }
+                
+                // Validate file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('File size must be less than 5MB.');
+                    input.value = '';
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    placeholder.style.display = 'none';
+                    removeBtn.style.display = 'inline-block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                // No file selected, show placeholder
+                preview.style.display = 'none';
+                placeholder.style.display = 'flex';
+                removeBtn.style.display = 'none';
+            }
+        }
+
+        function removePicture() {
+            const preview = document.getElementById('preview');
+            const placeholder = document.getElementById('previewPlaceholder');
+            const removeBtn = document.getElementById('removePictureBtn');
+            const fileInput = document.getElementById('profile_picture');
+            
+            // Clear the file input
+            fileInput.value = '';
+            
+            // Hide preview and show placeholder
+            preview.style.display = 'none';
+            placeholder.style.display = 'flex';
+            removeBtn.style.display = 'none';
+        }
+
+        function openChangePassPopup() {
+            const popup = document.getElementById('changePassPopup');
+            if (popup) {
+                popup.style.display = 'flex';
+            } else {
+                console.error('Password popup not found');
+            }
+        }
+
+        function closeChangePassPopup() {
+            const popup = document.getElementById('changePassPopup');
+            const newPassField = document.getElementById('newPass');
+            const confirmPassField = document.getElementById('confirmPass');
+            
+            if (popup) {
+                popup.style.display = 'none';
+            }
+            
+            // Clear the password fields if they exist
+            if (newPassField) {
+                newPassField.value = '';
+                newPassField.setCustomValidity('');
+            }
+            if (confirmPassField) {
+                confirmPassField.value = '';
+                confirmPassField.setCustomValidity('');
+            }
+        }
+
+        function savePassword() {
+            const newPassField = document.getElementById('newPass');
+            const confirmPassField = document.getElementById('confirmPass');
+            
+            if (!newPassField || !confirmPassField) {
+                alert('Password fields not found');
+                return;
+            }
+            
+            const newPass = newPassField.value;
+            const confirmPass = confirmPassField.value;
+            
+            if (!newPass || !confirmPass) {
+                alert('Please fill in both password fields');
+                return;
+            }
+            
+            if (newPass !== confirmPass) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            // Add hidden inputs to main form
+            const mainForm = document.querySelector('.edit-form');
+            
+            if (!mainForm) {
+                alert('Main form not found');
+                return;
+            }
+            
+            // Remove existing password inputs if any
+            const existingPass = mainForm.querySelector('input[name="pass"]');
+            const existingConfirmPass = mainForm.querySelector('input[name="confirmPass"]');
+            if (existingPass) existingPass.remove();
+            if (existingConfirmPass) existingConfirmPass.remove();
+            
+            // Add new password inputs
+            const passInput = document.createElement('input');
+            passInput.type = 'hidden';
+            passInput.name = 'pass';
+            passInput.value = newPass;
+            
+            const confirmPassInput = document.createElement('input');
+            confirmPassInput.type = 'hidden';
+            confirmPassInput.name = 'confirmPass';
+            confirmPassInput.value = confirmPass;
+            
+            mainForm.appendChild(passInput);
+            mainForm.appendChild(confirmPassInput);
+            
+            // Add a flag to indicate this is a password-only update
+            const passwordOnlyFlag = document.createElement('input');
+            passwordOnlyFlag.type = 'hidden';
+            passwordOnlyFlag.name = 'password_only_update';
+            passwordOnlyFlag.value = 'true';
+            mainForm.appendChild(passwordOnlyFlag);
+            
+            closeChangePassPopup();
+            
+            // Bypass form validation for password-only updates
+            mainForm.onsubmit = null;
+            mainForm.submit();
+        }
+    </script>
+</body>
+</html>

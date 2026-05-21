@@ -1,0 +1,547 @@
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+
+.popup-content {
+    background: white;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    max-height: 90vh;   /* limit height */
+    overflow-y: auto;   /* enable vertical scroll */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px 25px 30px 25px;
+}
+
+.popup-header-public {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.popup-header-public h3 {
+    margin: 0;
+    font-family: 'SF_BOLD';
+    font-size: 20px;
+    color: black;
+}
+
+.close-btn {
+    font-size: 28px;
+    color: black;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.close-btn:hover {
+    color: #d4d4d4;
+    transform: scale(1.1);
+}
+
+.edit-profile-form .form-group {
+    margin-bottom: 0;
+}
+
+.edit-profile-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #2b2b2b;
+    font-size: 15px;
+}
+
+.edit-profile-form input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: 0.2s ease;
+}
+
+.edit-profile-form input:focus {
+    outline: none;
+    border-color: #1A1B41;
+    box-shadow: 0 0 5px rgba(26, 27, 65, 0.3);
+}
+
+.edit-profile-form input[readonly] {
+    background-color: #f0f0f0;
+    color: #666;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 25px;
+}
+
+.form-buttons button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.form-buttons button[type="button"] {
+    background-color: #efefef;
+    color: #333;
+}
+
+.form-buttons button[type="submit"] {
+    background-color: #1A1B41;
+    color: white;
+    font-weight: 600;
+}
+
+.form-buttons button:hover {
+    opacity: 0.85;
+}
+
+.profile-pic-group {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic-container {
+    position: relative;
+    display: inline-block;
+}
+
+#profilePreview {
+    width: 130px;      
+    height: 130px;    
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ddd;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+    transition: 0.2s ease;
+}
+
+#profilePreview:hover {
+    transform: scale(1.03);
+}
+
+#profilePic {
+    display: none;
+}
+
+.upload-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    background-color: #1A1B41;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.upload-btn:hover {
+    opacity: 0.85;
+}
+
+/*##########################################*/
+/*######### L N A M E  F R A M E  ##########*/
+/*##########################################*/ 
+
+.firstNameEdit_frame {
+    width: 100%;
+    margin: auto;
+}
+
+/*##########################################*/
+/*######### F N A M E  L A B E L  ##########*/
+/*##########################################*/ 
+
+.firstNameEdit_frame label {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.firstNameEdit_frame .firstNameEditBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.firstNameEdit_frame .firstNameEditBox input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.firstNameEdit_frame .firstNameEditBox input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #1A1B41;
+    outline: none;
+}
+
+
+/*##########################################*/
+/*######### L N A M E  F R A M E  ##########*/
+/*##########################################*/ 
+
+.lastNameEdit_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*######### F N A M E  L A B E L  ##########*/
+/*##########################################*/ 
+
+.lastNameEdit_frame label {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.lastNameEdit_frame .lastNameEditBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.lastNameEdit_frame .lastNameEditBox input[type="text"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.lastNameEdit_frame .lastNameEditBox input[type='text']:focus {
+    font-family: SF_REGULAR;
+    border-color: #1A1B41;
+    outline: none;
+}
+
+
+
+
+/*##########################################*/
+/*######### L N A M E  F R A M E  ##########*/
+/*##########################################*/ 
+
+.EmailEdit_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*######### F N A M E  L A B E L  ##########*/
+/*##########################################*/ 
+
+.EmailEdit_frame label {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.EmailEdit_frame .EmailEditBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.EmailEdit_frame .EmailEditBox input[type="email"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.EmailEdit_frame .EmailEditBox input[type='email']:focus {
+    font-family: SF_REGULAR;
+    border-color: #1A1B41;
+    outline: none;
+}
+
+
+
+
+
+/*##########################################*/
+/*######### L N A M E  F R A M E  ##########*/
+/*##########################################*/ 
+
+.phoneEdit_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*######### F N A M E  L A B E L  ##########*/
+/*##########################################*/ 
+
+.phoneEdit_frame label {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.phoneEdit_frame .phoneEditBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.phoneEdit_frame .phoneEditBox input[type="tel"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.phoneEdit_frame .phoneEditBox input[type='tel']:focus {
+    font-family: SF_REGULAR;
+    border-color: #1A1B41;
+    outline: none;
+}
+
+
+
+
+/*##########################################*/
+/*######### L N A M E  F R A M E  ##########*/
+/*##########################################*/ 
+
+.phoneEdit_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*######### F N A M E  L A B E L  ##########*/
+/*##########################################*/ 
+
+.phoneEdit_frame label {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.phoneEdit_frame .phoneEditBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.phoneEdit_frame .phoneEditBox input[type="tel"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.phoneEdit_frame .phoneEditBox input[type='tel']:focus {
+    font-family: SF_REGULAR;
+    border-color: #1A1B41;
+    outline: none;
+}
+
+
+
+
+
+/*##########################################*/
+/*######### L N A M E  F R A M E  ##########*/
+/*##########################################*/ 
+
+.currentPasswordEdit_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*######### F N A M E  L A B E L  ##########*/
+/*##########################################*/ 
+
+.currentPasswordEdit_frame label {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.currentPasswordEdit_frame .currentPasswordEditBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.currentPasswordEdit_frame .currentPasswordEditBox input[type="password"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.currentPasswordEdit_frame .currentPasswordEditBox input[type='password']:focus {
+    font-family: SF_REGULAR;
+    border-color: #1A1B41;
+    outline: none;
+}
+
+
+
+
+
+/*##########################################*/
+/*######### L N A M E  F R A M E  ##########*/
+/*##########################################*/ 
+
+.newPasswordEdit_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*######### F N A M E  L A B E L  ##########*/
+/*##########################################*/ 
+
+.newPasswordEdit_frame label {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.newPasswordEdit_frame .newPasswordEditBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.newPasswordEdit_frame .newPasswordEditBox input[type="password"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.newPasswordEdit_frame .newPasswordEditBox input[type='password']:focus {
+    font-family: SF_REGULAR;
+    border-color: #1A1B41;
+    outline: none;
+}
+
+
+
+
+
+/*##########################################*/
+/*######### L N A M E  F R A M E  ##########*/
+/*##########################################*/ 
+
+.confirmPasswordEdit_frame {
+    width: 100%;
+    margin: auto;
+}
+
+
+/*##########################################*/
+/*######### F N A M E  L A B E L  ##########*/
+/*##########################################*/ 
+
+.confirmPasswordEdit_frame label {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.confirmPasswordEdit_frame .confirmPasswordEditBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.confirmPasswordEdit_frame .confirmPasswordEditBox input[type="password"] {
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.confirmPasswordEdit_frame .confirmPasswordEditBox input[type='password']:focus {
+    font-family: SF_REGULAR;
+    border-color: #1A1B41;
+    outline: none;
+}
+
+
+
+.popup-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.popup-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}

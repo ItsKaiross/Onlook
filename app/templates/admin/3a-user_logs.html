@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../static/icons/onlook_icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <link rel="stylesheet" href="static/css/mobile-reset.css">
+    <link rel="stylesheet" href="static/css/admin/3a-user-logs.css">
+    <link rel="stylesheet" href="static/css/table-responsive.css">
+    <link rel="stylesheet" href="static/css/mobile-table.css">
+    <link rel="stylesheet" href="static/css/responsive-fixed.css">
+    <title>Admin User Logs - Onlook</title>
+</head>
+<body>
+
+
+{% include 'includes/loading_screen.html' %}
+{% include 'includes/flash_messages.html' %}
+{% include 'includes/global_messages.html' %}
+
+    <div class="base" id="base-bg">
+        <div class="base-frame">
+
+            <div class="user-logs-body">
+                <div class="user-logs-txt">
+                    <p>User Logs</p>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="filter-controls">
+                    <div class="filter-group">
+                        <label for="role-filter">Role:</label>
+                        <select id="role-filter">
+                            <option value="">All Roles</option>
+                            <option value="systemAdmin">System Admin</option>
+                            <option value="admin">Admin</option>
+                            <option value="police">Police</option>
+                            <option value="users">Users</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="action-filter">Action:</label>
+                        <select id="action-filter">
+                            <option value="">All Actions</option>
+                            <option value="login">Login</option>
+                            <option value="logout">Logout</option>
+                            <option value="create">Create</option>
+                            <option value="update">Update</option>
+                            <option value="delete">Delete</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="status-filter">Status:</label>
+                        <select id="status-filter">
+                            <option value="">All Status</option>
+                            <option value="success">Success</option>
+                            <option value="failed">Failed</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="date-from">From:</label>
+                        <input type="date" id="date-from">
+                    </div>
+                    <div class="filter-group">
+                        <label for="date-to">To:</label>
+                        <input type="date" id="date-to">
+                    </div>
+                    <button type="button" class="filter-btn" onclick="applyFilters()">Apply Filters</button>
+                    <button type="button" class="clear-btn" onclick="clearFilters()">Clear</button>
+                </div>
+
+                <div class="user-logs-tbl-frame">
+                    <div class="user-logs-tbl">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="tbl-top-left">Email</th>
+                                    <th>Role</th>
+                                    <th>Action</th>
+                                    <th>Timestamp</th>
+                                    <th>Status</th>
+                                    <th class="tbl-top-right">IP Address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if users and users|length > 0 %}
+                                    {% for user in users %}
+                                    <tr>
+                                        <td>{{ user.email }}</td>
+                                        <td><span class="role-{{ user.role }}">{{ user.role }}</span></td>
+                                        <td>{{ user.action }}</td>
+                                        <td>{{ user.log_timestamp.strftime('%Y-%m-%d %H:%M:%S') if user.log_timestamp else 'N/A' }}</td>
+                                        <td><span class="status-{{ user.status }}">{{ user.status }}</span></td>
+                                        <td>{{ user.ip_address or 'N/A' }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6" style="text-align: center; padding: 20px;">No user logs found</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pagination Info -->
+                <div id="tableInfo" class="table-info">
+                    {% if total_records > 0 %}
+                        {% set end_record = logs_page * logs_per_page %}
+                        {% if end_record > total_records %}
+                            {% set end_record = total_records %}
+                        {% endif %}
+                        Showing <strong>{{ ((logs_page - 1) * logs_per_page + 1) }}-{{ end_record }}</strong> of <strong>{{ total_records }}</strong> logs
+                        (Page {{ logs_page }} of {{ total_pages }})
+                    {% else %}
+                        No logs found
+                    {% endif %}
+                </div>
+
+                <!-- Pagination Controls -->
+                {% if total_pages > 1 %}
+                <div id="pagination" class="pagination-controls">
+                    {% set filter_qs %}&logs_per_page={{ logs_per_page }}{% if request.args.get('role') %}&role={{ request.args.get('role') }}{% endif %}{% if request.args.get('action') %}&action={{ request.args.get('action') }}{% endif %}{% if request.args.get('status') %}&status={{ request.args.get('status') }}{% endif %}{% if request.args.get('date_from') %}&date_from={{ request.args.get('date_from') }}{% endif %}{% if request.args.get('date_to') %}&date_to={{ request.args.get('date_to') }}{% endif %}{% endset %}
+                    {% if logs_page > 1 %}
+                        <a href="?logs_page=1{{ filter_qs }}">&laquo;</a>
+                        <a href="?logs_page={{ logs_page - 1 }}{{ filter_qs }}">&lsaquo;</a>
+                    {% endif %}
+                    
+                    {% if logs_page > 3 %}
+                        <a href="?logs_page=1{{ filter_qs }}">1</a>
+                        <span class="ellipsis">...</span>
+                    {% endif %}
+                    
+                    {% for page_num in range(1, total_pages + 1) %}
+                        {% if page_num >= logs_page - 2 and page_num <= logs_page + 2 %}
+                            {% if page_num == logs_page %}
+                                <a href="?logs_page={{ page_num }}{{ filter_qs }}" class="active">{{ page_num }}</a>
+                            {% else %}
+                                <a href="?logs_page={{ page_num }}{{ filter_qs }}">{{ page_num }}</a>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if logs_page < total_pages - 2 %}
+                        <span class="ellipsis">...</span>
+                        <a href="?logs_page={{ total_pages }}{{ filter_qs }}">{{ total_pages }}</a>
+                    {% endif %}
+                    
+                    {% if logs_page < total_pages %}
+                        <a href="?logs_page={{ logs_page + 1 }}{{ filter_qs }}">&rsaquo;</a>
+                        <a href="?logs_page={{ total_pages }}{{ filter_qs }}">&raquo;</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+<script src="static/Javascript/loading_screen.js"></script>
+<script src="static/Javascript/session_manager.js"></script>
+<script>
+// Restore filter values from URL parameters
+document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    const roleFilter = document.getElementById('role-filter');
+    const actionFilter = document.getElementById('action-filter');
+    const statusFilter = document.getElementById('status-filter');
+    const dateFrom = document.getElementById('date-from');
+    const dateTo = document.getElementById('date-to');
+    
+    if (roleFilter && params.get('role')) roleFilter.value = params.get('role');
+    if (actionFilter && params.get('action')) actionFilter.value = params.get('action');
+    if (statusFilter && params.get('status')) statusFilter.value = params.get('status');
+    if (dateFrom && params.get('date_from')) dateFrom.value = params.get('date_from');
+    if (dateTo && params.get('date_to')) dateTo.value = params.get('date_to');
+});
+
+function applyFilters() {
+    const params = new URLSearchParams(window.location.search);
+    const role = document.getElementById('role-filter').value;
+    const action = document.getElementById('action-filter').value;
+    const status = document.getElementById('status-filter').value;
+    const dateFrom = document.getElementById('date-from').value;
+    const dateTo = document.getElementById('date-to').value;
+    
+    // Reset to page 1 when applying filters
+    params.set('logs_page', 1);
+    
+    // Set or delete filter parameters
+    role ? params.set('role', role) : params.delete('role');
+    action ? params.set('action', action) : params.delete('action');
+    status ? params.set('status', status) : params.delete('status');
+    dateFrom ? params.set('date_from', dateFrom) : params.delete('date_from');
+    dateTo ? params.set('date_to', dateTo) : params.delete('date_to');
+    
+    window.location.search = params.toString();
+}
+
+function clearFilters() {
+    const params = new URLSearchParams(window.location.search);
+    params.delete('role');
+    params.delete('action');
+    params.delete('status');
+    params.delete('date_from');
+    params.delete('date_to');
+    params.set('logs_page', 1);
+    window.location.search = params.toString();
+}
+</script>
+</body>
+</html>

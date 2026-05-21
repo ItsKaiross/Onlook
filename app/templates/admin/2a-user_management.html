@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../static/icons/onlook_icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <link rel="stylesheet" href="static/css/mobile-reset.css">
+    <link rel="stylesheet" href="static/css/admin/2a-user-management.css">
+    <link rel="stylesheet" href="static/css/table-responsive.css">
+    <link rel="stylesheet" href="static/css/mobile-table.css">
+    <link rel="stylesheet" href="static/css/responsive-fixed.css">
+    <title>Admin User Management - OnLook</title>
+</head>
+<body>
+
+{% include 'includes/loading_screen.html' %}
+{% include 'includes/flash_messages.html' %}
+{% include 'includes/global_messages.html' %}
+
+<!--#########################################################################-->
+<!--###############  A D M I N  U S E R  M A N A G E M E N T  ###############-->
+<!--#########################################################################-->
+
+
+
+
+    <!--#####################################################-->
+    <!--####################   B A S E    ###################-->
+    <!--#####################################################-->
+
+    <div class="base" id="base-bg">
+        <div class="base-frame">
+
+            <div class="user-management-body">
+                <div class="user-management-text">
+                    {% if roles == 'policeAdmin' %}
+                        <p>Reports</p>
+                    {% elif roles == 'systemAdmin'%}
+                        <p>User Management</p>
+                    {% endif %}
+                </div>
+
+                {% if roles == 'systemAdmin' %}
+                <div class="user-management-top-tbl">
+                    <div class="top-tbl-left">
+                        <div class="user-management-filter">
+                        </div>
+                    </div>
+
+                    <div class="top-tbl-right">
+
+                        <div class="user-management-restricted-accounts">
+                            <button class="restricted-accounts-button" id="restricted-btn">
+                                Restricted Accounts
+                            </button>
+                        </div>
+
+                        <div class="user-management-add-user">
+                            <button class="add-user-button" id="add-user-btn">
+                                Add Police User
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-controls">
+                    <input type="text"  id="searchInput" placeholder="Search name or email..." >
+                    
+                    <select id="roleFilter">
+                        <option value="">All Roles</option>
+                        <option value="systemAdmin">System Admin</option>
+                        <option value="policeAdmin">Police Admin</option>
+                        <option value="policeChief">Police Chief</option>
+                        <option value="police">Police</option>
+                        <option value="alaminos-mps">Alaminos MPS</option>
+                        <option value="bay-mps">Bay MPS</option>
+                        <option value="binan-ps">Biñan PS</option>
+                        <option value="cabuyao-ps">Cabuyao PS</option>
+                        <option value="calamba-ps">Calamba PS</option>
+                        <option value="calauan-mps">Calauan MPS</option>
+                        <option value="cavinti-mps">Cavinti MPS</option>
+                        <option value="famy-mps">Famy MPS</option>
+                        <option value="kalayaan-mps">Kalayaan MPS</option>
+                        <option value="liliw-mps">Liliw MPS</option>
+                        <option value="sanpablo-ps">San Pablo PS</option>
+                        <option value="stacruz-mps">Santa Cruz MPS</option>
+                        <option value="starosa-ps">Santa Rosa PS</option>
+                        <option value="siniloan-mps">Siniloan MPS</option>
+                        <option value="victoria-mps">Victoria MPS</option>
+                        <option value="user">User</option>
+                    </select>
+
+                    <select id="statusFilter" >
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="archived">Archived</option>
+                    </select>
+                </div>
+                    <div class="user-management-tbl">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="tbl-top-left sortable" onclick="sortTable(0)">Name <span class="sort-icon">↕</span></th>
+                                    <th class="sortable" onclick="sortTable(1)">Email <span class="sort-icon">↕</span></th>
+                                    <th>User Role</th>
+                                    <th>Profile Picture</th>
+                                    <th>PSA</th>
+                                    <th>Valid ID</th>
+                                    <th class="sortable" onclick="sortTable(6)">Account Status <span class="sort-icon">↕</span></th>
+                                    <th class="tbl-top-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="tableInfo" class="table-info" >
+                    
+                </div>
+
+                <div id="pagination" class="pagination-controls">
+                    
+                </div>
+                {% elif roles == 'policeAdmin' %}
+                {% include 'admin/police_reports/police_reports.html' %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="black-bg" id="bg-black"></div>
+
+<!--############################################################-->
+<!--###############  T R A N S F E R  M O D A L  ###############-->
+<!--############################################################-->
+
+{% if roles == 'systemAdmin' %}
+
+{% include 'admin/user_management/transfer_modal.html' %}
+
+<!--#########################################################################-->
+<!--###############  R E S T R I C T E D  A C C S  P O P U P  ###############-->
+<!--#########################################################################-->
+
+{% include 'admin/user_management/restricted_accounts_modal.html' %}
+
+<!--###########################################################-->
+<!--###############  A D D  U S E R  P O P U P  ###############-->
+<!--###########################################################-->
+
+{% include 'admin/user_management/add_user_popup.html' %}
+
+<!--##################################################-->
+<!--##############  E D I T  M O D A L  ##############-->
+<!--##################################################-->
+
+{% include 'admin/user_management/edit_popup.html' %}
+
+<!--##########################################################-->
+<!--###########  D O C U M E N T  M O D A L S  ###############-->
+<!--##########################################################-->
+
+<!-- Profile Picture Modal -->
+<div id="profilePictureModal" class="document-modal">
+    <div class="document-modal-content">
+        <div class="document-modal-header">
+            <h2>Profile Picture</h2>
+            <span class="document-modal-close" onclick="closeDocumentModal('profilePictureModal')">&times;</span>
+        </div>
+        <div class="document-modal-body">
+            <img id="profilePictureImage" src="" alt="Profile Picture">
+        </div>
+    </div>
+</div>
+
+<!-- PSA Modal -->
+<div id="psaModal" class="document-modal">
+    <div class="document-modal-content">
+        <div class="document-modal-header">
+            <h2>PSA Document</h2>
+            <span class="document-modal-close" onclick="closeDocumentModal('psaModal')">&times;</span>
+        </div>
+        <div class="document-modal-body">
+            <div id="psaContent"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Valid ID Modal -->
+<div id="validIdModal" class="document-modal">
+    <div class="document-modal-content">
+        <div class="document-modal-header">
+            <h2>Valid ID</h2>
+            <span class="document-modal-close" onclick="closeDocumentModal('validIdModal')">&times;</span>
+        </div>
+        <div class="document-modal-body">
+            <div id="validIdContent"></div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+<script src="static/Javascript/loading_screen.js"></script>
+<script src="static/Javascript/admin/user-management/restricted-accounts-modal.js"></script>
+<script src="static/Javascript/admin/user-management/restricted-pagination.js"></script>
+<script src="static/Javascript/admin/user-management/address.js"></script>
+
+<script src="static/Javascript/admin/user-management/add-user-modal.js"></script>
+<script src="static/Javascript/admin/user-management/edit-modal.js"></script>
+<script src="static/Javascript/admin/user-management/edit-validation.js"></script>
+<script src="static/Javascript/admin/user-management/add-user-steps.js"></script>
+<script src="static/Javascript/admin/user-management/filter-users.js"></script>
+<script src="static/Javascript/admin/user-management/kebab-menu.js"></script>
+<script src="static/Javascript/admin/user-management/image_modal.js"></script>
+<script src="static/Javascript/admin/user-management/role-change.js"></script>
+<script src="static/Javascript/admin/user-management/archive-user.js"></script>
+<script src="static/Javascript/admin/user-management/user-management-pagination.js"></script>
+<script src="static/Javascript/admin/user-management/user-table-sort.js"></script>
+<script src="static/Javascript/admin/table-responsive.js"></script>
+<script src="static/Javascript/admin/mobile-table.js"></script>
+<script src="static/Javascript/session/session.js"></script>
+<script src="static/Javascript/session_manager.js"></script>
+<script src="static/Javascript/admin/user-management/color-change.js"></script>
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../static/icons/onlook_icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <link rel="stylesheet" href="static/css/mobile-reset.css">
+    <link rel="stylesheet" href="static/css/public/9u-report_sighting.css">
+    <link rel="stylesheet" href="static/css/public/edit-profile-popup.css">
+    <link rel="stylesheet" href="static/css/responsive-fixed.css">
+    <title>Public Report Sighting  - Onlook</title>
+</head>
+<body>
+
+{% include 'includes/loading_screen.html' %}
+{% include 'includes/flash_messages.html' %}
+{% include 'includes/edit-profile-popup.html' %}
+{% if loggedIn_email %}
+{% include 'includes/verification-notification.html' %}
+{% include 'includes/global_messages.html' %}
+{% endif %}
+
+<!--######################################################-->
+<!--###############  P U B L I C V I E W   ###############-->
+<!--######################################################-->
+
+<!--############################-->
+<!--########  B A S E  #########-->
+<!--############################-->
+    <div class="base">
+        <div class="base_frame">
+
+            <!--#######################################-->
+            <!--############### L O G O ###############-->
+            <!--#######################################-->
+            <div class="public_logo_frame">
+                <div class="mobile-hamburger" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <a href="/">
+                    <img src="../static/images/logo/onlook_logo.png" alt="">
+                </a>
+                <div class="mobile-header-spacer"></div>
+            </div>
+
+            <!--#######################################-->
+            <!--########  T O P N A V B A R   #########-->
+            <!--#######################################-->
+            <div class="right_frame">
+                <div class="right-menu">
+                    <button class="right-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div class="right-menu-dropdown">
+                        {% if loggedIn_email %}
+                        <a onclick="openEditProfilePopup()" class="edit-profile-menu">Edit Profile</a>
+                        <a href="/talk-to-us" class="talk-link">Talk to us</a>
+                        <a href="/logout">Log out</a>
+                        {% else %}
+                        <a class="login-or-sign-up" id="register-first-btn">Login or Sign Up</a>
+                        <a href="/talk-to-us" class="talk-link">Talk to us</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+            <!--#######################################-->
+            <!--######  S O C I A L  F R A M E  #######-->
+            <!--#######################################-->
+            <div class="social_frame">
+                <div class="facebook_icon_frame">
+                    <a href="https://www.facebook.com/LagunaPulis" target="_blank"><img src="../static/icons/facebook.png" alt=""></a>
+                </div>
+                <div class="google_icon_frame">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=piolagunappo2021@gmail.com" target="_blank"><img src="../static/icons/google.png" alt=""></a>
+                </div>
+                <div class="messenger_icon_frame">
+                    <a href="https://www.facebook.com/LagunaPulis" target="_blank"><img src="../static/icons/messenger.png" alt=""></a>
+                </div>
+            </div>
+        </div> 
+
+        <!--#######################################-->
+        <!--##  M I D D L E  B A R  F R A M E   ###-->
+        <!--#######################################-->
+        <div class="middlebar_frame">
+            {% if loggedIn_email %}
+            <a href="/">Home</a>
+            <a href="#" class="active">Report Sighting</a>
+            <a href="/status-report">Status Report</a>
+            <a href="/resources">Resources</a>
+            {% else %}
+            <a href="/get_help">Get Help</a>
+            <a href="/community">Our Community</a>
+            <a href="/about">About OnLook</a>
+            <a href="/help-us">Help Us Find</a>
+            <a href="/professional">For Professionals</a>
+            {% endif %}
+        </div>
+
+        <!--####################################################################-->
+        <!--################## R E P O R T  M I S S I N G ######################-->
+        <!--####################################################################-->
+
+        <!--#######################################-->
+        <!--##############   P I   ################-->
+        <!--#######################################-->
+        <div class="report_sighting_frame">
+            <div class="sighting_frame">
+                <div class="report_sighting_txt">
+                    <p>If you believe you have seen a missing person, please fill out the details below.</p>
+                </div>
+
+                <!--#######################################-->
+                <!--#######  M I S S I N G  P E R S O N  ###-->
+                <!--#######################################-->
+                
+                <div class="missing_person_frame">
+                    <label for="caseSelect">Select Missing Person</label>
+                    <div class="case_selectbox">
+                        <select name="case_id" id="caseSelect" required>
+                            <option value="">-- Select a missing person --</option>
+                            {% for case in approved_cases %}
+                            <option value="{{ case.case_id }}">{{ case.full_name }} ({{ case.gender }}, {{ case.age }} years old)</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <!--#######################################-->
+                <!--#######  R E L A T I O N S H I P  #####-->
+                <!--#######################################-->
+                
+                <div class="relationship_frame">
+                    <label for="relationship">Your Relationship to Missing Person</label>
+                    <div class="relationship_selectbox">
+                        <select name="relationship" id="relationship" required>
+                            <option value="">-- Select relationship --</option>
+                            <option value="Witness">Witness</option>
+                            <option value="Family Member">Family Member</option>
+                            <option value="Friend">Friend</option>
+                            <option value="Neighbor">Neighbor</option>
+                            <option value="Colleague">Colleague</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!--#######################################-->
+                <!--#########  C O N T A C T  I N F O  ####-->
+                <!--#######################################-->
+                
+                <div class="contact_info_frame">
+                    <div class="email_frame">
+                        <label for="email">Email Address</label>
+                        <div class="email_box">
+                            <input type="email" id="email" name="email" value="{{ user_email or '' }}" required />
+                        </div>
+                    </div>
+                    
+                    <div class="contact_frame">
+                        <label for="contact">Contact Number</label>
+                        <div class="contact_box">
+                            <input type="tel" id="contact" name="contact" value="{{ user_contact or '' }}" required />
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--#######################################-->
+                <!--#############  T I M E   ##############-->
+                <!--#######################################-->
+
+                <div class="time_frame">
+                    <label for="time">Time of Sighting</label>
+                    <div class="time-box">
+                        <input type="time" id="time" name="time" placeholder="--; -- --" required />
+                    </div>
+                </div>
+
+
+                <!--#######################################-->
+                <!--#############  D A T E   ##############-->
+                <!--#######################################-->
+
+                <div class="date_frame">
+                    <label for="date">Date Last Seen</label>
+                    <div class="date-box">
+                        <input type="date" id="date" name="date" placeholder="mm/dd/yy" required />
+                    </div>
+                </div>
+
+
+                <!--#######################################-->
+                <!--######### D E S C R I P T I O N #######-->
+                <!--#######################################-->
+
+                <div class="description_frame">
+                    <label for="description">Description of What You Saw</label>
+                    <div class="Descriptionbox">
+                        <textarea id="description" name="description" placeholder="Please describe what you saw, where you saw them, and any other relevant details..." required></textarea>
+                    </div>
+                </div>
+
+                <!--#######################################-->
+                <!--#########  I M A G E  U P L O A D  ####-->
+                <!--#######################################-->
+
+                <div class="image_upload_frame">
+                    <label for="sightingImage">Upload Image (Optional)</label>
+                    <div class="image_uploadbox">
+                        <input type="file" id="sightingImage" name="sighting_image" accept="image/*">
+                    </div>
+                </div>
+
+                <button type="button" class="Save_button" onclick="submitSighting()">Submit Report</button>
+                
+                <div id="submitMessage" style="margisn-top: 10px;"></div>
+            </div>
+        </div>
+
+
+
+        <!--####################################################################-->
+        <!--########################## F O O T E R  ############################-->
+        <!--####################################################################-->
+        <footer>
+            <!--#######################################-->
+            <!--######### F O O T E R  T O P  #########-->
+            <!--#######################################-->
+            <div class="footer_top_frame">
+                <div class="get_help_footer">
+                    <h1>Get Help</h1>
+                    <ul>
+                        <li>What to Do if Someone Goes Missing</li>
+                        <li>Report a Missing Person</li>
+                        <li>Help Services in Laguna</li>
+                        <li>What You Can Expect from OnLook</li>
+                    </ul>
+                </div>
+
+                <div class="community_footer">
+                    <h1>Our Community</h1>
+                    <ul>
+                        <li>Community Volunteers</li>
+                        <li>Family Stories</li>
+                        <li>Barangay Partnerships</li>
+                        <li>Events and Initiatives</li>
+                    </ul>
+                </div>
+
+                <div class="about_footer">
+                    <h1>About OnLook</h1>
+                    <ul>
+                        <li>Our Mission</li>
+                        <li>How OnLook Works</li>
+                        <li>Meet the Team</li>
+                        <li>Contact Us</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--#############   L I N E    ############-->
+            <!--#######################################-->
+            <div class="divider_line"></div>
+
+            <!--#######################################-->
+            <!--###### F O O T E R  B O T T O M #######-->
+            <!--#######################################-->
+            <div class="footer_bottom_frame">
+                <div class="help_us_footer">
+                    <h1>Help Us Find</h1>
+                    <ul>
+                        <li>View Missing Person Profiles</li>
+                        <li>Report a Sighting</li>
+                        <li>Share a Case</li>
+                        <li>Tips to Support the Search</li>
+                    </ul>
+                </div>
+
+                <div class="A_and_P_footer">
+                    <h1>Agencies and Professionals</h1>
+                    <ul>
+                        <li>Join as a Partner Agency</li>
+                        <li>Resources for LGUs and First Responders</li>
+                    </ul>
+                </div>
+
+                <div class="connect_footer" >
+                    <h1>Stay Connected</h1>
+                    <ul>
+                        <li>09173831684</li>
+                        <li>523 4544</li>
+                        <li>onlook2025@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--############## L O G O ################-->
+            <!--#######################################-->
+            <div class="logo_frame">
+                <img src="../static/icons/onlook_icon.png" alt="">
+            </div>
+            <!--#######################################-->
+            <!--######### C O P Y R I G H T  ##########-->
+            <!--#######################################-->
+            <div class="copyright_section_frame">
+                &copy; copyright<br>est. 2025
+            </div>
+        </footer>
+    </div>
+</div>
+<script src="static/Javascript/public/right-menu-btn.js"></script>
+<script src="static/Javascript/public/edit-profile-popup.js"></script>
+<script src="static/Javascript/loading_screen.js"></script>
+<script src="static/Javascript/includes/email2FA.js"></script>
+<script>
+
+
+
+
+
+
+// Pre-fill current date and time
+window.onload = function() {
+    const now = new Date();
+    
+    // Set current date
+    const dateInput = document.getElementById('date');
+    const today = now.toISOString().split('T')[0];
+    dateInput.value = today;
+    
+    // Set current time
+    const timeInput = document.getElementById('time');
+    const currentTime = now.toTimeString().slice(0, 5);
+    timeInput.value = currentTime;
+};
+
+function submitSighting() {
+    const form = new FormData();
+    const messageDiv = document.getElementById('submitMessage');
+    
+    // Get form values
+    const caseId = document.getElementById('caseSelect').value;
+    const date = document.getElementById('date').value;
+    const time = document.getElementById('time').value;
+    const description = document.getElementById('description').value;
+    const image = document.getElementById('sightingImage').files[0];
+    
+    // Get additional form values
+    const relationship = document.getElementById('relationship').value;
+    const email = document.getElementById('email').value;
+    const contact = document.getElementById('contact').value;
+    
+    // Validate required fields
+    if (!caseId || !date || !time || !description || !relationship || !email || !contact) {
+        messageDiv.innerHTML = '<div style="color: red;">Please fill in all required fields.</div>';
+        return;
+    }
+    
+    // Append form data
+    form.append('case_id', caseId);
+    form.append('sighting_date', date);
+    form.append('sighting_time', time);
+    form.append('description', description);
+    form.append('relationship', relationship);
+    form.append('email', email);
+    form.append('contact', contact);
+    if (image) {
+        form.append('sighting_image', image);
+    }
+    
+    messageDiv.innerHTML = '<div style="color: blue;">Submitting report...</div>';
+    
+    fetch('/submit-sighting', {
+        method: 'POST',
+        body: form
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            messageDiv.innerHTML = '<div style="color: green;">' + data.message + '</div>';
+            // Reset form
+            document.getElementById('caseSelect').value = '';
+            document.getElementById('relationship').value = '';
+            document.getElementById('description').value = '';
+            document.getElementById('sightingImage').value = '';
+            // Reset date/time to current
+            const now = new Date();
+            document.getElementById('date').value = now.toISOString().split('T')[0];
+            document.getElementById('time').value = now.toTimeString().slice(0, 5);
+        } else {
+            messageDiv.innerHTML = '<div style="color: red;">Error: ' + data.message + '</div>';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        messageDiv.innerHTML = '<div style="color: red;">An error occurred while submitting the report.</div>';
+    });
+}
+</script>
+</body>
+</html>

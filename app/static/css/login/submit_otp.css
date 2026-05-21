@@ -1,0 +1,406 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+/*##############################################*/
+/*######### R E G U L A R  F O N T S ###########*/
+/*##############################################*/
+
+@font-face {
+    font-family: "SF_BLACK";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK.otf);
+}
+@font-face {
+    font-family: "SF_BOLD";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BOLD.OTF);
+}
+@font-face {
+    font-family: "SF_MEDIUM";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_MEDIUM.OTF);
+}
+@font-face {
+    font-family: "SF_REGULAR";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_REGULAR.OTF);
+}
+
+/*############## ITL = ITALIC ################*/
+@font-face { 
+    font-family: "SF_SEMIBOLD_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_SEMI_BOLD_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_BLACK_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_HEAVY_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_HEAVY_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_LIGHT_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_LIGHT_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_THIN_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_THIN_ITL.OTF);
+}
+
+
+/*############################################*/
+/*#########  D E S I G N  C O D E  ###########*/
+/*############################################*/
+
+
+/*##############################*/
+/*#########  B O D Y  ###########*/
+/*###############################*/
+
+body{
+    margin: 0;
+    padding: 0;
+    background-image: url(/static/images/login/Login_bg.png);
+    background-size: cover;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+.background_frame{
+    display: flex;
+    justify-content: center;
+}
+
+
+
+/*################################*/
+/*#####  L O G I N  L O G O  #####*/
+/*################################*/
+
+.otp_logo_frame{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.otp_logo_frame img{
+    width: 40%;
+}
+
+/*########################################*/
+/*#########  O T P  F R A M E  ###########*/
+/*########################################*/
+
+.otp_main_frame{
+    padding: 50px;
+    width: 100%;
+    max-width: 700px;
+    background-color: #F5F5F5;
+    border-radius: 50px;
+    box-shadow: 2px 2px 12px black;
+}
+
+/*###########################*/
+/*#####  T E X T B O X  #####*/
+/*###########################*/
+
+.textbox_frame{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.textbox_frame label{
+    font-family: SF_MEDIUM;
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.otp_box{
+    margin-top: 10px;
+    width: 100%;
+}
+
+/*########################################*/
+/*#####  T E X T B O X  D E S I G N  #####*/
+/*########################################*/
+
+.textbox_frame input[type='text']{
+     border: 1px solid #DEDEDE;
+    box-shadow: 1px 1px 3px #1A1B41;
+    width: 100%;
+    height: 45px;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 18px;
+    font-family: SF_MEDIUM
+}
+
+.textbox_frame input[type='text']:focus{
+    border: 1px solid  #1A1B41;
+    width: 100%;
+    height: 45px;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 18px;
+    font-family: SF_MEDIUM;
+}
+
+/*########################################*/
+/*#####  M E S S A G E  D E S I G N  #####*/
+/*########################################*/
+
+.msg{
+    color: red;
+    font-family: sf_bold;
+    text-align: center;
+}
+
+.msg2{
+    text-align: center;
+    color: rgb(15, 126, 0);
+    font-family: sf_bold;
+}
+
+/*#######################################*/
+/*#####   S U B M I T  B U T T O N  #####*/
+/*#######################################*/
+
+.otp_button_frame button{
+    margin-top: 20px;
+    font-size: 18px;
+    font-family: sf_regular;
+    border-color: #1A1B41;
+    background-color:  #1A1B41;
+    color: white;
+    width: 600px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.otp_button_frame button:hover{
+    background-color: #2c2d63;
+}
+
+/*#######################################*/
+/*#####   R E S E N D  B U T T O N  #####*/
+/*#######################################*/
+
+.resend_code_frame{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.resend_code_frame button{
+    background: none;
+    border: none;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.resend_code_frame button:hover{
+    color: #2c2d63;
+}
+
+.resend_code_frame button:disabled{
+    color: #999;
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+.resend_timer{
+    margin-top: 10px;
+    font-family: SF_REGULAR;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
+
+/*#######################################*/
+/*#####   C A N C E L  B U T T O N  #####*/
+/*#######################################*/
+
+.cancel_button_frame{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cancel_btn{
+    display: inline-block;
+    padding: 10px 30px;
+    background-color: #f5f5f5;
+    color: #666;
+    font-family: SF_MEDIUM;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.cancel_btn:hover{
+    background-color: #e0e0e0;
+    color: #333;
+    border-color: #bbb;
+}
+
+
+
+
+
+/*################################################################################*/
+/*#########################  M E D I A  Q U E R I E S  ###########################*/
+/*################################################################################*/
+
+
+
+
+/*##########################################*/
+/*####### T A B L E T  /  P H O N E ########*/
+/*##########################################*/
+
+
+@media (max-width: 768px) {
+    .otp_main_frame {
+        margin-left: 30px;
+        padding: 20px;
+        width: 90%;
+        max-width: 100%;
+        border-radius: 20px;
+        box-shadow: none;
+    }
+
+
+/*##########################################*/
+/*############ O T P  F R A M E ############*/
+/*##########################################*/
+
+    .otp_logo_frame img {
+        width: 60%;
+    }
+
+
+
+/*##########################################*/
+/*########## O T P B U T T O N  ############*/
+/*##########################################*/
+    
+    .otp_button_frame button {
+        width: 100%;
+        height: 50px;
+        font-size: 20px;
+    }
+
+/*##########################################*/
+/*######### R E S E N D  B U T T O N #######*/
+/*##########################################*/
+
+    .resend_code_frame button{
+        font-size: 18px;
+    }
+
+    .resend_timer{
+        font-size: 16px;
+    }
+
+/*##########################################*/
+/*######### C A N C E L  B U T T O N #######*/
+/*##########################################*/
+
+    .cancel_btn{
+        font-size: 18px;
+        padding: 12px 35px;
+    }
+
+
+/*##########################################*/
+/*####### T E X T  B O X  F R A M E ########*/
+/*##########################################*/
+    .textbox_frame input[type='text'] {
+        height: 50px;
+        font-size: 20px;
+    }
+
+
+/*##########################################*/
+/*############### L A B E L ################*/
+/*##########################################*/
+
+    .textbox_frame label {
+        font-size: 16px;
+    }
+
+
+/*##########################################*/
+/*################# M S G ##################*/
+/*##########################################*/
+    .msg, .msg2 {
+        font-size: 16px;
+    }
+
+/*##########################################*/
+/*################# M S G ##################*/
+/*##########################################*/
+    .text_frame h1 {
+        font-size: 25px;
+    }
+
+
+/*##########################################*/
+/*############ O T P  B O X ################*/
+/*##########################################*/
+    .otp_box {
+        height: 50px;
+    }
+
+/*##########################################*/
+/*######## O T P  B O X  I N P U T #########*/
+/*##########################################*/
+    .otp_box input {
+        height: 50px;
+        font-size: 20px;
+    }
+    .otp_box input:focus {
+        height: 50px;
+        font-size: 20px;
+    }
+    .otp_box input[type='text'] {
+        height: 50px;
+        font-size: 20px;
+    }
+    .otp_box input[type='text']:focus {
+        height: 50px;
+        font-size: 20px;
+    }
+    .otp_box input[type='text'] {
+        width: 100%;
+        height: 50px;
+        font-size: 20px;
+        padding: 10px;
+    }
+    .otp_box input[type='text']:focus {
+        width: 100%;
+        height: 50px;
+        font-size: 20px;
+        padding: 10px;
+    }
+
+}

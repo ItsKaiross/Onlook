@@ -1,0 +1,2024 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+/*##############################################*/
+/*######### R E G U L A R  F O N T S ###########*/
+/*##############################################*/
+
+
+@font-face {
+    font-family: "SF_BLACK";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK.otf);
+}
+@font-face {
+    font-family: "SF_BOLD";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BOLD.OTF);
+}
+@font-face {
+    font-family: "SF_MEDIUM";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_MEDIUM.OTF);
+}
+@font-face {
+    font-family: "SF_REGULAR";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_REGULAR.OTF);
+}
+
+/*############## ITL = ITALIC ################*/
+@font-face { 
+    font-family: "SF_SEMIBOLD_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_SEMI_BOLD_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_BLACK_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_HEAVY_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_HEAVY_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_LIGHT_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_LIGHT_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_THIN_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_THIN_ITL.OTF);
+}
+
+/*############################################*/
+/*#########  D E S I G N  C O D E  ###########*/
+/*############################################*/
+
+
+/*##############################*/
+/*#########  B O D Y  ###########*/
+/*###############################*/
+
+body{
+    background-image: url(/static/images/login/Login_bg.png);
+    background-size: cover;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: white;
+    color: black;
+}
+
+.background_frame{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+}
+
+
+
+/*###############################################*/
+/*#####  R E G I S T R A T I O N   L O G O  #####*/
+/*###############################################*/
+
+.logo_frame{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo_frame img{
+    height: 60px;
+}
+
+
+
+/*########################################*/
+/*#########  R E G  F R A M E  ###########*/
+/*########################################*/
+
+.reg_frame{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 500px;
+    box-shadow: 0px 0px 4px grey;
+    background-color: white;
+    border-radius: 5px;
+    padding: 30px;
+    min-width: 320px;
+}
+
+.reg_frame.scrollable{
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/*###############################*/
+/*#########  S T E P  ###########*/
+/*###############################*/
+
+.step{
+    display: none;
+    position: relative;
+    padding-bottom: 120px;
+    min-height: 500px;
+}
+
+.step.active{
+    display: block;
+}
+
+.step_2{
+    padding-bottom: 120px;
+    min-height: auto;
+}
+
+.step_4{
+    padding-bottom: 20px;
+    min-height: auto;
+}
+
+/*###########################################*/
+/*#########  P R O G R E S S  B A R  ########*/
+/*###########################################*/
+
+.progress_container {
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.progress_bar {
+    width: 100%;
+    height: 4px;
+    background-color: #e0e0e0;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.progress_fill {
+    height: 100%;
+    background-color: #1A1B41;
+    width: 25%;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.progress_steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.progress_step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.step_circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: SF_BOLD;
+    font-size: 14px;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+}
+
+.step_label {
+    font-family: SF_REGULAR;
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.progress_step.active .step_circle {
+    background-color: #1A1B41;
+    color: white;
+}
+
+.progress_step.active .step_label {
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.progress_step.completed .step_circle {
+    background-color: #28a745;
+    color: white;
+}
+
+.progress_step.completed .step_label {
+    color: #28a745;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*##########################################*/
+/*################ F N A M E  ##############*/
+/*##########################################*/
+
+.firstName_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.firstName_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.firstName_frame .fNameBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.firstName_frame .fNameBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.firstName_frame .fNameBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+
+
+
+
+
+/*##########################################*/
+/*################ M N A M E  ##############*/
+/*##########################################*/
+
+.middleName_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.middleName_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.middleName_frame .middleNameBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.middleName_frame .middleNameBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.middleName_frame .middleNameBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+/*##########################################*/
+/*################ L N A M E  ##############*/
+/*##########################################*/
+
+.lastName_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.lastName_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.lastName_frame .lastNameBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.lastName_frame .lastNameBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.lastName_frame .lastNameBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+/*##########################################*/
+/*################ S N A M E  ##############*/
+/*##########################################*/
+
+.Suffix_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.Suffix_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.Suffix_frame .SuffixBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.Suffix_frame .SuffixBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.Suffix_frame .SuffixBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+}
+
+
+
+
+/*##########################################*/
+/*#############  G E N D E R  ##############*/
+/*##########################################*/
+
+.gender_frame {
+    width: 100%;
+    margin: auto;
+}
+
+.gender_frame p {
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+    margin-bottom: 5px;
+}
+
+
+.gender_frame .choices_frame{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_regular;
+    justify-content: space-evenly;
+    display: flex;
+}
+
+
+
+
+/*##########################################*/
+/*#################### D O B  ##############*/
+/*##########################################*/
+
+.dob_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.dob_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.dob_frame .DateOfBirthBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.dob_frame .DateOfBirthBox input[type="date"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.dob_frame .DateOfBirthBox input[type='date']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+
+}
+
+
+/*##########################################*/
+/*############# C O N T A C T ##############*/
+/*##########################################*/
+
+
+.contact_number_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.contact_number_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.contact_number_frame .contact_numberBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.contact_number_frame .contact_numberBox input[type="tel"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.contact_number_frame .contact_numberBox input[type='tel']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+
+}
+/*##########################################*/
+/*########### H O U S E  N  O . ############*/
+/*##########################################*/
+
+.houseNo_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.houseNo_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.houseNo_frame .HouseNumberBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.houseNo_frame .HouseNumberBox input[type="number"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.houseNo_frame .HouseNumberBox input[type='number']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+
+}
+
+
+
+
+/*##########################################*/
+/*############## S T R E E T  ##############*/
+/*##########################################*/
+
+.street_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.street_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.street_frame .streetBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.street_frame .streetBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.street_frame .streetBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+
+}
+
+
+
+/*##########################################*/
+/*############ B A R A N G A Y  ############*/
+/*##########################################*/
+
+.barangay_frame {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    width: 100%;
+    font-family: 'sf_regular', sans-serif;
+}
+
+
+.barangay_frame label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+
+.BarangayBox {
+    width: 100%;
+}
+
+
+.BarangayBox select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1.5px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    outline: none;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+
+.BarangayBox select:hover {
+    border-color: #888;
+}
+
+.BarangayBox select:focus {
+    border-color: #222;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
+}
+
+
+/*###################################*/
+/*#########  A D D R E S S  #########*/
+/*###################################*/
+
+.address h1{
+    font-family: sf_regular;
+    font-size: 30px;
+    text-align: center;
+}
+
+/*#################################*/
+/*#########  R E G I O N  #########*/
+/*#################################*/
+
+.region_frame label{
+    font-family: sf_regular;
+    font-size: 20px;
+    margin-left: 8px;
+}
+
+.region_frame .regionBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.region_frame .regionBox select{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: rgb(179, 179, 179);
+}
+
+.region_frame .regionBox select:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border: 1px solid;
+}
+
+/*#####################################*/
+/*#########  P R O V I N C E  #########*/
+/*#####################################*/
+
+.province_frame label{
+    font-family: sf_regular;
+    font-size: 20px;
+    margin-left: 8px;
+}
+
+.province_frame .provinceBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.province_frame .provinceBox select{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: rgb(179, 179, 179);
+}
+
+.province_frame .provinceBox select:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border: 1px solid;
+}
+
+/*#############################*/
+/*#########  C I T Y  #########*/
+/*#############################*/
+
+.city_frame label{
+    font-family: sf_regular;
+    font-size: 20px;
+    margin-left: 8px;
+}
+
+.city_frame .cityBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.city_frame .cityBox select{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: rgb(179, 179, 179);
+}
+
+.city_frame .cityBox select:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border: 1px solid;
+}
+
+
+
+
+
+/*##########################################*/
+/*############### E M A I L  ###############*/
+/*##########################################*/
+
+.email_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.email_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.email_frame .emailBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.email_frame .emailBox input[type="email"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.email_frame .emailBox input[type='email']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+
+}
+
+
+
+
+
+
+
+
+/*##########################################*/
+/*############### P A S S  #################*/
+/*##########################################*/
+
+.pass_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.pass_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.pass_frame .passBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.pass_frame .passBox input[type="password"],
+.pass_frame .passBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.pass_frame .passBox input[type='password']:focus,
+.pass_frame .passBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+
+}
+
+/* Add to your stylesheet */
+.passBox {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.passBox input {
+    width: 100%;
+    padding-right: 42px; /* make room for the eye icon */
+}
+
+.eye-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #888;
+    display: flex;
+    align-items: center;
+}
+.eye-btn:hover { color: #333; }
+.eye-btn svg { width: 20px; height: 20px; }
+
+.validation-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 6px;
+    display: none;
+}
+.validation-list.visible { display: block; }
+
+.rule {
+    font-size: 14px;
+    color: #888;
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: SF_REGULAR;
+}
+.rule .rule-icon {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: bold; color: #aaa;
+}
+.rule.pass { color: #16a34a; }
+.rule.pass .rule-icon { background: #dcfce7; color: #16a34a; }
+.rule.fail .rule-icon { background: #fee2e2; color: #dc2626; }
+
+.strength-bar-wrap {
+    width: 100%; height: 5px;
+    background: #e5e7eb; border-radius: 99px;
+    margin-top: 10px; overflow: hidden;
+}
+.strength-bar {
+    height: 100%; width: 0%;
+    border-radius: 99px;
+    transition: width 0.35s ease, background 0.35s ease;
+}
+.strength-label {
+    font-size: 13px;
+    font-family: SF_MEDIUM;
+    margin-top: 4px;
+    display: inline-block;
+}
+.match-msg {
+    font-size: 14px;
+    font-family: SF_MEDIUM;
+    margin-top: 6px;
+    display: block;
+}
+.valid-input { border-color: #22c55e !important; }
+.invalid-input { border-color: #ef4444 !important; }
+
+
+
+
+/*##########################################*/
+/*############### C P A S S  ###############*/
+/*##########################################*/
+
+.confirm_pass_frame{
+    width: 100%;
+    margin: auto;
+}
+
+.confirm_pass_frame label{
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+.confirm_pass_frame .passBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.confirm_pass_frame .passBox input[type="password"],
+.confirm_pass_frame .passBox input[type="text"]{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.confirm_pass_frame .passBox input[type='password']:focus,
+.confirm_pass_frame .passBox input[type='text']:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+
+
+}
+
+
+
+
+
+/*##########################################*/
+/*#########  N E X T  B U T T O N  #########*/
+/*##########################################*/
+
+.next_button{
+    margin-top: 20px;
+    background-color: #1A1B41;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    font-family: sf_regular;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100px;
+}
+
+/*##########################################*/
+/*#########  B A C K  B U T T O N  #########*/
+/*##########################################*/
+
+.cancel_button {
+    width: 30%;
+    font-family: sf_regular;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cancel_button a{
+    text-decoration: none;
+    color: black;
+    text-align: center;
+}
+
+/*##########################################*/
+/*#########  P R E V  B U T T O N  #########*/
+/*##########################################*/
+
+.prev_button{
+    margin-top: 10px;
+    background-color: #1A1B41;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    position: absolute;
+    bottom: 10px;
+    right: 110px;
+    font-family: sf_regular;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100px;
+}
+
+/*##########################################*/
+/*#########  N E X T  B U T T O N  #########*/
+/*##########################################*/
+
+#next_button2{
+    margin-top: 10px;
+    background-color: #1A1B41;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    font-family: sf_regular;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100px;
+}
+/*############################################*/
+/*#########  U P L O A D  F I L E S  #########*/
+/*############################################*/
+
+/*#########################*/
+/*#########  I D  #########*/
+/*#########################*/
+
+.valid_id_upload{
+    margin-top: 15px;
+    display: block;
+    border: 2px dashed #1A1B41;
+    padding: 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+    transition: all 0.3s ease;
+}
+
+.valid_id_upload:hover{
+    border-color: #4a4b6d;
+    box-shadow: 0 4px 12px rgba(26, 27, 65, 0.1);
+    transform: translateY(-2px);
+}
+
+.valid_id_upload .upload_files{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.valid_id_upload .valid_id_icon{
+    width: 60px;
+    height: 60px;
+    background: #1A1B41;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.valid_id_upload .valid_id_icon svg{
+    width: 32px;
+    height: 32px;
+    color: white;
+}
+
+.valid_id_upload label{
+    font-family: SF_BOLD;
+    font-size: 18px;
+    color: #1A1B41;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.valid_id_upload .uploaded_file{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.valid_id_upload .uploaded_file input[type='file']{
+    font-size: 14px;
+    font-family: SF_REGULAR;
+    padding: 8px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.valid_id_upload .uploaded_file input[type='file']:hover{
+    border-color: #1A1B41;
+}
+
+.valid_id_upload .uploaded_file input[type='file']::-webkit-file-upload-button{
+    background: #1A1B41;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: SF_MEDIUM;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.valid_id_upload .uploaded_file input[type='file']::-webkit-file-upload-button:hover{
+    background: #2a2b51;
+}
+
+.valid_id_upload .file_info{
+    margin-top: 15px;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.valid_id_upload .file_name{
+    font-family: SF_MEDIUM;
+    font-size: 14px;
+    color: #1A1B41;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.valid_id_upload .file_size{
+    font-family: SF_REGULAR;
+    font-size: 12px;
+    color: #666;
+    margin-left: 10px;
+}
+
+.valid_id_upload .file_list{
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.valid_id_upload .file_item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    gap: 10px;
+}
+
+.valid_id_upload .file_item .file_info{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.valid_id_upload .file_item .file_name{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.valid_id_upload .view_file_btn{
+    font-family: SF_BOLD;
+    font-size: 14px;
+    color: white;
+    background: #1A1B41;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.valid_id_upload .view_file_btn:hover{
+    background: #2a2b51;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 27, 65, 0.2);
+}
+
+/*###################################*/
+/*#########  P R O F I L E  #########*/
+/*###################################*/
+
+.profile_upload{
+    margin-top: 15px;
+    display: block;
+    border: 2px dashed #1A1B41;
+    padding: 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+    transition: all 0.3s ease;
+}
+
+.profile_upload:hover{
+    border-color: #4a4b6d;
+    box-shadow: 0 4px 12px rgba(26, 27, 65, 0.1);
+    transform: translateY(-2px);
+}
+
+.profile_upload .upload_files{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile_upload .profile_icon{
+    width: 60px;
+    height: 60px;
+    background: #1A1B41;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.profile_upload .profile_icon svg{
+    width: 32px;
+    height: 32px;
+    color: white;
+}
+
+.profile_upload label{
+    font-family: SF_BOLD;
+    font-size: 18px;
+    color: #1A1B41;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.profile_upload .uploaded_file{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.profile_upload .uploaded_file input[type='file']{
+    font-size: 14px;
+    font-family: SF_REGULAR;
+    padding: 8px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.profile_upload .uploaded_file input[type='file']:hover{
+    border-color: #1A1B41;
+}
+
+.profile_upload .uploaded_file input[type='file']::-webkit-file-upload-button{
+    background: #1A1B41;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: SF_MEDIUM;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.profile_upload .uploaded_file input[type='file']::-webkit-file-upload-button:hover{
+    background: #2a2b51;
+}
+
+.profile_upload .file_info{
+    margin-top: 15px;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.profile_upload .file_name{
+    font-family: SF_MEDIUM;
+    font-size: 14px;
+    color: #1A1B41;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.profile_upload .file_size{
+    font-family: SF_REGULAR;
+    font-size: 12px;
+    color: #666;
+    margin-left: 10px;
+}
+
+/*###################################*/
+/*###########  P S A  ###############*/
+/*###################################*/
+
+.psa_upload{
+    margin-top: 15px;
+    display: block;
+    border: 2px dashed #1A1B41;
+    padding: 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+    transition: all 0.3s ease;
+}
+
+.psa_upload:hover{
+    border-color: #4a4b6d;
+    box-shadow: 0 4px 12px rgba(26, 27, 65, 0.1);
+    transform: translateY(-2px);
+}
+
+.psa_upload .upload_files{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.psa_upload .psa_icon{
+    width: 60px;
+    height: 60px;
+    background: #1A1B41;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.psa_upload .psa_icon svg{
+    width: 32px;
+    height: 32px;
+    color: white;
+}
+
+.psa_upload label{
+    font-family: SF_BOLD;
+    font-size: 18px;
+    color: #1A1B41;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.psa_upload .uploaded_file{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.psa_upload .uploaded_file input[type='file']{
+    font-size: 14px;
+    font-family: SF_REGULAR;
+    padding: 8px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.psa_upload .uploaded_file input[type='file']:hover{
+    border-color: #1A1B41;
+}
+
+.psa_upload .uploaded_file input[type='file']::-webkit-file-upload-button{
+    background: #1A1B41;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: SF_MEDIUM;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.psa_upload .uploaded_file input[type='file']::-webkit-file-upload-button:hover{
+    background: #2a2b51;
+}
+
+.psa_upload .file_info{
+    margin-top: 15px;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.psa_upload .file_name{
+    font-family: SF_MEDIUM;
+    font-size: 14px;
+    color: #1A1B41;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.psa_upload .file_size{
+    font-family: SF_REGULAR;
+    font-size: 12px;
+    color: #666;
+    margin-left: 10px;
+}
+
+.view_psa{
+    font-family: SF_BOLD;
+    font-size: 16px;
+    color: #1A1B41;
+    text-decoration: none;
+    margin-top: 15px;
+    cursor: pointer;
+    padding: 10px 24px;
+    background: white;
+    border: 2px solid #1A1B41;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.view_psa:hover{
+    background: #1A1B41;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 27, 65, 0.2);
+}
+
+/*#############################*/
+/*#########  V I E W  #########*/
+/*#############################*/
+
+.view_id {
+    font-family: SF_BOLD;
+    font-size: 16px;
+    color: #1A1B41;
+    text-decoration: none;
+    margin-top: 15px;
+    cursor: pointer;
+    padding: 10px 24px;
+    background: white;
+    border: 2px solid #1A1B41;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.view_id:hover{
+    background: #1A1B41;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 27, 65, 0.2);
+}
+
+.view_profile {
+    font-family: SF_BOLD;
+    font-size: 16px;
+    color: #1A1B41;
+    text-decoration: none;
+    margin-top: 15px;
+    cursor: pointer;
+    padding: 10px 24px;
+    background: white;
+    border: 2px solid #1A1B41;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.view_profile:hover{
+    background: #1A1B41;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 27, 65, 0.2);
+}
+
+/*#################################*/
+/*#########  T E R M S  ###########*/
+/*#################################*/
+
+.msg{
+    text-align: center;
+    color: rgb(15, 126, 0);
+    font-family: sf_bold;
+}
+
+.terms{
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.terms input[type='checkbox']{
+    margin-left: 10px;
+}
+
+.terms label{
+    font-family: SF_MEDIUM;
+    font-size: 18px;
+}
+
+.terms_link{
+    color: #1A1B41;
+    font-family: SF_BOLD;
+    font-size: 18px;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.terms_link:hover{
+    color: #4a4b6d;
+}
+
+
+
+/*#####################################*/
+/*#########  M E S S A G E  ###########*/
+/*#####################################*/
+
+.msg2{
+    color: red;
+    font-family: sf_bold;
+    text-align: center;
+    font-size: 15px;
+}
+
+.profile_pic_default{
+    display: none;
+}
+
+
+/*######################################################################################################*/
+/*#######################################  T E R M S  P O P U P  #######################################*/
+/*######################################################################################################*/
+
+/*##################################################*/
+/*######  T E R M S  &  C O N D I T I O N S  #######*/
+/*##################################################*/
+
+#popup_terms{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #F9F9F9;
+    width: 90%;
+    max-width: 700px;
+    max-height: 85vh;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+#popup_terms.active{
+    opacity: 1;
+    visibility: visible;
+}
+
+.close_terms{
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    color: #1A1B41;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    z-index: 1001;
+}
+
+.close_terms:hover{
+    color: #4a4b6d;
+}
+
+.background#blur.active{
+    filter: blur(20px);
+    pointer-events: none;
+    user-select: none;
+}
+
+/*###############################*/
+/*#########  L O G O  ###########*/
+/*###############################*/
+
+.terms_conditions_logo_frame{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.terms_conditions_logo_frame img{
+    width: 180px;
+    height: auto;
+}
+
+/*###############################*/
+/*#########  T E X T  ###########*/
+/*###############################*/
+
+
+.terms_conditions_text{
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-bottom: 20px;
+}
+
+.terms_conditions_text p{
+    width: 100%;
+    word-wrap: break-word;
+    font-family: SF_REGULAR;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/*###############################*/
+/*######  C O N T E N T  ########*/
+/*###############################*/
+
+
+.termsTitle{
+    font-family: "SF_BLACK";
+    font-size: 30px;
+}
+
+
+.Terms_1{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+.Terms_2{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+
+.Terms_3{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+.Terms_4{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+.Terms_5{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+.Terms_6{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+.Terms_7{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+.Terms_8{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+.Terms_9{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+.Terms_10{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+.Terms_11{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+.Terms_12{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+.Terms_13{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+.Terms_14{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+.Terms_15{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+.Terms_16{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+.Terms_17{
+    font-family: "SF_BOLD";
+    font-size: 20px;
+}
+
+.disclamer {
+    font-family: "SF_BOLD";
+}
+
+
+/*#################################*/
+/*#########  B U T T O N  #########*/
+/*#################################*/
+
+.signup_button{
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+    display: flex;
+    gap: 10px;
+}
+
+.signup_button button[type="submit"]{
+    flex: 1;
+    background-color: #1A1B41;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    font-family: sf_regular;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.signup_button .prev_button{
+    position: static;
+    flex: 1;
+    margin-top: 0;
+    background-color: #1A1B41;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    font-family: sf_regular;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.back_button{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.back_button a{
+    text-decoration: none;
+    font-family: sf_regular;
+}
+
+.back_button{
+    width: 50px;
+    background-color: #1A1B41;
+    color: white;
+    padding: 10px 50px;
+    font-family: sf_regular;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    text-decoration: none;
+}
+
+
+/*##########################################*/
+/*#########  M O D A L  P O P U P  #########*/
+/*##########################################*/
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: black;
+    background-color: rgba(0,0,0,0,0.9);
+}
+
+.modal_content{
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+#caption{
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    padding: 10px 0;
+    height: 150px;
+}
+
+.close{
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+
+
+/*################################################################################*/
+/*#########################  M E D I A  Q U E R I E S  ###########################*/
+/*################################################################################*/
+
+
+
+/*##########################################*/
+/*####### T A B L E T  /  P H O N E ########*/
+/*##########################################*/
+
+
+@media (max-width: 768px) {
+}
+
+
+/* Make only step 2 and step 4 scrollable */
+.step_2.active ~ .reg_frame,
+.step_4.active ~ .reg_frame {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.step_2 .reg_frame,
+.step_4 .reg_frame {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+
+.agree_button_container{
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.agree_button{
+    background-color: #1A1B41;
+    color: white;
+    padding: 12px 40px;
+    border: none;
+    border-radius: 8px;
+    font-family: SF_MEDIUM;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.agree_button:hover{
+    background-color: #2a2b51;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 27, 65, 0.3);
+}
+

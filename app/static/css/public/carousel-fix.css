@@ -1,0 +1,20 @@
+/* Force 4 cards display and center */
+.carousel-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+.carousel-content {
+    width: 1420px !important; /* 4 * 340px + 3 * 20px = 1420px */
+    max-width: none !important;
+    min-width: 1420px !important;
+    margin: 0 auto !important;
+}
+
+.picture_card {
+    flex-shrink: 0 !important;
+    width: 340px !important;
+    min-width: 340px !important;
+}

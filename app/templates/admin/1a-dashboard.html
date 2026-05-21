@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../static/icons/onlook_icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <link rel="stylesheet" href="static/css/mobile-reset.css">
+    <link rel="stylesheet" href="static/css/admin/1a-dashboard.css">
+    <link rel="styles heet" href="static/css/responsive-fixed.css">
+    <title>Admin Dashboard - Onlook</title>
+</head>
+<body>
+
+{% include 'includes/loading_screen.html' %}
+{% include 'includes/flash_messages.html' %}
+{% include 'includes/global_messages.html' %}
+
+<!--##############################################################-->
+<!--###############  A D M I N  D A S H B O A R D  ###############-->
+<!--##############################################################-->
+
+
+
+<!--######################################-->
+<!--#############  B A S E   #############-->
+<!--######################################-->
+<div class="base">
+    <div class="base-frame">
+        <div class="dasboard-body">
+            <div class="dashboard-text">
+                <p>Dashboard</p>
+            </div>
+        {% if roles == 'systemAdmin' %}
+
+
+
+
+        <!--#################################################-->
+        <!--###########  T O T A L  P O L I C E   ###########-->
+        <!--#################################################-->
+
+            <div class="police_cases1_frame">
+            <div class="dashboard_total_cases_frame">
+                <div class="cases_label">
+                    <h1>Total Police</h1>
+                </div>
+
+                <div class="cases_number">
+                    <h1>{{ total_police }}</h1>
+                </div>
+            </div>
+
+        <!--###############################################-->
+        <!--###########  T O T A L  C A S E S   ###########-->
+        <!--###############################################-->
+
+            <div class="dashboard_active_cases_frame">
+                <div class="active_label">           
+                    <h1>Total Cases</h1>        
+                </div>
+
+                <div class="active_number">
+                    <h1>{{ total_cases }}</h1>         
+                </div>                 
+            </div>
+
+        <!--##############################################-->
+        <!--###########  T O T A L  U S E R S  ###########-->
+        <!--##############################################-->
+
+            <div class="dashboard_pending_cases_frame">
+
+                <div class="pending_cases_label">           
+                    <h1>Total Users</h1>          
+                </div>
+
+                <div class="pending_cases_number">           
+                    <h1>{{ total_users }}</h1>         
+                </div>         
+            </div>
+
+
+        <!--####################################################S-->
+        <!--###########  T O T A L  A C C O U N T S  ###########-->
+        <!--####################################################S-->
+
+            <div class="dashboard_closed_cases_frame">
+                <div class="close_cases_label">           
+                    <h1>All Accounts</h1>          
+                </div>  
+                <div class="close_cases_number">           
+                    <h1>{{ total_accounts }}</h1>       
+                </div>         
+            </div>
+        </div>
+
+        <!--######################################-->
+        <!--#############  G R A P H   ###########-->
+        <!--######################################-->
+
+        <div class="system_admin_graphs_frame">
+            <div class="graph_report_frame">
+                <div class="systemadmin-chart-header-report">
+                    <h3>Monthly Report Cases</h3>
+                    <div class="year-selector">
+                        <select id="reportCasesYearSelect" onchange="updateReportCasesChart()">
+                            <option value="2023" {{ 'selected' if current_year == 2023 else '' }}>2023</option>
+                            <option value="2024" {{ 'selected' if current_year == 2024 else '' }}>2024</option>
+                            <option value="2025" {{ 'selected' if current_year == 2025 or not current_year else '' }}>2025</option>
+                        </select>
+                    </div>
+                </div>
+
+        <!--####################################-->
+        <!--###########  C H A R T   ###########-->
+        <!--####################################-->
+
+                <div class="chart-report-container">
+                    <canvas id="reportCasesChart"></canvas>
+                </div>
+            </div>
+
+        <!--######################################-->
+        <!--############  G R A P H  #############-->
+        <!--######################################-->
+
+
+            <div class="graph_reg_frame">
+                <div class="systemadmin-chart-header-registrations">
+                    <h3>Monthly Registrations Comparison</h3>
+                    <div class="year-selector">
+                        <select id="registrationsYearSelect" onchange="updateRegistrationsChart()">
+                            <option value="2023" {{ 'selected' if current_year == 2023 else '' }}>2023</option>
+                            <option value="2024" {{ 'selected' if current_year == 2024 else '' }}>2024</option>
+                            <option value="2025" {{ 'selected' if current_year == 2025 or not current_year else '' }}>2025</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="chart-reg-container">
+                    <canvas id="userCountChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--#################################################-->
+        <!--###########  P O L I C E  A D M I N   ###########-->
+        <!--#################################################-->
+
+
+        {% elif roles == 'policeAdmin' %}
+        <div class="section-header">
+            <h2>Approval Status</h2>
+        </div>
+        <div class="police_cases1_frame">
+
+            <div class="dashboard_total_cases_frame">
+                <div class="cases_label">
+                    <h1>Total Cases</h1>
+                </div>
+
+                <div class="cases_number">
+                    <h1>{{ total_cases }}</h1>
+                </div>
+            </div>
+
+
+            <div class="dashboard_active_cases_frame">
+                <div class="active_label">           
+                    <h1>Approved Cases</h1>        
+                </div>
+
+                <div class="active_number">
+                    <h1>{{ approved_cases }}</h1>         
+                </div>                 
+            </div>
+
+
+            <div class="dashboard_pending_cases_frame">
+
+                <div class="pending_cases_label">           
+                    <h1>Pending Cases</h1>          
+                </div>
+
+                <div class="pending_cases_number">           
+                    <h1>{{ pending_cases }}</h1>         
+                </div>           
+            
+            </div>
+
+
+
+            <div class="dashboard_closed_cases_frame">
+                <div class="close_cases_label">           
+                    <h1>Rejected Cases</h1>          
+                </div>  
+                <div class="close_cases_number">           
+                    <h1>{{ rejected_cases }}</h1>       
+                </div>         
+            </div>
+        </div>
+
+         <div class="section-header">
+            <h2>Case Status</h2>
+        </div>
+        <div class="police_cases1_frame">
+
+            <div class="dashboard_open_cases_frame">
+                <div class="open_label">
+                    <h1>Open Cases</h1>
+                </div>
+
+                <div class="cases_number">
+                    <h1>{{ open_cases }}</h1>
+                </div>
+            </div>
+
+
+            <div class="dashboard_progress_cases_frame">
+                <div class="progress_label">           
+                    <h1>In Progress</h1>        
+                </div>
+
+                <div class="progress_number">
+                    <h1>{{ in_progress_cases }}</h1>         
+                </div>                 
+            </div>
+
+
+            <div class="dashboard_close_cases_frame">
+
+                <div class="close_cases_label">           
+                    <h1>Closed Cases</h1>          
+                </div>
+
+                <div class="close_cases_number">           
+                    <h1>{{ closed_cases }}</h1>         
+                </div>           
+            
+            </div>
+
+
+
+            <div class="dashboard_cold_cases_frame">
+                <div class="cold_cases_label">           
+                    <h1>Rejected Cases</h1>          
+                </div>  
+                <div class="cold_cases_number">           
+                    <h1>{{ rejected_status_cases }}</h1>       
+                </div>         
+            </div>
+        </div>
+        <!--##########################################################-->
+        <!--###########  P O L I C E  M A I N  F R A M E   ###########-->
+        <!--##########################################################-->
+
+        <div class= "police_main_graph_frame">
+            <div class="graph_police_report_frame">
+                <div class="chart-police-report-header">
+                    <h3>Monthly Case Reports</h3>
+                    <span class="chart-year">{{ current_year or 2025 }}</span>
+                </div>
+                <div class="chart-police-report-container">
+                    <canvas id="monthlyChart"></canvas>
+                </div>
+            </div>
+
+            <div class="police_cases2_frame">
+                <div class="cases_tabs">
+                    <button class="tab-btn active" onclick="switchTab('unsolved')">Unsolved Cases</button>
+                    <button class="tab-btn" onclick="switchTab('solved')">Solved Cases</button>
+                </div>
+
+                <div class="cases_content" id="casesContent">
+                    <div id="unsolvedCases" class="tab-content active">
+                        {% if unsolved_cases %}
+                            <div class="case-cards-row">
+                                {% for case in unsolved_cases %}
+                                <div class="case-card" onclick="openCaseDetails({{ case.case_id }})">
+                                    <div class="case-card-header">
+                                        <span class="case-id">Case #{{ case.case_id }}</span>
+                                        <span class="case-status status-{{ case.case_status.lower().replace(' ', '-') }}">{{ case.case_status }}</span>
+                                    </div>
+                                    <div class="case-card-body">
+                                        <span class="case-name">{{ case.name }}</span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p>No unsolved cases found.</p>
+                        {% endif %}
+                    </div>
+                    <div id="solvedCases" class="tab-content">
+                        {% if solved_cases %}
+                            <div class="case-cards-row">
+                                {% for case in solved_cases %}
+                                <div class="case-card" onclick="openCaseDetails({{ case.case_id }})">
+                                    <div class="case-card-header">
+                                        <span class="case-id">Case #{{ case.case_id }}</span>
+                                        <span class="case-status status-{{ case.case_status.lower().replace(' ', '-') }}">{{ case.case_status }}</span>
+                                    </div>
+                                    <div class="case-card-body">
+                                        <span class="case-name">{{ case.name }}</span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p>No solved cases found.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+<script src="static/Javascript/loading_screen.js"></script>
+<script src="static/Javascript/session/session.js"></script>
+<script src="static/Javascript/session_manager.js"></script>
+<script src="static/Javascript/public/mobile_optimization.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+function switchTab(tabName) {
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+    
+    tabs.forEach(tab => tab.classList.remove('active'));
+    contents.forEach(content => content.classList.remove('active'));
+    
+    event.target.classList.add('active');
+    document.getElementById(tabName + 'Cases').classList.add('active');
+}
+
+function openCaseDetails(caseId) {
+    window.location.href = `/admin-case-details/${caseId}`;
+}
+
+// Chart for Police Admin
+{% if roles == 'policeAdmin' %}
+document.addEventListener('DOMContentLoaded', function() {
+    const monthlyData = {{ monthly_data | tojson }};
+    const ctx = document.getElementById('monthlyChart');
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Cases',
+                    data: monthlyData,
+                    backgroundColor: '#4CAF50',
+                    borderColor: '#45a049',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+});
+{% endif %}
+
+// Charts for System Admin
+{% if roles == 'systemAdmin' %}
+document.addEventListener('DOMContentLoaded', function() {
+    // Report Cases Chart
+    const reportCasesData = {% if report_cases_data %}{{ report_cases_data | tojson }}{% else %}[1,2,3,4,5,6,7,8,9,10,11,12]{% endif %};
+    
+    const reportCtx = document.getElementById('reportCasesChart');
+    if (reportCtx) {
+        reportCasesChart = new Chart(reportCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Report Cases',
+                    data: reportCasesData,
+                    backgroundColor: '#2196F3',
+                    borderColor: '#1976D2',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // User Count Chart with Police Comparison
+    const userCountData = {% if user_count_data %}{{ user_count_data | tojson }}{% else %}[5,10,15,20,25,30,35,40,45,50,55,60]{% endif %};
+    const policeCountData = {% if police_count_data %}{{ police_count_data | tojson }}{% else %}[1,2,1,3,2,1,2,3,1,2,1,2]{% endif %};
+    
+    const userCtx = document.getElementById('userCountChart');
+    if (userCtx) {
+        userCountChart = new Chart(userCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'New Users',
+                    data: userCountData,
+                    backgroundColor: '#FF9800',
+                    borderColor: '#F57C00',
+                    borderWidth: 1
+                }, {
+                    label: 'New Police',
+                    data: policeCountData,
+                    backgroundColor: '#4CAF50',
+                    borderColor: '#45a049',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                }
+            }
+        });
+    }
+});
+{% endif %}
+
+function openCaseDetails(caseId) {
+    fetch(`/admin-case-details/${caseId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                displayCaseDetailsPopup(data.case);
+            } else {
+                alert('Error loading case details');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error loading case details');
+        });
+}
+
+function displayCaseDetailsPopup(caseData) {
+    const modal = document.getElementById('case-details-modal') || createCaseModal();
+    const content = `
+        <div class="case-file-view">
+            <h3>Case #${caseData.case_id}</h3>
+            <div class="case-info">
+                <div class="case-title">
+                    <h1>Case #${caseData.case_id} - ${caseData.full_name || 'Unknown'}</h1>
+                </div>
+                <div class="info-grid">
+                    <div class="name-item">
+                        <h1>Name:</h1> 
+                        <p>${caseData.full_name || 'N/A'}</p>
+                    </div>
+                    <div class="age-item">
+                        <h1>Age:</h1>
+                        <p>${caseData.age || 'N/A'}</p>
+                    </div>
+                    <div class="gender-item">
+                        <h1>Gender:</h1>
+                        <p>${caseData.gender || 'N/A'}</p>
+                    </div>
+                    <div class="status-item">
+                        <h1>Status:</h1> 
+                        <p>${caseData.case_status || 'N/A'}</p>
+                    </div>
+                    <div class="priority-item">
+                        <h1>Priority:</h1> 
+                        <p>${caseData.priority || 'N/A'}</p>
+                    </div>
+                    <div class="date-seen-item">
+                        <h1>Date Last Seen:</h1> 
+                        <p>${caseData.date_last_seen || 'N/A'}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    document.getElementById('case-details-content').innerHTML = content;
+    modal.style.display = 'block';
+}
+
+function createCaseModal() {
+    const modal = document.createElement('div');
+    modal.id = 'case-details-modal';
+    modal.className = 'case-details-modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Case Details</h2>
+                <span class="close-modal" onclick="closeCaseModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="case-details-content"></div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    return modal;
+}
+
+function closeCaseModal() {
+    const modal = document.getElementById('case-details-modal');
+    if (modal) modal.style.display = 'none';
+}
+
+let reportCasesChart;
+let userCountChart;
+
+function updateReportCasesChart() {
+    const selectedYear = document.getElementById('reportCasesYearSelect').value;
+    
+    fetch(`/admin-dashboard/report-cases-data/${selectedYear}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && reportCasesChart) {
+                reportCasesChart.data.datasets[0].data = data.data;
+                reportCasesChart.update();
+            }
+        })
+        .catch(error => console.error('Error updating report cases chart:', error));
+}
+
+function updateRegistrationsChart() {
+    const selectedYear = document.getElementById('registrationsYearSelect').value;
+    
+    fetch(`/admin-dashboard/registrations-data/${selectedYear}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && userCountChart) {
+                userCountChart.data.datasets[0].data = data.user_data;
+                userCountChart.data.datasets[1].data = data.police_data;
+                userCountChart.update();
+            }
+        })
+        .catch(error => console.error('Error updating registrations chart:', error));
+}
+</script>
+</body>
+</html>

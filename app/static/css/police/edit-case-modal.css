@@ -1,0 +1,214 @@
+/* Edit Case Modal Styles */
+.edit-case-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.edit-case-modal .modal-content {
+    position: relative;
+    background: #ffffff;
+    margin: 2% auto;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    animation: slideUp 0.3s ease-out;
+}
+
+.edit-case-modal .modal-header {
+    background: #1A1B41;
+    color: white;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-case-modal .modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-family: 'SF_BOLD';
+}
+
+.edit-case-modal .close-modal {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.edit-case-modal .close-modal:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.edit-case-modal .modal-body {
+    padding: 24px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.form-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-section {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+}
+
+.form-section h3 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-family: 'SF_BOLD';
+    color: #1A1B41;
+    border-bottom: 2px solid #1A1B41;
+    padding-bottom: 8px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-family: 'SF_MEDIUM';
+    font-size: 14px;
+    color: #1A1B41;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'SF_REGULAR';
+    background: white;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #1A1B41;
+    box-shadow: 0 0 0 2px rgba(26, 27, 65, 0.1);
+}
+
+.form-group input[readonly] {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.form-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'SF_BOLD';
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.form-actions button[type="submit"] {
+    background: #1A1B41;
+    color: white;
+}
+
+.form-actions button[type="submit"]:hover {
+    background: #23254a;
+    transform: translateY(-1px);
+}
+
+.cancel-edit-case-btn {
+    background: #6c757d;
+    color: white;
+}
+
+.cancel-edit-case-btn:hover {
+    background: #5a6268;
+}
+
+#image-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .edit-case-modal .modal-content {
+        width: 95%;
+        margin: 5% auto;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .edit-case-modal .modal-body {
+        padding: 16px;
+    }
+}

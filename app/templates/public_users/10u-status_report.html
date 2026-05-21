@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../static/icons/onlook_icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <link rel="stylesheet" href="static/css/mobile-reset.css">
+    <link rel="stylesheet" href="static/css/public/10u-status_report.css">
+    <link rel="stylesheet" href="static/css/public/edit-profile-popup.css">
+    <link rel="stylesheet" href="static/css/public/user-profile-dropdown.css">
+    <link rel="stylesheet" href="static/css/public/public-mobile-app-view.css">
+    <link rel="stylesheet" href="static/css/responsive-fixed.css">
+    <title>My Reports - Onlook</title>
+</head>
+<body>
+
+{% include 'includes/loading_screen.html' %}
+{% include 'includes/flash_messages.html' %}
+{% include 'includes/edit-profile-popup.html' %}
+{% if loggedIn_email %}
+{% include 'includes/verification-notification.html' %}
+{% include 'includes/global_messages.html' %}
+{% endif %}
+
+<!--######################################################-->
+<!--###############  P U B L I C  V I E W  ###############-->
+<!--######################################################-->
+
+<!--############################-->
+<!--########  B A S E  #########-->
+<!--############################-->
+
+    <div class="base">
+        <div class="base_frame">
+
+        <!--#######################################-->
+        <!--############### L O G O ###############-->
+        <!--#######################################-->
+        <div class="public_logo_frame">
+            <div class="mobile-hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <a href="/">
+                <img src="../static/images/logo/onlook_logo.png" alt="">
+            </a>
+            <div class="mobile-header-spacer"></div>
+        </div>
+
+
+        <!--#######################################-->
+        <!--########  T O P N A V B A R   #########-->
+        <!--#######################################-->
+        <div class="right_frame">
+            <div class="right-profile">
+                <button class="profile-dropdown-btn" onclick="toggleUserProfileMenu()">
+                    {% if profile and profile.profile_filedata %}
+                    <img class="profile-pic" src="data:{{ profile.profile_filetype }};base64,{{ profile.profile_filedata }}" alt="Profile">
+                    {% else %}
+                    <div class="profile-pic-placeholder">{{ loggedIn_email[0].upper() }}</div>
+                    {% endif %}
+                    <span class="profile-name">{{ loggedIn_email }}</span>
+                    <span class="profile-arrow">▼</span>
+                </button>
+                <div class="profile-dropdown-menu" id="userProfileMenu">
+                    <a href="#" onclick="openEditProfilePopup()">Edit Profile</a>
+                    {% if loggedIn_email and role == 'systemAdmin' or loggedIn_email and role == 'policeAdmin' %}
+                    <a href="/admin-dashboard">Go to admin panel</a>
+                    {% endif %}
+                    {% if loggedIn_email and role in ['police',
+                'alaminos-mps', 'bay-mps', 'binancity-ps', 'cabuyaocity-ps',
+                'calambacity-ps', 'calauan-mps', 'cavinti-mps', 'famy-mps',
+                'kalayaan-mps', 'liliw-mps', 'sanpablocity-ps', 'santacruz-mps',
+                'santarosacity-ps', 'siniloan-mps', 'victoria-mps'
+                ] %}
+                <a href="/police-dashboard">Go to Police Dashboard</a>
+                {% endif %}
+                    <a href="#" onclick="openLogoutModal()">Logout</a>
+                </div>
+            </div>
+        </div>
+
+
+            <!--#######################################-->
+            <!--######  S O C I A L  F R A M E  #######-->
+            <!--#######################################-->
+            <div class="social_frame">
+                <div class="facebook_icon_frame">
+                    <a href="https://www.facebook.com/LagunaPulis" target="_blank"><img src="../static/icons/facebook.png" alt=""></a>
+                </div>
+                <div class="google_icon_frame">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=piolagunappo2021@gmail.com" target="_blank"><img src="../static/icons/google.png" alt=""></a>
+                </div>
+                <div class="messenger_icon_frame">
+                    <a href="https://www.facebook.com/LagunaPulis" target="_blank"><img src="../static/icons/messenger.png" alt=""></a>
+                </div>
+            </div>
+        </div> 
+
+    <!--#######################################-->
+    <!--##  M I D D L E  B A R  F R A M E   ###-->
+    <!--#######################################-->
+        <div class="middlebar_frame">
+            {% if loggedIn_email %}
+            <a href="/">Home</a>
+            <a href="/status-report" class="active">Status Report</a>
+            <a href="/resources">Resources</a>
+            {% else %}
+            <a href="/">Home</a>
+            <a href="/get_help">Get Help</a>
+            <a href="/community">Our Community</a>
+            <a href="/about">About OnLook</a>
+            <a href="/help-us">Help Us Find</a>
+            <a href="/professional">For Professionals</a>
+            {% endif %}
+        </div>
+
+    <!--####################################################################-->
+    <!--#################### S T A T U S  R E P O R T ######################-->
+    <!--####################################################################-->
+    <div class="status-report-container">
+        <div class="status-header">
+            <h1>My Missing Person Reports</h1>
+            <p>Track the status of your submitted reports</p>
+        </div>
+
+        <div class="reports-grid">
+            {% if user_reports and user_reports|length > 0 %}
+                {% for report in user_reports %}
+                <div class="report-card">
+                    <div class="report-image-container">
+                        {% if report.image %}
+                        <img src="{{ report.image }}" alt="{{ report.full_name }}" class="report-image" onerror="this.src='static/images/public_page/missing.jpg'">
+                        {% else %}
+                        <img src="static/images/public_page/missing.jpg" alt="No image" class="report-image">
+                        {% endif %}
+                    </div>
+                    <div class="report-header">
+                        <h3>{{ report.full_name }}</h3>
+                        <span class="status-badge status-{{ report.approval_status|lower|replace(' ', '-') }}">
+                            {{ report.approval_status }}
+                        </span>
+                    </div>
+                    
+                    <div class="report-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Case ID:</span>
+                            <span class="detail-value">#{{ report.case_id }}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Case Status:</span>
+                            <span class="detail-value case-status-{{ report.case_status|lower }}">{{ report.case_status }}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Priority:</span>
+                            <span class="priority-badge priority-{{ report.priority|lower }}">{{ report.priority }}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Age:</span>
+                            <span class="detail-value">{{ report.age }} years old</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Gender:</span>
+                            <span class="detail-value">{{ report.gender }}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Date Reported:</span>
+                            <span class="detail-value">{{ report.date_reported }}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Last Seen:</span>
+                            <span class="detail-value">{{ report.date_last_seen }}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Assigned Officer:</span>
+                            <span class="detail-value">{{ report.assigned_officer }}</span>
+                        </div>
+                        {% if report.circumstances %}
+                        <div class="detail-row full-width">
+                            <span class="detail-label">Circumstances:</span>
+                            <span class="detail-value">{{ report.circumstances }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-reports">
+                    <div class="no-reports-icon">📋</div>
+                    <h2>No Reports Yet</h2>
+                    <p>You haven't submitted any missing person reports.</p>
+                    <a href="/" class="btn-primary">Report Missing Person</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+        <!--####################################################################-->
+        <!--########################## F O O T E R  ############################-->
+        <!--####################################################################-->
+        <footer>
+            <!--#######################################-->
+            <!--######### F O O T E R  T O P  #########-->
+            <!--#######################################-->
+            <div class="footer_top_frame">
+                <div class="get_help_footer">
+                    <h1>Get Help</h1>
+                    <ul>
+                        <li>What to Do if Someone Goes Missing</li>
+                        <li>Report a Missing Person</li>
+                        <li>Help Services in Laguna</li>
+                        <li>What You Can Expect from OnLook</li>
+                    </ul>
+                </div>
+
+                <div class="community_footer">
+                    <h1>Our Community</h1>
+                    <ul>
+                        <li>Community Volunteers</li>
+                        <li>Family Stories</li>
+                        <li>Barangay Partnerships</li>
+                        <li>Events and Initiatives</li>
+                    </ul>
+                </div>
+
+                <div class="about_footer">
+                    <h1>About OnLook</h1>
+                    <ul>
+                        <li>Our Mission</li>
+                        <li>How OnLook Works</li>
+                        <li>Meet the Team</li>
+                        <li>Contact Us</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--#############   L I N E    ############-->
+            <!--#######################################-->
+            <div class="divider_line"></div>
+
+            <!--#######################################-->
+            <!--###### F O O T E R  B O T T O M #######-->
+            <!--#######################################-->
+            <div class="footer_bottom_frame">
+                <div class="help_us_footer">
+                    <h1>Help Us Find</h1>
+                    <ul>
+                        <li>View Missing Person Profiles</li>
+                        <li>Report a Sighting</li>
+                        <li>Share a Case</li>
+                        <li>Tips to Support the Search</li>
+                    </ul>
+                </div>
+
+                <div class="A_and_P_footer">
+                    <h1>Agencies and Professionals</h1>
+                    <ul>
+                        <li>Join as a Partner Agency</li>
+                        <li>Resources for LGUs and First Responders</li>
+                    </ul>
+                </div>
+
+                <div class="connect_footer" >
+                    <h1>Stay Connected</h1>
+                    <ul>
+                        <li>09173831684</li>
+                        <li>523 4544</li>
+                        <li>onlook2025@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--############## L O G O ################-->
+            <!--#######################################-->
+            <div class="logo_frame">
+                <img src="../static/icons/onlook_icon.png" alt="">
+            </div>
+            <!--#######################################-->
+            <!--######### C O P Y R I G H T  ##########-->
+            <!--#######################################-->
+            <div class="copyright_section_frame">
+                &copy; copyright<br>est. 2025
+            </div>
+        </footer>
+    </div>
+
+<!-- Logout Modal -->
+<div class="logout-modal" id="logoutModal" style="display: none;">
+    <div class="logout-box">
+        <p>Are you sure you want to logout?</p>
+        <div class="logout-actions">
+            <button class="cancel-btn" onclick="closeLogoutModal()">Cancel</button>
+            <a href="/logout" class="confirm-btn">Logout</a>
+        </div>
+    </div>
+</div>
+
+<script src="static/Javascript/public/right-menu-btn.js"></script>
+<script src="static/Javascript/public/user-profile-menu.js"></script>
+<script src="static/Javascript/public/edit-profile-popup.js"></script>
+<script src="static/Javascript/public/mobile-menu.js"></script>
+<script src="static/Javascript/loading_screen.js"></script>
+<script src="static/Javascript/includes/email2FA.js"></script>
+</body>
+</html>

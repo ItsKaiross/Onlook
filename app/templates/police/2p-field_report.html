@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <link rel="stylesheet" href="static/css/police/2p-field_report.css">
+    <link rel="stylesheet" href="static/css/police/field_report_enhancements.css">
+    <title>Police Field Report - Onlook</title>
+    {% include 'includes/global_messages.html' %}
+</head>
+<body>
+
+
+{% include 'includes/loading_screen.html' %}
+{% include 'includes/flash_messages.html' %}
+<!--######################################################-->
+<!--############### P O L I C E  V I E W   ###############-->
+<!--######################################################-->
+
+<div class="base">
+    <div class="base_frame">
+
+            <!--#######################################-->
+            <!--########  S E A R C H  B A R  #########-->
+            <!--#######################################-->
+            <div class="search_frame">
+            </div>
+
+
+        <!--#######################################-->
+        <!--############## T A B L E ##############-->
+        <!--#######################################-->
+        <div class="main_field_frame">
+            <div class="table_frame">
+                <div class="field_line"></div>
+                <div class="field_report_text_frame">
+                    <h1>Field Report</h1>
+                </div>
+                <div class="field_another_text">
+                    <p>Manual reports can be submitted here.</p>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="filter-controls">
+                    <div class="filter-group">
+                        <label for="status-filter">Case Status:</label>
+                        <select id="status-filter">
+                            <option value="">All Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                            <option value="Archived">Archived</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="date-from">From:</label>
+                        <input type="date" id="date-from">
+                    </div>
+                    <div class="filter-group">
+                        <label for="date-to">To:</label>
+                        <input type="date" id="date-to">
+                    </div>
+                    <div class="filter-group">
+                        <label for="age-filter">Age Range:</label>
+                        <select id="age-filter">
+                            <option value="">All Ages</option>
+                            <option value="0-12">Child (0-12)</option>
+                            <option value="13-17">Teen (13-17)</option>
+                            <option value="18-25">Young Adult (18-25)</option>
+                            <option value="26-40">Adult (26-40)</option>
+                            <option value="41-60">Middle Age (41-60)</option>
+                            <option value="61-120">Senior (61+)</option>
+                        </select>
+                    </div>
+                    <button type="button" class="generate-btn" onclick="applyFilters()">Generate</button>
+
+                    <div class="manual_button_frame">
+                        <button class="manual_report_btn" id="field-report-btn">Manual Report</button>
+                        <button class="print_table_btn" onclick="openFieldReportPrintModal()">Print Table</button>
+                        <button type="button" class="view-archived-btn" id="toggle-archived-btn" onclick="toggleArchived()">
+                            View Archived
+                        </button>
+                    </div>
+                </div>
+
+                <div class="field_report_background">
+                    <div class="field_report_subframe">
+                        <div class="field-report-tbl">
+                            <div class="table_scroll_wrapper">
+                                <div class="table_responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Case # </th>
+                                                <th class="sortable" onclick="sortTable(1)">Name <span class="sort-icon">↕</span></th>
+                                                <th class="sortable" onclick="sortTable(2)">Age <span class="sort-icon">↕</span></th>
+                                                <th>Last Seen</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% if reports %}
+                                                {% for report in reports %}
+                                                <tr class="clickable-row" 
+                                                    data-report-id="{{ report.case_id }}"
+                                                    data-status="{{ report.approval_status }}"
+                                                    >
+                                                    <td>{{ report.case_id }}</td>
+                                                    <td>{{ report.full_name }}</td>
+                                                    <td>{{ report.age }}</td>
+                                                    <td>{{ report.date_last_seen }}</td>
+
+                                                    <td class="status-cell">
+                                                        <select class="status-dropdown" data-case-id="{{ report.case_id }}">
+                                                            <option value="Pending" {% if report.approval_status == 'Pending'%}selected {% endif %}>Pending</option>
+                                                            <option value="Approved" {% if report.approval_status == 'Approved'%}selected {% endif %}>Approved</option>
+                                                            <option value="Rejected" {% if report.approval_status == 'Rejected'%}selected {% endif %}>Rejected</option>
+                                                            <option value="Archived" {% if report.approval_status == 'Archived'%}selected {% endif %}>Archived</option>
+                                                        </select>
+                                                    </td>
+                                                    
+
+                                                    <td class="action-cell">
+                                                        <div class="kebab-menu">
+                                                            <button class="kebab-btn" data-case-id="{{ report.case_id }}">
+                                                                <span></span>
+                                                                <span></span>
+                                                                <span></span>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="6" style="text-align: center; padding: 20px; color: #666;">
+                                                        No reports found
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                        </tbody>  
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-info" >
+                    Showing {{ (field_page - 1 ) * field_per_page + 1 }}
+                    -
+                    {{ (field_page - 1) * field_per_page + reports|length }}
+                    of {{ total_records }} entries
+                </div>
+
+                <div class="pagination-controls">
+                    {% set filter_qs %}&field_per_page={{ field_per_page }}{% if request.args.get('status') %}&status={{ request.args.get('status') }}{% endif %}{% if request.args.get('date_from') %}&date_from={{ request.args.get('date_from') }}{% endif %}{% if request.args.get('date_to') %}&date_to={{ request.args.get('date_to') }}{% endif %}{% if request.args.get('age_range') %}&age_range={{ request.args.get('age_range') }}{% endif %}{% endset %}
+                    {% if field_page > 1 %}
+                    <a href="?field_page=1{{ filter_qs }}">&laquo;</a>
+                    <a href="?field_page={{ field_page - 1 }}{{ filter_qs }}">&lsaquo;</a>
+                    {% endif %}
+
+                    {% for p in range(1, total_pages + 1) %}
+                    <a href="?field_page={{ p }}{{ filter_qs }}" class="{{ 'active' if p == field_page else '' }}">{{ p }}</a>
+                    {% endfor %}
+
+                    {% if field_page < total_pages %}
+                    <a href="?field_page={{ field_page + 1 }}{{ filter_qs }}">&rsaquo;</a>
+                    <a href="?field_page={{ total_pages }}{{ filter_qs }}">&raquo;</a>
+                    {% endif %}
+
+                    <select id="field-report-rows-per-page" name="field_per_page">
+                        <option value="5" {% if field_per_page == 5 %} selected {% endif %}>5</option>
+                        <option value="10" {% if field_per_page == 10 %} selected {% endif %}>10</option>
+                        <option value="20" {% if field_per_page == 20 %} selected {% endif %}>20</option>
+                        <option value="50" {% if field_per_page == 50 %} selected {% endif %}>50</option>
+                    </select>
+                </div>
+            </div>
+         <div>
+
+    <!-- Print Modal -->
+    <div id="fieldReportPrintModal" class="print-modal">
+        <div class="print-modal-content">
+            <div class="print-modal-header">
+                <h2>Print Field Report</h2>
+                <span class="print-modal-close" onclick="closeFieldReportPrintModal()">&times;</span>
+            </div>
+            <div class="print-modal-body">
+                <div class="form-group">
+                    <label for="fieldPreparedBy">Prepared By:</label>
+                    <select id="fieldPreparedBy" required>
+                        <option value="">Select Officer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fieldApprovedBy">Approved By:</label>
+                    <select id="fieldApprovedBy" required>
+                        <option value="">Select Officer</option>
+                    </select>
+                </div>
+            </div>
+            <div class="print-modal-footer">
+                <button class="btn-cancel" onclick="closeFieldReportPrintModal()">Cancel</button>
+                <button class="btn-confirm" onclick="confirmFieldReportPrint()">Print</button>
+            </div>
+        </div>
+    </div>
+        
+        
+        <div class="black-bg" id="bg-black"></div>
+
+
+
+        <!--############### P O P  U P  F I E L D  R E P O R T  ################-->
+        <!--####################################################################-->
+
+    <!--###########################################################-->
+    <!--############  A D D  R E P O R T  P O P U P  ##############-->
+    <!--###########################################################-->
+    <div class="add-report-modal" id="add-report-popup">
+        <form action="/police-field-report" method="POST" enctype="multipart/form-data" charset="utf-8">
+
+            <div class="step step-1 active">
+                <div class="add-report-close">
+                    &times;
+                </div>
+                <div class="add-field-txt">
+                    <p>Add Field Report</p>
+                </div>
+
+                <!--######################################-->
+                <!--#############  F N A M E  ############-->
+                <!--######################################-->
+
+                <div class="firstName_frame">
+                    <label for="FirstName">First Name</label>
+                    <div class="FirstNamebox">
+                        <input type="text" name="FirstName" id="FirstName" placeholder="Enter First name"  required>
+                    </div>
+                </div>
+
+
+                <!--######################################-->
+                <!--#############  M N A M E  ############-->
+                <!--######################################-->
+
+                <div class="MiddleName_frame">
+                    <label for="MiddleName">Middle Name</label>
+                    <div class="MiddleNamebox">
+                        <input type="text" name="MiddleName" id="MiddleName" placeholder="Enter Middle name"  required>
+                    </div>
+                </div>
+
+
+
+                <!--######################################-->
+                <!--#############  L N A M E  ############-->
+                <!--######################################-->
+
+                <div class="LastName_frame">
+                    <label for="LastName">Last Name</label>
+                    <div class="LastNamebox">
+                        <input type="text" name="LastName" id="LastName" placeholder="Enter Last name"  required>
+                    </div>
+                </div>
+
+
+                <!--######################################-->
+                <!--#############  S N A M E  ############-->
+                <!--######################################-->
+
+                <div class="Suffix_frame">
+                    <label for="SuffixName">Suffix</label>
+                    <div class="SuffixBox">
+                        <input type="text" name="Suffix" id="Suffix" placeholder="Enter Suffix (Optional)">
+                    </div>
+                </div>
+
+
+                <!--######################################-->
+                <!--############  A L I A S  #############-->
+                <!--######################################-->
+
+                <div class="Alias_frame">
+                    <label for="AliasName">Alias</label>
+                    <div class="AliasBox">
+                        <input type="text" name="Alias" id="Alias" placeholder="Enter Alias (Optional)">
+                    </div>
+                </div>
+
+
+                <!--###########################################-->
+                <!--#############  G E N D E R  ###############-->
+                <!--###########################################-->
+
+                <div class="sex_frame">
+                    <label for="Sex">Sex</label>
+                    <div class="Sexbox">
+                        <input type="text" name="Sex" id="Sex" placeholder="Enter sex"  required>
+                    </div>
+                </div>
+
+
+
+                <!--#######################################-->
+                <!--#############   D O B    ##############-->
+                <!--#######################################-->
+
+                <div class="dob_frame">
+                    <label for="dob">Date of Birth</label>
+                    <div class="dob-box">
+                        <input type="date" id="dob" name="dob" placeholder="Enter Date of Birth" required />
+                    </div>
+                </div>
+
+
+                <!--#######################################-->
+                <!--#########  F I L E  U P L O A D  ######-->
+                <!--#######################################-->
+
+                <div class="file_upload_frame">
+                    <label for="additional_files">Additional Files/Birth Certificate (PDF, Word, Images)</label>
+                    <div class="file-upload-box">
+                        <input type="file" name="additional_files" id="additional_files" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple>
+                    </div>
+                    <button type="button" id="view_files_btn">View Files</button>
+                    <div id="file_preview" class="file-preview" style="display: none;"></div>
+                </div>
+
+                <button type="button" class="next_button">Next</button>
+            </div>
+
+
+
+            
+
+            <!--#######################################-->
+            <!--############# H E A L T H  ############-->
+            <!--#######################################-->
+            <div class="step step-2 ">
+                <div class="add-report-close2">
+                    &times;
+                </div>
+                <div class="add-field-txt">
+                    <p>Health Conditions</p>
+                </div>
+                
+                <div class="health_frame">
+                </div>
+
+                <!--#######################################-->
+                <!--############ C H O I C E S ############-->
+                <!--#######################################-->
+                <div class="health_choice">
+                    <select name="health_type_dropdown" id="" placeholder="Status" required>
+                        <option selected disabled>Physical or Mental</option>
+                        <option value="Physical">Physical</option>
+                        <option value="Mental">Mental</option>
+                    </select>
+                </div>
+                
+                <div class="health_text_frame">
+                    <div class="healthbox">
+                        <textarea name="health_description" id="health_description" rows='4' cols='50' placeholder="Put N/A if you don't know." required></textarea>
+                    </div>
+                </div>
+
+                <div class="report-missing-txt">
+                    <p>Physical Description</p>
+                </div>
+
+                <!--################################################-->
+                <!--#############  E Y E  C O L O R  ###############-->
+                <!--################################################-->
+
+                <div class="eye_color_frame">
+                    <label for="eye_color">Eye color</label>
+                    <div class="eyeBox">
+                        <input type="text" name="eye_color" id="eye_color" placeholder="Enter eye color"  required>
+                    </div>
+                </div>
+
+                <!--###########################################-->
+                <!--#############  A T T I R E  ###############-->
+                <!--###########################################-->
+
+                <div class="attire_frame">
+                    <label for="attire">Last seen attire</label>
+                    <div class="attireBox">
+                        <input type="text" name="attire" id="attire" placeholder="Enter last attire" required>
+                    </div>
+                </div>
+
+                <!--###########################################-->
+                <!--#############  H E I G H T  ###############-->
+                <!--###########################################-->
+
+                <div class="height_frame">
+                    <label for="height">Height(cm)</label>
+                    <div class="heightBox">
+                        <input type="number" name="height" id="height" step="0.01" min="0" placeholder="Enter height" required> 
+                    </div>
+                </div>
+
+                <!--###########################################-->
+                <!--#############  W E I G H T  ###############-->
+                <!--###########################################-->
+
+                <div class="weight_frame">
+                    <label for="weight">Weight(kg)</label>
+                    <div class="weightBox">
+                        <input type="number" name="weight" id="weight" step="0.01" min="0" placeholder="Enter weight" required>
+                    </div>
+                </div>
+
+                <!--#######################################-->
+                <!--#############  H A I R  ###############-->
+                <!--#######################################-->
+
+                <div class="hair_frame">
+                    <label for="hair_color">Hair color</label>
+                    <div class="hairBox">
+                        <input type="text" name="hair_color" id="hair_color" placeholder="Enter hair color"  required>
+                    </div>
+                </div>
+
+                
+                <button type="button" class="next_button">Next</button>
+                <button type="button" class="prev_button">Back</button>
+            </div>
+
+
+            <!--#########################################-->
+            <!--#######  W H E R E  A B O U T S  ########-->
+            <!--#########################################-->
+
+            <div class="step step-3 ">
+                <div class="add-report-close3">
+                    &times;
+                </div>
+                <div class="add-field-txt">
+                    <p>Last Known Whereabouts</p>
+                </div>
+
+
+                <!--#######################-->
+                <!--######  D A T E  ######-->
+                <!--#######################-->
+
+                <div class="last_Seen_frame">
+                    <label for="lastSeen">Date Last Seen</label>
+                    <div class="last-seen-box">
+                        <input type="date" id="lastSeen" name="lastSeen" placeholder="Enter date last seen" required />
+                    </div>
+                </div>
+
+
+                <!--#######################-->
+                <!--######  T I M E  ######-->
+                <!--#######################-->
+
+                <div class="time_last_seen_frame">
+                    <label for="TimelastSeen">Time Last Seen</label>
+                    <div class="time-box">
+                        <input type="time" id="" name="timeLastSeen" placeholder="Enter time last seen" required />
+                    </div>
+                </div>
+
+
+
+
+
+                <!--#########################-->
+                <!--######  I M A G E  ######-->
+                <!--#########################-->
+
+                <div class="upload_photo_frame" id="upload_photo_js">
+                    <label for="upload_last_seen2">Upload Photo (Required)</label>
+                    <div class="photo-box">
+                        <input type="file" name="upload_last_seen" id="upload_last_seen2" accept="image/*" required>
+                    </div>
+                    <button type="button" id="view_last_seen_btn2" style="display: none; margin-top: 10px; padding: 8px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; cursor: pointer;">View Image</button>
+                    <div id="last_seen_preview2" class="file-preview" style="display: none;"></div>
+                </div>
+
+                <button type="button" class="next_button">Next</button>
+                <button type="button" class="prev_button">Back</button>
+            </div>
+
+            <!--######################################################-->
+            <!--####################### M A P S  #####################-->
+            <!--######################################################-->
+            <div class="step step-4">
+                <div class="add-report-close4">
+                    &times;
+                </div>
+                <div class="add-field-txt">
+                    <p>Last Known Whereabouts</p>
+                </div>
+
+                <!--###############################-->
+                <!--######  L O C A T I O N  ######-->
+                <!--###############################-->
+
+                <div class="location_frame">
+                    <div class="radiobtn_frame">
+                        <label for="Location">
+                            <div class="location-radioButton">
+                                <input type="radio" name="locLastSeen" id="my-location-radio" value="my-location" required> My Location
+                            </div>
+                        </label>
+                        <label for="Location">
+                            <div class="location-radioButton">
+                                <input type="radio" name="locLastSeen" id="custom-location-radio" value="custom-location"> Custom location
+                            </div>
+                        </label>
+                    </div>
+                    <div id="location"></div>
+                    <div id="map" style="width:100%; height:300px;"></div>
+                    <input type="hidden" name="latitude" id="latitude2" value="0">
+                    <input type="hidden" name="longitude" id="longitude2" value="0">
+
+                    <label for="Location_textbox_frame">
+                        <div class="location_textbox_Frame">
+                            <input type="text" name="customLoc" id="customLocation" placeholder="Enter Location" disabled>
+                            <button type="button" id="searchBtn" disabled onclick="searchLocation()">Search</button>
+                        </div>
+                    </label>
+                </div>
+
+
+
+
+
+                <button type="submit" class="submit_button">Submit</button>
+                <button type="button" class="prev_button">Back</button>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Report Details Modal -->
+    <div class="report-details-modal" id="report-details-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Report Details</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body" id="report-details-content">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Report Modal -->
+    <div class="edit-report-modal" id="edit-report-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Report</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="edit-report-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Case ID</label>
+                            <input type="text" id="edit-case-id" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="edit-full-name" name="full_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Age</label>
+                            <input type="number" id="edit-age" name="age" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" name="gender" value="Male" 
+                                        id="edit-gender-male"
+                                        required>
+                                    Male
+                                </label>
+                                <label>
+                                    <input type="radio" name="gender" value="Female"
+                                        id="edit-gender-female"
+                                        >
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Date Last Seen</label>
+                            <input type="date" id="edit-date-last-seen" name="date_last_seen" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="edit-status" name="status" class="report_status" required>
+                                <option value="Pending" class="pending_status">Pending</option>
+                                <option value="Approved"  class="pending_approved">Approved</option>
+                                <option value="Rejected" class="pending_rejection">Rejected</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Case Status</label>
+                            <select id="edit-case-status" name="case_status" class="case_status" required>
+                                <option value="Open">Open</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Closed">Closed</option>
+                                <option value="Cold Case">Cold Case</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Height (cm)</label>
+                            <input type="number" id="edit-height" name="height" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Weight (kg)</label>
+                            <input type="number" id="edit-weight" name="weight" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Hair Color</label>
+                            <input type="text" id="edit-hair-color" name="hair_color">
+                        </div>
+                        <div class="form-group">
+                            <label>Eye Color</label>
+                            <input type="text" id="edit-eye-color" name="eye_color">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Clothing Description</label>
+                            <textarea id="edit-clothing" rows="3" name="clothing_description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="cancel-edit-btn">Cancel</button>
+                        <button type="submit">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Follow Report Modal -->
+    <div class="follow-report-modal" id="follow-report-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Follow Report</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="follow-report-form">
+                    <input type="hidden" id="follow-case-id">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Reporter Name</label>
+                            <input type="text" id="follow-reporter-name" placeholder="Enter reporter's full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Relationship to Missing Person</label>
+                            <select id="follow-relationship" required>
+                                <option value="">-- Select relationship --</option>
+                                <option value="Family Member">Family Member</option>
+                                <option value="Friend">Friend</option>
+                                <option value="Neighbor">Neighbor</option>
+                                <option value="Colleague">Colleague</option>
+                                <option value="Witness">Witness</option>
+                                <option value="Police Officer">Police Officer</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Sighting/Follow-up</label>
+                            <input type="date" id="follow-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Time of Sighting/Follow-up</label>
+                            <input type="time" id="follow-time" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Description of Sighting/Information</label>
+                            <textarea id="follow-description" rows="4" placeholder="Enter details about the sighting, new information, witness statements, etc." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Evidence/Photo (Optional)</label>
+                            <input type="file" id="follow-evidence" accept="image/*,.pdf,.doc,.docx" multiple>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="cancel-follow-btn">Cancel</button>
+                        <button type="submit">Submit Follow Report</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const params = new URLSearchParams(window.location.search);
+        const statusEl = document.getElementById('status-filter');
+        const dateFromEl = document.getElementById('date-from');
+        const dateToEl = document.getElementById('date-to');
+        const ageEl = document.getElementById('age-filter');
+        if (statusEl && params.get('status')) statusEl.value = params.get('status');
+        if (dateFromEl && params.get('date_from')) dateFromEl.value = params.get('date_from');
+        if (dateToEl && params.get('date_to')) dateToEl.value = params.get('date_to');
+        if (ageEl && params.get('age_range')) ageEl.value = params.get('age_range');
+    });
+
+    function applyFilters() {
+        const params = new URLSearchParams(window.location.search);
+        const status = document.getElementById('status-filter').value;
+        const dateFrom = document.getElementById('date-from').value;
+        const dateTo = document.getElementById('date-to').value;
+        const ageRange = document.getElementById('age-filter').value;
+
+        params.set('field_page', 1);
+        status ? params.set('status', status) : params.delete('status');
+        dateFrom ? params.set('date_from', dateFrom) : params.delete('date_from');
+        dateTo ? params.set('date_to', dateTo) : params.delete('date_to');
+        ageRange ? params.set('age_range', ageRange) : params.delete('age_range');
+
+        window.location.search = params.toString();
+    }
+    </script>
+    <script src="static/Javascript/loading_screen.js"></script>
+    <script src="static/Javascript/police/field_report/add_report.js"></script>
+    <script src="static/Javascript/police/field_report/add_report_steps.js"></script>
+    <script src="static/Javascript/police/field_report/field-report-sort.js"></script>
+    <script src="static/Javascript/police/field_report/field-report-kebab.js"></script>
+    <script src="static/Javascript/police/case_management/case-management-notifications.js"></script>
+    <script src="static/Javascript/police/field_report/print-table.js"></script>
+    <script src="static/Javascript/police/field_report/show-archived.js"></script>
+    <script src="static/Javascript/public/file_preview.js"></script>
+    <script src="static/Javascript/public/single_image_preview.js"></script>
+    <script src="static/Javascript/public/get_myLocation_public.js"></script>
+    <script src="static/Javascript/session_manager.js"></script>
+    <script src="static/Javascript/police/pagination.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7BZfHfb0KEqX5aQULMfCPyLiUAO8mP4w&callback=initMap" async defer></script>
+    </body>
+    </html>

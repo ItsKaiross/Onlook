@@ -1,0 +1,193 @@
+
+.right-profile {
+    position: relative;
+    margin-top: 40px; 
+}
+
+.profile-dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px; 
+    padding: 10px 20px; 
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 30px; 
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: SF_REGULAR;
+    font-size: 15px; 
+}
+
+.profile-dropdown-btn:hover {
+    background: #f5f5f5;
+    border-color: #1A1B41;
+}
+
+.profile-pic {
+    width: 40px; 
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-pic-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: SF_BOLD;
+    font-size: 17px;
+}
+
+.profile-name {
+    max-width: 170px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #333;
+}
+
+.profile-arrow {
+    font-size: 12px; 
+    color: #666;
+    transition: transform 0.3s ease;
+}
+
+.profile-dropdown-btn:hover .profile-arrow {
+    transform: translateY(2px);
+}
+
+.profile-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 12px); 
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px; 
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.profile-dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.profile-dropdown-menu a {
+    display: block;
+    padding: 14px 22px; /* mas malaki click area */
+    color: #333;
+    text-decoration: none;
+    font-family: SF_REGULAR;
+    font-size: 15px;
+    transition: background 0.2s ease;
+}
+
+.profile-dropdown-menu a:first-child {
+    border-radius: 10px 10px 0 0;
+}
+
+.profile-dropdown-menu a:last-child {
+    border-radius: 0 0 10px 10px;
+}
+
+.profile-dropdown-menu a:hover {
+    background: #f5f5f5;
+    color: #1A1B41;
+}
+
+/* Logout Modal Styles */
+.logout-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-box {
+    background: white;
+    border-radius: 14px; /* konting laki */
+    padding: 35px; /* mas spacious */
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+.logout-box p {
+    font-family: SF_REGULAR;
+    font-size: 17px; /* konting laki */
+    color: #333;
+    margin: 0 0 26px 0;
+}
+
+.logout-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+}
+
+.logout-actions .cancel-btn,
+.logout-actions .confirm-btn {
+    padding: 11px 26px; /* mas click-friendly */
+    border-radius: 7px;
+    font-family: SF_MEDIUM;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.logout-actions .cancel-btn {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    color: #666;
+}
+
+.logout-actions .cancel-btn:hover {
+    background: #e5e5e5;
+    border-color: #ccc;
+}
+
+.logout-actions .confirm-btn {
+    background: #dc3545;
+    border: 1px solid #dc3545;
+    color: white;
+}
+
+.logout-actions .confirm-btn:hover {
+    background: #c82333;
+    border-color: #bd2130;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .profile-name {
+        display: none;
+    }
+    
+    .profile-dropdown-btn {
+        padding: 10px;
+    }
+    
+    .profile-arrow {
+        display: none;
+    }
+}

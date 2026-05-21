@@ -1,0 +1,90 @@
+<!--##################################################-->
+<!--##############  E D I T  M O D A L  ##############-->
+<!--##################################################-->
+
+    <div class="edit-modal" id="edit_popup">
+        <form action="/admin-user-management/edit-user" method="POST" enctype="multipart/form-data" charset="utf-8">
+            <div class="edit-close" onclick="toggle()">
+                &times;
+            </div>
+            <div class="edit-txt">
+                <p>Edit</p>
+            </div>
+
+
+            
+            <div class="role_frame">
+                <label for="role">Role</label>
+                <div class="roleBox">
+                    <select name="role" id="role" required>
+                        <!-- Core roles -->
+                        <optgroup label="Core roles">
+                        <option value="systemAdmin">System Admin</option>
+                        <option value="policeAdmin">Police Admin</option>
+                        <option value="policeChief">Police Chief</option>
+                        <option value="police">Police</option>
+                        </optgroup>
+
+                        <!-- Police Stations -->
+                        <optgroup label="Police Stations Accounts">
+                        <option value="alaminos-mps">Alaminos - MPS</option>
+                        <option value="bay-mps">Bay - MPS</option>
+                        <option value="binancity-ps">Biñan City - PS</option>
+                        <option value="cabuyaocity-ps">Cabuyao City - PS</option>
+                        <option value="calambacity-ps">Calamba City - PS</option>
+                        <option value="calauan-mps">Calauan - MPS</option>
+                        <option value="cavinti-mps">Cavinti - MPS</option>
+                        <option value="famy-mps">Famy - MPS</option>
+                        <option value="kalayaan-mps">Kalayaan - MPS</option>
+                        <option value="liliw-mps">Liliw - MPS</option>
+                        <option value="sanpablocity-ps">San Pablo City - PS</option>
+                        <option value="santacruz-mps">Santa Cruz - MPS</option>
+                        <option value="santarosacity-ps">Santa Rosa City - PS</option>
+                        <option value="siniloan-mps">Siniloan - MPS</option>
+                        <option value="victoria-mps">Victoria - MPS</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+
+            <div class="fName_frame">
+                <label for="firstName">First Name</label>
+                <div class="fNameBox">
+                    <input type="text" name="firstName" id="firstName"  required>
+                </div>
+            </div>
+
+            <div class="lName_frame">
+                <label for="lastName">Last Name</label>
+                <div class="lNameBox">
+                    <input type="text" name="lastName" id="lastName"  required>
+                </div>
+            </div>
+
+            <div class="MName_frame">
+                <label for="MName">Middle Name</label>
+                <div class="MNameBox">
+                    <input type="text" name="middleName" id="middleName"  required>
+                </div>
+            </div>
+
+            <div class="Email_frame">
+                <label for="Email">Email</label>
+                <div class="EmailBox">
+                    <input type="email" name="email" id="email"  required>
+                </div>
+            </div>
+
+
+            <div class="PNumber_frame">
+                <label for="PNumber">Phone Number</label>
+                <div class="PNumberBox">
+                    <input type="tel" name="number" id="number"  required>
+                </div>
+            </div>
+                
+
+
+            <button type="submit" class="update-btn">update</button>
+        </form>
+    </div>

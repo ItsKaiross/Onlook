@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../static/icons/onlook_icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <link rel="stylesheet" href="static/css/public/2u-get_help.css">
+    <link rel="stylesheet" href="static/css/public/user-profile-dropdown.css">
+    <link rel="stylesheet" href="static/css/chatbot.css">
+    <title>Public View Get Help- Onlook</title>
+</head>
+<body>
+
+{% include 'includes/loading_screen.html' %}
+{% include 'includes/flash_messages.html' %}
+{% include 'includes/chatbot.html' %}
+
+<!--##########################################################################################################-->
+<!--#############################################  G E T  H E L P   ##########################################-->
+<!--##########################################################################################################-->
+
+        <!--############################-->
+        <!--########  B A S E  #########-->
+        <!--############################-->
+        <div class="base">
+            <div class="base_frame">
+                <div class="public_logo_frame">
+                    <div class="mobile-hamburger" onclick="toggleMobileMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <a href="/">
+                        <img src="../static/images/logo/onlook_logo.png" alt="">
+                    </a>
+                    <div class="mobile-header-spacer"></div>
+                </div>
+
+                <!--####################################-->
+                <!--########  R G H T  B A R   #########-->
+                <!--####################################-->
+                <div class="right_frame">
+                    {% if loggedIn_email %}
+                    <div class="right-profile">
+                        <button class="profile-dropdown-btn" onclick="toggleUserProfileMenu()">
+                            {% if profile and profile.profile_filedata %}
+                            <img class="profile-pic" src="data:{{ profile.profile_filetype }};base64,{{ profile.profile_filedata }}" alt="Profile">
+                            {% else %}
+                            <div class="profile-pic-placeholder">{{ loggedIn_email[0].upper() }}</div>
+                            {% endif %}
+                            <span class="profile-name">{{ loggedIn_email }}</span>
+                            <span class="profile-arrow">▼</span>
+                        </button>
+                        <div class="profile-dropdown-menu" id="userProfileMenu">
+                            <a href="/edit-profile">Edit Profile</a>
+                            <a href="#" onclick="openLogoutModal()">Logout</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="right-menu">
+                        <button class="right-menu-btn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <div class="right-menu-dropdown">
+                            <a class="login-or-sign-up" id="register-first-btn">Login or Sign Up</a>
+                            <a href="/talk-to-us" class="talk-link">Talk to us</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+                    <!--#######################################-->
+                    <!--######  S O C I A L  F R A M E  #######-->
+                    <!--#######################################-->
+                    <div class="social_frame">
+                        <div class="facebook_icon_frame">
+                            <a href="https://www.facebook.com/LagunaPulis" target="_blank"><img src="../static/icons/facebook.png" alt=""></a>
+                        </div>
+                        <div class="google_icon_frame">
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=piolagunappo2021@gmail.com" target="_blank"><img src="../static/icons/google.png" alt=""></a>
+                        </div>
+                        <div class="messenger_icon_frame">
+                            <a href="https://www.facebook.com/LagunaPulis" target="_blank"><img src="../static/icons/messenger.png" alt=""></a>
+                        </div>
+                    </div>
+                </div> 
+
+
+                <!--#######################################-->
+                <!--##  M I D D L E  B A R  F R A M E   ###-->
+                <!--#######################################-->
+                <div class="middlebar_frame">
+                    {% if loggedIn_email %}
+                    <a href="#">Home</a>
+                    <a href="#">Report Missing</a>
+                    <a href="#">Report Sighting</a>
+                    <a href="#">Status Report</a>
+                    <a href="#">Resources</a>
+                    {% else %}
+                    <a href="/get_help" class="active">Get Help</a>
+                    <a href="/community">Our Community</a>
+                    <a href="/about">About OnLook</a>
+                    <a href="/help-us">Help Us Find</a>
+                    <a href="/professional">For Professionals</a>
+                    {% endif %}
+                </div>
+
+                {% if loggedIn_email %}
+                {% else %}
+
+                <!--#######################################-->
+                <!--##########  G E T  H E L P  ###########-->
+                <!--#######################################-->
+                <div class="get_help_frame">
+                    <div class="get_help_text_frame">
+                        <div class="line"></div>
+                        <div class="get_help_left_text">
+                            <h1>We're here to help</h1>
+                        </div>
+                    </div>
+                    
+                    <div class="another_frame">
+
+                        </div>
+
+                        <!--######################################-->
+                        <!--##########  D E T A i L S  ###########-->
+                        <!--######################################-->
+                        <div class="get_help_details">
+                        <span class="to1"> There are a number of ways we we can help </span>
+
+                            <!--################################-->
+                            <!--##########  B O X 1  ###########-->
+                            <!--################################-->
+                            <div class="boxLine1">
+                                <div class="gh_box">
+                                    <p class="ghwyl_title">
+                                        Getting Help When You’re Lost
+                                    </p>
+                                    <p class="ghwyl_text">
+                                        If you or a loved one is missing, it can feel overwhelming. OnLook provides clear steps on how to reconnect with your family and access immediate support, including local resources and community assistance.
+                                    </p>
+                                </div>
+                                <div class="yl_box">
+                                    <p class="yl_title">
+                                        Your Legal Rights During a Search
+                                    </p>
+                                    <p class="yl_text">
+                                        Being missing doesn't mean you’re in trouble. This guide explains how the authorities and OnLook approach missing cases with respect to your rights, and how we ensure you are safe throughout the process.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!--################################-->
+                            <!--##########  B O X 2  ###########-->
+                            <!--################################-->
+                            <div class="boxLine2">
+                                <div class="hw_box">
+                                    <p class="hw_title">
+                                        How We Check In on Your Safety
+                                    </p>
+                                    <p class="hw_text">
+                                        When you’re facing a difficult time, staying connected is essential. OnLook has a system to reach out and confirm your well-being. Through discreet messages, we ensure you’re safe and can offer any needed support, while also respecting your privacy. This helps you stay in touch with those who care and gives you the space to feel secure.
+                                    </p>
+                                </div>
+                                <div class="cf_box">
+                                    <p class="cf_title">
+                                        Caring for Your Mental and Emotional Health
+                                    </p>
+                                    <p class="cf_text">
+                                        Experiencing a disappearance or cognitive impairment can take a toll on your mental health. OnLook connects individuals to mental health professionals and resources, ensuring that your well-being is prioritized during difficult times.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!--################################-->
+                            <!--##########  B O X 3  ###########-->
+                            <!--################################-->
+                            <div class="boxLine3">
+                                <div class="ss_box">
+                                    <p class="ss_title">
+                                        Staying Secure and Making Safe Decisions
+                                    </p>
+                                    <p class="ss_text">
+                                        If you feel the need to leave home, it’s essential to stay safe. OnLook provides guidance on how to make informed decisions, protect yourself, and stay in touch with those who can help you.
+                                    </p>
+                                </div>
+                                <div class="ft_box">
+                                    <p class="ft_title">
+                                        Finding the Right Words to Share Your Story
+                                    </p>
+                                    <p class="ft_text">
+                                        Opening up about what’s happening in your life can be hard. This section provides advice on how to express yourself to others—whether it’s a family member, a professional, or someone in your community—so you can get the support you need.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% endif %}
+                <!--####################################################################-->
+                <!--########################## F O O T E R  ############################-->
+                <!--####################################################################-->
+                <footer>
+                    <!--#######################################-->
+                    <!--######### F O O T E R  T O P  #########-->
+                    <!--#######################################-->
+                    <div class="footer_top_frame">
+                        <div class="get_help_footer">
+                            <h1>Get Help</h1>
+                            <ul>
+                                <li>What to Do if Someone Goes Missing</li>
+                                <li>Report a Missing Person</li>
+                                <li>Help Services in Laguna</li>
+                                <li>What You Can Expect from OnLook</li>
+                            </ul>
+                        </div>
+
+                        <div class="community_footer">
+                            <h1>Our Community</h1>
+                            <ul>
+                                <li>Community Volunteers</li>
+                                <li>Family Stories</li>
+                                <li>Barangay Partnerships</li>
+                                <li>Events and Initiatives</li>
+                            </ul>
+                        </div>
+
+                        <div class="about_footer">
+                            <h1>About OnLook</h1>
+                            <ul>
+                                <li>Our Mission</li>
+                                <li>How OnLook Works</li>
+                                <li>Meet the Team</li>
+                                <li>Contact Us</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--#######################################-->
+                    <!--#############   L I N E    ############-->
+                    <!--#######################################-->
+                    <div class="divider_line"></div>
+
+                    <!--#######################################-->
+                    <!--###### F O O T E R  B O T T O M #######-->
+                    <!--#######################################-->
+                    <div class="footer_bottom_frame">
+                        <div class="help_us_footer">
+                            <h1>Help Us Find</h1>
+                            <ul>
+                                <li>View Missing Person Profiles</li>
+                                <li>Report a Sighting</li>
+                                <li>Share a Case</li>
+                                <li>Tips to Support the Search</li>
+                            </ul>
+                        </div>
+
+                        <div class="A_and_P_footer">
+                            <h1>Agencies and Professionals</h1>
+                            <ul>
+                                <li>Join as a Partner Agency</li>
+                                <li>Resources for LGUs and First Responders</li>
+                            </ul>
+                        </div>
+
+                        <div class="connect_footer" >
+                            <h1>Stay Connected</h1>
+                            <ul>
+                                <li>09173831684</li>
+                                <li>523 4544</li>
+                                <li>onlook2025@gmail.com</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--#######################################-->
+                    <!--############## L O G O ################-->
+                    <!--#######################################-->
+                    <div class="logo_frame">
+                        <img src="../static/icons/onlook_icon.png" alt="">
+                    </div>
+                    <!--#######################################-->
+                    <!--######### C O P Y R I G H T  ##########-->
+                    <!--#######################################-->
+                    <div class="copyright_section_frame">
+                        &copy; copyright<br>est. 2025
+                    </div>
+                </footer>
+            </div>
+        </div>
+        
+
+        {% include 'includes/login-popup.html' %}
+        
+        <!-- Logout Modal -->
+        <div class="logout-modal" id="logoutModal" style="display: none;">
+            <div class="logout-box">
+                <p>Are you sure you want to logout?</p>
+                <div class="logout-actions">
+                    <button class="cancel-btn" onclick="closeLogoutModal()">Cancel</button>
+                    <a href="/logout" class="confirm-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+        
+        <script src="static/Javascript/loading_screen.js"></script>
+        <script src="static/Javascript/public/register_first_popup.js"></script>
+        <script src="static/Javascript/public/user-profile-menu.js"></script>
+        <script src="static/Javascript/chatbot.js"></script>
+        <script src="static/Javascript/public/right-menu-btn.js"></script>
+        </body>
+        </html>

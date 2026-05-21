@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../static/icons/onlook_icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+        <link rel="stylesheet" href="static/css/mobile-reset.css">
+<link rel="stylesheet" href="static/css/login/submit_otp.css">
+    <title>OTP - Onlook</title>
+    <link rel="stylesheet" href="static/css/responsive-fixed.css">
+</head>
+<body>
+
+
+{% include 'includes/loading_screen.html' %}
+{% include 'includes/flash_messages.html' %}
+
+    <!--#######################################################################-->
+    <!--###############  O T P  R E Q U E S T  P A S S W O R D  ###############-->
+    <!--#######################################################################-->
+    <div class="background_frame">
+        
+    </div>
+
+    <form action="/submit_otp" method="POST">
+        <div class="otp_main_frame">
+            <div class="otp_logo_frame">
+                <img src="../static/images/logo/onlook_logo.png" alt="">
+            </div>
+
+            <!--###############  O T P  ###############-->
+            <div class="textbox_frame">
+                <div class="otp_frame">
+                    <label for="otp_code">OTP code</label>
+                    <div class="otp_box">
+                        <input type="text" id="otp_code" name="otp_code" placeholder="Enter OTP code" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="msg">{{msg}}</div>
+            <div class="msg2">{{msg2}}</div>
+            <!--###############  O T P  B U T T O N  ###############-->
+            <div class="otp_button_frame">
+                <button id="" name="submit_otp" type="submit">SUBMIT OTP</button>
+            </div>
+
+            <!--###############  R E S E N D  C O D E  ###############-->
+            <div class="resend_code_frame">
+                <button type="button" id="resend_code_btn">Resend Code</button>
+                <div class="resend_timer" id="resend_timer"></div>
+            </div>
+
+            <!--###############  C A N C E L  B U T T O N  ###############-->
+            <div class="cancel_button_frame">
+                <a href="/" class="cancel_btn">Cancel</a>
+            </div>
+        </div>
+    </form>
+
+
+<script>
+// Resend OTP functionality
+let countdown = 60;
+let timerInterval = null;
+const resendBtn = document.getElementById('resend_code_btn');
+const timerDisplay = document.getElementById('resend_timer');
+
+// Start countdown on page load
+window.addEventListener('DOMContentLoaded', function() {
+    startCountdown();
+});
+
+function startCountdown() {
+    resendBtn.disabled = true;
+    countdown = 60;
+    
+    timerInterval = setInterval(function() {
+        countdown--;
+        timerDisplay.textContent = `Resend available in ${countdown}s`;
+        
+        if (countdown <= 0) {
+            clearInterval(timerInterval);
+            resendBtn.disabled = false;
+            timerDisplay.textContent = '';
+        }
+    }, 1000);
+}
+
+resendBtn.addEventListener('click', function() {
+    if (resendBtn.disabled) return;
+    
+    // Disable button and show loading
+    resendBtn.disabled = true;
+    resendBtn.textContent = 'Sending...';
+    
+    // Send AJAX request to resend OTP
+    fetch('/resend_otp', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success message
+            const msg2Div = document.querySelector('.msg2');
+            msg2Div.textContent = 'OTP code has been resent to your email';
+            msg2Div.style.display = 'block';
+            
+            // Clear any error messages
+            const msgDiv = document.querySelector('.msg');
+            msgDiv.textContent = '';
+            
+            // Reset button text and start countdown
+            resendBtn.textContent = 'Resend Code';
+            startCountdown();
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                msg2Div.textContent = '';
+            }, 5000);
+        } else {
+            // Show error message
+            const msgDiv = document.querySelector('.msg');
+            msgDiv.textContent = data.message || 'Failed to resend OTP';
+            msgDiv.style.display = 'block';
+            
+            resendBtn.disabled = false;
+            resendBtn.textContent = 'Resend Code';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        const msgDiv = document.querySelector('.msg');
+        msgDiv.textContent = 'An error occurred. Please try again.';
+        msgDiv.style.display = 'block';
+        
+        resendBtn.disabled = false;
+        resendBtn.textContent = 'Resend Code';
+    });
+});
+</script>
+
+
+
+<script src="static/Javascript/loading_screen.js"></script>
+</body>
+</html>

@@ -1,0 +1,432 @@
+<div class="notifications-page">
+    <div class="notifications-page-header">
+        <h1>Notifications</h1>
+    </div>
+
+    <div class="notifications-list">
+        {% if notifications %}
+            {% for notification in notifications %}
+            <div class="notif-row {{ 'unread' if not notification.is_read else '' }}" data-case-id="{{ notification.case_id }}">
+                <div class="notif-row-icon">🔔</div>
+                <div class="notif-row-body">
+                    <p class="notif-row-title">New Report Submitted</p>
+                    <p class="notif-row-msg">{{ notification.message }}</p>
+                    <span class="notif-row-time">{{ notification.time_ago }}</span>
+                </div>
+                <button class="notif-row-link" onclick="viewNotificationReport({{ notification.case_id }})">View</button>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="notif-empty">
+                <p>No new notifications</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Report Details Modal -->
+<div class="report-details-modal" id="report-details-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Report Details</h2>
+            <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body" id="report-details-content">
+            <!-- Content will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<style>
+.notifications-page {
+    padding: 30px;
+    max-width: 800px;
+}
+
+.notifications-page-header {
+    margin-bottom: 24px;
+    border-bottom: 2px solid #1A1B41;
+    padding-bottom: 12px;
+}
+
+.notifications-page-header h1 {
+    font-family: SF_BOLD;
+    font-size: 24px;
+    color: #1A1B41;
+}
+
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notif-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    transition: background 0.2s;
+}
+
+.notif-row.unread {
+    background: #f0f4ff;
+    border-left: 4px solid #1A1B41;
+}
+
+.notif-row-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.notif-row-body {
+    flex: 1;
+}
+
+.notif-row-title {
+    font-family: SF_BOLD;
+    font-size: 14px;
+    color: #1A1B41;
+    margin-bottom: 4px;
+}
+
+.notif-row-msg {
+    font-family: SF_REGULAR;
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+.notif-row-time {
+    font-family: SF_REGULAR;
+    font-size: 11px;
+    color: #999;
+}
+
+.notif-row-link {
+    font-family: SF_MEDIUM;
+    font-size: 13px;
+    color: #1A1B41;
+    text-decoration: none;
+    padding: 6px 14px;
+    border: 1px solid #1A1B41;
+    border-radius: 6px;
+    flex-shrink: 0;
+    transition: 0.2s;
+    background: transparent;
+    cursor: pointer;
+}
+
+.notif-row-link:hover {
+    background: #1A1B41;
+    color: #fff;
+}
+
+.notif-empty {
+    padding: 60px 20px;
+    text-align: center;
+    color: #999;
+    font-family: SF_REGULAR;
+    font-size: 16px;
+}
+
+/* Modal Styles */
+.report-details-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+}
+
+.report-details-modal .modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 85vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.report-details-modal .modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.report-details-modal .modal-header h2 {
+    font-family: SF_BOLD;
+    font-size: 20px;
+    color: #1A1B41;
+    margin: 0;
+}
+
+.report-details-modal .close-modal {
+    font-size: 28px;
+    color: #999;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.report-details-modal .close-modal:hover {
+    color: #333;
+}
+
+.report-details-modal .modal-body {
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.detail-section {
+    margin-bottom: 24px;
+}
+
+.detail-section h3 {
+    font-family: SF_BOLD;
+    font-size: 16px;
+    color: #1A1B41;
+    margin-bottom: 12px;
+}
+
+.detail-row {
+    display: flex;
+    padding: 8px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.detail-label {
+    font-family: SF_MEDIUM;
+    font-size: 14px;
+    color: #666;
+    width: 180px;
+    flex-shrink: 0;
+}
+
+.detail-value {
+    font-family: SF_REGULAR;
+    font-size: 14px;
+    color: #333;
+    flex: 1;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-family: SF_BOLD;
+}
+
+.status-badge.approved {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.rejected {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.archived {
+    background: #e2e3e5;
+    color: #383d41;
+}
+
+.modal-footer {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-timeline {
+    padding: 10px 20px;
+    background: #1A1B41;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: SF_MEDIUM;
+    font-size: 14px;
+}
+
+.btn-timeline:hover {
+    background: #0f1028;
+}
+</style>
+
+<script>
+function viewNotificationReport(caseId) {
+    const modal = document.getElementById('report-details-modal');
+    const modalContent = document.getElementById('report-details-content');
+    
+    // Show loading
+    modalContent.innerHTML = '<div style="text-align: center; padding: 40px;"><p>Loading report details...</p></div>';
+    modal.style.display = 'flex';
+    
+    // Fetch report details
+    fetch(`/police-report-details/${caseId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.report) {
+                renderReportDetails(data.report);
+                
+                // Mark notification as read
+                fetch('/police-mark-notifications-read', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+            } else {
+                modalContent.innerHTML = '<div style="text-align: center; padding: 40px; color: #e53e3e;"><p>Error loading report details</p></div>';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            modalContent.innerHTML = '<div style="text-align: center; padding: 40px; color: #e53e3e;"><p>Error loading report details</p></div>';
+        });
+}
+
+function renderReportDetails(report) {
+    const modalContent = document.getElementById('report-details-content');
+    const statusClass = {
+        'approved': 'approved',
+        'rejected': 'rejected',
+        'pending': 'pending',
+        'archived': 'archived'
+    }[report.approval_status?.toLowerCase()] || 'pending';
+    
+    const dateReported = report.date_and_time_reported ? new Date(report.date_and_time_reported).toLocaleDateString() : 'N/A';
+    const lastSeenDate = report.date_last_seen || 'N/A';
+    const lastSeenTime = report.time_last_seen || 'N/A';
+    
+    modalContent.innerHTML = '';
+    const container = document.createElement('div');
+    
+    // Case Information
+    container.appendChild(createDetailSection('📋 Case Information', [
+        { label: 'Case ID', value: '#' + (report.case_id || 'N/A') },
+        { label: 'Case Status', value: report.case_status || 'Open' },
+        { label: 'Approval Status', value: report.approval_status || '', isStatus: true, statusClass: statusClass },
+        { label: 'Date Reported', value: dateReported }
+    ]));
+    
+    // Personal Information
+    container.appendChild(createDetailSection('👤 Personal Information', [
+        { label: 'Full Name', value: report.full_name || 'N/A' },
+        { label: 'Age', value: report.age || 'N/A' },
+        { label: 'Gender', value: report.gender || 'N/A' }
+    ]));
+    
+    // Missing Details
+    container.appendChild(createDetailSection('📍 Missing Details', [
+        { label: 'Last Seen Date', value: lastSeenDate },
+        { label: 'Last Seen Time', value: lastSeenTime },
+        { label: 'Clothing Description', value: report.clothing_description || 'No description available' }
+    ]));
+    
+    // Physical Description
+    container.appendChild(createDetailSection('👤 Physical Description', [
+        { label: 'Height', value: (report.height || 'N/A') + ' cm' },
+        { label: 'Weight', value: (report.weight || 'N/A') + ' kg' },
+        { label: 'Hair Color', value: report.hair_color || 'N/A' },
+        { label: 'Eye Color', value: report.eye_color || 'N/A' }
+    ]));
+    
+    // Photo
+    if (report.img_src) {
+        const photoSection = document.createElement('div');
+        photoSection.className = 'detail-section';
+        const photoTitle = document.createElement('h3');
+        photoTitle.textContent = '🖼️ Missing Person Photo';
+        photoSection.appendChild(photoTitle);
+        const photoContainer = document.createElement('div');
+        photoContainer.style.textAlign = 'center';
+        const img = document.createElement('img');
+        img.src = report.img_src;
+        img.alt = 'Missing person photo';
+        img.style.maxWidth = '250px';
+        img.style.borderRadius = '8px';
+        img.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+        photoContainer.appendChild(img);
+        photoSection.appendChild(photoContainer);
+        container.appendChild(photoSection);
+    }
+    
+    modalContent.appendChild(container);
+}
+
+function createDetailSection(title, items) {
+    const section = document.createElement('div');
+    section.className = 'detail-section';
+    const titleElement = document.createElement('h3');
+    titleElement.textContent = title;
+    section.appendChild(titleElement);
+    
+    items.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'detail-row';
+        const label = document.createElement('div');
+        label.className = 'detail-label';
+        label.textContent = item.label + ':';
+        row.appendChild(label);
+        const value = document.createElement('div');
+        value.className = 'detail-value';
+        
+        if (item.isStatus) {
+            const statusSpan = document.createElement('span');
+            statusSpan.className = `status-badge ${item.statusClass}`;
+            statusSpan.textContent = item.value;
+            value.appendChild(statusSpan);
+        } else {
+            value.textContent = item.value;
+        }
+        
+        row.appendChild(value);
+        section.appendChild(row);
+    });
+    
+    return section;
+}
+
+// Close modal
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('report-details-modal');
+    const closeBtn = document.querySelector('.close-modal');
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+    }
+    
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.style.display === 'flex') {
+            modal.style.display = 'none';
+        }
+    });
+});
+</script>

@@ -1,0 +1,242 @@
+<style>
+    
+/*#############################*/
+/*#########  2 F A  ###########*/
+/*#############################*/
+
+#TwoFactorAuth-overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s ease;
+    height: 100%;
+    align-items: center;
+}
+
+#TwoFactorAuth-overlay.active{
+    visibility: visible;
+    opacity: 1;
+}
+
+#TwoFactor-popup{
+    background-color: #ffffff ;
+    width: 380px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.25);
+    animation: 0.25s ease;
+}
+
+
+
+
+.email2FA-texts{
+    text-align: center;
+}
+
+#TwoFactor-popup h2 {
+    margin-bottom: 10px;
+    font-size: 22px;
+    color: #222;
+    font-family: sf_medium;
+}
+
+#TwoFactor-popup p{
+    font-size: 16px;
+    margin-bottom: 14px;
+    color: #555;
+    font-family: sf_regular;
+}
+
+
+
+
+
+
+.email2FA label {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+
+.email2FA .email2FABox {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.email2FA .email2FABox input[type="email"] {
+    width: 100%;
+    height: 45px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.email2FA .email2FABox input[type='email']:focus {
+    font-family: SF_REGULAR;
+    border-color: #1A1B41;
+    outline: none;
+}
+
+#TwoFactor-popup input{
+    width: 100%;
+    height: 35px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+#TwoFactor-popup input:focus{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    border-color: #1A1B41;
+}
+
+#TwoFactor-popup button{
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    transition: 0.2s ease;
+    font-family: sf_regular;
+}
+
+#sendCode-btn, #verify-btn{
+    background-color: #1A1B41;
+    font-size: SF_MEDIUM;
+    color: white;
+}
+
+#sendCode-btn:hover, #verify-btn:hover{
+    background-color: #0b0c2c;
+}
+
+
+#resend-btn{
+    background-color: transparent;
+    color: #222;
+    border: 2px solid #222;
+    width: 50%;
+    font-size: 14px;
+    font-family: sf_regular;
+    padding: 5px;
+    text-decoration: none;     
+    border-radius: 6px;         
+}
+
+#resend-btn:hover {
+    background-color: #222;
+    color: white;
+}
+
+#resend-btn.disabled {
+    background-color: #ddd;
+    color: #888;
+    border-color: #ccc;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+
+
+#reset-btn{
+    padding: 5px;
+    background-color: transparent;
+    color: #d9534f;
+    border: 2px solid #d9534f;
+    width: 50%;
+    font-size: 14px;
+    font-family: sf_regular;
+    text-decoration: none;     
+    border-radius: 6px;         
+}
+
+#reset-btn:hover{
+    background-color: #d9534f;
+    color: white;
+}
+
+
+#cancel-btn {
+    background-color: rgb(223, 223, 223);
+    color: black;
+    width: 90%;
+    margin-top: 10px;
+    font-family: sf_medium;
+}
+
+.step-email{
+    display: block;
+}
+
+.step-code{
+    display: none;
+}
+
+</style>
+
+
+<!--################################################-->
+<!--##############  2 F A  P O P U P  ##############-->
+<!--################################################-->
+
+        <div class="popup-email2FA" id="TwoFactorAuth-overlay">
+            <div class="TwoFactor-popup" id="TwoFactor-popup">
+                <div class="step-email">
+
+                    <div class="email2FA-texts">
+                        <h2>Two Factor Authentication</h2>
+                        <p>We will send a verification code to your email.</p>
+                    </div>
+
+                    <div class="validation-buttons">
+                        <button type="submit" id="sendCode-btn">Send Code</button>
+                        <button type="button" id="cancel-btn">Cancel</button>
+                    </div>
+                </div>
+                <div class="step-code">
+                    <div class="send-code-texts">
+                        <h2>Enter Verification Code</h2>
+                        <p>We sent a 6-digit code to your email.</p>
+                    </div>
+                    <div class="verify-code">
+                        <label for="">Code</label>
+                        <div class="verifyBox">
+                            <input type="text" id="code-input" maxlength="6" placeholder="******" required>
+                        </div>
+                    </div>
+                    <div class="code-buttons">
+                        <button class="verify-button" id="verify-btn">Verify</button>
+                    </div>
+                    <p class="sub-options"></p>
+                    <a href="#" id="resend-btn">Resend Code</a>
+                    <a href="#" id="reset-btn">User another email</a>
+                </div>
+            </div>
+        </div>
+

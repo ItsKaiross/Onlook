@@ -1,0 +1,894 @@
+
+
+<!--##########################################-->
+<!--########  N O  A C C  F R A M E  #########-->
+<!--##########################################-->
+
+
+
+
+
+<!--#######################################-->
+<!--########  I N F O  F R A M E  #########-->
+<!--#######################################-->
+<div class="report-missing-modal" id="report-missing-popup">    
+    <form action="/submit-report" method="POST" enctype="multipart/form-data" charset="utf-8">
+
+        <!--#####################################################-->
+        <!--############  P R O G R E S S  B A R  ###############-->
+        <!--#####################################################-->
+        <div class="progress_container">
+            <div class="progress_bar">
+                <div class="progress_fill" id="progress_fill_noacc"></div>
+            </div>
+            <div class="progress_steps">
+                <div class="progress_step active" data-step="1">
+                    <div class="step_circle">1</div>
+                    <div class="step_label">Personal</div>
+                </div>
+                <div class="progress_step" data-step="2">
+                    <div class="step_circle">2</div>
+                    <div class="step_label">Address</div>
+                </div>
+                <div class="progress_step" data-step="3">
+                    <div class="step_circle">3</div>
+                    <div class="step_label">Health</div>
+                </div>
+                <div class="progress_step" data-step="4">
+                    <div class="step_circle">4</div>
+                    <div class="step_label">Whereabouts</div>
+                </div>
+                <div class="progress_step" data-step="5">
+                    <div class="step_circle">5</div>
+                    <div class="step_label">Location</div>
+                </div>
+                <div class="progress_step" data-step="6">
+                    <div class="step_circle">6</div>
+                    <div class="step_label">Informant</div>
+                </div>
+                <div class="progress_step" data-step="7">
+                    <div class="step_circle">7</div>
+                    <div class="step_label">Address</div>
+                </div>
+                <div class="progress_step" data-step="8">
+                    <div class="step_circle">8</div>
+                    <div class="step_label">Review</div>
+                </div>
+            </div>
+        </div>
+
+        <!--#######################################-->
+        <!--##############   P I   ################-->
+        <!--#######################################-->
+        <div class="step step-1 active">
+            <div class="w-noacc-missing-report-close">
+                &times;
+            </div>
+            <div class="report-missing-txt">
+                <p>Missing Person Information</p>
+            </div>
+
+
+            <!--###############################################-->
+            <!--#############  F I R S T  N A M E  ############-->
+            <!--###############################################-->
+
+            <div class="firstName_frame">
+                <label for="firstName">First Name</label>
+                <div class="firstNameBox">
+                    <input type="text" name="firstName" id="firstName" placeholder="e.g. Juan"  required>
+                </div>
+            </div>
+
+            <!--#################################################-->
+            <!--#############  M I D D L E  N A M E  ############-->
+            <!--#################################################-->
+
+            <div class="middleName_frame">
+                <label for="middleName">Middle Name</label>
+                <div class="middleNameBox">
+                    <input type="text" name="middleName" id="middleName" placeholder="e.g. Santos" >
+                </div>
+            </div>
+
+            <!--#############################################-->
+            <!--#############  L A S T  N A M E  ############-->
+            <!--#############################################-->
+
+            <div class="lastName_frame">
+                <label for="lastName">Last Name</label>
+                <div class="lastNameBox">
+                    <input type="text" name="lastName" id="lastName" placeholder="e.g. Manahan"  required>
+                </div>
+            </div>
+
+            <!--########################################-->
+            <!--#############  S U F F I X  ############-->
+            <!--########################################-->
+
+            <div class="suffix_frame">
+                <label for="suffix">Suffix (Jr., Sr., III)</label>
+                <div class="suffixBox">
+                    <input type="text" name="suffix" id="suffix" placeholder="e.g., Jr., Sr., III">
+                </div>
+            </div>
+
+            <!--############################################-->
+            <!--#############  N I C K N A M E  ############-->
+            <!--############################################-->
+
+            <div class="nickname_frame">
+                <label for="nickname">Alias / Nickname</label>
+                <div class="nicknameBox">
+                    <input type="text" name="nickname" id="nickname" placeholder="e.g., Jun, Mike, Boyet">
+                </div>
+            </div>
+
+            <!--###########################################-->
+            <!--#############  G E N D E R  ###############-->
+            <!--###########################################-->
+
+            <div class="gender_frame">
+                <label for="gender">Gender</label>
+                <div class="gender_choice">
+                    <select name="gender" id="gender" required>
+                        <option selected disabled>Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+            </div>
+
+            <!--#######################################-->
+            <!--#############   D O B    ##############-->
+            <!--#######################################-->
+
+            <div class="dob_frame">
+                <label for="dob">Date of Birth</label>
+                <div class="dob-box">
+                    <input type="date" id="dob" name="dob" placeholder="Enter Date of Birth" required />
+                </div>
+            </div>
+
+            <div class="civil_citizen_frame">
+                <!--###################################################-->
+                <!--#############  C I V I L  S T A T U S  ############-->
+                <!--###################################################-->
+
+                <div class="civilStatus_frame">
+                    <label for="civil_status">Civil Status</label>
+                    <div class="civilStatus_choice">
+                        <select name="civil_status" id="civil_status" required>
+                            <option selected disabled>Select Civil Status</option>
+                            <option value="single">Single</option>
+                            <option value="married">Married</option>
+                            <option value="widowed">Widowed</option>
+                            <option value="separated">Separated</option>
+                            <option value="divorced">Divorced</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!--##################################################-->
+                <!--#############  C I T I Z E N S H I P  ############-->
+                <!--##################################################-->
+
+                <div class="citizenship_frame">
+                    <label for="citizenship">Citizenship</label>
+                    <div class="citizenship_choice">
+                        <select name="citizenship" id="citizenship" required>
+                            <option value="" disabled selected>Select Citizenship</option>
+                            <option value="Filipino">Filipino</option>
+                            <option value="Dual Citizenship">Dual Citizenship</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+
+            
+            <!--#######################################################-->
+            <!--#############  C O N T A C T  N U M B E R  ############-->
+            <!--#######################################################-->
+
+            <div class="contact_number_frame">
+                <label for="contact_number">Contact Number</label>
+                <div class="contact_numberBox">
+                    <input type="tel" name="contact_number" id="contact_number" placeholder="e.g. 09123456789 or +63912345678" pattern="^(\+639|09)\d{9}$"  required>
+                </div>
+            </div>
+
+            <button type="button" class="next_button">Next</button>
+        </div>
+
+
+
+        <!--##########################################-->
+        <!--#############  A D D R E S S  ############-->
+        <!--##########################################-->
+
+        <div class="step step-2 ">
+            <div class="w-noacc-missing-report-close2">
+                &times;
+            </div>
+            <div class="report-missing-txt">
+                <p>Address</p>
+            </div>
+            
+            <div class="address_frame">
+            </div>
+
+
+
+            <!--#####################################################-->
+            <!--###############   H O U S E N O .   #################-->
+            <!--#####################################################-->
+            <div class="houseNo_frame">
+                <label for="houseNumber">House No.</label>
+                <div class="HouseNumberBox">
+                    <input type="text" name="houseNumber" id="houseNumber" placeholder="e.g., 123A"  required>
+                </div>
+            </div>
+
+
+            <!--#####################################################-->
+            <!--##################   S T R E E T   ##################-->
+            <!--#####################################################-->
+            <div class="street_frame">
+                <label for="street">Street</label>
+                <div class="streetBox">
+                    <input type="text" name="street" id="street" placeholder="e.g., Rizal Street"  required>
+                </div>
+            </div>
+
+
+
+            <!--#####################################################-->
+            <!--################   B A R A N G A Y   ################-->
+            <!--#####################################################-->
+            <div class="barangay_frame">
+                <label for="brgy">Barangay</label>
+                <div class="BarangayBox">
+                    <input type="text" name="brgy" id="brgy" placeholder="e.g., Barangay 12" required>
+                </div>
+            </div>
+
+            <!--#####################################################-->
+            <!--#################   R E G I O N   ###################-->
+            <!--#####################################################-->
+            <div class='region_frame'>
+                <label for="region">Region</label>
+                <div class="regionBox">
+                    <select name="region" id="region" onchange="populateProvinces()" required>
+                        <option value="" disabled selected>Select a region</option>
+                    </select>
+                </div>
+            </div>
+
+
+            
+            <!--#####################################################-->
+            <!--################   P R O V I N C E  #################-->
+            <!--#####################################################-->
+            <div class='province_frame'>
+                <label for="province">Province</label>
+                <div class="provinceBox">
+                    <select name="province" id="province" onchange="populateCities()" required>
+                        <option value="" disabled selected>Select a province</option>
+                    </select>
+                </div>
+            </div>
+
+
+            
+            <!--#####################################################-->
+            <!--###################   C I T Y   #####################-->
+            <!--#####################################################-->
+            <div class='city_frame'>
+                <label for="city">City/Municipality</label>
+                <div class="cityBox">
+                    <select name="city" id="city" required>
+                        <option value="" disabled selected>Select a city/municipality</option>
+                    </select>
+                </div>
+            </div>
+            
+            
+            <button type="button" class="next_button">Next</button>
+            <button type="button" class="prev_button">Back</button>
+        </div>
+
+
+        <!--######################################################-->
+        <!--#######  H E A L T H  A N D  P H Y S I C A L  ########-->
+        <!--######################################################-->
+
+        <div class="step step-3 ">
+            <div class="w-noacc-missing-report-close3">
+                &times;
+            </div>
+            <div class="report-missing-txt">
+                <p>Health Conditions</p>
+            </div>
+            
+            <div class="health_frame">
+            </div>
+
+            <!--#######################################-->
+            <!--############ C H O I C E S ############-->
+            <!--#######################################-->
+
+            <div class="health_choice">
+                <select name="health_type_dropdown" id="" placeholder="Status" required>
+                    <option selected disabled>Choose Condition</option>
+                    <option value="physical_and_mental">Physical and Mental</option>
+                    <option value="physical">Physical</option>
+                    <option value="mental">Mental</option>
+                </select>
+            </div>
+            
+            <div class="health_text_frame">
+                <div class="healthbox">
+                    <textarea name="health_description" id="health_description" rows='4' cols='50' placeholder="e.g., Asthma, Diabetes, Uses hearing aid or put 'N/A if you don't know'" required></textarea>
+                </div>
+            </div>
+
+            <div class="report-missing-txt">
+                <p>Physical Description</p>
+            </div>
+
+            <div class="hair_eye_frame">
+
+                <!--#######################################-->
+                <!--#############  H A I R  ###############-->
+                <!--#######################################-->
+
+                <div class="hair_frame">
+                    <label for="hair_color">Hair color</label>
+                    <div class="hairColorBox">
+                        <select id="hair_color" name="hair_color">
+                            <option value="" disabled selected>Select hair color</option>
+                            <option value="black">Black</option>
+                            <option value="brown">Brown</option>
+                            <option value="blonde">Blonde</option>
+                            <option value="red">Red</option>
+                            <option value="gray">Gray</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!--################################################-->
+                <!--#############  E Y E  C O L O R  ###############-->
+                <!--################################################-->
+
+                <div class="eye_color_frame">
+                    <label for="eye_color">Eye Color</label>
+                    <div class="eyeColorBox">
+                        <select id="eye_color" name="eye_color">
+                            <option value="" disabled selected>Select eye color</option>
+                            <option value="black">Black</option>
+                            <option value="blue">Blue</option>
+                            <option value="brown">Brown</option>
+                            <option value="green">Green</option>
+                            <option value="hazel">Hazel</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!--###########################################-->
+            <!--#############  H E I G H T  ###############-->
+            <!--###########################################-->
+
+            <div class="height_frame">
+                <label for="height">Height(cm)</label>
+                <div class="heightBox">
+                    <input type="number" name="height" id="height" step="0.01" min="0" placeholder="e.g., 170 cm" step="0.1" min="0" required>
+                </div>
+            </div>
+
+            <!--###########################################-->
+            <!--#############  W E I G H T  ###############-->
+            <!--###########################################-->
+
+            <div class="weight_frame">
+                <label for="weight">Weight(kg)</label>
+                <div class="weightBox">
+                    <input type="number" name="weight" id="weight" step="0.01" min="0" placeholder="e.g., 70 kg" step="0.1" min="0" required>
+                </div>
+            </div>
+
+            <!--##############################################################-->
+            <!--#############  D I S T I N G U I S H  M A R K  ###############-->
+            <!--##############################################################-->
+
+            <div class="distinguish_mark_frame">
+                <label for="distinguish">Distinguishing Mark</label>
+                <div class="distinguishBox">
+                    <input type="text" name="distinguish" id="distinguish" placeholder="e.g., Scar on left cheek"  required>
+                </div>
+            </div>
+
+            <!--###################################################-->
+            <!--#############  O C C U P A T I O N  ###############-->
+            <!--###################################################-->
+
+            <div class="occupation_frame">
+                <label for="occupation">Occupation</label>
+                <div class="occupationBox">
+                    <input type="text" name="occupation" id="occupation" placeholder="e.g., Teacher, Driver, Student"  required>
+                </div>
+            </div>
+
+            
+
+            <!--###########################################-->
+            <!--#############  A T T I R E  ###############-->
+            <!--###########################################-->
+
+            <div class="attire_frame">
+                <label for="attire">Last seen attire</label>
+                <div class="attireBox">
+                    <textarea type="text" name="attire" id="attire" placeholder="e.g., Blue t-shirt and black jeans" rows='4' cols='50'  required></textarea>
+                </div>
+            </div>
+            
+
+
+
+            <button type="button" class="next_button">Next</button>
+            <button type="button" class="prev_button">Back</button>
+        </div>
+
+        <!--#############################################################-->
+        <!--##################### L A S T  S E E N  #####################-->
+        <!--#############################################################-->
+        <div class="step step-4">
+            <div class="w-noacc-missing-report-close4">
+                &times;
+            </div>
+            <div class="report-missing-txt">
+                <p>Last Known Whereabouts</p>
+            </div>
+            <!--#######################-->
+            <!--######  D A T E  ######-->
+            <!--#######################-->
+
+            <div class="last_Seen_frame">
+                <label for="lastSeen">Date Last Seen</label>
+                <div class="last-seen-box">
+                    <input type="date" id="lastSeen" name="lastSeen" placeholder="Enter date last seen" required />
+                </div>
+            </div>
+
+
+            <!--#######################-->
+            <!--######  T I M E  ######-->
+            <!--#######################-->
+
+            <div class="time_last_seen_frame">
+                <label for="TimelastSeen">Time Last Seen</label>
+                <div class="time-box">
+                    <input type="time" id="" name="timeLastSeen" placeholder="Enter time last seen" required />
+                </div>
+            </div>
+
+            <!--#########################################################-->
+            <!--#############  C I R C U M S T A N C E S  ###############-->
+            <!--#########################################################-->
+
+            <div class="circumstances_frame">
+                <label for="circumstances">Circumstances</label>
+                <div class="circumstancesBox">
+                    <textarea type="text" name="circumstances" id="circumstances" placeholder="Describe the circumstances of the disappearance (e.g., last seen at the park, wearing a blue jacket)..." rows='4' cols='50'  required></textarea>
+                </div>
+            </div>
+
+            <!--#########################-->
+            <!--######  I M A G E  ######-->
+            <!--#########################-->
+
+            <div class="upload_photo_frame" id="upload_photo_js">
+                <label for="upload_last_seen2">Upload Photo of Missing Person</label>
+                <div class="photo-box">
+                    <input type="file" name="upload_last_seen" id="upload_last_seen2" accept="image/*" onchange="previewLastSeenImage2()" >
+                </div>
+                <button type="button" id="view_last_seen_btn2" onclick="toggleLastSeenPreview2()" style="display: none; margin-top: 10px; padding: 8px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; cursor: pointer;">View Image</button>
+                <div id="last_seen_preview2" class="file-preview" style="display: none; margin-top: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background: #f9f9f9;"></div>
+            </div>
+
+
+            <!--#######################################-->
+            <!--#########  F I L E  U P L O A D  ######-->
+            <!--#######################################-->
+
+            <div class="file_upload_frame">
+                <label for="additional_files">Additional Files/Birth Certificate (PDF, Images)</label>
+                <div class="file-upload-box">
+                    <input type="file" name="additional_files" id="additional_files" accept=".pdf,.jpg,.jpeg,.png" multiple onchange="previewFiles()">
+                </div>
+                <button type="button" id="view_files_btn" onclick="toggleFilePreview()">View Files</button>
+                <div id="file_preview" class="file-preview" style="display: none;"></div>
+            </div>
+
+            <button type="button" class="next_button">Next</button>
+            <button type="button" class="prev_button">Back</button>
+        </div>
+
+
+        <!--###############################################-->
+        <!--##############  L O C A T I O N  ##############-->
+        <!--###############################################-->
+
+        <div class="step step-5 ">
+            <div class="w-noacc-missing-report-close5">
+                &times;
+            </div>
+            <div class="report-missing-txt">
+                <p>Last Known Location</p>
+            </div>
+
+            <!--###############################-->
+            <!--######  L O C A T I O N  ######-->
+            <!--###############################-->
+
+            <div class="location_frame">
+                <div class="radiobtn_frame">
+                    <label for="Location">
+                        <div class="location-radioButton">
+                            <input type="radio" name="locLastSeen" id="" value="my-location" onclick="document.getElementById('customLocation').disabled=true; document.getElementById('searchBtn').disabled=true; getLocation();" required> My Location
+                        </div>
+                    </label>
+                    <label for="Location">
+                        <div class="location-radioButton">
+                            <input type="radio" name="locLastSeen" id="" value="custom-location" onclick="document.getElementById('customLocation').disabled=false; document.getElementById('searchBtn').disabled=false;" required> Custom location
+                        </div>
+                    </label>
+                </div>
+                <div id="location"></div>
+                <div id="map"></div>
+                <input type="hidden" name="latitude" id="latitude2" value="0">
+                <input type="hidden" name="longitude" id="longitude2" value="0">
+
+                <label for="Location_textbox_frame">
+                    <div class="location_textbox_Frame">
+                        <input type="text" name="customLoc" id="customLocation" placeholder="Enter Location" disabled>
+                        <button type="button" onclick="searchLocation()" disabled id="searchBtn">Search</button>
+                    </div>
+                </label>
+            </div>
+
+            <button type="button" class="next_button">Next</button>
+            <button type="button" class="prev_button">Back</button>
+        </div>
+
+        <!--#################################################-->
+        <!--##############  I N F O R M A N T  ##############-->
+        <!--#################################################-->
+
+        <div class="step step-6 ">
+            <div class="w-noacc-missing-report-close5">
+                &times;
+            </div>
+            <div class="report-missing-txt">
+                <p> Your Information</p>
+            </div>
+
+
+            <!--#######################################-->
+            <!--############## F N A M E ##############-->
+            <!--#######################################-->
+
+            <div class="first_name_frame">
+                <label for="FistName">First Name</label>
+                <div class="FirstNamebox">
+                    <input type="text" name="FirstName" id="" placeholder="First name (e.g., Juan)"  required>
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--############# M N A M E  ##############-->
+            <!--#######################################-->
+            <div class="Middle_frame">
+                <label for="MiddleName">Middle Name</label>
+                <div class="MiddleNamebox">
+                    <input type="text" name="MiddleName" id="MiddleName" placeholder="Middle name (e.g., Cruz)" >
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--############## L N A M E ##############-->
+            <!--#######################################-->
+            
+            <div class="Last_Name_frame">
+                <label for="LastName">Last Name</label>
+                <div class="LastNamebox">
+                    <input type="text" name="LastName" id="LastName" placeholder="Last name (e.g., Dela Cruz)"  required>
+                </div>
+            </div>
+
+            <!--###########################################-->
+            <!--#############  G E N D E R  ###############-->
+            <!--###########################################-->
+
+            <div class="gender_frame">
+                <label for="gender">Gender</label>
+                <div class="gender_choice">
+                    <select name="informant_gender" id="informant_gender" required>
+                        <option selected disabled>Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+            </div>
+
+            <!--#######################################-->
+            <!--####### R E L A T I O N S H I P #######-->
+            <!--#######################################-->
+            <div class="Relationship_frame">
+                <label for="relation">Relationship to the Missing Person</label>
+                <div class="relationshipbox">
+                    <input type="text" name="relation" id="relation" placeholder="e.g., Parent, Friend, Neighbor" required>
+                </div>
+            </div>
+
+            <!--#######################################-->
+            <!--########### C O N T A C T #############-->
+            <!--#######################################-->
+            <div class="Contact_frame">
+                <label for="ContactNumber">Contact Number</label>
+                <div class="ContactNumberbox">
+                    <input type="tel" name="ContactNumber" id="ContactNumber" placeholder="e.g., 09123456789" pattern="^(\+639|09)\d{9}$" required>
+                </div>
+            </div>
+
+
+            <!--#####################################-->
+            <!--############  E M A I L  ############-->
+            <!--#####################################-->
+            <div class="email_frame">
+                <label for="email">Email</label>
+                <div class="emailBox">
+                    <input type="email" name="informantEmail" id="informantEmail" placeholder="e.g., juan@example.com" required>
+                </div>
+            </div>
+
+            
+
+            <button type="button" class="next_button">Next</button>
+            <button type="button" class="prev_button">Back</button>
+        </div>
+
+        <!--####################################################################-->
+        <!--##############  I N F O R M A N T  A D D R E S S  ##################-->
+        <!--####################################################################-->
+
+        <div class="step step-7 ">
+            <div class="w-noacc-missing-report-close5">
+                &times;
+            </div>
+            <div class="report-missing-txt">
+                <p>Informant Address</p>
+            </div>
+            <!--##################################-->
+            <!--#### A D D R E S S  C H E C K ####-->
+            <!--##################################-->
+
+            <div class="address_checkbox_frame">
+                <input type="checkbox" id="sameAddress" onchange="toggleSameAddress()">
+                <label for="sameAddress">Same address as missing person</label>
+            </div>
+
+            <!--####################################################-->
+            <!--###############   H O U S E N O .  #################-->
+            <!--####################################################-->
+            <div class="houseNo_frame">
+                <label for="houseNumber">House No.</label>
+                <div class="HouseNumberBox">
+                    <input type="text" name="informant_houseNo" id="informant_houseNo" placeholder="e.g., 123A"  required>
+                </div>
+            </div>
+
+
+            <!--#####################################################-->
+            <!--##################   S T R E E T   ##################-->
+            <!--#####################################################-->
+            <div class="street_frame">
+                <label for="street">Street</label>
+                <div class="streetBox">
+                    <input type="text" name="informant_street" id="informant_street" placeholder="e.g., Rizal Street"  required>
+                </div>
+            </div>
+
+
+
+            <!--#####################################################-->
+            <!--################   B A R A N G A Y   ################-->
+            <!--#####################################################-->
+            <div class="barangay_frame">
+                <label for="brgy">Barangay</label>
+                <div class="BarangayBox">
+                    <input type="text" name="informant_brgy" id="informant_brgy" placeholder="e.g., Barangay 12" required>
+                </div>
+            </div>
+
+            <!--#####################################################-->
+            <!--#################   R E G I O N   ###################-->
+            <!--#####################################################-->
+            <div class='region_frame'>
+                <label for="iregion">Region</label>
+                <div class="regionBox">
+                    <select name="iregion" id="iregion" onchange="populateIProvinces()" required>
+                        <option value="" disabled selected>Select a region</option>
+                    </select>
+                </div>
+            </div>
+
+
+            
+            <!--#####################################################-->
+            <!--################   P R O V I N C E  #################-->
+            <!--#####################################################-->
+            <div class='province_frame'>
+                <label for="iprovince">Province</label>
+                <div class="provinceBox">
+                    <select name="iprovince" id="iprovince" onchange="populateICities()" required>
+                        <option value="" disabled selected>Select a province</option>
+                    </select>
+                </div>
+            </div>
+
+
+            
+            <!--#####################################################-->
+            <!--###################   C I T Y   #####################-->
+            <!--#####################################################-->
+            <div class='city_frame'>
+                <label for="icity">City/Municipality</label>
+                <div class="cityBox">
+                    <select name="icity" id="icity" required>
+                        <option value="" disabled selected>Select a city/municipality</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="button" class="next_button">Next</button>
+            <button type="button" class="prev_button">Back</button>
+        </div>
+
+        <!--###############################################-->
+        <!--##############  R E V I E W  ##################-->
+        <!--###############################################-->
+
+        <div class="step step-8 ">
+            <div class="w-noacc-missing-report-close5">
+                &times;
+            </div>
+            <div class="report-missing-txt">
+                <p>Review Your Report</p>
+            </div>
+
+            <div class="review_summary">
+                <div class="review_section">
+                    <h3>Missing Person Information</h3>
+                    <p><strong>Name:</strong> <span id="review_name"></span></p>
+                    <p><strong>Gender:</strong> <span id="review_gender"></span></p>
+                    <p><strong>Date of Birth:</strong> <span id="review_dob"></span></p>
+                    <p><strong>Height:</strong> <span id="review_height"></span> cm</p>
+                    <p><strong>Weight:</strong> <span id="review_weight"></span> kg</p>
+                    <p><strong>Hair Color:</strong> <span id="review_hair"></span></p>
+                    <p><strong>Eye Color:</strong> <span id="review_eyes"></span></p>
+                    <p><strong>Last Seen Attire:</strong> <span id="review_attire"></span></p>
+                </div>
+                
+                <div class="review_section">
+                    <h3>Last Known Whereabouts</h3>
+                    <p><strong>Date Last Seen:</strong> <span id="review_date_seen"></span></p>
+                    <p><strong>Time Last Seen:</strong> <span id="review_time_seen"></span></p>
+                </div>
+
+                <div class="review_section">
+                    <h3>Your Information</h3>
+                    <p><strong>Your Name:</strong> <span id="review_informant_name"></span></p>
+                    <p><strong>Relationship:</strong> <span id="review_relationship"></span></p>
+                    <p><strong>Contact Number:</strong> <span id="review_contact"></span></p>
+                </div>
+            </div>
+
+            <button type="submit" class="submit_button">Submit Report</button>
+            <button type="button" class="prev_button">Back</button>
+        </div>
+    </form>
+</div>
+
+<script>
+// Image preview functions for NO ACC FRAME
+    function previewLastSeenImage2() {
+        const fileInput = document.getElementById('upload_last_seen2');
+        const preview = document.getElementById('last_seen_preview2');
+        const viewBtn = document.getElementById('view_last_seen_btn2');
+        
+        preview.innerHTML = '';
+        preview.style.cssText = 'display: none; margin-top: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background: white;';
+        
+        if (fileInput.files && fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            
+            if (!file.type.startsWith('image/')) {
+                alert('Please select a valid image file.');
+                return;
+            }
+            
+            viewBtn.style.display = 'block';
+            
+            const img = document.createElement('img');
+            img.onload = () => preview.style.display = 'block';
+            img.src = URL.createObjectURL(file);
+            img.style.cssText = 'width: 100px; height: 100px; object-fit: cover; border-radius: 5px; display: block; margin: 0 auto;';
+            
+            const fileName = document.createElement('p');
+            fileName.textContent = file.name;
+            fileName.style.cssText = 'margin: 5px 0; font-size: 12px; text-align: center;';
+            
+            preview.appendChild(img);
+            preview.appendChild(fileName);
+        } else {
+            viewBtn.style.display = 'none';
+        }
+    }
+
+    function toggleLastSeenPreview2() {
+        const preview = document.getElementById('last_seen_preview2');
+        const btn = document.getElementById('view_last_seen_btn2');
+        
+        if (!preview || !btn) {
+            console.error('Preview elements not found');
+            return;
+        }
+        
+        const isHidden = preview.style.display === 'none' || preview.style.display === '';
+        
+        if (isHidden) {
+            preview.style.display = 'block';
+            btn.textContent = btn.textContent.replace('View', 'Hide');
+        } else {
+            preview.style.display = 'none';
+            btn.textContent = btn.textContent.replace('Hide', 'View');
+        }
+    }
+
+    function openFileModal(file) {
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; display: flex; align-items: center; justify-content: center;';
+        modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+
+        const closeBtn = document.createElement('div');
+        closeBtn.innerHTML = '&times;';
+        closeBtn.style.cssText = 'position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; z-index: 10001;';
+        closeBtn.onclick = () => modal.remove();
+        modal.appendChild(closeBtn);
+
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.style.cssText = 'max-width: 90%; max-height: 90%; border-radius: 10px;';
+        modal.appendChild(img);
+
+        // Add escape key listener
+        const escapeHandler = (e) => {
+            if (e.key === 'Escape') {
+                modal.remove();
+                document.removeEventListener('keydown', escapeHandler);
+            }
+        };
+        document.addEventListener('keydown', escapeHandler);
+
+        document.body.appendChild(modal);
+}
+</script>

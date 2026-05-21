@@ -1,0 +1,208 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+/*##############################################*/
+/*######### R E G U L A R  F O N T S ###########*/
+/*##############################################*/
+
+@font-face {
+    font-family: "SF_BLACK";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK.otf);
+}
+@font-face {
+    font-family: "SF_BOLD";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BOLD.OTF);
+}
+@font-face {
+    font-family: "SF_MEDIUM";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_MEDIUM.OTF);
+}
+@font-face {
+    font-family: "SF_REGULAR";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_REGULAR.OTF);
+}
+
+/*############## ITL = ITALIC ################*/
+@font-face { 
+    font-family: "SF_SEMIBOLD_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_SEMI_BOLD_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_BLACK_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_HEAVY_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_HEAVY_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_LIGHT_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_LIGHT_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_THIN_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_THIN_ITL.OTF);
+}
+
+/*############################################*/
+/*#########  D E S I G N  C O D E  ###########*/
+/*############################################*/
+
+/* BODY */
+body{
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow-x: hidden;
+}
+
+/* BASE */
+.base{
+    height: 100vh;
+}
+
+.base-frame{
+    height: 100vh;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+/* LAYOUT FIX */
+.mid{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+/* LOGO */
+.onlook-logo{
+    justify-content: center;
+    display: flex;
+}
+
+.onlook-logo img{
+    width: 150px;
+}
+
+/* SIDEBAR */
+.sidebar{
+    margin-left: 20px;
+    width: 15%;
+    height: 100vh;
+    box-shadow: 8px 0px 10px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+    transition: width 0.3s ease;
+}
+
+.sidebar-top{
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+/* BURGER */
+.burger{
+    position: relative;
+    width: 35px;
+    height: 30px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.burger span{
+    position: absolute;
+    left: 0;
+    width: 35px;
+    height: 4px;
+    background-color: #1A1B41;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.burger span:nth-child(1) { top: 4px; }
+.burger span:nth-child(2) { top: 13px; }
+.burger span:nth-child(3) { top: 22px; }
+
+/* MENU LINKS */
+.sidebar .dashboard a,
+.sidebar .user-management a,
+.sidebar .user-logs a,
+.sidebar .audit-trail a, 
+.sidebar .edit-profile a,
+.sidebar .logout a{
+    display: block;
+    padding: 18px 15px;
+    margin: 5px 15px 5px 0;
+    color: #333;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: SF_REGULAR;
+    border-bottom: 1px solid #e6e6e6;
+    transition: all 0.25s ease;
+    text-align: center;
+}
+
+/* HOVER */
+.sidebar .dashboard a:hover,
+.sidebar .user-management a:hover,
+.sidebar .user-logs a:hover,
+.sidebar .audit-trail a:hover, 
+.sidebar .edit-profile a:hover{
+    background-color: #1A1B41;
+    color: #ffffff;
+    border-radius: 8px;
+    transform: translateX(6px);
+}
+
+.sidebar .logout a:hover{
+    background-color: #d62828;
+    color: #ffffff;
+    border-radius: 8px;
+    transform: translateX(6px);
+}
+
+/* 🔥 ACTIVE */
+.sidebar .dashboard a.active,
+.sidebar .user-management a.active,
+.sidebar .user-logs a.active,
+.sidebar .audit-trail a.active, 
+.sidebar .edit-profile a.active,
+.sidebar .logout a.active{
+    background-color: #1A1B41;
+    color: #ffffff;
+    border-radius: 8px;
+    transform: translateX(6px);
+}
+
+/* CONTENT */
+.content{
+    width: 85%;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+}
+
+/* COLLAPSE FIX */
+.sidebar.collapsed + .content{
+    width: calc(100% - 60px);
+}
+
+/* COLLAPSE */
+.sidebar.collapsed{
+    width: 60px; 
+}
+
+.sidebar.collapsed .dashboard,
+.sidebar.collapsed .user-management,
+.sidebar.collapsed .user-logs,
+.sidebar.collapsed .audit-trail, 
+.sidebar.collapsed .edit-profile,
+.sidebar.collapsed .logout,
+.sidebar.collapsed .onlook-logo{
+    display: none;
+}

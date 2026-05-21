@@ -1,0 +1,388 @@
+/*############################################################*/
+/*#################### MOBILE RESPONSIVE #####################*/
+/*############################################################*/
+
+@media screen and (max-width: 768px){
+
+/* BASE */
+.base_frame{
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+}
+
+/* LOGO */
+.public_logo_frame{
+    margin-top: 0;
+    padding: 0;
+}
+
+.public_logo_frame img{
+    height: 42px;
+}
+
+/* RIGHT SIDE BUTTON */
+.right_frame{
+    margin-right: 0;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* LOGIN BUTTON NASA GILID */
+.right-login-btn{
+    padding-top: 0;
+}
+
+.login-or-sign-up{
+    padding: 10px 16px;
+    font-size: 12px;
+    border-radius: 16px;
+    white-space: nowrap;
+}
+
+/* PROFILE BUTTON */
+.profile-dropdown-btn{
+    transform: scale(.85);
+}
+
+/* HERO SECTION */
+.picture_frame{
+    min-height: 300px;
+    height: 300px;
+    margin-top: 10px;
+}
+
+.picture_text_frame{
+    width: 95%;
+    transform: translate(-50%, -50%);
+}
+
+.picture_text_frame h1{
+    font-size: 30px !important;
+    padding-top: 90px;
+    line-height: 1.2;
+}
+
+/* REPORT BUTTON */
+.report_missing_btn{
+    margin-top: 15px;
+    padding: 12px 18px;
+    font-size: 13px;
+}
+
+/* SOCIALS */
+.social_frame{
+    top: auto;
+    bottom: 15px;
+    right: 10px;
+    padding: 10px 8px;
+    gap: 16px;
+}
+
+.social_frame img{
+    width: 17px;
+    height: 17px;
+}
+
+/* NAVIGATION */
+.middlebar_frame{
+    flex-wrap: wrap;
+    height: auto;
+}
+
+.middlebar_frame a{
+    flex: 1 1 50%;
+    min-height: 58px;
+    font-size: 13px;
+    padding: 10px;
+}
+
+.middlebar_frame a:hover{
+    transform: none;
+}
+
+}
+
+/*############################################################*/
+/*################## EXTRA SMALL DEVICES #####################*/
+/*############################################################*/
+
+@media screen and (max-width: 480px){
+
+.public_logo_frame img{
+    height: 35px;
+}
+
+.login-or-sign-up{
+    font-size: 11px;
+    padding: 8px 12px;
+}
+
+.picture_frame{
+    min-height: 240px;
+    height: 240px;
+}
+
+.picture_text_frame h1{
+    font-size: 22px !important;
+    padding-top: 70px;
+}
+
+.middlebar_frame a{
+    flex: 1 1 100%;
+    font-size: 12px;
+}
+
+}
+
+
+/* REPORT MISSING BUTTON MOBILE */
+@media screen and (max-width: 768px){
+
+.report_missing_btn{
+    margin-top: 20px;
+    padding: 18px 28px;
+    font-size: 18px;
+    border-radius: 14px;
+    font-family: SF_BOLD;
+    width: auto;
+    max-width: 90%;
+}
+
+}
+
+@media screen and (max-width: 480px){
+
+.report_missing_btn{
+    padding: 16px 24px;
+    font-size: 16px;
+}
+
+}
+@media screen and (max-width: 768px){
+
+    /*##########################################*/
+    /*########### MISSING SECTION ##############*/
+    /*##########################################*/
+
+    .missing_person_frame{
+        width: 100%;
+        padding: 20px 14px;
+        margin: 40px 0;
+        overflow: hidden;
+    }
+
+    .missing_person_text{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .missing_person_text h1{
+        font-size: 22px;
+        padding: 14px 22px;
+        border-radius: 12px;
+        margin-bottom: 14px;
+        text-align: center;
+    }
+
+    .see-all-btn{
+        padding: 10px 24px;
+        border-radius: 30px;
+        border: none;
+        background: #1A1B41;
+        color: white;
+        font-size: 14px;
+        font-family: SF_BOLD;
+        margin-bottom: 20px;
+    }
+
+    /*##########################################*/
+    /*############ CAROUSEL ####################*/
+    /*##########################################*/
+
+    .carousel-container{
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .missing_person_list_frame,
+    .carousel-content{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 18px;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+
+        padding: 10px 5px 20px;
+        scrollbar-width: none;
+    }
+
+    .missing_person_list_frame::-webkit-scrollbar,
+    .carousel-content::-webkit-scrollbar{
+        display: none;
+    }
+
+    /*##########################################*/
+    /*############### CARD #####################*/
+    /*##########################################*/
+
+    .picture_card{
+        width: 85% !important;
+        min-width: 85% !important;
+        max-width: 85% !important;
+
+        background: #F5F5F5;
+        border-radius: 18px;
+
+        overflow: hidden;
+        flex-shrink: 0;
+
+        border-top: 5px solid #C1121F;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+
+    /*##########################################*/
+    /*############ CARD IMAGE ##################*/
+    /*##########################################*/
+
+    .picture_card img,
+    .card_img{
+        width: 100%;
+        height: 320px;
+        object-fit: cover;
+        display: block;
+    }
+
+    /*##########################################*/
+    /*############ CARD BOTTOM #################*/
+    /*##########################################*/
+
+    .another_popup_frame,
+    .popup_waacount_frame{
+        width: 100%;
+        background: #2F3A4F;
+        padding: 18px 14px;
+    }
+
+    .reported_missing_person_info{
+        text-align: center;
+    }
+
+    .reported_missing_person_info a,
+    .reported_missing_person_waccount_btn a{
+        display: block;
+        color: white;
+        font-size: 20px;
+        font-family: SF_BOLD;
+        margin-bottom: 6px;
+        text-decoration: none;
+    }
+
+    .reported_missing_person_info p,
+    .reported_missing_person_waccount_btn p{
+        color: #E5E5E5;
+        font-size: 14px;
+    }
+
+    /*##########################################*/
+    /*######## IMAGE SLIDER BUTTONS ############*/
+    /*##########################################*/
+
+    .card-image-carousel{
+        position: relative;
+    }
+
+    .card-image-nav{
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        transform: translateY(-50%);
+
+        display: flex;
+        justify-content: space-between;
+
+        padding: 0 10px;
+    }
+
+    .card-nav-btn{
+        width: 34px;
+        height: 34px;
+
+        border-radius: 50%;
+        border: none;
+
+        background: rgba(0,0,0,0.45);
+        color: white;
+
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    /*##########################################*/
+    /*################ DOTS ####################*/
+    /*##########################################*/
+
+    .card-image-dots{
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        display: flex;
+        gap: 6px;
+    }
+
+    .card-dot{
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.5);
+    }
+
+    .card-dot.active{
+        background: white;
+    }
+
+    /*##########################################*/
+    /*######## SIDE ARROWS STYLE ###############*/
+    /*##########################################*/
+
+    .carousel-arrow{
+        width: 42px;
+        height: 42px;
+
+        border-radius: 50%;
+        border: none;
+
+        background: rgba(0,0,0,0.25);
+        color: white;
+
+        font-size: 24px;
+
+        position: absolute;
+        top: 45%;
+        transform: translateY(-50%);
+        
+        z-index: 10;
+    }
+
+    .left-arrow{
+        left: 0;
+    }
+
+    .right-arrow{
+        right: 0;
+    }
+
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Report</title>
+</head>
+<body>
+    {% include 'includes/global_messages.html' %}
+    
+    <h1>Edit Report - Case ID: {{ case_id }}</h1>
+    <form id="editReportForm">
+        <div>
+            <label>Full Name:</label>
+            <input type="text" name="full_name" required>
+        </div>
+        <div>
+            <label>Gender:</label>
+            <select name="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        <div>
+            <label>Height:</label>
+            <input type="text" name="height">
+        </div>
+        <div>
+            <label>Weight:</label>
+            <input type="text" name="weight">
+        </div>
+        <div>
+            <label>Hair Color:</label>
+            <input type="text" name="hair_color">
+        </div>
+        <div>
+            <label>Eye Color:</label>
+            <input type="text" name="eye_color">
+        </div>
+        <div>
+            <label>Date Last Seen:</label>
+            <input type="date" name="date_last_seen">
+        </div>
+        <div>
+            <label>Clothing Description:</label>
+            <textarea name="clothing_description"></textarea>
+        </div>
+        <div>
+            <label>Approval Status:</label>
+            <select name="approval_status">
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+            </select>
+        </div>
+        <button type="submit">Update Report</button>
+    </form>
+</body>
+</html>

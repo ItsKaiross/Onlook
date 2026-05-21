@@ -1,0 +1,210 @@
+/* Mobile Card Layout for User Management Table */
+
+@media screen and (max-width: 768px) {
+    /* Hide original table on mobile */
+    .user-management-tbl table {
+        display: none !important;
+    }
+    
+    /* Create mobile card layout */
+    .mobile-user-cards {
+        display: block !important;
+        padding: 10px;
+    }
+    
+    .user-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        margin: 15px 0;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .user-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    
+    .user-card-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #e9ecef;
+        gap: 10px;
+    }
+    
+    .user-name {
+        font-weight: 700;
+        font-size: 18px;
+        color: #2c3e50;
+        text-transform: capitalize;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .user-status {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        min-width: 70px;
+        text-align: center;
+    }
+    
+    .user-status.active {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+    }
+    
+    .user-status.pending {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+        box-shadow: 0 2px 4px rgba(255, 193, 7, 0.3);
+    }
+    
+    .user-status.restricted {
+        background: linear-gradient(135deg, #dc3545, #e83e8c);
+        color: white;
+        box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+    }
+    
+    .user-details {
+        margin: 15px 0;
+        background: rgba(248, 249, 250, 0.5);
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+    }
+    
+    .user-detail-row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 12px 0;
+        font-size: 14px;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        text-align: center;
+        gap: 5px;
+    }
+    
+    .user-detail-row:last-child {
+        border-bottom: none;
+    }
+    
+    .detail-label {
+        font-weight: 600;
+        color: #495057;
+        font-size: 13px;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .detail-value {
+        color: #212529;
+        text-align: center;
+        width: 100%;
+        font-weight: 500;
+    }
+    
+    .user-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+        padding-top: 10px;
+        border-top: 1px solid #eee;
+    }
+    
+    .user-actions a {
+        flex: 1;
+        padding: 12px 16px;
+        text-align: center;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.2s ease;
+        border: 2px solid transparent;
+    }
+    
+    .edit-action {
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        color: white;
+        box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
+    }
+    
+    .edit-action:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+    }
+    
+    .restrict-action {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        color: white;
+        box-shadow: 0 3px 8px rgba(220, 53, 69, 0.3);
+    }
+    
+    .restrict-action:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+    }
+    
+    .activate-action {
+        background: linear-gradient(135deg, #28a745, #1e7e34);
+        color: white;
+        box-shadow: 0 3px 8px rgba(40, 167, 69, 0.3);
+    }
+    
+    .activate-action:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+    }
+    
+    .user-document {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .user-document img {
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .view-doc-text {
+        font-size: 12px;
+        color: #007bff;
+        cursor: pointer;
+    }
+}
+
+/* Hide mobile cards on desktop */
+.mobile-user-cards {
+    display: none;
+}
+
+/* Restricted accounts modal mobile cards */
+@media screen and (max-width: 768px) {
+    .restricted-accounts-tbl table {
+        display: none !important;
+    }
+    
+    .mobile-restricted-cards {
+        display: block !important;
+    }
+}

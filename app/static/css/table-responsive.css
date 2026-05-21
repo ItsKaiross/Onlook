@@ -1,0 +1,218 @@
+/* Responsive Table CSS for User Management */
+
+/* Base table styles */
+.user-management-tbl-frame {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+.user-management-tbl table,
+.restricted-accounts-tbl table {
+    width: 100% !important;
+    min-width: 800px;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.user-management-tbl th,
+.user-management-tbl td,
+.restricted-accounts-tbl th,
+.restricted-accounts-tbl td {
+    padding: 8px 12px !important;
+    text-align: left;
+    border: 1px solid #ddd;
+    white-space: nowrap;
+}
+
+/* Mobile responsive table */
+@media screen and (max-width: 768px) {
+    .user-management-tbl-frame,
+    .restricted-accounts-tbl {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .user-management-tbl table,
+    .restricted-accounts-tbl table {
+        min-width: 600px !important;
+        font-size: 12px !important;
+    }
+    
+    .user-management-tbl th,
+    .user-management-tbl td,
+    .restricted-accounts-tbl th,
+    .restricted-accounts-tbl td {
+        padding: 6px 8px !important;
+        font-size: 12px !important;
+    }
+    
+    /* Hide less important columns on mobile */
+    .user-management-tbl th:nth-child(4),
+    .user-management-tbl td:nth-child(4),
+    .restricted-accounts-tbl th:nth-child(4),
+    .restricted-accounts-tbl td:nth-child(4) {
+        display: none;
+    }
+    
+    /* Adjust action buttons */
+    .action-btn {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 5px !important;
+    }
+    
+    .approve-btn, .reject-btn {
+        width: 100% !important;
+        margin: 2px 0 !important;
+    }
+    
+    .approve-btn a, .reject-btn a {
+        padding: 5px 8px !important;
+        font-size: 11px !important;
+        display: block !important;
+        text-align: center !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .user-management-tbl table,
+    .restricted-accounts-tbl table {
+        min-width: 500px !important;
+        font-size: 11px !important;
+    }
+    
+    .user-management-tbl th,
+    .user-management-tbl td,
+    .restricted-accounts-tbl th,
+    .restricted-accounts-tbl td {
+        padding: 4px 6px !important;
+        font-size: 11px !important;
+    }
+    
+    /* Hide more columns on small mobile */
+    .user-management-tbl th:nth-child(3),
+    .user-management-tbl td:nth-child(3),
+    .restricted-accounts-tbl th:nth-child(3),
+    .restricted-accounts-tbl td:nth-child(3) {
+        display: none;
+    }
+    
+    /* Stack action buttons vertically */
+    .action-btn {
+        min-width: 80px !important;
+    }
+    
+    .approve-btn a, .reject-btn a {
+        padding: 4px 6px !important;
+        font-size: 10px !important;
+    }
+}
+
+/* Top controls responsive */
+.user-management-top-tbl {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 20px !important;
+}
+
+.top-tbl-left, .top-tbl-right {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+
+@media screen and (max-width: 768px) {
+    .user-management-top-tbl {
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+    
+    .top-tbl-left, .top-tbl-right {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+    
+    .filter-button, .restricted-accounts-button, .add-user-button {
+        padding: 10px 15px !important;
+        font-size: 14px !important;
+        width: auto !important;
+        min-width: 120px !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .filter-button, .restricted-accounts-button, .add-user-button {
+        width: 100% !important;
+        margin: 5px 0 !important;
+        padding: 12px !important;
+        font-size: 16px !important;
+    }
+}
+
+/* Modal responsive */
+.restricted-accounts-modal {
+    width: 95% !important;
+    max-width: 1000px !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+}
+
+@media screen and (max-width: 768px) {
+    .restricted-accounts-modal {
+        width: 98% !important;
+        height: 90vh !important;
+        padding: 15px !important;
+    }
+    
+    .restricted-accounts-top {
+        flex-direction: column !important;
+        text-align: center !important;
+        margin-bottom: 15px !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .restricted-accounts-modal {
+        width: 100% !important;
+        height: 100vh !important;
+        padding: 10px !important;
+        border-radius: 0 !important;
+    }
+}
+
+/* Image view responsive */
+.validID {
+    max-width: 40px !important;
+    max-height: 40px !important;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+    .validID {
+        max-width: 30px !important;
+        max-height: 30px !important;
+    }
+    
+    .view_txt {
+        font-size: 10px !important;
+    }
+}
+
+/* Status badges responsive */
+.account-status, .account-status-pending, .account-status-restricted {
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+}
+
+@media screen and (max-width: 480px) {
+    .account-status, .account-status-pending, .account-status-restricted {
+        padding: 2px 6px !important;
+        font-size: 10px !important;
+    }
+}

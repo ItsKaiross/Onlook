@@ -1,0 +1,119 @@
+/*##############################################*/
+/*############ P O P U P  O V E R L A Y ########*/
+/*##############################################*/
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/*##############################################*/
+/*############ P O P U P  C O N T E N T ########*/
+/*##############################################*/
+.popup-content {
+    background: white;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px 25px 30px 25px;           
+    overflow: hidden;        
+}
+
+/*##############################################*/
+/*############ P O P U P  H E A D E R ##########*/
+/*##############################################*/
+.popup-header-password {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+/*##############################################*/
+/*######### H E A D E R  T I T L E #############*/
+/*##############################################*/
+.popup-header-password h3 {
+    margin: 0;
+    font-family: 'SF_BOLD';
+    font-size: 20px;
+    color: black;
+}
+
+/*##############################################*/
+/*############ C L O S E  B U T T O N ##########*/
+/*##############################################*/
+.close-btn {
+    font-size: 28px;
+    color: black;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+/*##############################################*/
+/*######## C L O S E  B U T T O N  H O V E R ####*/
+/*##############################################*/
+.close-btn:hover {
+    color: #d4d4d4;
+    transform: scale(1.1);
+}
+
+/*##############################################*/
+/*############ F O R M  G R O U P S ############*/
+/*##############################################*/
+.newPass-group, .confirmPass-group {
+    margin-bottom: 20px;
+}
+
+.newPass-group label, .confirmPass-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.newPass-group input, .confirmPass-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.newPass-group input:focus, .confirmPass-group input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/*##############################################*/
+/*############ S A V E  B U T T O N ############*/
+/*##############################################*/
+.save-button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.save-button button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.save-button button:hover {
+    background-color: #0056b3;
+}

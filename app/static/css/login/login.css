@@ -1,0 +1,800 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+/*##############################################*/
+/*######### R E G U L A R  F O N T S ###########*/
+/*##############################################*/
+
+@font-face {
+    font-family: "SF_BLACK";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK.otf);
+}
+@font-face {
+    font-family: "SF_BOLD";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BOLD.OTF);
+}
+@font-face {
+    font-family: "SF_MEDIUM";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_MEDIUM.OTF);
+}
+@font-face {
+    font-family: "SF_REGULAR";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_REGULAR.OTF);
+}
+
+/*############## ITL = ITALIC ################*/
+@font-face { 
+    font-family: "SF_SEMIBOLD_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_SEMI_BOLD_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_BLACK_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_BLACK_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_HEAVY_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_HEAVY_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_LIGHT_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_LIGHT_ITL.OTF);
+}
+@font-face {
+    font-family: "SF_THIN_ITL";
+    src: url(../../FONT/SF_PRO/SF_PRO_DISPLAY_THIN_ITL.OTF);
+}
+
+
+
+/*############################################*/
+/*#########  D E S I G N  C O D E  ###########*/
+/*############################################*/
+
+
+/*##############################*/
+/*#########  B O D Y  ###########*/
+/*###############################*/
+
+body{
+    background-image: url(/static/images/login/Login_bg.png);
+    background-size: cover;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: white;
+}
+
+/* Background overlay for popups */
+.black-bg, #bg-black {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+    pointer-events: auto;
+}
+
+#bg-black.active {
+    display: block;
+}
+
+.background_frame{
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+
+/*################################*/
+/*#####  L O G I N  L O G O  #####*/
+/*################################*/
+
+.login_logo_frame{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.login_logo_frame img{
+    width: 80px;
+}
+
+/*############################################*/
+/*#########  L O G I N  F R A M E  ###########*/
+/*############################################*/
+
+.login_frame{
+    margin: auto;
+    margin-top: 70px;
+    padding: 50px;
+    width: 600px;
+    min-height: 690px;
+    height: auto;
+    background-color: #F5F5F5;
+    border-radius: 50px;
+    box-shadow: 2px 2px 12px black;
+    overflow: visible;
+}
+
+
+/*################################*/
+/*########  T  E  X  T  ##########*/
+/*################################*/
+
+.text_frame{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.text_frame h1{
+    font-family: SF_BLACK;
+    font-size: 40px;
+    color: #000000;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+
+/*################################################*/
+/*########  L O G I N  T E X T  B O X  ###########*/
+/*################################################*/
+
+
+.login_textbox_frame{
+    margin-top: 20px;
+}
+
+.login_textbox_frame label{
+    font-family: SF_MEDIUM;
+    margin-left: 10px;
+}
+
+
+/*#####################################*/
+/*##### E M A I L  T E X T B O X  #####*/
+/*#####################################*/
+
+.email_box{
+text-align: center;
+}
+
+.email_frame{
+    margin-bottom: 10px;
+}
+
+
+/*###################################*/
+/*##### P A S S  T E X T B O X  #####*/
+/*###################################*/
+
+.password_box{
+    text-align: center;
+}
+
+.password_frame{
+    margin-bottom: 50px;
+}
+
+.show-password-frame {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.show-password-frame input[type="checkbox"] {
+    margin-right: 8px;
+    width: auto;
+    height: auto;
+}
+
+.show-password-frame label {
+    font-family: SF_MEDIUM;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 0;
+}
+
+/*####################################################*/
+/*#####  L O G I N  T E X T B O X  D E S I G N  #####*/
+/*###################################################*/
+
+
+
+/*####################################*/
+/*#### E M A I L  T E X T B O X  #####*/
+/*####################################*/
+
+.login_textbox_frame input[type='email']{
+    width: 500px;
+    height: 50px;
+    border: 2px solid #DEDEDE;
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 15px;
+    font-family: SF_MEDIUM;
+}
+
+.login_textbox_frame input[type='email']:focus{
+    border: 1px solid #1A1B41;
+    width: 500px;
+    height: 50px;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 18px;
+    font-family: SF_MEDIUM;
+
+}
+
+
+/*####################################*/
+/*#### P A S S    T E X T B O X  #####*/
+/*####################################*/
+
+
+.login_textbox_frame input[type='password']{
+    width: 500px;
+    height: 50px;
+    border: 2px solid #DEDEDE;
+    border-radius: 15px;
+    padding: 5px;
+    font-size: 15px;
+    font-family: SF_MEDIUM;
+}
+
+.login_textbox_frame input[type='password']:focus{
+    border: 1px solid #1A1B41;
+    width: 500px;
+    height: 50px;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 18px;
+    font-family: SF_MEDIUM;
+
+}
+
+.login_textbox_frame input[type='text']{
+    width: 500px;
+    height: 50px;
+    border: 2px solid #DEDEDE;
+    border-radius: 15px;
+    padding: 5px;
+    font-size: 15px;
+    font-family: SF_MEDIUM;
+}
+
+.login_textbox_frame input[type='text']:focus{
+    border: 1px solid #1A1B41;
+    width: 500px;
+    height: 50px;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 18px;
+    font-family: SF_MEDIUM;
+}
+
+
+/*#####################################*/
+/*#####   L O G I N  B U T T O N  #####*/
+/*#####################################*/
+
+.login_button_frame{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login_button_frame button{
+    width: 500px;
+    height: 50px;
+    border-radius: 15px;
+    font-size: 15px;
+    font-family: SF_MEDIUM;
+    border-color: #1A1B41;
+    background-color: #1A1B41;
+    color: white;
+    margin-top: 10px;
+    transition: .5s linear;
+}
+
+
+/*###################################*/
+/*#####   F O R G O T  P A S S  #####*/
+/*###################################*/
+
+
+.forgot_pass_frame{
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.forgot_pass_frame a{
+    font-family: SF_BOLD;
+    color: #1A1B41;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/*########################################*/
+/*#####  M E S S A G E  D E S I G N  #####*/
+/*########################################*/
+
+.msg{
+    text-align: center;
+    color: red;
+    font-family: sf_regular;
+}
+
+.msg2{
+    text-align: center;
+    color: rgb(15, 126, 0);
+    font-family: sf_regular;
+}
+
+
+/*###########################*/
+/*#####   S I G N  U P  #####*/
+/*###########################*/
+
+.signup_frame label{
+    margin-left: 10px;
+    font-family: SF_MEDIUM;
+    font-size: 15px;
+}
+
+.signup_frame a{
+    font-family: SF_BOLD;
+    margin-left: 10px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+/*######################*/
+/*#####   H E L P  #####*/
+/*######################*/
+
+.links_frame{
+    display: flex;
+    margin-top: 80px;
+}
+
+.links_frame a{
+    text-decoration: none;
+    margin-left: 10px;
+    font-family: SF_REGULAR;
+    font-size: 15px;
+    color: gray;
+    opacity: 65%;
+}
+
+
+/*#######################################################*/
+/*#########  F O R G O T  P A S S  P O P U P  ###########*/
+/*#######################################################*/
+
+
+.forgot_pass_popup{
+    margin: 0;
+    vertical-align: middle;
+}
+
+#popup_forgot_pass{
+    top: -10%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    position: fixed;
+    width: 528px;
+    padding: 35px;
+    transition: all .7 linear;
+    opacity: 1;
+    visibility: hidden;
+    background-color: #F5F5F5;
+    border-radius: 50px;
+    box-shadow: 2px 2px 12px black;
+    z-index: 10000;
+}
+
+.background_frame#blur.active{
+    pointer-events: none;
+    user-select: none;
+}
+
+.background_frame#blur.active .login_frame{
+    filter: blur(10px);
+}
+
+#popup_forgot_pass.active{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: visible;
+    opacity: 1;
+    transition: all .7s linear;
+}
+
+.Forgot_password_text h1{
+    font-family: sf_bold;
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+
+
+.email_textbox label {
+    margin-right: 400px;
+    margin-top: 20px;
+    font-size: 17px;
+    color: #1A1B41;
+    font-family: SF_BOLD;
+}
+
+
+.email_textbox .emailBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.email_textbox .emailBox input[type="email"] {
+    width: 100%;
+    height: 45px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.email_textbox .emailBox input[type='email']:focus {
+    font-family: SF_REGULAR;
+    border-color: #1A1B41;
+    outline: none;
+}
+
+
+.request_button{
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.request_button button{
+    font-size: 18px;
+    font-family: SF_MEDIUM;
+    border-color: #1A1B41;
+    background-color:  #1A1B41;
+    color: white;
+    width: 100%;
+    height: 40px;
+    border-radius: 10px
+}
+
+.request_button button:hover{
+    transition: .3s linear;
+    font-size: 18px;
+    font-family: SF_MEDIUM;
+    border-color:  #33357e;
+    background-color:  #3b3e92;
+    color: white;
+    width: 100%;
+    height: 40px;
+    border-radius: 10px
+}
+
+.cancel{
+    display: flex;
+    justify-content: center;
+}
+
+
+.cancel span{
+    font-family: sf_bold;
+    cursor: pointer;
+}
+
+
+
+
+/*################################################################################*/
+/*#########################  M E D I A  Q U E R I E S  ###########################*/
+/*################################################################################*/
+
+/* Desktop/Web view fixes - ensure proper display on larger screens */
+@media screen and (min-width: 769px) {
+    .login_frame {
+        width: 600px !important;
+        max-width: 600px !important;
+        padding: 50px !important;
+        margin-top: 70px !important;
+        box-sizing: border-box !important;
+    }
+    
+    .login_textbox_frame {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .login_textbox_frame input[type='email'],
+    .login_textbox_frame input[type='password'] {
+        width: 500px !important;
+        max-width: 500px !important;
+        height: 50px !important;
+        font-size: 15px !important;
+        padding: 10px !important;
+        box-sizing: border-box !important;
+        border-radius: 15px !important;
+    }
+    
+    .login_textbox_frame input[type='email']:focus,
+    .login_textbox_frame input[type='password']:focus {
+        width: 500px !important;
+        max-width: 500px !important;
+        height: 50px !important;
+        font-size: 18px !important;
+        padding: 8px !important;
+        box-sizing: border-box !important;
+        border-radius: 8px !important;
+    }
+    
+    .login_button_frame button {
+        width: 500px !important;
+        max-width: 500px !important;
+        height: 50px !important;
+        font-size: 15px !important;
+        box-sizing: border-box !important;
+    }
+    
+    .text_frame h1 {
+        font-size: 40px !important;
+    }
+}
+
+
+
+
+/*##########################################*/
+/*####### T A B L E T  /  P H O N E ########*/
+/*##########################################*/
+
+
+@media (max-width: 768px) {
+    .background_frame {
+        padding: 20px 15px !important;
+    }
+    
+    .login_frame {
+        width: 95% !important;
+        max-width: 380px !important;
+        padding: 30px 25px !important;
+        margin: 30px auto !important;
+        border-radius: 25px !important;
+        height: auto !important;
+    }
+    
+    .login_logo_frame img {
+        width: 55px !important;
+    }
+    
+    .text_frame h1 {
+        font-size: 26px !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .login_textbox_frame {
+        margin-top: 20px !important;
+    }
+    
+    .login_textbox_frame label {
+        font-size: 16px !important;
+        margin-bottom: 5px !important;
+    }
+
+
+
+/*##########################################*/
+/*########### L I N K  F R A M E ###########*/
+/*##########################################*/
+    .links_frame{
+        align-items: center;     
+        margin-top: 20px;       
+    }
+
+
+    .login_textbox_frame input[type='email'],
+    .login_textbox_frame input[type='password'],
+    .login_textbox_frame input[type='text'] {
+        width: 100% !important;
+        height: 45px !important;
+        font-size: 16px !important;
+        padding: 10px !important;
+        border-radius: 10px !important;
+        border: 2px solid #DEDEDE !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .login_textbox_frame input[type='email']:focus,
+    .login_textbox_frame input[type='password']:focus,
+    .login_textbox_frame input[type='text']:focus {
+        border: 2px solid #1A1B41 !important;
+    }
+    
+    .show-password-frame {
+        margin-left: 5px !important;
+    }
+    
+    .show-password-frame label {
+        font-size: 13px !important;
+    }
+    
+    .login_button_frame button {
+        width: 100% !important;
+        height: 45px !important;
+        font-size: 16px !important;
+        border-radius: 10px !important;
+        margin-top: 10px !important;
+    }
+    .forgot_pass_frame {
+        margin: 15px 0 20px 0 !important;
+    }
+    
+    .forgot_pass_frame a {
+        font-size: 15px !important;
+    }
+    
+    .signup_frame label,
+    .signup_frame a {
+        font-size: 15px !important;
+    }
+    
+    .links_frame {
+        margin-top: 25px !important;
+        justify-content: center !important;
+    }
+    
+    .links_frame a {
+        font-size: 13px !important;
+        margin: 0 5px !important;
+    }
+    
+    .msg, .msg2 {
+        display: none !important;
+    }
+    #popup_forgot_pass {
+        width: 90% !important;
+        max-width: 380px !important;
+        padding: 20px !important;
+        border-radius: 20px !important;
+    }
+    
+    .Forgot_password_text h1 {
+        font-size: 22px !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .email_textbox input[type='email'] {
+        height: 40px !important;
+        font-size: 15px !important;
+        padding: 10px !important;
+    }
+    
+    .request_button button {
+        height: 40px !important;
+        font-size: 15px !important;
+    }
+    
+
+}                   
+
+
+.loginPass{
+    position: relative;
+}
+
+.loginPass label{
+    font-family: SF_MEDIUM;
+    font-size: 16px;
+    color: #1A1B41;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.loginPass .passBox{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.loginPass .passBox input[type="password"],
+.loginPass .passBox input[type="text"]{
+    width: 100%;
+    height: 45px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    padding-left: 12px;
+    padding-right: 45px;
+    transition: all 0.3s ease;
+}
+
+.loginPass .passBox input[type="password"]:focus,
+.loginPass .passBox input[type="text"]:focus{
+    border-color: #1A1B41;
+    outline: none;
+}
+
+.loginPass .toggle-password{
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.loginPass .toggle-password:hover{
+    color: #1A1B41;
+}
+
+.loginPass .toggle-password svg{
+    width: 20px;
+    height: 20px;
+}
+
+.loginEmail{
+    margin-bottom: 15px;
+}
+
+.loginEmail label{
+    font-family: SF_MEDIUM;
+    font-size: 16px;
+    color: #1A1B41;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.loginEmail .emailBox input[type="email"]{
+    width: 100%;
+    height: 45px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 0 2px 6px rgba(24, 28, 50, 0.07);
+    font-family: SF_REGULAR;
+    padding-left: 12px;
+    transition: all 0.3s ease;
+}
+
+.loginEmail .emailBox input[type="email"]:focus{
+    border-color: #1A1B41;
+    outline: none;
+}
+
+
+
+
