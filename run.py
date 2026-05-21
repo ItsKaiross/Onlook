@@ -1,14 +1,5 @@
-import traceback
-import sys
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
-# This forces the real error to show in logs
 import api as _api_module
-
-app = _api_module.app  # Vercel can see `app` at module level
+app = _api_module.app
 
 if hasattr(app, 'config'):
     app.config['SQLALCHEMY_POOL_RECYCLE'] = 280
@@ -17,6 +8,8 @@ if hasattr(app, 'config'):
 port = 5001
 
 if __name__ == "__main__":
+    from dotenv import load_dotenv
+    load_dotenv()
     from api.scheduled_tasks.email_scheduler import start_email_scheduler
     start_email_scheduler()
     app.run(debug=True, port=port)
