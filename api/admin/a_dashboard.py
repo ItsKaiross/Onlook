@@ -22,24 +22,21 @@ def admin():
     loggedIn_email = None
     if loggedIn == True:
         loggedIn_email = userEmail
-        
+
     # Database connection
     conn = db.get_db_connection()
+    if conn is None:
+        flash('No database connection')
+        return redirect(url_for('login_bp.home'))
     cursor = conn.cursor(dictionary=True, buffered=True)
-    
+
     #Defaults
     total_police = 0
     total_users = 0
-    
+
     if 'accounts_id' in session and session['role'] == 'systemAdmin':
-        
-        if conn is None:
-            flash('No database connection')
-            return redirect(url_for('a_dashboard_bp.admin'))
-        
-        cursor.execute(
-            """SELECT COUNT(*) FROM police"""
-            )
+
+        cursor.execute("""SELECT COUNT(*) FROM police""")
         result_police = cursor.fetchone()
         total_police = result_police['COUNT(*)'] if result_police else 0
         
@@ -116,10 +113,6 @@ def admin():
         print(f"Police count data: {police_count_data}")
         
     elif 'accounts_id' in session and session['role'] == 'policeAdmin':
-        
-        if conn is None:
-            flash('No database connection')
-            return redirect(url_for('a_dashboard_bp.admin'))
         
         # Get case statistics
         cursor.execute("SELECT COUNT(*) as count FROM case_file")

@@ -19,7 +19,7 @@
     </div>
 
     <!-- ── Filters ── -->
-    <form method="GET" action="{{ url_for('admin_audit_trail') }}" class="audit-filters">
+    <form method="GET" action="{{ url_for('audit_trail_bp.admin_audit_trail') }}" class="audit-filters">
         <div class="filter-group">
             <label class="filter-label">Module</label>
             <select name="module" class="filter-select">
@@ -58,7 +58,7 @@
 
         <div class="filter-actions">
             <button type="submit" class="btn-filter">Filter</button>
-            <a href="{{ url_for('admin_audit_trail') }}" class="btn-reset">Reset</a>
+            <a href="{{ url_for('audit_trail_bp.admin_audit_trail') }}" class="btn-reset">Reset</a>
         </div>
     </form>
 

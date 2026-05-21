@@ -104,7 +104,7 @@
 
 {% if roles == 'policeAdmin' %}
 <script>
-    const GENERATE_REPORT_URL = "{{ url_for('generate_monthly_report') }}";
+    const GENERATE_REPORT_URL = "{{ url_for('police_admin_report_bp.generate_monthly_report') }}";
 </script>
 <script src="{{ url_for('static', filename='Javascript/admin/police_reports/police_reports.js') }}"></script>
 {% endif %}

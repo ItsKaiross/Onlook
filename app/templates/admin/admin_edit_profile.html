@@ -16,7 +16,7 @@
     <div class="container">
         <div class="header">
             <h1>Edit Profile</h1>
-            <a href="{{ url_for('admin') }}" class="back-btn"></a>
+            <a href="{{ url_for('a_dashboard_bp.admin') }}" class="back-btn"></a>
         </div>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -29,7 +29,7 @@
             {% endif %}
         {% endwith %}
 
-        <form method="POST" action="{{ url_for('admin_edit_profile') }}" enctype="multipart/form-data" class="edit-form" onsubmit="return validateForm();">
+        <form method="POST" action="{{ url_for('a_edit_profile_bp.admin_edit_profile') }}" enctype="multipart/form-data" class="edit-form" onsubmit="return validateForm();">
             <div class="form-group">
                 <label for="profile_picture">Profile Picture:</label>
                 <div class="picture-preview">

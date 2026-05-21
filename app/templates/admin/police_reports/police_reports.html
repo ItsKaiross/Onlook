@@ -34,7 +34,7 @@
                 </div>
                 <div class="reports-management-filter">
                     <!-- Filter Bar -->
-                    <form method="GET" action="{{ url_for('admin_reports') }}" class="filter-bar">
+                    <form method="GET" action="{{ url_for('police_admin_report_bp.admin_reports') }}" class="filter-bar">
                         <select name="month">
                             {% for num, name in months %}
                                 <option value="{{ num }}" {{ 'selected' if num == selected_month }}>
