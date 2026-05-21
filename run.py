@@ -1,5 +1,5 @@
 # from pyngrok import ngrok
-from app import app
+from api import app
 from api.scheduled_tasks.email_scheduler import start_email_scheduler
 from api.public_users import post_response
 from dotenv import load_dotenv
