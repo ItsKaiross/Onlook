@@ -337,9 +337,6 @@ def public_users(person_id=None):
         print(f"Error fetching missing persons: {e}")
     
     # If we reach here, we're on the home page (no person_id) or person not found
-    cursor.close()
-    conn.close()
-    
     return render_template(
         'public_users/1u-public_view.html', 
         loggedIn_email=loggedIn_email,
