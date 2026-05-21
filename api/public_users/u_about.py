@@ -1,4 +1,4 @@
-from flask import Flask, session, render_template, redirect, url_for, flash
+from flask import Flask, session, render_template, redirect, url_for, flash, Blueprint
 from api.database import db
 from api.audit import log_audit
 
@@ -6,7 +6,9 @@ from api.audit import log_audit
 #########  P U B L I C  P A G E  #########
 ##########################################
 
-@app.route('/about')
+about_bp = Blueprint('about_api', __name__)
+
+@about_bp.route('/about')
 def about():
     userEmail = session.get('email')
     loggedIn = session.get('loggedIn')

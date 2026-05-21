@@ -1,4 +1,4 @@
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Flask, session, render_template, redirect, url_for, flash, jsonify, Blueprint
 from flask import request
 from api.database import db
 from werkzeug.utils import secure_filename
@@ -12,11 +12,13 @@ import base64
 current_date_time = now
 from api.audit import log_audit
 
+user_edit_bp = Blueprint('user_edit_api', __name__)
+
 ############################################
 #########  E D I T  P R O F I L E  #########
 ############################################
 
-@app.route('/edit-profile', methods=['POST', 'GET'])
+@user_edit_bp.route('/edit-profile', methods=['POST', 'GET'])
 def public_edit_profile():
     
     user_id = session.get('accounts_id')

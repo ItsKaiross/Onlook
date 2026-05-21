@@ -1,16 +1,15 @@
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, jsonify
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 import base64
 now = datetime.now()
-current_date_time = now
 from api.audit import log_audit
 
+print_case_management_bp = Blueprint('print_case_management_bp', __name__)
 
-@app.route('/police-case-report/filtered')
+
+@print_case_management_bp.route('/police-case-report/filtered')
 def print_case_management_filtered():
     if not (session.get('role') == 'police' or session.get('role', '').endswith('-mps') or session.get('role', '').endswith('-ps')):
         return jsonify({'success': False, 'error': 'Access denied'})
@@ -90,7 +89,7 @@ def print_case_management_filtered():
 #########  P R I N T  C A S E  R E P O R T  #########
 #######################################################
 
-@app.route('/police-case-report/all')
+@print_case_management_bp.route('/police-case-report/all')
 def print_case_management():
     if not (session.get('role') == 'police' or session.get('role', '').endswith('-mps') or session.get('role', '').endswith('-ps')):
         return jsonify({'success': False, 'error': 'Access denied'})
@@ -142,7 +141,7 @@ def print_case_management():
         return jsonify({'success': False, 'error': str(e)})
 
 
-@app.route('/police-case-report/get-officers')
+@print_case_management_bp.route('/police-case-report/get-officers')
 def get_case_officers():
     if 'accounts_id' not in session:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 401

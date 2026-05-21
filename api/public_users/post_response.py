@@ -1,8 +1,10 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, Blueprint
 from api.database import db
 from api.audit import log_audit
 
-@app.route('/post-report-response/<token>/<response>')
+post_response_bp = Blueprint('post_api', __name__)
+
+@post_response_bp.route('/post-report-response/<token>/<response>')
 def handle_post_response(token, response):
     """Handle informant's response to post their report publicly"""
     try:
