@@ -35,7 +35,7 @@ def admin():
         
         if conn is None:
             flash('No database connection')
-            return redirect(url_for('admin'))
+            return redirect(url_for('a_dashboard_bp.admin'))
         
         cursor.execute(
             """SELECT COUNT(*) FROM police"""
@@ -119,7 +119,7 @@ def admin():
         
         if conn is None:
             flash('No database connection')
-            return redirect(url_for('admin'))
+            return redirect(url_for('a_dashboard_bp.admin'))
         
         # Get case statistics
         cursor.execute("SELECT COUNT(*) as count FROM case_file")

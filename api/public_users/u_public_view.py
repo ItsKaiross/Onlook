@@ -541,7 +541,7 @@ def submit_report():
             missing_fields = [field for field, value in required_fields.items() if not value.strip()]
             if missing_fields:
                 flash(f'Please fill in all required fields: {", ".join(missing_fields)}', 'error')
-                return redirect(url_for('public_users'))
+                return redirect(url_for('public_view_bp.public_users'))
             
             # Validate image upload - support multiple files
             imageOfMissing = request.files.get('upload_last_seen', '')
@@ -553,7 +553,7 @@ def submit_report():
             
             if not has_main_image and not has_additional_images:
                 flash('Please upload at least one photo of the missing person.', 'error')
-                return redirect(url_for('public_users'))
+                return redirect(url_for('public_view_bp.public_users'))
             
             userEmail = session.get('email')
             loggedIn = session.get('loggedIn')
@@ -745,7 +745,7 @@ def submit_report():
             if conn is None:
                 print('Database connection failed')
                 flash('Database connection failed. Please try again later.', 'error')
-                return redirect(url_for('public_users'))
+                return redirect(url_for('public_view_bp.public_users'))
             
             cursor = conn.cursor(dictionary=True, buffered=True)
             print(f"Database connection successful. Processing report for: {firstName} {lastName}")
@@ -884,14 +884,14 @@ def submit_report():
                         flash(f'Invalid file type for {img_filename}. Please upload JPEG, PNG, or GIF files only.', 'error')
                         cursor.close()
                         conn.close()
-                        return redirect(url_for('public_users'))
+                        return redirect(url_for('public_view_bp.public_users'))
                     
                     # Validate file size (max 5MB)
                     if len(img_filedata) > 5 * 1024 * 1024:
                         flash(f'File {img_filename} is too large. Please upload files smaller than 5MB.', 'error')
                         cursor.close()
                         conn.close()
-                        return redirect(url_for('public_users'))
+                        return redirect(url_for('public_view_bp.public_users'))
 
                     print(f"Processing image {idx+1}: {img_filename}, type: {img_filetype}, size: {len(img_filedata)} bytes")
 
@@ -930,7 +930,7 @@ def submit_report():
                     flash(f'Error processing image {img_filename}. Please try a different image.', 'error')
                     cursor.close()
                     conn.close()
-                    return redirect(url_for('public_users'))
+                    return redirect(url_for('public_view_bp.public_users'))
             
             print(f"Total images uploaded: {len(uploaded_images)}")
             
@@ -1055,7 +1055,7 @@ def submit_report():
                 cursor.close()
                 conn.close()
                 flash('Report submitted successfully!')
-                return redirect(url_for('public_users'))
+                return redirect(url_for('public_view_bp.public_users'))
             # If user is not logged in
             else:
                 
@@ -1158,7 +1158,7 @@ def submit_report():
                 cursor.close()
                 conn.close()
                 flash('Report submitted successfully!')
-                return redirect(url_for('public_users'))
+                return redirect(url_for('public_view_bp.public_users'))
         except Exception as e:
             if 'conn' in locals() and conn:
                 conn.rollback()
@@ -1169,9 +1169,9 @@ def submit_report():
             import traceback
             traceback.print_exc()
             flash('Error submitting report. Please try again.', 'error')
-            return redirect(url_for('public_users'))
+            return redirect(url_for('public_view_bp.public_users'))
     
-    return redirect(url_for('public_users'))
+    return redirect(url_for('public_view_bp.public_users'))
 
 
 ###################################################################
@@ -1326,7 +1326,7 @@ def view_missing_person(report_id):
         conn = db.get_db_connection()
         if conn is None:
             flash('Database connection failed', 'error')
-            return redirect(url_for('public_users'))
+            return redirect(url_for('public_view_bp.public_users'))
             
         cursor = conn.cursor(dictionary=True)
         cursor.execute("""
@@ -1390,11 +1390,11 @@ def view_missing_person(report_id):
             return render_template('public_users/1u-public_view.html', selected_person=person_data, missing_persons=[])
         else:
             flash('Person not found', 'error')
-            return redirect(url_for('public_users'))
+            return redirect(url_for('public_view_bp.public_users'))
             
     except Exception as e:
         flash(f'Error: {str(e)}', 'error')
-        return redirect(url_for('public_users'))
+        return redirect(url_for('public_view_bp.public_users'))
     
     
 
@@ -1406,7 +1406,7 @@ def view_missing_person(report_id):
 def help_locate_report(case_id):
     if request.method != 'POST':
         flash('Invalid request method', 'error')
-        return redirect(url_for('public_users'))
+        return redirect(url_for('public_view_bp.public_users'))
     
     try:
         userEmail = session.get('email')
@@ -1422,7 +1422,7 @@ def help_locate_report(case_id):
         # Validate case_id
         if not case_id or case_id == 0:
             flash('Invalid case ID', 'error')
-            return redirect(url_for('public_users'))
+            return redirect(url_for('public_view_bp.public_users'))
         
         #####################
         ####  E M A I L  ####
@@ -1477,7 +1477,7 @@ def help_locate_report(case_id):
         # Validate required fields
         if not all([relationship_to_missing, description, timeLastSeen, dateLastSeen]):
             flash('Please fill in all required fields.', 'error')
-            return redirect(url_for('public_users'))
+            return redirect(url_for('public_view_bp.public_users'))
         
         #####################################################
         ####  L O N G I T U D E  A N D  L A T I T U D E  ####
@@ -1521,7 +1521,7 @@ def help_locate_report(case_id):
         if conn is None:
             print('Database connection failed')
             flash('Database connection failed. Please try again.', 'error')
-            return redirect(url_for('public_users'))
+            return redirect(url_for('public_view_bp.public_users'))
         
         cursor = conn.cursor(dictionary=True, buffered=True)
         # Database insert
@@ -1547,7 +1547,7 @@ def help_locate_report(case_id):
                 flash('Invalid image file type.', 'error')
                 cursor.close()
                 conn.close()
-                return redirect(url_for('public_users'))
+                return redirect(url_for('public_view_bp.public_users'))
 
             # Missing Person Media
             cursor.execute(
@@ -1593,7 +1593,7 @@ def help_locate_report(case_id):
             conn.close()
 
             flash('Report submitted successfully!')
-            return redirect(url_for('public_users'))
+            return redirect(url_for('public_view_bp.public_users'))
         
         # If user is not logged in
         else:
@@ -1602,7 +1602,7 @@ def help_locate_report(case_id):
                 flash('Please fill in all required fields.', 'error')
                 cursor.close()
                 conn.close()
-                return redirect(url_for('public_users'))
+                return redirect(url_for('public_view_bp.public_users'))
             
             # No Account
             reporter_type = 'no_account'
@@ -1647,7 +1647,7 @@ def help_locate_report(case_id):
             conn.close()
 
             flash('Report submitted successfully!')
-            return redirect(url_for('public_users'))
+            return redirect(url_for('public_view_bp.public_users'))
     
     except Exception as e:
         if 'conn' in locals() and conn:
@@ -1659,7 +1659,7 @@ def help_locate_report(case_id):
         import traceback
         traceback.print_exc()
         flash('Error submitting report. Please try again.', 'error')
-        return redirect(url_for('public_users'))
+        return redirect(url_for('public_view_bp.public_users'))
 
     
     

@@ -104,7 +104,7 @@ def sign_up():
         
         if conn is None:
             msg2 = 'No database'
-            return redirect(url_for('register'))
+            return redirect(url_for('registration_bp.register'))
         
         cursor = conn.cursor(dictionary=True, buffered=True)
         
@@ -113,7 +113,7 @@ def sign_up():
         
         if user is not None:
             flash("Email already exists. Please use another email.", "error")
-            return redirect(url_for('public_users'))
+            return redirect(url_for('public_view_bp.public_users'))
         
         else:
             if password == confirm_password:
@@ -239,10 +239,10 @@ def sign_up():
                     conn.close()
                     sendEmail(recipient=recipient)
                     # Back to html
-                    return redirect(url_for('public_users'))
+                    return redirect(url_for('public_view_bp.public_users'))
             else:
                 flash("Passwords do not match.", "warning")
-                return redirect(url_for('public_users'))
+                return redirect(url_for('public_view_bp.public_users'))
             
             
 

@@ -7,7 +7,7 @@ p_notifications_bp = Blueprint('p_notifications_bp', __name__)
 @p_notifications_bp.route('/police-notifications')
 def police_notifications():
     if 'accounts_id' not in session or not (session.get('role') == 'police' or session.get('role', '').endswith('-mps') or session.get('role', '').endswith('-ps')):
-        return redirect(url_for('home'))
+        return redirect(url_for('login_bp.home'))
 
     conn = db.get_db_connection()
     cursor = conn.cursor(dictionary=True, buffered=True)

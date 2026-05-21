@@ -56,7 +56,7 @@ def report_sighting():
                              approved_cases=approved_cases,
                              user_email=user_email,
                              user_contact=user_contact), 200
-    return redirect(url_for('public_users'))
+    return redirect(url_for('public_view_bp.public_users'))
 
 @report_sighting_bp.route('/submit-sighting', methods=['POST'])
 def submit_sighting():

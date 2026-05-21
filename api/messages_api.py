@@ -6,7 +6,7 @@ messages_bp = Blueprint('messages_api', __name__)
 @messages_bp.route('/messages')
 def messages_page():
     if 'accounts_id' not in session:
-        return redirect(url_for('login'))
+        return redirect(url_for('login_bp.home'))
     return render_template('messages.html', loggedIn_email=session.get('email'))
 
 @messages_bp.route('/api/messages/conversations')

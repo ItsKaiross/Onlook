@@ -39,7 +39,7 @@ def submit_otp():
                 
                 cursor.close()
                 conn.close()
-                return redirect(url_for('reset_pass'))
+                return redirect(url_for('reset_password_bp.reset_pass'))
             else:
                 # Log failed OTP verification
                 if user:

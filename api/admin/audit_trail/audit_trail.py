@@ -15,7 +15,7 @@ audit_trail_bp = Blueprint('audit_trail_bp', __name__)
 @audit_trail_bp.route('/admin/audit-trail')
 def admin_audit_trail():
     if 'accounts_id' not in session or session.get('role') not in ['systemAdmin', 'policeAdmin']:
-        return redirect(url_for('login'))
+        return redirect(url_for('login_bp.home'))
 
     try:
         module    = request.args.get('module', '')
@@ -124,6 +124,6 @@ def admin_audit_trail():
             pass
             
         flash('Something went wrong loading the audit trail.', 'error')
-        return redirect(url_for('admin'))
+        return redirect(url_for('a_dashboard_bp.admin'))
 
 

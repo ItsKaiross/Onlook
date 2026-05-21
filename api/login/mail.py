@@ -43,53 +43,35 @@ def send_mail():
         """
         session['emailOTP'] = recipient
         session['One_Time_Password'] = otp
-        # Database connection
         conn = db.get_db_connection()
         
         if conn is None:
-            msg2 = 'No database'
-            return redirect(url_for('send_mail'))
+            return redirect(url_for('mail_bp.send_mail'))
         
         cursor = conn.cursor(dictionary=True)
-        
         cursor.execute('SELECT * FROM accounts WHERE email =%s AND email=%s;', (recipient, recipient))
         user = cursor.fetchone()
         
-        if  user is None:
+        if user is None:
             flash('Account does not exist', 'error')
             cursor.close()
             conn.close()
-            return redirect(url_for('public_users'))
+            return redirect(url_for('public_view_bp.public_users'))
         else:
-            # Compose the message
-            msg = Message(
-                subject=subject,
-                recipients=[recipient],
-                html=html_body)
-            
-            # Send the email
+            msg = Message(subject=subject, recipients=[recipient], html=html_body)
             try:
                 mail.send(msg)
-                
-                # Log OTP email sending audit
                 log_audit(cursor, module='auth', action='send_otp_email',
                           target_table='accounts', target_id=user['accounts_id'],
                           status='success', remarks=f'OTP email sent to: {recipient}')
-                
                 cursor.close()
                 conn.close()
             except Exception as e:
-                message = 'failed'
-                
-                # Log failed OTP email audit
                 log_audit(cursor, module='auth', action='send_otp_email',
                           target_table='accounts', target_id=user['accounts_id'],
                           status='failure', remarks=f'Failed to send OTP email to: {recipient}')
-                
                 cursor.close()
                 conn.close()
-            return redirect(url_for('send_mail'))
+            return redirect(url_for('mail_bp.send_mail'))
 
     return render_template('login/submit_otp.html')
-
-

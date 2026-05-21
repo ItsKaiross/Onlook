@@ -50,7 +50,7 @@ def admin_user_management():
     if 'accounts_id' in session and session['role'] == 'systemAdmin':
         if conn is None:
             flash('Database connection error', 'error')
-            return redirect(url_for('admin'))
+            return redirect(url_for('a_dashboard_bp.admin'))
         
         # Build dynamic query for system admin
         base_query = """

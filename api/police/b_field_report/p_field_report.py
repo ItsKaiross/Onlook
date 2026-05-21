@@ -17,7 +17,7 @@ p_field_report_bp = Blueprint('p_field_report_bp', __name__)
 @p_field_report_bp.route('/police-field-report', methods=['GET', 'POST'])
 def police_field_report():
     if 'accounts_id' not in session or not (session.get('role') == 'police' or session.get('role') == 'policeChief' or session.get('role', '').endswith('-mps') or session.get('role', '').endswith('-ps')):
-        return redirect(url_for('home'))
+        return redirect(url_for('login_bp.home'))
 
     if request.method == 'POST':
         try:
@@ -55,7 +55,7 @@ def police_field_report():
             imageOfMissing = request.files.get('upload_last_seen', '')
             if not imageOfMissing or not imageOfMissing.filename:
                 flash('Please upload a photo of the missing person.', 'error')
-                return redirect(url_for('police_field_report'))
+                return redirect(url_for('p_field_report_bp.police_field_report'))
             
             # Location
             location_type = request.form.get('locLastSeen', '')
@@ -71,7 +71,7 @@ def police_field_report():
             conn = db.get_db_connection()
             if not conn:
                 flash('Database connection failed', 'error')
-                return redirect(url_for('police_field_report'))
+                return redirect(url_for('p_field_report_bp.police_field_report'))
             
             cursor = conn.cursor(dictionary=True, buffered=True)
             
@@ -134,7 +134,7 @@ def police_field_report():
             conn.close()
             
             flash('Manual report submitted successfully!', 'success')
-            return redirect(url_for('police_field_report'))
+            return redirect(url_for('p_field_report_bp.police_field_report'))
             
         except Exception as e:
             if 'conn' in locals() and conn:
@@ -143,7 +143,7 @@ def police_field_report():
             import traceback
             traceback.print_exc()
             flash(f'Error submitting report: {str(e)}', 'error')
-            return redirect(url_for('police_field_report'))
+            return redirect(url_for('p_field_report_bp.police_field_report'))
 
     userEmail = session.get('email')
     loggedIn = session.get('loggedIn')
@@ -360,7 +360,7 @@ def police_field_report():
                 notification_count=notification_count,
                 )
         else:
-            return redirect(url_for('home'))
+            return redirect(url_for('login_bp.home'))
 
     except Exception as e:
         print(f"Database error: {e}")

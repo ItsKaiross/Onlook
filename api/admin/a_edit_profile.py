@@ -30,12 +30,12 @@ def admin_edit_profile():
         loggedIn_email = userEmail
     if 'accounts_id' not in session:
         print("DEBUG: No accounts_id in session, redirecting to login")
-        return redirect(url_for('login'))
+        return redirect(url_for('login_bp.home'))
     
     conn = db.get_db_connection()
     if conn is None:
         flash('Database connection error')
-        return redirect(url_for('admin'))
+        return redirect(url_for('a_dashboard_bp.admin'))
     
     cursor = conn.cursor(dictionary=True)
     accounts_id = session['accounts_id']
@@ -85,11 +85,11 @@ def admin_edit_profile():
                 # For password-only updates, we only need password and confirmPassword
                 if not password or not confirmPassword:
                     flash('Please provide both password fields!', 'error')
-                    return redirect(url_for('admin_edit_profile'))
+                    return redirect(url_for('a_edit_profile_bp.admin_edit_profile'))
                 
                 if password != confirmPassword:
                     flash('Passwords do not match!', 'error')
-                    return redirect(url_for('admin_edit_profile'))
+                    return redirect(url_for('a_edit_profile_bp.admin_edit_profile'))
                 
                 # Update only the password
                 hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
@@ -117,12 +117,12 @@ def admin_edit_profile():
                 conn.close()
                 
                 flash('Password updated successfully!', 'info')
-                return redirect(url_for('admin_edit_profile'))
+                return redirect(url_for('a_edit_profile_bp.admin_edit_profile'))
             
             # Regular form validation for non-password-only updates
             if not firstName or not lastName or not email or not badgeNumber or not rank or not gender or not dateOfBirth or not stationAssignment or not positionTitle or not dateJoined:
                 flash('Please fill in all required fields!', 'error')
-                return redirect(url_for('admin_edit_profile'))
+                return redirect(url_for('a_edit_profile_bp.admin_edit_profile'))
             
             # Get current profile data for comparison
             cursor.execute(
@@ -139,7 +139,7 @@ def admin_edit_profile():
             
             if not current_data:
                 flash('Account not found!', 'error')
-                return redirect(url_for('admin_edit_profile'))
+                return redirect(url_for('a_edit_profile_bp.admin_edit_profile'))
             
             # Create police record if it doesn't exist
             if not current_data['first_name'] and current_data['account_email']:
@@ -240,7 +240,7 @@ def admin_edit_profile():
                     flash('Passwords do not match!', 'error')
                     cursor.close()
                     conn.close()
-                    return redirect(url_for('admin_edit_profile'))
+                    return redirect(url_for('a_edit_profile_bp.admin_edit_profile'))
             
             # Check each field individually for debugging
             print(f"DEBUG: Individual field checks:")
@@ -533,7 +533,7 @@ def admin_edit_profile():
                     # Don't fail the whole operation if email fails
                     pass
             
-            return redirect(url_for('admin_edit_profile'))
+            return redirect(url_for('a_edit_profile_bp.admin_edit_profile'))
             
         except Exception as e:
             print(f"DEBUG: Error in profile update: {str(e)}")
@@ -542,7 +542,7 @@ def admin_edit_profile():
             if 'conn' in locals():
                 conn.close()
             flash(f'An error occurred while updating profile: {str(e)}')
-            return redirect(url_for('admin_edit_profile'))
+            return redirect(url_for('a_edit_profile_bp.admin_edit_profile'))
     
     # GET request - fetch current profile data
     cursor.execute(

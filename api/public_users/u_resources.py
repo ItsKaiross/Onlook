@@ -47,7 +47,7 @@ def resources():
                              loggedIn_email=loggedIn_email,
                              profile=profile,
                              role=role), 200
-    return redirect(url_for('public_users'))
+    return redirect(url_for('public_view_bp.public_users'))
     
 #############################################################
 #########  P U B L I C  P A G E  R E S O U R C E S  #########

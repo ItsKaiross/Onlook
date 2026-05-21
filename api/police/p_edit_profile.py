@@ -16,18 +16,18 @@ def police_edit_profile():
                 'kalayaan-mps', 'liliw-mps', 'sanpablocity-ps', 'santacruz-mps',
                 'santarosacity-ps', 'siniloan-mps', 'victoria-mps']:
         flash('Access denied', 'error')
-        return redirect(url_for('home'))
+        return redirect(url_for('login_bp.home'))
     
     user_id = session.get('accounts_id')
     conn = db.get_db_connection()
     if not conn:
         flash('Database connection failed', 'error')
-        return redirect(url_for('police_edit_profile'))
+        return redirect(url_for('p_edit_profile_bp.police_edit_profile'))
     cursor = conn.cursor(dictionary=True)
     accounts_id = session['accounts_id']
     if not user_id:
         flash('Session expired', 'error')
-        return redirect(url_for('home'))
+        return redirect(url_for('login_bp.home'))
     if request.method == 'POST':
         # Get form data
         first_name = request.form.get('first_name')
@@ -105,20 +105,20 @@ def police_edit_profile():
                 flash('Account not found', 'error')
                 cursor.close()
                 conn.close()
-                return redirect(url_for('police_edit_profile'))
+                return redirect(url_for('p_edit_profile_bp.police_edit_profile'))
             stored_password = row['password']
             
             if not bcrypt.check_password_hash(stored_password, current_password):
                 flash('Current password is incorrect', 'error')
                 cursor.close()
                 conn.close()
-                return redirect(url_for('police_edit_profile'))
+                return redirect(url_for('p_edit_profile_bp.police_edit_profile'))
             
             if new_password != confirm_password:
                 flash('New passwords do not match', 'error')
                 cursor.close()
                 conn.close()
-                return redirect(url_for('police_edit_profile'))
+                return redirect(url_for('p_edit_profile_bp.police_edit_profile'))
             
             # Update password
             hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
@@ -133,7 +133,7 @@ def police_edit_profile():
             flash('Police record not found', 'error')
             cursor.close()
             conn.close()
-            return redirect(url_for('police_edit_profile'))
+            return redirect(url_for('p_edit_profile_bp.police_edit_profile'))
         
         # Get current profile data for audit before changes
         cursor.execute(
@@ -239,7 +239,7 @@ def police_edit_profile():
         mail.send(msg)
         
         flash('Profile updated successfully!', 'success')
-        return redirect(url_for('police_edit_profile'))
+        return redirect(url_for('p_edit_profile_bp.police_edit_profile'))
     
     if request.method == 'GET':
         cursor = conn.cursor(dictionary=True)

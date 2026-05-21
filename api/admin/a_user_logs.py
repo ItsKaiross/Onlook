@@ -44,7 +44,7 @@ def admin_user_logs():
     conn = db.get_db_connection()
     if conn is None:
         flash('Database connection failed', 'error')
-        return redirect(url_for('admin'))
+        return redirect(url_for('a_dashboard_bp.admin'))
     
     cursor = conn.cursor(dictionary=True, buffered=True)
     
@@ -102,7 +102,7 @@ def admin_user_logs():
         else:
             # User doesn't have proper admin role
             flash('Access denied. Insufficient privileges.', 'error')
-            return redirect(url_for('admin'))
+            return redirect(url_for('a_dashboard_bp.admin'))
     except Exception as e:
         flash(f'Error retrieving user logs: {str(e)}', 'error')
         users = []

@@ -20,7 +20,7 @@ def admin_restrict_user(accounts_id):
         
         if conn is None:
             flash('Database connection failed', 'error')
-            return redirect(url_for('admin_user_management'))
+            return redirect(url_for('a_user_management_bp.admin_user_management'))
         
         cursor = conn.cursor(dictionary=True)
         
@@ -32,7 +32,7 @@ def admin_restrict_user(accounts_id):
             flash('System Administrators cannot be restricted', 'error')
             cursor.close()
             conn.close()
-            return redirect(url_for('admin_user_management'))
+            return redirect(url_for('a_user_management_bp.admin_user_management'))
         
         # Log audit for restricting user
         log_audit(cursor, module='users', action='restrict_user',
@@ -46,6 +46,6 @@ def admin_restrict_user(accounts_id):
         
         flash('User has been restricted successfully', 'success')
         
-    return redirect(url_for('admin_user_management'))
+    return redirect(url_for('a_user_management_bp.admin_user_management'))
 
 

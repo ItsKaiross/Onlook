@@ -22,7 +22,7 @@ def police_edit_report(case_id):
         if request.method == 'POST':
             return jsonify({'success': False, 'message': 'Access denied'})
         flash('Access denied')
-        return redirect(url_for('police_field_report'))
+        return redirect(url_for('p_field_report_bp.police_field_report'))
     
     if request.method == 'POST':
         try:

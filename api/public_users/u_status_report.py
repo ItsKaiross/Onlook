@@ -136,7 +136,7 @@ def status_report():
                              user_reports=user_reports,
                              profile=profile,
                              role=session.get('role')), 200
-    return redirect(url_for('public_users'))
+    return redirect(url_for('public_view_bp.public_users'))
 
 @status_report_bp.route('/check-status', methods=['POST'])
 def check_status():

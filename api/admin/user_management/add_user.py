@@ -39,7 +39,7 @@ def admin_add_user():
         conn = db.get_db_connection()
         if conn is None:
             flash('Database connection failed', 'error')
-            return redirect(url_for('admin_user_management'))
+            return redirect(url_for('a_user_management_bp.admin_user_management'))
         
         cursor = conn.cursor(dictionary=True, buffered=True)
         
@@ -88,7 +88,7 @@ def admin_add_user():
             cursor.close()
             conn.close()
         
-    return redirect(url_for('admin_user_management'))
+    return redirect(url_for('a_user_management_bp.admin_user_management'))
 
 ########################################################
 #########  A D D  U S E R  S E N D  E M A I L  #########

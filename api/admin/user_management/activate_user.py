@@ -20,7 +20,7 @@ def admin_activate_user(accounts_id):
         
         if conn is None:
             msg2 = 'No database'
-            return redirect(url_for('admin'))
+            return redirect(url_for('a_dashboard_bp.admin'))
         
         cursor = conn.cursor(dictionary=True)
         
@@ -34,6 +34,6 @@ def admin_activate_user(accounts_id):
         cursor.close()
         conn.close()
         
-    return redirect(url_for('admin_user_management'))
+    return redirect(url_for('a_user_management_bp.admin_user_management'))
 
 

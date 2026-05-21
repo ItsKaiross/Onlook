@@ -11,7 +11,7 @@ def handle_post_response(token, response):
         conn = db.get_db_connection()
         if not conn:
             flash('Database connection failed')
-            return redirect(url_for('public_users'))
+            return redirect(url_for('public_view_bp.public_users'))
             
         cursor = conn.cursor(dictionary=True)
         
@@ -26,7 +26,7 @@ def handle_post_response(token, response):
         
         if not case:
             flash('Invalid or expired link')
-            return redirect(url_for('public_users'))
+            return redirect(url_for('public_view_bp.public_users'))
         
         if response == 'yes':
             # Update approval status to approved for public posting
@@ -64,10 +64,10 @@ def handle_post_response(token, response):
         cursor.close()
         conn.close()
         
-        return redirect(url_for('public_users'))
+        return redirect(url_for('public_view_bp.public_users'))
         
     except Exception as e:
         flash(f'Error processing response: {str(e)}')
-        return redirect(url_for('public_users'))
+        return redirect(url_for('public_view_bp.public_users'))
 
 

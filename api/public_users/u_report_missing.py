@@ -14,7 +14,7 @@ def report_missing():
         if loggedIn == True:
             loggedIn_email = userEmail
         return render_template('public_users/8u-report_missing.html', loggedIn_email = loggedIn_email), 200
-    return redirect(url_for('public_users'))
+    return redirect(url_for('public_view_bp.public_users'))
 
 ######################################################################
 #########  P U B L I C  P A G E  R E P O R T  M I S S I N G  #########

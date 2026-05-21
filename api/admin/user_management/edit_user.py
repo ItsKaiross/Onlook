@@ -36,7 +36,7 @@ def admin_edit_user():
         
         if conn is None:
             flash('Database connection failed', 'error')
-            return redirect(url_for('admin_user_management'))
+            return redirect(url_for('a_user_management_bp.admin_user_management'))
         
         cursor = conn.cursor(dictionary=True)
         
@@ -55,7 +55,7 @@ def admin_edit_user():
             if not user:
                 logger.warning(f'User not found for ID: {userId}')
                 flash('User not found', 'error')
-                return redirect(url_for('admin_user_management'))
+                return redirect(url_for('a_user_management_bp.admin_user_management'))
             
             current_role = user['role']
             logger.info(f'Updating user {userId}: {current_role} -> {role}')
@@ -75,7 +75,7 @@ def admin_edit_user():
                 if not user['officer_id']:
                     logger.warning(f'Attempted to change systemAdmin to police role without officer_id for user {userId}')
                     flash('Cannot change System Admin to Police role: User must have a police record first', 'error')
-                    return redirect(url_for('admin_user_management'))
+                    return redirect(url_for('a_user_management_bp.admin_user_management'))
             
             elif current_role in police_roles and role == 'systemAdmin':
                 # Changing from police to systemAdmin - this should be allowed but with warning
@@ -85,7 +85,7 @@ def admin_edit_user():
                 # Citizens cannot be changed to police roles without proper police record
                 logger.warning(f'Attempted to change citizen to police role for user {userId}')
                 flash('Cannot change Citizen to Police role: User must be registered as police officer first', 'error')
-                return redirect(url_for('admin_user_management'))
+                return redirect(url_for('a_user_management_bp.admin_user_management'))
             
             # Update based on current and new role
             if current_role in police_roles or current_role == 'systemAdmin':
@@ -152,6 +152,6 @@ def admin_edit_user():
             cursor.close()
             conn.close()
             
-    return redirect(url_for('admin_user_management'))
+    return redirect(url_for('a_user_management_bp.admin_user_management'))
 
 

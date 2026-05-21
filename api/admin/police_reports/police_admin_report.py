@@ -16,7 +16,7 @@ police_admin_report_bp = Blueprint('police_admin_report_bp', __name__)
 @police_admin_report_bp.route('/admin-reports')
 def admin_reports():
     if 'accounts_id' not in session or session.get('role') != 'policeAdmin':
-        return redirect(url_for('login'))
+        return redirect(url_for('login_bp.home'))
 
     try:
         report_month = int(request.args.get('month') or date.today().month)
@@ -94,7 +94,7 @@ def admin_reports():
     except Exception as e:
         print(traceback.format_exc(), file=sys.stderr)
         flash('Something went wrong loading the report.', 'danger')
-        return redirect(url_for('admin_reports'))
+        return redirect(url_for('police_admin_report_bp.admin_reports'))
 
 
 # ─────────────────────────────────────────────────────────────

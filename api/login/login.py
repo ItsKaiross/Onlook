@@ -19,37 +19,35 @@ login_bp = Blueprint('login_bp', __name__)
 def check_session_timeout():
     session.permanent = True
     allowed_endpoints = {
-        'home',
-        'submit_otp',
-        'reset_pass',
-        'send_mail',
-        'email_code',
-        'verify_2fa',
-        'resend_code',
-        'admin_base',
-        'sign_up',
-        'signIn',
-        'about',
-        'community',
-        'get_help',
-        'professional',
-        'help_us',
-        'talk_to_us',
-        'register',
-        'logout',
-        'keepalive',
-        'check_session',
-        'submit_report',
-        'public_users',
+        'login_bp.home',
+        'submit_otp_bp.submit_otp',
+        'reset_password_bp.reset_pass',
+        'mail_bp.send_mail',
+        'public_view_bp.email_code',
+        'public_view_bp.verify_2fa',
+        'public_view_bp.resend_code',
+        'login_bp.signIn',
+        'about_bp.about',
+        'community_bp.community',
+        'get_help_bp.get_help',
+        'professional_bp.professional',
+        'help_us_bp.help_us',
+        'talk_to_us_bp.talk_to_us',
+        'registration_bp.register',
+        'login_bp.logout',
+        'login_bp.keepalive',
+        'login_bp.check_session',
+        'public_view_bp.submit_report',
+        'public_view_bp.public_users',
         'static',
-        'help_locate_report',
-        'get_missing_person',
-        'register_first'
+        'public_view_bp.help_locate_report',
+        'public_view_bp.get_person_data',
+        'registration_bp.register_first'
         }
     
     if request.endpoint and request.endpoint not in allowed_endpoints:
         if 'email' not in session:
-            return redirect(url_for('logout'))
+            return redirect(url_for('login_bp.logout'))
 
 
 @login_bp.route('/keepalive', methods=['POST'])
@@ -257,7 +255,7 @@ def signIn():
 @login_bp.route('/logout')
 def logout():
     if 'email' not in session:
-        return redirect(url_for('public_users'))
+        return redirect(url_for('public_view_bp.public_users'))
     
     # Get account_id before clearing session for audit logging
     account_id = session.get('accounts_id')
@@ -292,7 +290,7 @@ def logout():
     # Clear session completely
     session.clear()
     
-    return redirect(url_for('public_users'))
+    return redirect(url_for('public_view_bp.public_users'))
 
 
 
