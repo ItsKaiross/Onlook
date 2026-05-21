@@ -1,15 +1,16 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
 from datetime import datetime
 from api.audit import log_audit
 
+archive_user_bp = Blueprint('archive_user_bp', __name__)
+
 ####################################
 #########  A R C H I V E  ##########
 ####################################
 
-@app.route('/admin-user-management/archive-user/<int:user_id>', methods=['POST'])
+@archive_user_bp.route('/admin-user-management/archive-user/<int:user_id>', methods=['POST'])
 def archive_user(user_id):
     if 'accounts_id' not in session or session.get('role') != 'systemAdmin':
         return jsonify({'success': False, 'message': 'Unauthorized access'}), 403
@@ -64,3 +65,5 @@ def archive_user(user_id):
         if 'conn' in locals():
             conn.rollback()
         return jsonify({'success': False, 'message': f'Error: {str(e)}'}), 500
+
+

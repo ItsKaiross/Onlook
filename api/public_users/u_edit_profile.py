@@ -1,4 +1,3 @@
-from app import app
 from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
@@ -11,7 +10,6 @@ import os
 now = datetime.now()
 import base64
 current_date_time = now
-from app import bcrypt
 from api.audit import log_audit
 
 ############################################
@@ -228,3 +226,5 @@ def public_edit_profile():
 
         except Exception as e:
             return jsonify({'error': 'Error loading profile'}), 500
+
+

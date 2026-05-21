@@ -1,23 +1,17 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 now = datetime.now()
-current_date_time = now
-import base64
-import bcrypt
-import logging
-import os
 from api.audit import log_audit
+
+role_change_bp = Blueprint('role_change_bp', __name__)
 
 ##########################################
 #########  R O L E  C H A N G E  #########
 ##########################################
 
-@app.route("/update-roles", methods=['POST'])
+@role_change_bp.route("/update-roles", methods=['POST'])
 def update_roles():
     try:
         data = request.get_json()
@@ -74,3 +68,5 @@ def update_roles():
     except Exception as e:
         print("ERROR:", e)
         return jsonify({"success": False, "error": str(e)}), 500
+
+

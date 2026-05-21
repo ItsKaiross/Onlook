@@ -1,8 +1,6 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify, current_app
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
 from flask_mail import Mail, Message
 from datetime import datetime
 now = datetime.now()
@@ -10,11 +8,13 @@ current_date_time = now
 import math, random
 from api.audit import log_audit
 
+submit_otp_bp = Blueprint('submit_otp_bp', __name__)
+
 ########################################
 #########  S U B M I T  O T P  #########
 ########################################
 
-@app.route('/submit_otp', methods=['GET', 'POST'])
+@submit_otp_bp.route('/submit_otp', methods=['GET', 'POST'])
 def submit_otp():
     if request.method == 'POST':
         otp_input = request.form['otp_code']
@@ -70,7 +70,7 @@ def generateOTP():
         
     return OneTimePass
 
-@app.route('/resend_otp', methods=['POST'])
+@submit_otp_bp.route('/resend_otp', methods=['POST'])
 def resend_otp():
     try:
         email = session.get('emailOTP', None)
@@ -100,7 +100,7 @@ def resend_otp():
         
         # Send email
         from flask_mail import Mail, Message
-        mail = Mail(app)
+        mail = Mail(current_app)
         
         subject = 'RESET PASSWORD CODE - RESENT'
         html_body = f"""
@@ -136,3 +136,5 @@ def resend_otp():
         
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
+
+

@@ -1,16 +1,13 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
-from datetime import datetime
 from flask_bcrypt import check_password_hash
-from datetime import timedelta
+from datetime import datetime
 import json
-from api.utils.activity_logger import log_login, log_logout, log_user_activity
+from api.utils.activity_logger import log_login, log_logout
 from api.audit import log_audit
 
+login_bp = Blueprint('login_bp', __name__)
 
 
 ############################################
@@ -18,7 +15,7 @@ from api.audit import log_audit
 ############################################
 
 
-@app.before_request
+@login_bp.before_app_request
 def check_session_timeout():
     session.permanent = True
     allowed_endpoints = {
@@ -55,7 +52,7 @@ def check_session_timeout():
             return redirect(url_for('logout'))
 
 
-@app.route('/keepalive', methods=['POST'])
+@login_bp.route('/keepalive', methods=['POST'])
 def keepalive():
     
     if 'email' in session:
@@ -63,7 +60,7 @@ def keepalive():
     else:
         return jsonify({'status': 'expired'}), 401
 
-@app.route('/check-session', methods=['GET'])
+@login_bp.route('/check-session', methods=['GET'])
 def check_session():
     if 'email' in session and session.get('loggedIn') == True:
         return jsonify({'valid': True})
@@ -77,7 +74,7 @@ def check_session():
 #########  L O G I N  P A G E  #########
 ########################################
 
-@app.route('/login')
+@login_bp.route('/login')
 def home():
     return render_template('login/login.html')
 
@@ -85,7 +82,7 @@ def home():
 #########  L O G I N  #########
 ###############################
 
-@app.route('/signIn', methods=['GET' ,'POST'])
+@login_bp.route('/signIn', methods=['GET' ,'POST'])
 def signIn():
     msg = ''
     if request.method == 'POST':
@@ -257,7 +254,7 @@ def signIn():
 #################################
 
 
-@app.route('/logout')
+@login_bp.route('/logout')
 def logout():
     if 'email' not in session:
         return redirect(url_for('public_users'))
@@ -312,3 +309,5 @@ def logged_users():
         
     except Exception as e:
         print(f'Error in logged_users: {e}')
+
+

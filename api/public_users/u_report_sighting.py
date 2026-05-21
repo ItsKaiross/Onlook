@@ -1,4 +1,3 @@
-from app import app
 from flask import Flask, session, render_template, redirect, url_for, flash, request, jsonify
 from api.database import db
 from werkzeug.utils import secure_filename
@@ -152,3 +151,5 @@ def submit_sighting():
             conn.close()
         print(f"Error in submit_sighting: {e}")
         return jsonify({'success': False, 'message': f'Database error: {str(e)}'})
+
+

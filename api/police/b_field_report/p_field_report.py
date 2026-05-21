@@ -1,20 +1,20 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
 from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 import base64
 now = datetime.now()
 current_date_time = now
 from api.audit import log_audit
 
+p_field_report_bp = Blueprint('p_field_report_bp', __name__)
+
 #########################################################
 #########  P O L I C E  F I E L D  R E P O R T  #########
 #########################################################
 
-@app.route('/police-field-report', methods=['GET', 'POST'])
+@p_field_report_bp.route('/police-field-report', methods=['GET', 'POST'])
 def police_field_report():
     if 'accounts_id' not in session or not (session.get('role') == 'police' or session.get('role') == 'policeChief' or session.get('role', '').endswith('-mps') or session.get('role', '').endswith('-ps')):
         return redirect(url_for('home'))
@@ -378,6 +378,8 @@ def police_field_report():
         notifications=notifications,
         notification_count=notification_count,
     )
+
+
 
 
 

@@ -1,15 +1,13 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 import base64
 now = datetime.now()
-current_date_time = now
 from api.audit import log_audit
 from api.police.case_history import log_case_status_change
+
+edit_report_bp = Blueprint('edit_report_bp', __name__)
 
 
 ##########################################
@@ -18,7 +16,7 @@ from api.police.case_history import log_case_status_change
 
 
 
-@app.route('/police-edit-report/<int:case_id>', methods=['GET', 'POST'])
+@edit_report_bp.route('/police-edit-report/<int:case_id>', methods=['GET', 'POST'])
 def police_edit_report(case_id):
     if not (session.get('role') == 'police' or session.get('role', '').endswith('-mps') or session.get('role', '').endswith('-ps')):
         if request.method == 'POST':
@@ -219,3 +217,5 @@ def police_edit_report(case_id):
             return jsonify({'success': False, 'message': str(e)})
     
     return render_template('police/edit_report.html', case_id=case_id)
+
+

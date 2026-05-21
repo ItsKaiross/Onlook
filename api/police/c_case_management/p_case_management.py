@@ -1,23 +1,21 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
 from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 import base64
 import os
-from werkzeug.utils import secure_filename
 from api.utils.activity_logger import log_user_activity
 now = datetime.now()
-current_date_time = now
 from api.audit import log_audit
+
+p_case_management_bp = Blueprint('p_case_management_bp', __name__)
 
 ###############################################################
 #########  P O L I C E  C A S E  M A N A G E M E N T  #########
 ###############################################################
 
-@app.route('/police-case-management')
+@p_case_management_bp.route('/police-case-management')
 def police_case_management():
     try:
         if 'accounts_id' in session and (session['role'] == 'police' or session['role'] == 'policeChief' or session['role'].endswith('-mps') or session['role'].endswith('-ps')):
@@ -279,5 +277,7 @@ def police_case_management():
             notification_count=notification_count,
             user_role=session.get('role', '')
         )
+
+
 
 

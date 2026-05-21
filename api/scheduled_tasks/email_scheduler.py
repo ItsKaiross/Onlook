@@ -1,4 +1,3 @@
-from app import app
 from flask import url_for
 from flask_mail import Mail, Message
 from api.database import db
@@ -125,3 +124,5 @@ def run_scheduler():
 def start_email_scheduler():
     scheduler_thread = threading.Thread(target=run_scheduler, daemon=True)
     scheduler_thread.start()
+
+

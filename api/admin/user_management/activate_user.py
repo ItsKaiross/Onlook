@@ -1,23 +1,17 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 now = datetime.now()
-current_date_time = now
-import base64
-import bcrypt
-import logging
-import os
 from api.audit import log_audit
+
+activate_user_bp = Blueprint('activate_user_bp', __name__)
 
 ##############################################
 #########  A C T I V A T E  U S E R  #########
 ##############################################
 
-@app.route('/admin-user-management/activate-user/<int:accounts_id>', methods=['POST', 'GET'])
+@activate_user_bp.route('/admin-user-management/activate-user/<int:accounts_id>', methods=['POST', 'GET'])
 def admin_activate_user(accounts_id):
     msg = ''
     if request.method == 'GET':
@@ -41,3 +35,5 @@ def admin_activate_user(accounts_id):
         conn.close()
         
     return redirect(url_for('admin_user_management'))
+
+

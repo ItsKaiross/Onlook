@@ -1,4 +1,3 @@
-from app import app
 from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
@@ -1693,6 +1692,8 @@ def insert_case_reporter(cursor, case_id, reporter_type, reporter_id, reportMedi
             description
         )
     )
+
+
 
 
 

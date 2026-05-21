@@ -1,20 +1,19 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 import base64
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 now = datetime.now()
 current_date_time = now
 from api.audit import log_audit
 
+a_dashboard_bp = Blueprint('a_dashboard_bp', __name__)
+
 ##################################################
 #########  A D M I N  D A S H B O A R D  #########
 ##################################################
 
-@app.route('/admin-dashboard')
+@a_dashboard_bp.route('/admin-dashboard')
 def admin():
     userEmail = session.get('email')
     loggedIn = session.get('loggedIn')
@@ -276,7 +275,7 @@ def admin():
         current_year = datetime.now().year
         )
 
-@app.route('/admin-case-details/<int:case_id>')
+@a_dashboard_bp.route('/admin-case-details/<int:case_id>')
 def admin_case_details(case_id):
     if session.get('role') not in ['policeAdmin', 'systemAdmin']:
         return jsonify({'success': False, 'error': 'Access denied'})
@@ -338,7 +337,7 @@ def admin_case_details(case_id):
         print(f"Error in admin_case_details: {e}")
         return jsonify({'success': False, 'error': str(e)})
 
-@app.route('/admin-dashboard/report-cases-data/<int:year>')
+@a_dashboard_bp.route('/admin-dashboard/report-cases-data/<int:year>')
 def get_report_cases_data(year):
     if session.get('role') != 'systemAdmin':
         return jsonify({'success': False, 'error': 'Access denied'})
@@ -368,7 +367,7 @@ def get_report_cases_data(year):
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
 
-@app.route('/admin-dashboard/registrations-data/<int:year>')
+@a_dashboard_bp.route('/admin-dashboard/registrations-data/<int:year>')
 def get_registrations_data(year):
     if session.get('role') != 'systemAdmin':
         return jsonify({'success': False, 'error': 'Access denied'})
@@ -417,3 +416,5 @@ def get_registrations_data(year):
         })
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
+
+

@@ -1,14 +1,14 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash
+from flask import Blueprint, session, render_template, redirect, url_for, flash, current_app
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
 from flask_mail import Mail, Message
 from datetime import datetime
 now = datetime.now()
 current_date_time = now
 import math, random
 from api.audit import log_audit
+
+mail_bp = Blueprint('mail_bp', __name__)
 
 ####################################
 #########  M A I L  O T P  #########
@@ -25,16 +25,16 @@ def generateOTP():
     return OneTimePass
 
 # FLASK MAIL CONFIGURATION
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'onlook2025@gmail.com'
-app.config['MAIL_PASSWORD'] = 'ncts ioap hhrd hlwk'  
-app.config['MAIL_DEFAULT_SENDER'] = 'onlook2025@gmail.com'
+current_app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+current_app.config['MAIL_PORT'] = 587
+current_app.config['MAIL_USE_TLS'] = True
+current_app.config['MAIL_USERNAME'] = 'onlook2025@gmail.com'
+current_app.config['MAIL_PASSWORD'] = 'ncts ioap hhrd hlwk'
+current_app.config['MAIL_DEFAULT_SENDER'] = 'onlook2025@gmail.com'
 
-mail = Mail(app)
+mail = Mail(current_app)
 
-@app.route('/mailOTP', methods=['GET', 'POST'])
+@mail_bp.route('/mailOTP', methods=['GET', 'POST'])
 def send_mail():
     if request.method == 'POST':
         otp = generateOTP()
@@ -103,3 +103,5 @@ def send_mail():
             return redirect(url_for('send_mail'))
 
     return render_template('login/submit_otp.html')
+
+

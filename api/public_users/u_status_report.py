@@ -1,4 +1,3 @@
-from app import app
 from flask import Flask, session, render_template, redirect, url_for, flash, request, jsonify
 from api.database import db
 from api.audit import log_audit
@@ -240,3 +239,5 @@ def check_status():
 ####################################################################
 #########  P U B L I C  P A G E  S T A T U S  R E P O R T  #########
 ####################################################################
+
+

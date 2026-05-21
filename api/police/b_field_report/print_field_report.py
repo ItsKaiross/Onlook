@@ -1,17 +1,15 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, jsonify
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 import base64
 now = datetime.now()
-current_date_time = now
 from api.audit import log_audit
 
+print_field_report_bp = Blueprint('print_field_report_bp', __name__)
 
-@app.route('/police-field-report/filtered')
+
+@print_field_report_bp.route('/police-field-report/filtered')
 def police_field_report_filtered():
     if not (session.get('role') == 'police' or session.get('role', '').endswith('-mps') or session.get('role', '').endswith('-ps')):
         return jsonify({'success': False, 'error': 'Access denied'})
@@ -90,7 +88,7 @@ def police_field_report_filtered():
 #########  P R I N T  F I E L D  R E P O R T  #########
 #######################################################
 
-@app.route('/police-field-report/all')
+@print_field_report_bp.route('/police-field-report/all')
 def police_field_report_all():
     if not (session.get('role') == 'police' or session.get('role', '').endswith('-mps') or session.get('role', '').endswith('-ps')):
         return jsonify({'success': False, 'error': 'Access denied'})
@@ -137,7 +135,7 @@ def police_field_report_all():
         return jsonify({'success': False, 'error': str(e)})
 
 
-@app.route('/police-field-report/get-officers')
+@print_field_report_bp.route('/police-field-report/get-officers')
 def get_field_report_officers():
     if 'accounts_id' not in session:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 401
@@ -167,3 +165,5 @@ def get_field_report_officers():
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({'success': False, 'error': str(e)}), 500
+
+

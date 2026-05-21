@@ -1,20 +1,19 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash
+from flask import Blueprint, session, render_template, redirect, url_for, flash
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
-from datetime import datetime
 from api.utils.activity_logger import log_user_activity
+from datetime import datetime
 now = datetime.now()
 current_date_time = now
 from api.audit import log_audit
+
+a_user_logs_bp = Blueprint('a_user_logs_bp', __name__)
 
 #################################################
 #########  A D M I N  U S E R  L O G S  #########
 #################################################
 
-@app.route('/admin-user-logs')
+@a_user_logs_bp.route('/admin-user-logs')
 def admin_user_logs():
     userEmail = session.get('email')
     loggedIn = session.get('loggedIn')
@@ -122,3 +121,5 @@ def admin_user_logs():
         total_pages=total_pages,
         total_records=total_records
         )
+
+

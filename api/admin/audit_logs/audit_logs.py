@@ -1,4 +1,3 @@
-from app import app
 from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 import base64
@@ -65,3 +64,5 @@ def log_audit(cursor, module, action, target_table=None, target_id=None,
         ])
     except Exception as e:
         print(f"[audit_trail] Logging error: {e}", file=sys.stderr)
+
+

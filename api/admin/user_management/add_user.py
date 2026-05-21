@@ -1,8 +1,6 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify, current_app
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
 from flask_mail import Mail, Message
 from datetime import datetime
 now = datetime.now()
@@ -13,11 +11,13 @@ import logging
 import os
 from api.audit import log_audit
 
+add_user_bp = Blueprint('add_user_bp', __name__)
+
 ####################################
 #########  A D D  U S E R  #########
 ####################################
 
-@app.route('/admin-user-management/add-user', methods=['POST', 'GET'])
+@add_user_bp.route('/admin-user-management/add-user', methods=['POST', 'GET'])
 def admin_add_user():
     if request.method == 'POST':
         # Get form data
@@ -96,14 +96,14 @@ def admin_add_user():
 
 def sendEmail(recipient, badge_number='', first_name='', last_name='', rank='', station=''):
     #FLASK MAIL CONFIGURATION
-    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-    app.config['MAIL_PORT'] = 587
-    app.config['MAIL_USE_TLS'] = os.environ.get('TLS')
-    app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USER')
-    app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASS')  
-    app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USER')
+    current_app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    current_app.config['MAIL_PORT'] = 587
+    current_app.config['MAIL_USE_TLS'] = os.environ.get('TLS')
+    current_app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USER')
+    current_app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASS')
+    current_app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USER')
 
-    mail = Mail(app)
+    mail = Mail(current_app)
 
     # Plain text version
     text_body = f"""Dear {rank} {first_name} {last_name},
@@ -442,3 +442,5 @@ Onlook System Administration Team"""
         mail.send(msg)
     except Exception as e:
         message = 'failed'
+
+

@@ -1,9 +1,6 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash
+from flask import Blueprint, session, render_template, redirect, url_for, flash
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 now = datetime.now()
 current_date_time = now
@@ -11,11 +8,13 @@ import json
 import base64
 from api.audit import log_audit
 
+p_incident_map_bp = Blueprint('p_incident_map_bp', __name__)
+
 #########################################################
 #########  P O L I C E  I N C I D E N T  M A P  #########
 #########################################################
 
-@app.route('/police-incident-map')
+@p_incident_map_bp.route('/police-incident-map')
 def police_incident_map():
     userEmail = session.get('email')
     loggedIn = session.get('loggedIn')
@@ -193,3 +192,5 @@ def police_incident_map():
         locations=locations,
         notifications=notifications,
         notification_count=notification_count)
+
+

@@ -1,9 +1,10 @@
-from app import app
-from flask import session, render_template, redirect, url_for
+from flask import Blueprint, session, render_template, redirect, url_for
 from api.database import db
 import base64
 
-@app.route('/police-notifications')
+p_notifications_bp = Blueprint('p_notifications_bp', __name__)
+
+@p_notifications_bp.route('/police-notifications')
 def police_notifications():
     if 'accounts_id' not in session or not (session.get('role') == 'police' or session.get('role', '').endswith('-mps') or session.get('role', '').endswith('-ps')):
         return redirect(url_for('home'))
@@ -75,3 +76,5 @@ def police_notifications():
         profile=profile,
         loggedIn_email=session.get('email')
     )
+
+

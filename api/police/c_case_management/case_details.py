@@ -1,23 +1,20 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, jsonify
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 import base64
 import os
-from werkzeug.utils import secure_filename
 from api.utils.activity_logger import log_user_activity
 now = datetime.now()
-current_date_time = now
 from api.audit import log_audit
+
+case_details_bp = Blueprint('case_details_bp', __name__)
 
 ############################################
 #########  C A S E  D E T A I L S  #########
 ############################################
 
-@app.route('/police-case-details/<int:case_id>')
+@case_details_bp.route('/police-case-details/<int:case_id>')
 def police_case_details(case_id):
     if not (session.get('role') == 'police' or session.get('role', '').endswith('-mps') or session.get('role', '').endswith('-ps')):
         return jsonify({'success': False, 'error': 'Access denied'})
@@ -165,3 +162,5 @@ def police_case_details(case_id):
     except Exception as e:
         print(f"Error in police_case_details: {e}")
         return jsonify({'success': False, 'error': str(e)})
+
+

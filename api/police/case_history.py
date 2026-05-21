@@ -1,11 +1,6 @@
 # api/case_history.py
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, request, jsonify
-from api.database import db
+from flask import session, request
 from datetime import datetime
-import base64
-from flask_mail import Mail, Message
-import os
 from api.audit import log_audit
 import sys
 
@@ -73,3 +68,5 @@ def log_case_status_change(cursor, case_id, previous_status=None, new_status=Non
     except Exception as e:
         print(f"[case_history] Logging error for case {case_id}: {e}", file=sys.stderr)
         raise e  # Re-raise to ensure calling code knows about the failure
+
+

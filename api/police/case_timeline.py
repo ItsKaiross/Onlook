@@ -1,16 +1,14 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, request, jsonify
+from flask import Blueprint, session, jsonify, request
 from api.database import db
 from datetime import datetime
-import base64
-from flask_mail import Mail, Message
-import os
 from api.audit import log_audit
 import sys
 import traceback
 
+case_timeline_bp = Blueprint('case_timeline_bp', __name__)
 
-@app.route('/police/case-timeline-data/<int:case_id>')
+
+@case_timeline_bp.route('/police/case-timeline-data/<int:case_id>')
 def case_timeline_data(case_id):
     if 'accounts_id' not in session:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 401
@@ -98,3 +96,5 @@ def case_timeline_data(case_id):
     except Exception as e:
         print(traceback.format_exc(), file=sys.stderr)
         return jsonify({'success': False, 'error': str(e)}), 500
+
+

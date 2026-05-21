@@ -1,24 +1,19 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime, date
 import traceback
 now = datetime.now()
-current_date_time = now
 import base64
-import bcrypt
-import logging
-import os
 import sys
 from api.audit import log_audit
+
+police_admin_report_bp = Blueprint('police_admin_report_bp', __name__)
 
 # ─────────────────────────────────────────────────────────────
 #   GET  /admin-reports
 # ─────────────────────────────────────────────────────────────
-@app.route('/admin-reports')
+@police_admin_report_bp.route('/admin-reports')
 def admin_reports():
     if 'accounts_id' not in session or session.get('role') != 'policeAdmin':
         return redirect(url_for('login'))
@@ -105,7 +100,7 @@ def admin_reports():
 # ─────────────────────────────────────────────────────────────
 #   POST /police/reports/generate
 # ─────────────────────────────────────────────────────────────
-@app.route('/police/reports/generate', methods=['POST'])
+@police_admin_report_bp.route('/police/reports/generate', methods=['POST'])
 def generate_monthly_report():
     if 'accounts_id' not in session or session.get('role') != 'policeAdmin':
         return jsonify({'success': False, 'error': 'Unauthorized'}), 401
@@ -231,7 +226,7 @@ def generate_monthly_report():
 # ─────────────────────────────────────────────────────────────
 #   GET /admin-reports/print
 # ─────────────────────────────────────────────────────────────
-@app.route('/admin-reports/print')
+@police_admin_report_bp.route('/admin-reports/print')
 def admin_reports_print():
     if 'accounts_id' not in session or session.get('role') != 'policeAdmin':
         return jsonify({'success': False, 'error': 'Unauthorized'}), 401
@@ -301,7 +296,7 @@ def admin_reports_print():
 # ─────────────────────────────────────────────────────────────
 #   GET /admin-reports/get-officers
 # ─────────────────────────────────────────────────────────────
-@app.route('/admin-reports/get-officers')
+@police_admin_report_bp.route('/admin-reports/get-officers')
 def get_officers_for_report():
     if 'accounts_id' not in session or session.get('role') != 'policeAdmin':
         return jsonify({'success': False, 'error': 'Unauthorized'}), 401
@@ -336,3 +331,5 @@ def get_officers_for_report():
     except Exception as e:
         print(traceback.format_exc(), file=sys.stderr)
         return jsonify({'success': False, 'error': str(e)}), 500
+
+

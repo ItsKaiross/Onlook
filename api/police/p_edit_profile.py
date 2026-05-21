@@ -1,5 +1,4 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, request, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, request, jsonify, current_app
 from api.database import db
 from datetime import datetime
 import base64
@@ -7,7 +6,9 @@ from flask_mail import Mail, Message
 import os
 from api.audit import log_audit
 
-@app.route('/police-edit-profile', methods=['GET', 'POST'])
+p_edit_profile_bp = Blueprint('p_edit_profile_bp', __name__)
+
+@p_edit_profile_bp.route('/police-edit-profile', methods=['GET', 'POST'])
 def police_edit_profile():
     # Check if user is logged in and is police
     if not session.get('loggedIn') or session.get('role') not in ['police', 'policeAdmin', 'alaminos-mps', 'bay-mps', 'binancity-ps', 'cabuyaocity-ps',
@@ -96,8 +97,7 @@ def police_edit_profile():
         
         # Handle password change if provided
         if current_password and new_password:
-            from app import bcrypt
-            
+                        
             # Verify current password
             cursor.execute("SELECT password FROM accounts WHERE accounts_id = %s", (user_id,))
             row = cursor.fetchone()
@@ -176,14 +176,14 @@ def police_edit_profile():
         conn.commit()
         
         # FLASK MAIL CONFIGURATION
-        app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-        app.config['MAIL_PORT'] = 587
-        app.config['MAIL_USE_TLS'] = os.environ.get("TLS")
-        app.config['MAIL_USERNAME'] = os.environ.get("MAIL_USER")
-        app.config['MAIL_PASSWORD'] = os.environ.get("MAIL_PASS")
-        app.config['MAIL_DEFAULT_SENDER'] = os.environ.get("MAIL_USER")
+        current_app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+        current_app.config['MAIL_PORT'] = 587
+        current_app.config['MAIL_USE_TLS'] = os.environ.get("TLS")
+        current_app.config['MAIL_USERNAME'] = os.environ.get("MAIL_USER")
+        current_app.config['MAIL_PASSWORD'] = os.environ.get("MAIL_PASS")
+        current_app.config['MAIL_DEFAULT_SENDER'] = os.environ.get("MAIL_USER")
         
-        mail = Mail(app)
+        mail = Mail(current_app)
         
         subject = "Onlook: Personal Information Updated"
 
@@ -278,3 +278,5 @@ def police_edit_profile():
             notification_count=notification_count,
             loggedIn_email=session.get('email')
         )
+
+

@@ -1,10 +1,7 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 import base64
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 now = datetime.now()
 current_date_time = now
@@ -13,7 +10,9 @@ import json
 import traceback
 from api.audit import log_audit
 
-@app.route('/admin/audit-trail')
+audit_trail_bp = Blueprint('audit_trail_bp', __name__)
+
+@audit_trail_bp.route('/admin/audit-trail')
 def admin_audit_trail():
     if 'accounts_id' not in session or session.get('role') not in ['systemAdmin', 'policeAdmin']:
         return redirect(url_for('login'))
@@ -126,3 +125,5 @@ def admin_audit_trail():
             
         flash('Something went wrong loading the audit trail.', 'error')
         return redirect(url_for('admin'))
+
+

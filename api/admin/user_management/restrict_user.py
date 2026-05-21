@@ -1,23 +1,17 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 now = datetime.now()
-current_date_time = now
-import base64
-import bcrypt
-import logging
-import os
 from api.audit import log_audit
+
+restrict_user_bp = Blueprint('restrict_user_bp', __name__)
 
 ##############################################
 #########  R E S T R I C T  U S E R  #########
 ##############################################
 
-@app.route('/admin-user-management/restrict-user/<int:accounts_id>', methods=['POST', 'GET'])
+@restrict_user_bp.route('/admin-user-management/restrict-user/<int:accounts_id>', methods=['POST', 'GET'])
 def admin_restrict_user(accounts_id):
     msg = ''
     if request.method == 'GET':
@@ -53,3 +47,5 @@ def admin_restrict_user(accounts_id):
         flash('User has been restricted successfully', 'success')
         
     return redirect(url_for('admin_user_management'))
+
+

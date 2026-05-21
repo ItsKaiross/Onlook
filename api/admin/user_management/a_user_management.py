@@ -1,8 +1,6 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify, current_app
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
 from flask_mail import Mail, Message
 from datetime import datetime, date
 now = datetime.now()
@@ -17,11 +15,13 @@ from api.audit import log_audit
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+a_user_management_bp = Blueprint('a_user_management_bp', __name__)
+
 #############################################################
 #########  A D M I N  U S E R  M A N A G E M E N T  #########
 #############################################################
 
-@app.route('/admin-user-management')
+@a_user_management_bp.route('/admin-user-management')
 def admin_user_management():
     userEmail = session.get('email')
     loggedIn = session.get('loggedIn')
@@ -206,4 +206,6 @@ def getRestrictedAccounts():
         'total_restricted_pages' : total_restricted_pages,
         'total_restricted_records' : total_restricted_records
     }
+
+
 

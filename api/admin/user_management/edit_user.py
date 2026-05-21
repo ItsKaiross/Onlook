@@ -1,9 +1,6 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 now = datetime.now()
 current_date_time = now
@@ -17,11 +14,13 @@ from api.audit import log_audit
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+edit_user_bp = Blueprint('edit_user_bp', __name__)
+
 ######################################
 #########  E D I T  U S E R  #########
 ######################################
 
-@app.route('/admin-user-management/edit-user', methods=['POST', 'GET'])
+@edit_user_bp.route('/admin-user-management/edit-user', methods=['POST', 'GET'])
 def admin_edit_user():
     if request.method == 'POST':
         userId = request.form.get('user_id', '')
@@ -154,3 +153,5 @@ def admin_edit_user():
             conn.close()
             
     return redirect(url_for('admin_user_management'))
+
+

@@ -1,23 +1,20 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, jsonify
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 import base64
 import os
-from werkzeug.utils import secure_filename
 from api.utils.activity_logger import log_user_activity
 now = datetime.now()
-current_date_time = now
 from api.audit import log_audit
+
+assign_officer_bp = Blueprint('assign_officer_bp', __name__)
 
 ################################################
 #########  A S S I G N  O F F I C E R  #########
 ################################################
 
-@app.route('/police-assign-officer/<int:case_id>', methods=['POST'])
+@assign_officer_bp.route('/police-assign-officer/<int:case_id>', methods=['POST'])
 def police_assign_officer(case_id):
     print(f"DEBUG: Assign officer called for case {case_id}")
     print(f"DEBUG: Session role: {session.get('role')}")
@@ -77,3 +74,5 @@ def police_assign_officer(case_id):
         import traceback
         traceback.print_exc()
         return jsonify({'success': False, 'message': str(e)})
+
+

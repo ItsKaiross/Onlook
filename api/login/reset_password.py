@@ -1,9 +1,6 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash
+from flask import Blueprint, session, render_template, redirect, url_for, flash
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 now = datetime.now()
 current_date_time = now
@@ -11,11 +8,13 @@ import math, random
 import bcrypt
 from api.audit import log_audit
 
+reset_password_bp = Blueprint('reset_password_bp', __name__)
+
 ########################################
 #########  R E S E T  P A S S  #########
 ########################################
 
-@app.route('/reset_pass', methods=['GET', 'POST'])
+@reset_password_bp.route('/reset_pass', methods=['GET', 'POST'])
 def reset_pass():
     if request.method == 'POST':
         emailOTP = session.get('emailOTP', None)
@@ -81,3 +80,5 @@ def reset_pass():
     
 
     return render_template('login/reset_password.html')
+
+

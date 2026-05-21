@@ -1,4 +1,3 @@
-from app import app
 from flask import render_template, redirect, url_for, flash
 from api.database import db
 from api.audit import log_audit
@@ -68,3 +67,5 @@ def handle_post_response(token, response):
     except Exception as e:
         flash(f'Error processing response: {str(e)}')
         return redirect(url_for('public_users'))
+
+

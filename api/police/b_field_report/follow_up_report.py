@@ -1,20 +1,19 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, jsonify
 from flask import request
 from api.database import db
 from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 import base64
 now = datetime.now()
-current_date_time = now
 from api.audit import log_audit
+
+follow_up_report_bp = Blueprint('follow_up_report_bp', __name__)
 
 ###################################################
 #########  F O L L O W  U P  R E P O R T  #########
 ###################################################
 
-@app.route('/police-add-follow-report', methods=['POST'])
+@follow_up_report_bp.route('/police-add-follow-report', methods=['POST'])
 def police_add_follow_report():
     if not (session.get('role') == 'police' or session.get('role', '').endswith('-mps') or session.get('role', '').endswith('-ps')):
         return jsonify({'success': False, 'message': 'Access denied'})
@@ -93,3 +92,5 @@ def police_add_follow_report():
         
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
+
+

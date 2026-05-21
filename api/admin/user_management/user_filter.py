@@ -1,23 +1,18 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 now = datetime.now()
-current_date_time = now
 import base64
-import bcrypt
-import logging
-import os
 from api.audit import log_audit
+
+user_filter_bp = Blueprint('user_filter_bp', __name__)
 
 ##########################################
 #########  U S E R  F I L T E R  #########
 ##########################################
 
-@app.route('/users/filter', methods=['POST'])
+@user_filter_bp.route('/users/filter', methods=['POST'])
 def filter_users():
     import traceback
     import sys
@@ -227,3 +222,5 @@ def filter_users():
             'success': False,
             'error': str(e)
         }), 500
+
+

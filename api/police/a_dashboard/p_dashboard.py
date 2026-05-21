@@ -1,9 +1,6 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 now = datetime.now()
 current_date_time = now
@@ -11,11 +8,13 @@ import base64
 import json
 from api.audit import log_audit
 
+p_dashboard_bp = Blueprint('p_dashboard_bp', __name__)
+
 ####################################################
 #########  P O L I C E  D A S H B O A R D  #########
 ####################################################
 
-@app.route('/police-dashboard')
+@p_dashboard_bp.route('/police-dashboard')
 def police_dashboard():
     # Get year filter from request
     selected_year = request.args.get('year', datetime.now().year, type=int)
@@ -284,7 +283,7 @@ def police_dashboard():
         selected_year=selected_year
     )
 
-@app.route('/police-notification-count')
+@p_dashboard_bp.route('/police-notification-count')
 def police_notification_count():
     if 'accounts_id' not in session or not (session.get('role') == 'police' or session.get('role') == 'policeChief' or session.get('role', '').endswith('-mps') or session.get('role', '').endswith('-ps')):
         return jsonify({'count': 0})
@@ -305,7 +304,7 @@ def police_notification_count():
         return jsonify({'count': 0})
 
 
-@app.route('/police-mark-notifications-read', methods=['POST'])
+@p_dashboard_bp.route('/police-mark-notifications-read', methods=['POST'])
 def mark_notifications_read():
     try:
         if 'accounts_id' not in session or not (session['role'] == 'police' or session['role'] == 'policeChief' or session['role'].endswith('-mps') or session['role'].endswith('-ps')):
@@ -344,3 +343,5 @@ def mark_notifications_read():
     except Exception as e:
         print(f"Error marking notifications as read: {e}")
         return {'success': False, 'message': str(e)}, 500
+
+

@@ -1,5 +1,4 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, jsonify
 from flask import request
 from api.database import db
 from flask_mail import Mail, Message
@@ -8,11 +7,13 @@ from api.audit import log_audit
 from api.police.case_history import log_case_status_change
 from api.login.mail import mail
 
+approval_status_bp = Blueprint('approval_status_bp', __name__)
+
 ##################################################
 #########  A P P R O V A L  S T A T U S  #########
 ##################################################
 
-@app.route('/police-update-approval-status/<int:case_id>', methods=['POST'])
+@approval_status_bp.route('/police-update-approval-status/<int:case_id>', methods=['POST'])
 def police_update_approval_status(case_id):
     if not (session.get('role') == 'police' or session.get('role', '').endswith('-mps') or session.get('role', '').endswith('-ps')):
         return jsonify({'success': False, 'message': 'Access denied'})
@@ -100,3 +101,5 @@ def police_update_approval_status(case_id):
         
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
+
+

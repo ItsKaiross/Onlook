@@ -1,4 +1,3 @@
-from app import app
 from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
@@ -288,4 +287,6 @@ def sendEmail(recipient):
     except Exception as e:
         message = 'failed'
         
+
+
 

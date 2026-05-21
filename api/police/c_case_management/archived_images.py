@@ -1,23 +1,20 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, jsonify
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 import base64
 import os
-from werkzeug.utils import secure_filename
 from api.utils.activity_logger import log_user_activity
 now = datetime.now()
-current_date_time = now
 from api.audit import log_audit
+
+archived_images_bp = Blueprint('archived_images_bp', __name__)
 
 ##################################################
 #########  A R C H I V E D  I M A G E S  #########
 ##################################################
 
-@app.route('/police-archived-images/<int:case_id>')
+@archived_images_bp.route('/police-archived-images/<int:case_id>')
 def police_archived_images(case_id):
     if not (session.get('role') == 'police' or session.get('role', '').endswith('-mps') or session.get('role', '').endswith('-ps')):
         return jsonify({'success': False, 'error': 'Access denied'})
@@ -75,3 +72,5 @@ def police_archived_images(case_id):
         if 'conn' in locals():
             conn.close()
         return jsonify({'success': False, 'error': f'Database error: {str(e)}'})
+
+

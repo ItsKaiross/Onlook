@@ -1,4 +1,3 @@
-from app import app
 from flask import Flask, session, render_template, redirect, url_for, flash
 from api.database import db
 from api.audit import log_audit
@@ -22,3 +21,5 @@ def report_missing():
 ######################################################################
 #########  P U B L I C  P A G E  R E P O R T  M I S S I N G  #########
 ######################################################################
+
+

@@ -1,10 +1,11 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 from api.database import db
 import base64
 
-@app.route('/admin-user-management/restricted-accounts', methods=['POST'])
+restricted_accounts_bp = Blueprint('restricted_accounts_bp', __name__)
+
+@restricted_accounts_bp.route('/admin-user-management/restricted-accounts', methods=['POST'])
 def get_restricted_accounts():
     try:
         # Check auth
@@ -89,3 +90,5 @@ def get_restricted_accounts():
             'success': False,
             'error': str(e)
         }), 500
+
+

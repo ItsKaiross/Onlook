@@ -1,22 +1,20 @@
-from app import app
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, jsonify
 from flask import request
 from api.database import db
-from werkzeug.utils import secure_filename
-from flask_mail import Mail, Message
 from datetime import datetime
 import base64
 now = datetime.now()
-current_date_time = now
-from api.audit import log_audit 
+from api.audit import log_audit
 from api.police.case_history import log_case_status_change
+
+unarchive_report_bp = Blueprint('unarchive_report_bp', __name__)
 
 ###################################################
 ######### U N A R C H I V E  R E P O R T  #########
 ###################################################
 
 
-@app.route('/police-unarchive-report/<int:case_id>', methods=['POST'])
+@unarchive_report_bp.route('/police-unarchive-report/<int:case_id>', methods=['POST'])
 def police_unarchive_report(case_id):
     if not (session.get('role') == 'police' or session.get('role', '').endswith('-mps') or session.get('role', '').endswith('-ps')):
         return jsonify({'success': False, 'message': 'Access denied'})
@@ -51,3 +49,5 @@ def police_unarchive_report(case_id):
         
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
+
+
