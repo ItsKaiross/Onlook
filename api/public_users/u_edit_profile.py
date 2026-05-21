@@ -31,6 +31,9 @@ def public_edit_profile():
     email = request.form.get('email', '')
     
     conn = db.get_db_connection()
+    if conn is None:
+        flash('Database connection failed', 'error')
+        return redirect(url_for('public_view_bp.public_users'))
     cursor = conn.cursor(dictionary=True)
     
     profile_picture = request.files.get('profilePic', '')

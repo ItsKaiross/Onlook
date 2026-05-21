@@ -10,6 +10,8 @@ def police_notifications():
         return redirect(url_for('login_bp.home'))
 
     conn = db.get_db_connection()
+    if conn is None:
+        return redirect(url_for('login_bp.home'))
     cursor = conn.cursor(dictionary=True, buffered=True)
     accounts_id = session['accounts_id']
 
