@@ -14,7 +14,8 @@ def get_db_connection():
             charset='utf8mb4',
             collation='utf8mb4_unicode_ci',
             connection_timeout=10,
-            pool_reset_session=True
+            pool_reset_session=True,
+            ssl_disabled=False
         )
         if conn.is_connected():
             return conn
