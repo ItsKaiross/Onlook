@@ -7,10 +7,9 @@ import os
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = os.environ.get('secret_key')
-app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_TYPE'] = 'cookie'
 app.config['SESSION_PERMANENT'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
-Session(app)
 
 ###########################
 ####  D A T A B A S E  ####
