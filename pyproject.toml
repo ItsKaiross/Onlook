@@ -1,0 +1,4 @@
+[tool.vercel]
+
+entrypoint = "run:app"
+Learn More: https://vercel.com/docs/frameworks/backend/flask#exporting-the-flask-application
