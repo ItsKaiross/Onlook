@@ -1,12 +1,10 @@
-from flask import Flask, session, render_template, redirect, url_for, flash
+from flask import Blueprint, session, render_template, redirect, url_for, flash
 from api.database import db
 from api.audit import log_audit
 
-####################################################################
-#########  P U B L I C  P A G E  R E S O U R C E S  #########
-####################################################################
+resources_bp = Blueprint('resources_bp', __name__)
 
-@app.route('/resources')
+@resources_bp.route('/resources')
 def resources():
     if 'accounts_id' in session and session['role'] == 'user':
         userEmail = session.get('email')

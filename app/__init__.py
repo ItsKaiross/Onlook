@@ -1,4 +1,4 @@
-from flask import Flask, session, render_template, redirect, url_for, flash
+from flask import Flask
 from flask_bcrypt import Bcrypt
 from datetime import timedelta
 from flask_session import Session
@@ -23,89 +23,138 @@ from api.database import db
 
 from api.messages_api import messages_bp
 app.register_blueprint(messages_bp)
-print("=== MESSAGES BLUEPRINT REGISTERED ===")
 
 #####################
 ####  A D M I N  ####
 #####################
 
-from api.admin import a_dashboard
+from api.admin.a_dashboard import a_dashboard_bp
+from api.admin.a_user_logs import a_user_logs_bp
+from api.admin.a_edit_profile import a_edit_profile_bp
+from api.admin.user_management.a_user_management import a_user_management_bp
+from api.admin.user_management.add_user import add_user_bp
+from api.admin.user_management.user_filter import user_filter_bp
+from api.admin.user_management.edit_user import edit_user_bp
+from api.admin.user_management.activate_user import activate_user_bp
+from api.admin.user_management.restrict_user import restrict_user_bp
+from api.admin.user_management.role_change import role_change_bp
+from api.admin.user_management.restricted_accounts_api import restricted_accounts_bp
+from api.admin.user_management.archive_user import archive_user_bp
+from api.admin.police_reports.police_admin_report import police_admin_report_bp
+from api.admin.audit_trail.audit_trail import audit_trail_bp
 
-from api.admin.user_management import a_user_management
-from api.admin.user_management import add_user
-from api.admin.user_management import user_filter
-from api.admin.user_management import edit_user
-from api.admin.user_management import activate_user
-from api.admin.user_management import restrict_user
-from api.admin.user_management import role_change
-from api.admin.user_management import restricted_accounts_api
-from api.admin.user_management import archive_user
-from api.admin.police_reports import police_admin_report
-
-from api.admin.audit_trail import audit_trail
-from api.admin import a_user_logs
-from api.admin import a_edit_profile
-from api import audit
-
+app.register_blueprint(a_dashboard_bp)
+app.register_blueprint(a_user_logs_bp)
+app.register_blueprint(a_edit_profile_bp)
+app.register_blueprint(a_user_management_bp)
+app.register_blueprint(add_user_bp)
+app.register_blueprint(user_filter_bp)
+app.register_blueprint(edit_user_bp)
+app.register_blueprint(activate_user_bp)
+app.register_blueprint(restrict_user_bp)
+app.register_blueprint(role_change_bp)
+app.register_blueprint(restricted_accounts_bp)
+app.register_blueprint(archive_user_bp)
+app.register_blueprint(police_admin_report_bp)
+app.register_blueprint(audit_trail_bp)
 
 #####################
 ####  L O G I N  ####
 #####################
 
-from api.login import login
-from api.login import mail
-from api.login import submit_otp
-from api.login import reset_password
+from api.login.login import login_bp
+from api.login.mail import mail_bp
+from api.login.submit_otp import submit_otp_bp
+from api.login.reset_password import reset_password_bp
+
+app.register_blueprint(login_bp)
+app.register_blueprint(mail_bp)
+app.register_blueprint(submit_otp_bp)
+app.register_blueprint(reset_password_bp)
 
 #######################
 ####  P O L I C E  ####
 #######################
 
-from api.police.a_dashboard import p_dashboard
-from api.police.b_field_report import p_field_report
-from api.police.b_field_report import report_details
-from api.police.b_field_report import edit_report
-from api.police.b_field_report import print_field_report
-from api.police.b_field_report import approval_status
-from api.police.b_field_report import archive_report
-from api.police.b_field_report import follow_up_report
-from api.police.b_field_report import unarchive_report
+from api.police.a_dashboard.p_dashboard import p_dashboard_bp
+from api.police.b_field_report.p_field_report import p_field_report_bp
+from api.police.b_field_report.report_details import report_details_bp
+from api.police.b_field_report.edit_report import edit_report_bp
+from api.police.b_field_report.print_field_report import print_field_report_bp
+from api.police.b_field_report.approval_status import approval_status_bp
+from api.police.b_field_report.archive_report import archive_report_bp
+from api.police.b_field_report.follow_up_report import follow_up_report_bp
+from api.police.b_field_report.unarchive_report import unarchive_report_bp
+from api.police.c_case_management.p_case_management import p_case_management_bp
+from api.police.c_case_management.case_details import case_details_bp
+from api.police.c_case_management.archive_case import archive_case_bp
+from api.police.c_case_management.archived_images import archived_images_bp
+from api.police.c_case_management.assign_officer import assign_officer_bp
+from api.police.c_case_management.edit_case import edit_case_bp
+from api.police.c_case_management.police_delete_img import police_delete_img_bp
+from api.police.c_case_management.unarchived_image import unarchived_image_bp
+from api.police.c_case_management.print_case_management import print_case_management_bp
+from api.police.case_timeline import case_timeline_bp
+from api.police.p_incident_map import p_incident_map_bp
+from api.police.p_edit_profile import p_edit_profile_bp
+from api.police.p_notifications import p_notifications_bp
 
-from api.police.c_case_management import p_case_management
-from api.police.c_case_management import case_details
-from api.police.c_case_management import archive_case
-from api.police.c_case_management import archived_images
-from api.police.c_case_management import assign_officer
-from api.police.c_case_management import edit_case
-from api.police.c_case_management import police_delete_img
-from api.police.c_case_management import unarchived_image
-from api.police.c_case_management import print_case_management
-
-from api.police import case_history
-from api.police import case_timeline
-from api.police import p_incident_map
-from api.police import p_edit_profile
-from api.police import p_notifications
+app.register_blueprint(p_dashboard_bp)
+app.register_blueprint(p_field_report_bp)
+app.register_blueprint(report_details_bp)
+app.register_blueprint(edit_report_bp)
+app.register_blueprint(print_field_report_bp)
+app.register_blueprint(approval_status_bp)
+app.register_blueprint(archive_report_bp)
+app.register_blueprint(follow_up_report_bp)
+app.register_blueprint(unarchive_report_bp)
+app.register_blueprint(p_case_management_bp)
+app.register_blueprint(case_details_bp)
+app.register_blueprint(archive_case_bp)
+app.register_blueprint(archived_images_bp)
+app.register_blueprint(assign_officer_bp)
+app.register_blueprint(edit_case_bp)
+app.register_blueprint(police_delete_img_bp)
+app.register_blueprint(unarchived_image_bp)
+app.register_blueprint(print_case_management_bp)
+app.register_blueprint(case_timeline_bp)
+app.register_blueprint(p_incident_map_bp)
+app.register_blueprint(p_edit_profile_bp)
+app.register_blueprint(p_notifications_bp)
 
 #####################
 ####  U S E R S  ####
 #####################
 
-from api.public_users import u_public_view
-from api.public_users import u_get_help
-from api.public_users import u_community
-from api.public_users import u_about
-from api.public_users import u_help_us
-from api.public_users import u_professional
-from api.public_users import u_talk_to_us
-from api.public_users import u_report_missing
-from api.public_users import u_report_sighting
-from api.public_users import u_status_report
-from api.public_users import u_resources
-from api.public_users import u_edit_profile
+from api.public_users.u_public_view import public_view_bp
+from api.public_users.u_get_help import get_help_bp
+from api.public_users.u_community import community_bp
+from api.public_users.u_about import about_bp
+from api.public_users.u_help_us import help_us_bp
+from api.public_users.u_professional import professional_bp
+from api.public_users.u_talk_to_us import talk_to_us_bp
+from api.public_users.u_report_missing import report_missing_bp
+from api.public_users.u_report_sighting import report_sighting_bp
+from api.public_users.u_status_report import status_report_bp
+from api.public_users.u_resources import resources_bp
+from api.public_users.u_edit_profile import user_edit_bp
+
+app.register_blueprint(public_view_bp)
+app.register_blueprint(get_help_bp)
+app.register_blueprint(community_bp)
+app.register_blueprint(about_bp)
+app.register_blueprint(help_us_bp)
+app.register_blueprint(professional_bp)
+app.register_blueprint(talk_to_us_bp)
+app.register_blueprint(report_missing_bp)
+app.register_blueprint(report_sighting_bp)
+app.register_blueprint(status_report_bp)
+app.register_blueprint(resources_bp)
+app.register_blueprint(user_edit_bp)
 
 ###########################
 ####  R E G I S T E R  ####
 ###########################
 
-from api.register import registration
+from api.register.registration import registration_bp
+app.register_blueprint(registration_bp)

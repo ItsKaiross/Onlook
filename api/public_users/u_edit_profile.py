@@ -1,4 +1,4 @@
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify, Blueprint
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify, current_app
 from flask import request
 from api.database import db
 from werkzeug.utils import secure_filename
@@ -145,14 +145,14 @@ def public_edit_profile():
             conn.close()
             
             # FLASK MAIL CONFIGURATION
-            app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-            app.config['MAIL_PORT'] = 587
-            app.config['MAIL_USE_TLS'] = True
-            app.config['MAIL_USERNAME'] = os.environ.get("MAIL_USER")
-            app.config['MAIL_PASSWORD'] = os.environ.get("MAIL_PASS")
-            app.config['MAIL_DEFAULT_SENDER'] = os.environ.get("MAIL_USER")
+            current_app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+            current_app.config['MAIL_PORT'] = 587
+            current_app.config['MAIL_USE_TLS'] = True
+            current_app.config['MAIL_USERNAME'] = os.environ.get("MAIL_USER")
+            current_app.config['MAIL_PASSWORD'] = os.environ.get("MAIL_PASS")
+            current_app.config['MAIL_DEFAULT_SENDER'] = os.environ.get("MAIL_USER")
             
-            mail = Mail(app)
+            mail = Mail(current_app)
             
             subject = "Onlook: Personal Information Updated"
 

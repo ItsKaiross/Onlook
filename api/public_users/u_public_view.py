@@ -1,4 +1,4 @@
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify, current_app
 from flask import request
 from api.database import db
 from werkzeug.utils import secure_filename
@@ -13,6 +13,8 @@ from api.utils.activity_logger import log_user_activity
 import math, random
 from api.audit import log_audit
 from api.police.case_history import log_case_status_change
+
+public_view_bp = Blueprint('public_view_bp', __name__)
 
 #######################################################
 #########  C O N V E R T   C M  T O  F E E T  #########
@@ -59,8 +61,8 @@ def get_location_name(lat, lng):
 #########  P U B L I C  P A G E  #########
 ##########################################
 
-@app.route('/', defaults={'person_id': None})
-@app.route('/public-view/<int:person_id>')
+@public_view_bp.route('/', defaults={'person_id': None})
+@public_view_bp.route('/public-view/<int:person_id>')
 def public_users(person_id=None):
     userEmail = session.get('email')
     loggedIn = session.get('loggedIn')
@@ -351,7 +353,7 @@ def public_users(person_id=None):
 #########  2 F A  #########
 ###########################
 
-@app.route('/is-verified')
+@public_view_bp.route('/is-verified')
 def isVerified():
     emailVerify = session.get('email')
     if emailVerify is not None:
@@ -387,14 +389,14 @@ def generateOTP():
 def send_email(recipient, code):
     try:
         # FLASK MAIL CONFIGURATION
-        app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-        app.config['MAIL_PORT'] = 587
-        app.config['MAIL_USE_TLS'] = True
-        app.config['MAIL_USERNAME'] = os.environ.get("MAIL_USER")
-        app.config['MAIL_PASSWORD'] = os.environ.get("MAIL_PASS")
-        app.config['MAIL_DEFAULT_SENDER'] = os.environ.get("MAIL_USER")
+        current_app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+        current_app.config['MAIL_PORT'] = 587
+        current_app.config['MAIL_USE_TLS'] = True
+        current_app.config['MAIL_USERNAME'] = os.environ.get("MAIL_USER")
+        current_app.config['MAIL_PASSWORD'] = os.environ.get("MAIL_PASS")
+        current_app.config['MAIL_DEFAULT_SENDER'] = os.environ.get("MAIL_USER")
         
-        mail = Mail(app)
+        mail = Mail(current_app)
         
         subject = "Onlook One-Time Password";
         html_body = f"""
@@ -423,7 +425,7 @@ def send_email(recipient, code):
         return False
     
 # Send code
-@app.route('/send_code', methods=["POST"])
+@public_view_bp.route('/send_code', methods=["POST"])
 def email_code():
     # Get email from session (logged-in user)
     email = session.get('email')
@@ -453,7 +455,7 @@ def email_code():
 
 
 # Verify code
-@app.route("/verify_2fa", methods=["POST"])
+@public_view_bp.route("/verify_2fa", methods=["POST"])
 def verify_2fa():
     data = request.json
     user_code = str(data.get('code', '')).strip()  # Convert to string and trim
@@ -496,7 +498,7 @@ def verify_2fa():
     return jsonify({"status": "invalid", "msg": "Invalid code"})
 
 # Resend code
-@app.route("/resend_2fa", methods=["POST"])
+@public_view_bp.route("/resend_2fa", methods=["POST"])
 def resend_code():
     email = session.get("2fa_email")
     
@@ -523,7 +525,7 @@ def resend_code():
 ####  R E P O R T  S U B M I S S I O N  ####
 ############################################
 
-@app.route('/submit-report', methods=['POST', 'GET'])
+@public_view_bp.route('/submit-report', methods=['POST', 'GET'])
 def submit_report():
     if request.method == 'POST':
         try:
@@ -1176,7 +1178,7 @@ def submit_report():
 #########  G E T  T H E   R E P O R T E D  P E R S O N S  #########
 ###################################################################
 
-@app.route('/get-person-data/<int:person_id>')
+@public_view_bp.route('/get-person-data/<int:person_id>')
 def get_person_data(person_id):
     try:
         conn = db.get_db_connection()
@@ -1318,7 +1320,7 @@ def get_person_data(person_id):
 #########  V I E W  T H E  P E R S O N  #########
 #################################################
 
-@app.route('/view-missing-person/<int:report_id>')
+@public_view_bp.route('/view-missing-person/<int:report_id>')
 def view_missing_person(report_id):
     try:
         conn = db.get_db_connection()
@@ -1400,7 +1402,7 @@ def view_missing_person(report_id):
 #########  H E L P  L O C A T E  #########
 ##########################################
 
-@app.route('/help-locate-additional-report/<int:case_id>', methods=['POST', 'GET'])
+@public_view_bp.route('/help-locate-additional-report/<int:case_id>', methods=['POST', 'GET'])
 def help_locate_report(case_id):
     if request.method != 'POST':
         flash('Invalid request method', 'error')

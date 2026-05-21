@@ -1,12 +1,10 @@
-from flask import Flask, session, render_template, redirect, url_for, flash, request, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, request, jsonify
 from api.database import db
 from api.audit import log_audit
 
-####################################################################
-#########  P U B L I C  P A G E  S T A T U S  R E P O R T  #########
-####################################################################
+status_report_bp = Blueprint('status_report_bp', __name__)
 
-@app.route('/status-report')
+@status_report_bp.route('/status-report')
 def status_report():
     if 'accounts_id' in session and session['role'] == 'user':
         userEmail = session.get('email')
@@ -140,7 +138,7 @@ def status_report():
                              role=session.get('role')), 200
     return redirect(url_for('public_users'))
 
-@app.route('/check-status', methods=['POST'])
+@status_report_bp.route('/check-status', methods=['POST'])
 def check_status():
     if 'accounts_id' not in session or session['role'] != 'user':
         return jsonify({'success': False, 'message': 'Access denied'})

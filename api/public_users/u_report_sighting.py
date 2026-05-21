@@ -1,14 +1,12 @@
-from flask import Flask, session, render_template, redirect, url_for, flash, request, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, request, jsonify
 from api.database import db
 from werkzeug.utils import secure_filename
 from datetime import datetime
 from api.audit import log_audit
 
-######################################################################
-#########  P U B L I C  P A G E  R E P O R T  S I G H T I N G  #######
-######################################################################
+report_sighting_bp = Blueprint('report_sighting_bp', __name__)
 
-@app.route('/report-sighting')
+@report_sighting_bp.route('/report-sighting')
 def report_sighting():
     if 'accounts_id' in session and session['role'] == 'user':
         userEmail = session.get('email')
@@ -60,7 +58,7 @@ def report_sighting():
                              user_contact=user_contact), 200
     return redirect(url_for('public_users'))
 
-@app.route('/submit-sighting', methods=['POST'])
+@report_sighting_bp.route('/submit-sighting', methods=['POST'])
 def submit_sighting():
     if 'accounts_id' not in session or session['role'] != 'user':
         return jsonify({'success': False, 'message': 'Access denied'})

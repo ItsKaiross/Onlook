@@ -1,12 +1,10 @@
-from flask import Flask, session, render_template, redirect, url_for, flash
+from flask import Blueprint, session, render_template, redirect, url_for, flash
 from api.database import db
 from api.audit import log_audit
 
-##########################################
-#########  P U B L I C  P A G E  #########
-##########################################
+get_help_bp = Blueprint('get_help_bp', __name__)
 
-@app.route('/get_help')
+@get_help_bp.route('/get_help')
 def get_help():
     userEmail = session.get('email')
     loggedIn = session.get('loggedIn')

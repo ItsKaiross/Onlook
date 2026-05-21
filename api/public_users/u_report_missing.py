@@ -1,12 +1,10 @@
-from flask import Flask, session, render_template, redirect, url_for, flash
+from flask import Blueprint, session, render_template, redirect, url_for, flash
 from api.database import db
 from api.audit import log_audit
 
-######################################################################
-#########  P U B L I C  P A G E  R E P O R T  M I S S I N G  #########
-######################################################################
+report_missing_bp = Blueprint('report_missing_bp', __name__)
 
-@app.route('/report-missing')
+@report_missing_bp.route('/report-missing')
 def report_missing():
     if 'accounts_id' in session and session['role'] == 'user':
         userEmail = session.get('email')

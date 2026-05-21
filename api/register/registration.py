@@ -1,4 +1,4 @@
-from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
+from flask import Blueprint, session, render_template, redirect, url_for, flash, jsonify, current_app
 from flask import request
 from api.database import db
 from werkzeug.utils import secure_filename
@@ -11,24 +11,18 @@ import math, random
 import os
 from api.audit import log_audit
 
-######################################################
-#########  R E G I S T R A T I O N  P A G E  #########
-######################################################
+registration_bp = Blueprint('registration_bp', __name__)
 
-@app.route('/register')
+@registration_bp.route('/register')
 def register():
     return render_template('registration/registration.html')
 
-@app.route('/register-first')
+@registration_bp.route('/register-first')
 def register_first():
     flash('Please register first.', 'danger')
     return render_template('registration/registration.html')
 
-##################################
-#########  S I G N  U P  #########
-##################################
-
-@app.route('/signUp', methods=['POST', 'GET'])
+@registration_bp.route('/signUp', methods=['POST', 'GET'])
 def sign_up():
     msg2 = ''
     if request.method == 'POST':
@@ -258,15 +252,14 @@ def sign_up():
 ######################################################
 
 def sendEmail(recipient):
-    #FLASK MAIL CONFIGURATION
-    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-    app.config['MAIL_PORT'] = 587
-    app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USERNAME'] = os.environ.get("MAIL_USER")
-    app.config['MAIL_PASSWORD'] = os.environ.get("MAIL_PASS")  
-    app.config['MAIL_DEFAULT_SENDER'] = os.environ.get("MAIL_USER")
+    current_app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    current_app.config['MAIL_PORT'] = 587
+    current_app.config['MAIL_USE_TLS'] = True
+    current_app.config['MAIL_USERNAME'] = os.environ.get("MAIL_USER")
+    current_app.config['MAIL_PASSWORD'] = os.environ.get("MAIL_PASS")  
+    current_app.config['MAIL_DEFAULT_SENDER'] = os.environ.get("MAIL_USER")
 
-    mail = Mail(app)
+    mail = Mail(current_app)
 
     message_body = """Your registration was successful!
                     Welcome to Onlook. We're excited to have you on board. You can now log in using your credentials and start exploring our services.
