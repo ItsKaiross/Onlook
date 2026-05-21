@@ -4,7 +4,10 @@ from datetime import datetime
 import base64
 from flask_mail import Mail, Message
 import os
+from flask_bcrypt import Bcrypt
 from api.audit import log_audit
+
+bcrypt = Bcrypt()
 
 p_edit_profile_bp = Blueprint('p_edit_profile_bp', __name__)
 
