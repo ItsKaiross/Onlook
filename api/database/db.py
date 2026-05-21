@@ -2,19 +2,14 @@ import mysql.connector
 from mysql.connector import Error
 import os
 
-
-
-##########################################################
-#########  D A T A B A S E  C O N N E C T I O N  #########
-##########################################################
-
 def get_db_connection():
     try:
         conn = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password=os.environ.get('db_password'),
-            database="onlook",
+            host=os.environ.get('MYSQLHOST'),
+            port=int(os.environ.get('MYSQLPORT', 3306)),
+            user=os.environ.get('MYSQLUSER'),
+            password=os.environ.get('MYSQLPASSWORD'),
+            database=os.environ.get('MYSQLDATABASE'),
             autocommit=False,
             charset='utf8mb4',
             collation='utf8mb4_unicode_ci',
