@@ -1,4 +1,4 @@
-from flask import Blueprint, session, render_template, redirect, url_for, flash, current_app
+from flask import Blueprint, session, render_template, redirect, url_for, flash
 from flask import request
 from api.database import db
 from flask_mail import Mail, Message
@@ -7,6 +7,8 @@ now = datetime.now()
 current_date_time = now
 import math, random
 from api.audit import log_audit
+
+mail = Mail()
 
 mail_bp = Blueprint('mail_bp', __name__)
 
@@ -22,15 +24,6 @@ def generateOTP():
 
 @mail_bp.route('/mailOTP', methods=['GET', 'POST'])
 def send_mail():
-    current_app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-    current_app.config['MAIL_PORT'] = 587
-    current_app.config['MAIL_USE_TLS'] = True
-    current_app.config['MAIL_USERNAME'] = 'onlook2025@gmail.com'
-    current_app.config['MAIL_PASSWORD'] = 'ncts ioap hhrd hlwk'
-    current_app.config['MAIL_DEFAULT_SENDER'] = 'onlook2025@gmail.com'
-
-    mail = Mail(current_app)
-
     if request.method == 'POST':
         otp = generateOTP()
         recipient = request.form['email']

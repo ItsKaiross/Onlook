@@ -10,6 +10,15 @@ app.secret_key = os.environ.get('secret_key')
 app.config['SESSION_TYPE'] = 'cookie'
 app.config['SESSION_PERMANENT'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USER')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASS')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USER')
+
+from api.login.mail import mail
+mail.init_app(app)
 
 ###########################
 ####  D A T A B A S E  ####

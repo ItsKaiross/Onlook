@@ -1,11 +1,10 @@
-from flask import Blueprint, session, jsonify
+from flask import Blueprint, session, jsonify, current_app
 from flask import request
 from api.database import db
 from flask_mail import Mail, Message
 from datetime import datetime
 from api.audit import log_audit
 from api.police.case_history import log_case_status_change
-from api.login.mail import mail
 
 approval_status_bp = Blueprint('approval_status_bp', __name__)
 
@@ -90,7 +89,7 @@ def police_update_approval_status(case_id):
                             f"Regards,\nOnlook Support Team"
                         )
                     )
-                    mail.send(msg)
+                    Mail(current_app).send(msg)
                 except Exception as mail_err:
                     print(f'Rejection email failed: {mail_err}')
         
