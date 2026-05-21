@@ -1,4 +1,4 @@
-from app import app
+from flask import current_app as app
 from flask import Flask, session, render_template, redirect, url_for, flash, jsonify
 from flask import request
 import base64

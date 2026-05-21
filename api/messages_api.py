@@ -1,8 +1,5 @@
 from flask import Blueprint, jsonify, session, render_template, redirect, url_for, request
 from api.database import db
-from api.utils.activity_logger import log_user_activity
-from api.audit import log_audit
-
 
 messages_bp = Blueprint('messages_api', __name__)
 
@@ -14,7 +11,6 @@ def messages_page():
 
 @messages_bp.route('/api/messages/conversations')
 def get_conversations():
-    from flask import session
     if 'accounts_id' not in session:
         return jsonify({'success': False, 'error': 'Not authenticated'})
     
@@ -24,7 +20,6 @@ def get_conversations():
         
         current_user_id = session.get('accounts_id')
         
-        # Get users who have exchanged messages with current user
         cursor.execute("""
             SELECT DISTINCT 
                 CASE 
@@ -47,7 +42,6 @@ def get_conversations():
         """, (current_user_id, current_user_id, current_user_id, current_user_id, current_user_id, current_user_id, current_user_id, current_user_id))
         
         users = cursor.fetchall()
-        print(f"Found {len(users)} conversations in database")
         
         conversations = []
         for user in users:
@@ -65,12 +59,10 @@ def get_conversations():
         
         return jsonify({'success': True, 'conversations': conversations})
     except Exception as e:
-        print(f"Database error: {e}")
         return jsonify({'success': False, 'error': f'Database error: {str(e)}'})
 
 @messages_bp.route('/api/users/search')
 def search_users():
-    from flask import session, request
     if 'accounts_id' not in session:
         return jsonify({'success': False, 'error': 'Not authenticated'})
     
@@ -101,7 +93,9 @@ def search_users():
 
 @messages_bp.route('/api/messages/send', methods=['POST'])
 def send_message():
-    from flask import session, request
+    from api.audit import log_audit
+    from api.utils.activity_logger import log_user_activity
+
     if 'accounts_id' not in session:
         return jsonify({'success': False, 'error': 'Not authenticated'})
     
@@ -113,7 +107,6 @@ def send_message():
         conn = db.get_db_connection()
         cursor = conn.cursor()
         
-        # Simple message insert without room logic for now
         cursor.execute("""
             INSERT INTO messages (sender_id, receiver_id, message_text, sent_at)
             VALUES (%s, %s, %s, NOW())
@@ -121,7 +114,6 @@ def send_message():
         
         message_id = cursor.lastrowid
         
-        # Log message sending audit
         log_audit(cursor, module='messages', action='send',
                   target_table='messages', target_id=message_id,
                   after={'receiver_id': receiver_id, 'message_text': message_text[:50] + '...' if len(message_text) > 50 else message_text},
@@ -138,12 +130,10 @@ def send_message():
 
 @messages_bp.route('/api/messages/room/<room_id>')
 def get_room_messages(room_id):
-    from flask import session
     if 'accounts_id' not in session:
         return jsonify({'success': False, 'error': 'Not authenticated'})
     
     try:
-        # Extract user ID from room_id (format: user_123)
         if room_id.startswith('user_'):
             other_user_id = room_id.replace('user_', '')
         else:
@@ -154,7 +144,6 @@ def get_room_messages(room_id):
         
         current_user_id = session.get('accounts_id')
         
-        # Get messages between current user and other user
         cursor.execute("""
             SELECT m.*, a.email
             FROM messages m
@@ -174,7 +163,9 @@ def get_room_messages(room_id):
 
 @messages_bp.route('/api/messages/send-to-room', methods=['POST'])
 def send_message_to_room():
-    from flask import session, request
+    from api.audit import log_audit
+    from api.utils.activity_logger import log_user_activity
+
     if 'accounts_id' not in session:
         return jsonify({'success': False, 'error': 'Not authenticated'})
     
@@ -183,7 +174,6 @@ def send_message_to_room():
         room_id = data.get('room_id')
         message_text = data.get('message_text')
         
-        # Extract user ID from room_id (format: user_123)
         if room_id.startswith('user_'):
             receiver_id = room_id.replace('user_', '')
         else:
@@ -199,7 +189,6 @@ def send_message_to_room():
         
         message_id = cursor.lastrowid
         
-        # Log message sending audit
         log_audit(cursor, module='messages', action='send_to_room',
                   target_table='messages', target_id=message_id,
                   after={'receiver_id': receiver_id, 'room_id': room_id, 'message_text': message_text[:50] + '...' if len(message_text) > 50 else message_text},
@@ -216,7 +205,6 @@ def send_message_to_room():
 
 @messages_bp.route('/api/messages/unread-count')
 def get_unread_count():
-    from flask import session
     if 'accounts_id' not in session:
         return jsonify({'success': False, 'error': 'Not authenticated'})
     
@@ -226,7 +214,6 @@ def get_unread_count():
         
         current_user_id = session.get('accounts_id')
         
-        # Count unread messages (messages sent to current user)
         cursor.execute("""
             SELECT COUNT(*) as unread_count
             FROM messages 
